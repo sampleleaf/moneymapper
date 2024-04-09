@@ -1,6 +1,8 @@
 const Header: React.FC = () => {
     return (
-        <div>moneyMapper</div>
+        <div>
+            <div><i className="fa-solid fa-bars"></i></div>
+        </div>
     )
 }
 
