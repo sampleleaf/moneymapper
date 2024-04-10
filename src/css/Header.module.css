@@ -25,10 +25,24 @@
 
 .iconContainer{
     justify-self: end;
+    align-items: center;
     display: flex;
     column-gap: 10px;
 }
 
 .iconContainer svg:first-child{
     color: rgb(80, 161, 59);
+}
+
+.logout{
+    color: rgb(255, 255, 255);
+    background-color: rgb(79, 91, 255);
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logout:hover{
+    background-color: rgb(87, 87, 87);
 }

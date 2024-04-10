@@ -6,9 +6,7 @@ import { useState } from "react";
 const App: React.FC = () => {
   const [login, setLogin] = useState<string | null>(localStorage.getItem("loginData"));
   // const isLogin = localStorage.getItem("loginData");
-  console.log(login);
-
-  return <>{login ? <Header /> : <Login setLogin={setLogin} />}</>;
+  return <>{login ? <Header setLogin={setLogin} /> : <Login setLogin={setLogin} />}</>;
 }
 
 export default App;
