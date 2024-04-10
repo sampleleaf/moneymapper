@@ -1,0 +1,112 @@
+.container{
+    padding-top: 52px;
+    display: grid;
+}
+
+.header{
+    width: 100%;
+    height: 50px;
+    background-color: bisque;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.analyze{
+    display: flex;
+    justify-content: space-between;
+}
+
+.echart{
+    justify-self: center;
+    width: 200px;
+    height: 200px;
+    background-color: blueviolet;
+    border-radius: 50%;
+    position: relative;
+}
+
+.remainderSpace{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.monthRemainder{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.itemsByDayThisMonth{
+    display: grid;
+    margin: 10px;
+    row-gap: 10px;
+    position: relative;
+}
+
+.itemsByDayThisMonth > div{
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0 10px;
+}
+
+.dateAndRemainder{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.line{
+    width: calc(100% + 20px);
+    transform: translateX(-10px);
+    height: 2px;
+    background-color: black;
+}
+
+.date{
+    display: flex;
+    column-gap: 10px;
+}
+
+.itemsByDay div:not(:first-child){
+    border-top: 1px solid rgb(195, 195, 195);
+}
+
+.items{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.item{
+    display: flex;
+    column-gap: 10px;
+}
+
+.addItem{
+    position: absolute;
+    left: 50%;
+    top: 150px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+
+.addItem svg{
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    font-size: 40px;
+    color: rgb(252, 103, 103);
+}
