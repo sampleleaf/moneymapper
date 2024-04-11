@@ -15,7 +15,7 @@ const App: React.FC = () => {
     <>
       {login ? (
         <>
-          <Header setLogin={setLogin} />         
+          <Header setLogin={setLogin} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />

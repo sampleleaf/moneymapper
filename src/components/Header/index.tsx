@@ -1,5 +1,7 @@
 import header from "@/css/Header.module.css";
 
+// const year = [{'January':[]},{},{},{},{},{},{},{},{},{},{},{}]
+
 const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   const handleLogout = () => {
     localStorage.removeItem("loginData");
