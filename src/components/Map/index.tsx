@@ -5,7 +5,6 @@ import {
   Marker,
   Popup,
   TileLayer,
-  useMap,
   useMapEvents,
   Tooltip,
 } from "react-leaflet";

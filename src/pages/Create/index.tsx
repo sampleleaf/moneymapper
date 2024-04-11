@@ -1,7 +1,8 @@
 import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
+import { v4 as uuidv4 } from 'uuid';
 import { db } from "@/utils/firebase";
-import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
 
 const Create: React.FC = () => {
@@ -30,7 +31,7 @@ const Create: React.FC = () => {
       const data = JSON.parse(response);
       const specificUser = doc(db, "users", data.id);
       await updateDoc(specificUser, {
-        'spend': arrayUnion({'晚餐': price})
+        'pay': arrayUnion({'id': uuidv4(), 'dinner': parseInt(price), 'location': location, 'month': 'April', 'day': '11'})
       });
     }
   };
