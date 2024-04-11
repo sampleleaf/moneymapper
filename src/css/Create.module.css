@@ -1,0 +1,74 @@
+.space{
+    padding-top: 52px;
+}
+
+.header{
+    width: 100%;
+    height: 50px;
+    background-color: bisque;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 25% 50% 25%;
+    padding: 0 15px;
+}
+
+.icon{
+    height: 16px;
+}
+
+.choose{
+    height: 35px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 6px;
+    position: relative;
+    font-weight: bold;
+    background-color: white;
+}
+
+.vertical{
+    position: absolute;
+    width: 2px;
+    height: 35px;
+    background-color: black;
+}
+
+.iconList{
+    padding: 10px 30px;
+    /* height: 180px;
+    overflow: auto; */
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-around;
+    row-gap: 20px;
+    background-color: rgb(184, 184, 184);
+}
+
+.iconList div{
+    width: 30px;
+    height: 30px;
+    background-color: aqua;
+}
+
+.form{
+    display: grid;
+    grid-template-columns: 49% 2% 49%;
+    align-items: center;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.form input{
+    width: 100%;
+    height: 30px;
+    padding-left: 5px;
+    font-size: 16px;
+}
+
+.iconAndMoney{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}

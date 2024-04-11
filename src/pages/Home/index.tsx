@@ -1,6 +1,6 @@
 import home from "@/css/Home.module.css";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <>
       <div className={home.container}>
@@ -75,7 +75,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <a className={home.addItem} href="./add">
+          <a className={home.addItem} href="./create">
             <i className="fa-solid fa-circle-xmark"></i>
           </a>
         </div>
