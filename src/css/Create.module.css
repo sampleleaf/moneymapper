@@ -77,20 +77,27 @@
 }
 
 .iconList{
-    padding: 10px 30px;
     /* height: 180px;
     overflow: auto; */
+    padding: 20px 30px;
     display: grid;
     grid-template-columns: repeat(4, auto);
-    justify-content: space-around;
+    justify-content: space-between;
     row-gap: 20px;
-    background-color: rgb(184, 184, 184);
 }
 
 .iconList div{
-    width: 30px;
-    height: 30px;
-    background-color: aqua;
+    padding: 10px 0;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.iconList div svg{
+    font-size: 20px;
+    justify-self: center;
 }
 
 .item{
@@ -110,7 +117,9 @@
 }
 
 .iconAndMoney{
-    display: flex;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
     align-items: center;
     column-gap: 10px;
 }
@@ -124,7 +133,6 @@
     display: grid;
     grid-template-columns: 25% 40% 35%;
     align-items: center;
-    text-align: center;
 }
 
 .location input{

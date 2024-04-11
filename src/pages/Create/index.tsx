@@ -1,16 +1,22 @@
 import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  collection,
+  addDoc,
+  setDoc,
+} from "firebase/firestore";
 import { useState } from "react";
 
 const Create: React.FC = () => {
-  const iconCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
+  const [item, setItem] = useState("早餐");
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -29,10 +35,26 @@ const Create: React.FC = () => {
     const response = localStorage.getItem("loginData");
     if (response !== null) {
       const data = JSON.parse(response);
-      const specificUser = doc(db, "users", data.id);
+      const specificUser = doc(db, "users", data.id, "2024", "4");
       await updateDoc(specificUser, {
-        'pay': arrayUnion({'id': uuidv4(), 'dinner': parseInt(price), 'location': location, 'month': 'April', 'day': '11'})
+        11: arrayUnion({
+          id: uuidv4(),
+          item: item,
+          price: -parseInt(price),
+          location: location
+        }),
       });
+      //   await updateDoc(specificUser, {
+      //     pay: arrayUnion({
+      //       id: uuidv4(),
+      //       item: item,
+      //       price: -parseInt(price),
+      //       location: location,
+      //       year: "2024",
+      //       month: "4",
+      //       day: "11",
+      //     }),
+      //   });
     }
   };
 
@@ -62,16 +84,55 @@ const Create: React.FC = () => {
         <div></div>
       </div>
       <div className={create.iconList}>
-        {iconCount.map((icon) => (
-          <div key={icon}>{icon}</div>
-        ))}
+        <div onClick={() => setItem("早餐")}>
+          <i className="fa-solid fa-bread-slice"></i>
+          <p>早餐</p>
+        </div>
+        <div onClick={() => setItem("午餐")}>
+          <i className="fa-solid fa-bowl-rice"></i>
+          <p>午餐</p>
+        </div>
+        <div onClick={() => setItem("晚餐")}>
+          <i className="fa-solid fa-utensils"></i>
+          <p>晚餐</p>
+        </div>
+        <div onClick={() => setItem("飲品")}>
+          <i className="fa-solid fa-mug-hot"></i>
+          <p>飲品</p>
+        </div>
+        <div onClick={() => setItem("點心")}>
+          <i className="fa-solid fa-ice-cream"></i>
+          <p>點心</p>
+        </div>
+        <div onClick={() => setItem("交通")}>
+          <i className="fa-solid fa-bus"></i>
+          <p>交通</p>
+        </div>
+        <div onClick={() => setItem("購物")}>
+          <i className="fa-solid fa-bag-shopping"></i>
+          <p>購物</p>
+        </div>
+        <div onClick={() => setItem("娛樂")}>
+          <i className="fa-solid fa-gamepad"></i>
+          <p>娛樂</p>
+        </div>
+        <div onClick={() => setItem("房租")}>
+          <i className="fa-solid fa-house-chimney-window"></i>
+          <p>房租</p>
+        </div>
+        <div onClick={() => setItem("醫療")}>
+          <i className="fa-solid fa-hospital"></i>
+          <p>醫療</p>
+        </div>
+        <div onClick={() => setItem("其他")}>
+          <i className="fa-brands fa-buromobelexperte"></i>
+          <p>其他</p>
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
         <div className={create.item}>
           <div className={create.iconAndMoney}>
-            <label htmlFor="icon">
-              <i className="fa-solid fa-bread-slice"></i>
-            </label>
+            <label htmlFor="icon">{item}</label>
             <input
               id="icon"
               type="text"
