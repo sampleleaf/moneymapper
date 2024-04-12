@@ -17,6 +17,7 @@ const Create: React.FC = () => {
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState("早餐");
+  const [incomeItem, setIncomeItem] = useState("薪水")
   const [payPage, setPayPage] = useState(true);
 
   const handleOpenMapWindow = () => {
@@ -79,7 +80,7 @@ const Create: React.FC = () => {
         await updateDoc(specificUser, {
           [day]: arrayUnion({
             id: uuidv4(),
-            item: payItem,
+            item: incomeItem,
             price: parseInt(price),
             location: location,
           }),
@@ -88,7 +89,7 @@ const Create: React.FC = () => {
         await setDoc(specificUser, {
           [day]: arrayUnion({
             id: uuidv4(),
-            item: payItem,
+            item: incomeItem,
             price: parseInt(price),
             location: location,
           }),
@@ -172,28 +173,28 @@ const Create: React.FC = () => {
         </div>
       ) : (
         <div className={create.iconList}>
-          <div onClick={() => setPayItem("薪水")}>
+          <div onClick={() => setIncomeItem("薪水")}>
             <p>薪水</p>
           </div>
-          <div onClick={() => setPayItem("獎金")}>
+          <div onClick={() => setIncomeItem("獎金")}>
             <p>獎金</p>
           </div>
-          <div onClick={() => setPayItem("回饋")}>
+          <div onClick={() => setIncomeItem("回饋")}>
             <p>回饋</p>
           </div>
-          <div onClick={() => setPayItem("交易")}>
+          <div onClick={() => setIncomeItem("交易")}>
             <p>交易</p>
           </div>
-          <div onClick={() => setPayItem("租金")}>
+          <div onClick={() => setIncomeItem("租金")}>
             <p>租金</p>
           </div>
-          <div onClick={() => setPayItem("股息")}>
+          <div onClick={() => setIncomeItem("股息")}>
             <p>股息</p>
           </div>
-          <div onClick={() => setPayItem("投資")}>
+          <div onClick={() => setIncomeItem("投資")}>
             <p>投資</p>
           </div>
-          <div onClick={() => setPayItem("其他")}>
+          <div onClick={() => setIncomeItem("其他")}>
             <p>其他</p>
           </div>
         </div>
@@ -201,7 +202,7 @@ const Create: React.FC = () => {
       <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
         <div className={create.item}>
           <div className={create.iconAndMoney}>
-            <label htmlFor="icon">{payItem}</label>
+            <label htmlFor="icon">{payPage ? payItem : incomeItem}</label>
             <input
               id="icon"
               type="text"
