@@ -11,6 +11,65 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.dropdownTitle{
+    display: flex;
+    cursor: pointer;
+}
+
+.dropdown, .closeList{
+    width: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.dropdown svg{
+    transform: rotate(180deg);
+}
+
+.dropdownList{
+    width: 100%;
+    position: absolute;
+    background-color: rgb(128, 219, 71);
+    z-index: 2;
+    top: 50px;
+    display: grid;
+    padding: 0px 10px 10px 10px;
+}
+
+.selectYear{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+}
+
+.selectYear div{
+    cursor: pointer;
+}
+
+.selectMonth{
+    display: grid;
+    grid-template-columns: repeat(4, 20%);
+    justify-content: center;
+    row-gap: 5px;
+    column-gap: 5px;
+}
+
+.selectMonth div{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.selectMonth div:hover{
+    background-color: yellow;
 }
 
 .analyze{

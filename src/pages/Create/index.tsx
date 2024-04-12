@@ -2,17 +2,17 @@ import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  collection,
-  addDoc,
-  setDoc,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion} from "firebase/firestore";
 import { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC = () => {
+  const [value, onChange] = useState<Value | any>(new Date());
   const [price, setPrice] = useState("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
@@ -33,29 +33,33 @@ const Create: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
-    if (response !== null) {
+    if (response !== null && value) {
       const data = JSON.parse(response);
-      const specificUser = doc(db, "users", data.id, "2024", "4");
-      await updateDoc(specificUser, {
-        // month: [{day: 10, list: [{item: item, price: -parseInt(price)}], location: location}]
-        10: arrayUnion({
-          id: uuidv4(),
-          item: item,
-          price: -parseInt(price),
-          location: location
-        }),
-      });
-      //   await updateDoc(specificUser, {
-      //     pay: arrayUnion({
-      //       id: uuidv4(),
-      //       item: item,
-      //       price: -parseInt(price),
-      //       location: location,
-      //       year: "2024",
-      //       month: "4",
-      //       day: "11",
-      //     }),
-      //   });
+      const year = value.getFullYear().toString();
+      const month = (value.getMonth() + 1).toString();
+      const specificUser = doc(db, "users", data.id, year, month);
+      const day = value.getDate();
+
+      const docSnap = await getDoc(specificUser);
+      if(docSnap.exists()){
+        await updateDoc(specificUser, {
+          [day]: arrayUnion({
+            id: uuidv4(),
+            item: item,
+            price: -parseInt(price),
+            location: location,
+          }),
+        });
+      } else {
+        await setDoc(specificUser, {
+          [day]: arrayUnion({
+            id: uuidv4(),
+            item: item,
+            price: -parseInt(price),
+            location: location,
+          }),
+        });
+      }
     }
   };
 
@@ -73,6 +77,7 @@ const Create: React.FC = () => {
           </div>
         </div>
       )}
+      <Calendar onChange={onChange} value={value} />
       <div className={create.header}>
         <div className={create.icon}>
           <i className="fa-solid fa-chevron-left"></i>
