@@ -9,10 +9,12 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-const DayItem: React.FC<{ day: string; months: number; years: number }> = ({
+const DayItem: React.FC<{ day: string; months: number; years: number, itemRemoved: boolean, setItemRemoved: Function }> = ({
   day,
   months,
   years,
+  itemRemoved,
+  setItemRemoved
 }) => {
   const [items, setItems] = useState<
     {
@@ -21,8 +23,6 @@ const DayItem: React.FC<{ day: string; months: number; years: number }> = ({
       price: number;
     }[]
   >([]);
-
-  const [itemRemoved, setItemRemoved] = useState<boolean>(false);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");

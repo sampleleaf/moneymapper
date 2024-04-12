@@ -9,7 +9,8 @@ const Home: React.FC = () => {
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [days, setDays] = useState<string[]>([]);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
-  const [allItemsOfMonth, setAllItemsOfMonth] = useState<any[]>([])
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<any[]>([]);
+  const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
@@ -22,22 +23,24 @@ const Home: React.FC = () => {
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // console.log(Object.keys(docSnap.data()));
-          const dayLength = Object.keys(docSnap.data()).length
-          const dayArray = []
-          for(let i = 0; i < dayLength; i++){
-            dayArray.push(...docSnap.data()[Object.keys(docSnap.data())[i]])
+          console.log(Object.keys(docSnap.data()));
+          const dayLength = Object.keys(docSnap.data()).length;
+          const dayArray = [];
+          for (let i = 0; i < dayLength; i++) {
+            dayArray.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          setAllItemsOfMonth(dayArray)
+          // console.log(Object.keys(dayArray).length);
+          setAllItemsOfMonth(dayArray);
           setDays(Object.keys(docSnap.data()));
         } else {
           // docSnap.data() will be undefined in this case
+          setAllItemsOfMonth([]);
           setDays([]);
           console.log("No such document!");
         }
       })();
     }
-  }, [months, years]);
+  }, [months, years, itemRemoved]);
 
   const handleDropDown = () => {
     setIsDropdown(!isDropdown);
@@ -81,24 +84,51 @@ const Home: React.FC = () => {
         <div className={home.analyze}>
           <div>
             <p>月支出</p>
-            <p>${allItemsOfMonth && allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0) || 0}</p>    
+            <p>
+              $
+              {(allItemsOfMonth &&
+                allItemsOfMonth.reduce((acc, cur) => {
+                  if (cur.price < 0) {
+                    return acc + cur.price;
+                  } else {
+                    return acc;
+                  }
+                }, 0)) ||
+                0}
+            </p>
           </div>
           <div>
             <p>月收入</p>
-            <p>$99999</p>
+            <p>
+              $
+              {(allItemsOfMonth &&
+                allItemsOfMonth.reduce((acc, cur) => {
+                  if (cur.price > 0) {
+                    return acc + cur.price;
+                  } else {
+                    return acc;
+                  }
+                }, 0)) ||
+                0}
+            </p>
           </div>
         </div>
         <div className={home.echart}>
           <div className={home.remainderSpace}></div>
           <div className={home.monthRemainder}>
             <p>月結餘</p>
-            <p>${allItemsOfMonth && allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0) || 0}</p>
+            <p>
+              $
+              {(allItemsOfMonth &&
+                allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0)) ||
+                0}
+            </p>
           </div>
         </div>
         <div className={home.itemsByDayThisMonth}>
           {Object.keys(days).length > 0 ? (
             days.map((day) => (
-              <DayItem key={day} day={day} months={months} years={years} />
+              <DayItem key={day} day={day} months={months} years={years} itemRemoved={itemRemoved} setItemRemoved={setItemRemoved} />
             ))
           ) : (
             <p>無記帳記錄</p>
