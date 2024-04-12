@@ -9,7 +9,7 @@ const Home: React.FC = () => {
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [days, setDays] = useState<string[]>([]);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
-  const [allItemsOfMonth, setAllItemsOfMonth] = useState<any[]>([]);
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<{ price: number; item: string; id: string }[]>([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -23,13 +23,14 @@ const Home: React.FC = () => {
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          console.log(Object.keys(docSnap.data()));
+          // console.log(Object.keys(docSnap.data()));
           const dayLength = Object.keys(docSnap.data()).length;
           const dayArray = [];
           for (let i = 0; i < dayLength; i++) {
             dayArray.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
           // console.log(Object.keys(dayArray).length);
+          console.log(dayArray);
           setAllItemsOfMonth(dayArray);
           setDays(Object.keys(docSnap.data()));
         } else {
@@ -128,7 +129,14 @@ const Home: React.FC = () => {
         <div className={home.itemsByDayThisMonth}>
           {Object.keys(days).length > 0 ? (
             days.map((day) => (
-              <DayItem key={day} day={day} months={months} years={years} itemRemoved={itemRemoved} setItemRemoved={setItemRemoved} />
+              <DayItem
+                key={day}
+                day={day}
+                months={months}
+                years={years}
+                itemRemoved={itemRemoved}
+                setItemRemoved={setItemRemoved}
+              />
             ))
           ) : (
             <p>無記帳記錄</p>

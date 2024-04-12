@@ -9,20 +9,14 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-const DayItem: React.FC<{ day: string; months: number; years: number, itemRemoved: boolean, setItemRemoved: Function }> = ({
-  day,
-  months,
-  years,
-  itemRemoved,
-  setItemRemoved
-}) => {
-  const [items, setItems] = useState<
-    {
-      id: string;
-      item: string;
-      price: number;
-    }[]
-  >([]);
+const DayItem: React.FC<{
+  day: string;
+  months: number;
+  years: number;
+  itemRemoved: boolean;
+  setItemRemoved: Function;
+}> = ({ day, months, years, itemRemoved, setItemRemoved }) => {
+  const [items, setItems] = useState<{ id: string; item: string; price: number }[]>([]);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -52,7 +46,7 @@ const DayItem: React.FC<{ day: string; months: number; years: number, itemRemove
       const yearString = years.toString();
       const monthString = months.toString();
       const docRef = doc(db, "users", data.id, yearString, monthString);
-      console.log(item)
+      console.log(item);
       await updateDoc(docRef, {
         [day]: arrayRemove(item),
       });
