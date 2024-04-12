@@ -9,6 +9,7 @@ const Home: React.FC = () => {
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [days, setDays] = useState<string[]>([]);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<any[]>([])
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
@@ -22,6 +23,12 @@ const Home: React.FC = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // console.log(Object.keys(docSnap.data()));
+          const dayLength = Object.keys(docSnap.data()).length
+          const dayArray = []
+          for(let i = 0; i < dayLength; i++){
+            dayArray.push(...docSnap.data()[Object.keys(docSnap.data())[i]])
+          }
+          setAllItemsOfMonth(dayArray)
           setDays(Object.keys(docSnap.data()));
         } else {
           // docSnap.data() will be undefined in this case
@@ -74,7 +81,7 @@ const Home: React.FC = () => {
         <div className={home.analyze}>
           <div>
             <p>月支出</p>
-            {/* <p>${pay && pay.reduce((acc, cur) => acc + cur.price, 0) || 0}</p> */}
+            <p>${allItemsOfMonth && allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0) || 0}</p>    
           </div>
           <div>
             <p>月收入</p>
@@ -85,7 +92,7 @@ const Home: React.FC = () => {
           <div className={home.remainderSpace}></div>
           <div className={home.monthRemainder}>
             <p>月結餘</p>
-            <p>$999999</p>
+            <p>${allItemsOfMonth && allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0) || 0}</p>
           </div>
         </div>
         <div className={home.itemsByDayThisMonth}>

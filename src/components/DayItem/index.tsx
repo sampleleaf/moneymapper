@@ -45,15 +45,16 @@ const DayItem: React.FC<{ day: string; months: number; years: number }> = ({
     return () => setItemRemoved(false);
   }, [itemRemoved]);
 
-  const handleItemRemove = async (id: object, day: string) => {
+  const handleItemRemove = async (item: object, day: string) => {
     const response = localStorage.getItem("loginData");
     if (response !== null) {
       const data = JSON.parse(response);
       const yearString = years.toString();
       const monthString = months.toString();
       const docRef = doc(db, "users", data.id, yearString, monthString);
+      console.log(item)
       await updateDoc(docRef, {
-        [day]: arrayRemove(id),
+        [day]: arrayRemove(item),
       });
       //if [day] is empty array, delete it
       const docSnapshot = await getDoc(docRef);
