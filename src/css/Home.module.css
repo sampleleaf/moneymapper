@@ -78,13 +78,12 @@
     column-gap: 10px;
 }
 
-.itemsByDay div:not(:first-child){
+.itemsByDay > div:not(:first-child){
     border-top: 1px solid rgb(195, 195, 195);
 }
 
 .items{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 5px 0;
 }
@@ -92,6 +91,16 @@
 .item{
     display: flex;
     column-gap: 10px;
+    margin-right: auto;
+}
+
+.trash{
+    margin-left: 5px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .addItem{

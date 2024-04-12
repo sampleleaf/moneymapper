@@ -37,7 +37,8 @@ const Create: React.FC = () => {
       const data = JSON.parse(response);
       const specificUser = doc(db, "users", data.id, "2024", "4");
       await updateDoc(specificUser, {
-        11: arrayUnion({
+        // month: [{day: 10, list: [{item: item, price: -parseInt(price)}], location: location}]
+        10: arrayUnion({
           id: uuidv4(),
           item: item,
           price: -parseInt(price),

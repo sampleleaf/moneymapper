@@ -1,6 +1,6 @@
 import home from "@/css/Home.module.css";
 import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayRemove } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 const Home: React.FC = () => {
@@ -12,6 +12,8 @@ const Home: React.FC = () => {
     }[]
   >([]);
 
+  const [itemRemoved, setItemRemoved] = useState<boolean>(false)
+
   useEffect(() => {
     const response = localStorage.getItem("loginData");
     if (response !== null) {
@@ -20,7 +22,7 @@ const Home: React.FC = () => {
         const docRef = doc(db, "users", data.id, "2024", "4");
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data()[11]);
+          console.log("Document data:", docSnap.data());
           setItems(docSnap.data()[11]);
         } else {
           // docSnap.data() will be undefined in this case
@@ -28,7 +30,21 @@ const Home: React.FC = () => {
         }
       })();
     }
-  }, []);
+    return () => setItemRemoved(false)
+
+  }, [itemRemoved]);
+
+  const handleItemRemove = async (id: object) => {
+    const response = localStorage.getItem("loginData");
+    if (response !== null) {
+      const data = JSON.parse(response);
+      const docRef = doc(db, "users", data.id, "2024", "4");
+      await updateDoc(docRef, {       
+        11: arrayRemove(id)
+      });
+      setItemRemoved(true)
+    }
+  };
 
   return (
     <>
@@ -57,17 +73,22 @@ const Home: React.FC = () => {
               <div className={home.date}>
                 <p>2024年4月11日</p>
               </div>
-              <p className={home.dayRemainder}>${items && items.reduce((acc, cur) => acc + cur.price, 0)}</p>
+              <p className={home.dayRemainder}>
+                ${items && items.reduce((acc, cur) => acc + cur.price, 0)}
+              </p>
             </div>
             <div className={home.line}></div>
             <div className={home.itemsByDay}>
               {items &&
                 items.map((item) => (
-                  <div className={home.items}>
+                  <div key={item.id} className={home.items}>
                     <div className={home.item}>
                       <p>{item.item}</p>
                     </div>
                     <p>${item.price}</p>
+                    <div onClick={() => handleItemRemove(item)} className={home.trash}>
+                      <i className="fa-regular fa-trash-can"></i>
+                    </div>
                   </div>
                 ))}
             </div>
