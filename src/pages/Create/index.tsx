@@ -2,7 +2,7 @@ import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion} from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -16,7 +16,8 @@ const Create: React.FC = () => {
   const [price, setPrice] = useState("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
-  const [item, setItem] = useState("早餐");
+  const [payItem, setPayItem] = useState("早餐");
+  const [payPage, setPayPage] = useState(true);
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -30,7 +31,7 @@ const Create: React.FC = () => {
     setLocation("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handlePaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
@@ -41,11 +42,11 @@ const Create: React.FC = () => {
       const day = value.getDate();
 
       const docSnap = await getDoc(specificUser);
-      if(docSnap.exists()){
+      if (docSnap.exists()) {
         await updateDoc(specificUser, {
           [day]: arrayUnion({
             id: uuidv4(),
-            item: item,
+            item: payItem,
             price: -parseInt(price),
             location: location,
           }),
@@ -54,8 +55,41 @@ const Create: React.FC = () => {
         await setDoc(specificUser, {
           [day]: arrayUnion({
             id: uuidv4(),
-            item: item,
+            item: payItem,
             price: -parseInt(price),
+            location: location,
+          }),
+        });
+      }
+    }
+  };
+
+  const handleIncomeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = localStorage.getItem("loginData");
+    if (response !== null && value) {
+      const data = JSON.parse(response);
+      const year = value.getFullYear().toString();
+      const month = (value.getMonth() + 1).toString();
+      const specificUser = doc(db, "users", data.id, year, month);
+      const day = value.getDate();
+
+      const docSnap = await getDoc(specificUser);
+      if (docSnap.exists()) {
+        await updateDoc(specificUser, {
+          [day]: arrayUnion({
+            id: uuidv4(),
+            item: payItem,
+            price: parseInt(price),
+            location: location,
+          }),
+        });
+      } else {
+        await setDoc(specificUser, {
+          [day]: arrayUnion({
+            id: uuidv4(),
+            item: payItem,
+            price: parseInt(price),
             location: location,
           }),
         });
@@ -83,62 +117,91 @@ const Create: React.FC = () => {
           <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div className={create.choose}>
-          <div>支出</div>
+          <div onClick={() => setPayPage(true)}>支出</div>
           <span className={create.vertical}></span>
-          <div>收入</div>
+          <div onClick={() => setPayPage(false)}>收入</div>
         </div>
         <div></div>
       </div>
-      <div className={create.iconList}>
-        <div onClick={() => setItem("早餐")}>
-          <i className="fa-solid fa-bread-slice"></i>
-          <p>早餐</p>
+      {payPage ? (
+        <div className={create.iconList}>
+          <div onClick={() => setPayItem("早餐")}>
+            {/* <i className="fa-solid fa-bread-slice"></i> */}
+            <p>早餐</p>
+          </div>
+          <div onClick={() => setPayItem("午餐")}>
+            {/* <i className="fa-solid fa-bowl-rice"></i> */}
+            <p>午餐</p>
+          </div>
+          <div onClick={() => setPayItem("晚餐")}>
+            {/* <i className="fa-solid fa-utensils"></i> */}
+            <p>晚餐</p>
+          </div>
+          <div onClick={() => setPayItem("飲品")}>
+            {/* <i className="fa-solid fa-mug-hot"></i> */}
+            <p>飲品</p>
+          </div>
+          <div onClick={() => setPayItem("點心")}>
+            {/* <i className="fa-solid fa-ice-cream"></i> */}
+            <p>點心</p>
+          </div>
+          <div onClick={() => setPayItem("交通")}>
+            {/* <i className="fa-solid fa-bus"></i> */}
+            <p>交通</p>
+          </div>
+          <div onClick={() => setPayItem("購物")}>
+            {/* <i className="fa-solid fa-bag-shopping"></i> */}
+            <p>購物</p>
+          </div>
+          <div onClick={() => setPayItem("娛樂")}>
+            {/* <i className="fa-solid fa-gamepad"></i> */}
+            <p>娛樂</p>
+          </div>
+          <div onClick={() => setPayItem("房租")}>
+            {/* <i className="fa-solid fa-house-chimney-window"></i> */}
+            <p>房租</p>
+          </div>
+          <div onClick={() => setPayItem("醫療")}>
+            {/* <i className="fa-solid fa-hospital"></i> */}
+            <p>醫療</p>
+          </div>
+          <div onClick={() => setPayItem("其他")}>
+            {/* <i className="fa-brands fa-buromobelexperte"></i> */}
+            <p>其他</p>
+          </div>
         </div>
-        <div onClick={() => setItem("午餐")}>
-          <i className="fa-solid fa-bowl-rice"></i>
-          <p>午餐</p>
+      ) : (
+        <div className={create.iconList}>
+          <div onClick={() => setPayItem("薪水")}>
+            <p>薪水</p>
+          </div>
+          <div onClick={() => setPayItem("獎金")}>
+            <p>獎金</p>
+          </div>
+          <div onClick={() => setPayItem("回饋")}>
+            <p>回饋</p>
+          </div>
+          <div onClick={() => setPayItem("交易")}>
+            <p>交易</p>
+          </div>
+          <div onClick={() => setPayItem("租金")}>
+            <p>租金</p>
+          </div>
+          <div onClick={() => setPayItem("股息")}>
+            <p>股息</p>
+          </div>
+          <div onClick={() => setPayItem("投資")}>
+            <p>投資</p>
+          </div>
+          <div onClick={() => setPayItem("其他")}>
+            <p>其他</p>
+          </div>
         </div>
-        <div onClick={() => setItem("晚餐")}>
-          <i className="fa-solid fa-utensils"></i>
-          <p>晚餐</p>
-        </div>
-        <div onClick={() => setItem("飲品")}>
-          <i className="fa-solid fa-mug-hot"></i>
-          <p>飲品</p>
-        </div>
-        <div onClick={() => setItem("點心")}>
-          <i className="fa-solid fa-ice-cream"></i>
-          <p>點心</p>
-        </div>
-        <div onClick={() => setItem("交通")}>
-          <i className="fa-solid fa-bus"></i>
-          <p>交通</p>
-        </div>
-        <div onClick={() => setItem("購物")}>
-          <i className="fa-solid fa-bag-shopping"></i>
-          <p>購物</p>
-        </div>
-        <div onClick={() => setItem("娛樂")}>
-          <i className="fa-solid fa-gamepad"></i>
-          <p>娛樂</p>
-        </div>
-        <div onClick={() => setItem("房租")}>
-          <i className="fa-solid fa-house-chimney-window"></i>
-          <p>房租</p>
-        </div>
-        <div onClick={() => setItem("醫療")}>
-          <i className="fa-solid fa-hospital"></i>
-          <p>醫療</p>
-        </div>
-        <div onClick={() => setItem("其他")}>
-          <i className="fa-brands fa-buromobelexperte"></i>
-          <p>其他</p>
-        </div>
-      </div>
-      <form onSubmit={handleSubmit}>
+      )}
+      <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
         <div className={create.item}>
           <div className={create.iconAndMoney}>
-            <label htmlFor="icon">{item}</label>
+            <label htmlFor="icon">{payItem}</label>
             <input
               id="icon"
               type="text"
