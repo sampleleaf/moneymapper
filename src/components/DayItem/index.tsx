@@ -17,11 +17,8 @@ const DayItem: React.FC<{
   itemRemoved: boolean;
   setItemRemoved: Function;
 }> = ({ day, months, years, itemRemoved, setItemRemoved }) => {
-  const [items, setItems] = useState<
-    { id: string; item: string; price: number }[]
-  >([]);
-
-  const [pop, setPop] = useState<boolean>(false)
+  const [items, setItems] = useState<{ id: string; item: string; price: number; location: string | undefined }[]>([]);
+  const [pop, setPop] = useState<boolean>(false);
   const [popId, setPopId] = useState<string>("");
 
   useEffect(() => {
@@ -35,6 +32,7 @@ const DayItem: React.FC<{
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           //   console.log("Document data:", docSnap.data());
+          console.log(docSnap.data()[day]);
           setItems(docSnap.data()[day]);
         } else {
           // docSnap.data() will be undefined in this case
@@ -46,7 +44,7 @@ const DayItem: React.FC<{
   }, [itemRemoved]);
 
   const handleEdit = (id: string) => {
-    setPop(true)
+    setPop(true);
     setPopId(id);
   };
 
@@ -90,11 +88,10 @@ const DayItem: React.FC<{
           <div className={home.itemsByDay}>
             {items.map((item) => (
               <div key={item.id}>
-                {pop && popId === item.id && <Edit id={item.id} setPop={setPop} />}
-                <div
-                  onClick={() => handleEdit(item.id)}
-                  className={home.items}
-                >
+                {pop && popId === item.id && (
+                  <Edit item={item} setPop={setPop} setItemRemoved={setItemRemoved} years={years} months={months} day={day} />
+                )}
+                <div onClick={() => handleEdit(item.id)} className={home.items}>
                   <div className={home.item}>
                     <p>{item.item}</p>
                   </div>
