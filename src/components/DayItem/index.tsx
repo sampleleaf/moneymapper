@@ -1,5 +1,6 @@
 import home from "@/css/Home.module.css";
 import { db } from "@/utils/firebase";
+import Edit from "@/components/Edit";
 import {
   doc,
   getDoc,
@@ -16,7 +17,12 @@ const DayItem: React.FC<{
   itemRemoved: boolean;
   setItemRemoved: Function;
 }> = ({ day, months, years, itemRemoved, setItemRemoved }) => {
-  const [items, setItems] = useState<{ id: string; item: string; price: number }[]>([]);
+  const [items, setItems] = useState<
+    { id: string; item: string; price: number }[]
+  >([]);
+
+  const [pop, setPop] = useState(false)
+  const [popId, setPopId] = useState("");
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -38,6 +44,11 @@ const DayItem: React.FC<{
     }
     return () => setItemRemoved(false);
   }, [itemRemoved]);
+
+  const handleEdit = (id: string) => {
+    setPop(true)
+    setPopId(id);
+  };
 
   const handleItemRemove = async (item: object, day: string) => {
     const response = localStorage.getItem("loginData");
@@ -78,18 +89,25 @@ const DayItem: React.FC<{
           <div className={home.line}></div>
           <div className={home.itemsByDay}>
             {items.map((item) => (
-              <div key={item.id} className={home.items}>
-                <div className={home.item}>
-                  <p>{item.item}</p>
-                </div>
-                <p>${item.price}</p>
+              <>
+                {pop && popId === item.id && <Edit id={item.id} setPop={setPop} />}
                 <div
-                  onClick={() => handleItemRemove(item, day)}
-                  className={home.trash}
+                  onClick={() => handleEdit(item.id)}
+                  key={item.id}
+                  className={home.items}
                 >
-                  <i className="fa-regular fa-trash-can"></i>
+                  <div className={home.item}>
+                    <p>{item.item}</p>
+                  </div>
+                  <p>${item.price}</p>
+                  <div
+                    onClick={() => handleItemRemove(item, day)}
+                    className={home.trash}
+                  >
+                    <i className="fa-regular fa-trash-can"></i>
+                  </div>
                 </div>
-              </div>
+              </>
             ))}
           </div>
         </div>

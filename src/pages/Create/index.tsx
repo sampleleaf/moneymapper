@@ -12,7 +12,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC = () => {
-  const [value, onChange] = useState<Value | any>(new Date());
+  const [value, onChange] = useState<Value>(new Date());
   const [price, setPrice] = useState("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
@@ -37,11 +37,10 @@ const Create: React.FC = () => {
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
-      const year = value.getFullYear().toString();
-      const month = (value.getMonth() + 1).toString();
+      const year = (value as Date).getFullYear().toString();
+      const month = ((value as Date).getMonth() + 1).toString();
+      const day = (value as Date).getDate();
       const specificUser = doc(db, "users", data.id, year, month);
-      const day = value.getDate();
-
       const docSnap = await getDoc(specificUser);
       if (docSnap.exists()) {
         await updateDoc(specificUser, {
@@ -70,11 +69,10 @@ const Create: React.FC = () => {
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
-      const year = value.getFullYear().toString();
-      const month = (value.getMonth() + 1).toString();
+      const year = (value as Date).getFullYear().toString();
+      const month = ((value as Date).getMonth() + 1).toString();
+      const day = (value as Date).getDate();
       const specificUser = doc(db, "users", data.id, year, month);
-      const day = value.getDate();
-
       const docSnap = await getDoc(specificUser);
       if (docSnap.exists()) {
         await updateDoc(specificUser, {
