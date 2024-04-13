@@ -3,14 +3,7 @@ import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import Budget from "@/components/Budget";
 import { db } from "@/utils/firebase";
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { useState } from "react";
 
 const Edit: React.FC<{
@@ -31,7 +24,7 @@ const Edit: React.FC<{
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState<string>("");
   const [incomeItem, setIncomeItem] = useState<string>("");
-  const [payPage, setPayPage] = useState<boolean>(true);
+  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
