@@ -19,7 +19,7 @@ const Edit: React.FC<{
   months: number;
   day: string;
 }> = ({ item, setPop, setItemRemoved, years, months, day }) => {
-  const [price, setPrice] = useState<string>("");
+  const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState<string>("");
@@ -144,7 +144,7 @@ const Edit: React.FC<{
                 type="text"
                 pattern="[0-9]*"
                 title="請輸入數字"
-                value={price || Math.abs(item.price)}
+                value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 required
               />

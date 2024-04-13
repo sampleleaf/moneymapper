@@ -32,7 +32,7 @@ const DayItem: React.FC<{
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           //   console.log("Document data:", docSnap.data());
-          console.log(docSnap.data()[day]);
+          // console.log(docSnap.data()[day]);
           setItems(docSnap.data()[day]);
         } else {
           // docSnap.data() will be undefined in this case
