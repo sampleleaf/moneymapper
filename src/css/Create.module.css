@@ -43,63 +43,6 @@
     font-size: 20px;
 }
 
-.header{
-    width: 100%;
-    height: 50px;
-    background-color: bisque;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 25% 50% 25%;
-    padding: 0 15px;
-}
-
-.icon{
-    height: 16px;
-}
-
-.choose{
-    height: 35px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 6px;
-    position: relative;
-    font-weight: bold;
-    background-color: white;
-}
-
-.vertical{
-    position: absolute;
-    width: 2px;
-    height: 35px;
-    background-color: black;
-}
-
-.iconList{
-    /* height: 180px;
-    overflow: auto; */
-    padding: 20px 30px;
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    justify-content: space-between;
-    row-gap: 20px;
-}
-
-.iconList div{
-    padding: 10px 0;
-    display: grid;
-    align-items: center;
-    text-align: center;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.iconList div svg{
-    font-size: 20px;
-    justify-self: center;
-}
-
 .item{
     display: grid;
     grid-template-columns: 49% 2% 49%;

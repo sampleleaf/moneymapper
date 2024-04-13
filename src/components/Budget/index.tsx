@@ -1,4 +1,4 @@
-import create from "@/css/Create.module.css";
+import budget from "@/css/Budget.module.css";
 
 const Budget: React.FC<{
   payPage: boolean;
@@ -8,19 +8,19 @@ const Budget: React.FC<{
 }> = ({ payPage, setPayPage, setPayItem, setIncomeItem }) => {
   return (
     <>
-      <div className={create.header}>
-        <div className={create.icon}>
+      <div className={budget.header}>
+        <div className={budget.icon}>
           <i className="fa-solid fa-chevron-left"></i>
         </div>
-        <div className={create.choose}>
+        <div className={budget.choose}>
           <div onClick={() => setPayPage(true)}>支出</div>
-          <span className={create.vertical}></span>
+          <span className={budget.vertical}></span>
           <div onClick={() => setPayPage(false)}>收入</div>
         </div>
         <div></div>
       </div>
       {payPage ? (
-        <div className={create.iconList}>
+        <div className={budget.iconList}>
           <div onClick={() => setPayItem("早餐")}>
             {/* <i className="fa-solid fa-bread-slice"></i> */}
             <p>早餐</p>
@@ -67,7 +67,7 @@ const Budget: React.FC<{
           </div>
         </div>
       ) : (
-        <div className={create.iconList}>
+        <div className={budget.iconList}>
           <div onClick={() => setIncomeItem("薪水")}>
             <p>薪水</p>
           </div>

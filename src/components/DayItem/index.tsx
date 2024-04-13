@@ -1,4 +1,4 @@
-import home from "@/css/Home.module.css";
+import dayItem from "@/css/DayItem.module.css";
 import { db } from "@/utils/firebase";
 import Edit from "@/components/Edit";
 import {
@@ -75,31 +75,31 @@ const DayItem: React.FC<{
     <>
       {items && (
         <div>
-          <div className={home.dateAndRemainder}>
-            <div className={home.date}>
+          <div className={dayItem.dateAndRemainder}>
+            <div className={dayItem.date}>
               <p>
                 {years}年{months}月{day}日
               </p>
             </div>
-            <p className={home.dayRemainder}>
+            <p>
               ${items.reduce((acc, cur) => acc + cur.price, 0)}
             </p>
           </div>
-          <div className={home.line}></div>
-          <div className={home.itemsByDay}>
+          <div className={dayItem.line}></div>
+          <div className={dayItem.itemsByDay}>
             {items.map((item) => (
               <div key={item.id}>
                 {pop && popId === item.id && (
                   <Edit item={item} setPop={setPop} setItemRemoved={setItemRemoved} years={years} months={months} day={day} />
                 )}
-                <div onClick={() => handleEdit(item.id)} className={home.items}>
-                  <div className={home.item}>
+                <div onClick={() => handleEdit(item.id)} className={dayItem.items}>
+                  <div className={dayItem.item}>
                     <p>{item.item}</p>
                   </div>
                   <p>${item.price}</p>
                   <div
                     onClick={(e) => handleItemRemove(e, item, day)}
-                    className={home.trash}
+                    className={dayItem.trash}
                   >
                     <i className="fa-regular fa-trash-can"></i>
                   </div>
