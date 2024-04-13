@@ -89,11 +89,10 @@ const DayItem: React.FC<{
           <div className={home.line}></div>
           <div className={home.itemsByDay}>
             {items.map((item) => (
-              <>
+              <div key={item.id}>
                 {pop && popId === item.id && <Edit id={item.id} setPop={setPop} />}
                 <div
                   onClick={() => handleEdit(item.id)}
-                  key={item.id}
                   className={home.items}
                 >
                   <div className={home.item}>
@@ -107,7 +106,7 @@ const DayItem: React.FC<{
                     <i className="fa-regular fa-trash-can"></i>
                   </div>
                 </div>
-              </>
+              </div>
             ))}
           </div>
         </div>
