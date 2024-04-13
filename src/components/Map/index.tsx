@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, memo } from "react";
 import {
   MapContainer,
   Marker,
@@ -9,7 +8,7 @@ import {
   Tooltip,
 } from "react-leaflet";
 
-const Map: React.FC<{ setLocation: Function }> = ({ setLocation }) => {
+const Map: React.FC<{ setLocation: Function }> = memo(({ setLocation }) => {
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
     const map = useMapEvents({
@@ -29,7 +28,7 @@ const Map: React.FC<{ setLocation: Function }> = ({ setLocation }) => {
           }
           const data = await response.json();
           console.log(data.address.city || data.address.county);
-          setLocation(data.address.city || data.address.county)
+          setLocation(data.address.city || data.address.county);
         } catch (error) {
           console.error("Error fetching location:", error);
         }
@@ -39,8 +38,8 @@ const Map: React.FC<{ setLocation: Function }> = ({ setLocation }) => {
     return position === null ? null : (
       <>
         <Marker position={position}>
-          <Popup>You are here</Popup>
-          <Tooltip>Tooltip for Marker</Tooltip>
+          {/* <Popup>You are here</Popup> */}
+          <Tooltip>You are here</Tooltip>
         </Marker>
         {/* <Marker position={[25.0313004, 121.525793, 15.75]}>
                     <Popup>You are here</Popup>
@@ -63,6 +62,6 @@ const Map: React.FC<{ setLocation: Function }> = ({ setLocation }) => {
       <LocationMarker />
     </MapContainer>
   );
-};
+});
 
 export default Map;
