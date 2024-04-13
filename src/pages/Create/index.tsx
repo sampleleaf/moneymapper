@@ -13,12 +13,12 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC = () => {
   const [value, onChange] = useState<Value>(new Date());
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
-  const [payItem, setPayItem] = useState("早餐");
-  const [incomeItem, setIncomeItem] = useState("薪水")
-  const [payPage, setPayPage] = useState(true);
+  const [payItem, setPayItem] = useState<string>("早餐");
+  const [incomeItem, setIncomeItem] = useState<string>("薪水")
+  const [payPage, setPayPage] = useState<boolean>(true);
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);

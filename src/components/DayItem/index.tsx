@@ -21,8 +21,8 @@ const DayItem: React.FC<{
     { id: string; item: string; price: number }[]
   >([]);
 
-  const [pop, setPop] = useState(false)
-  const [popId, setPopId] = useState("");
+  const [pop, setPop] = useState<boolean>(false)
+  const [popId, setPopId] = useState<string>("");
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
