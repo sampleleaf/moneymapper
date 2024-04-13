@@ -21,7 +21,7 @@ const Edit: React.FC<{
 }> = ({ item, setPop, setItemRemoved, years, months, day }) => {
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
-  const [location, setLocation] = useState<string | undefined>("");
+  const [location, setLocation] = useState<string | undefined>(item.location);
   const [payItem, setPayItem] = useState<string>("");
   const [incomeItem, setIncomeItem] = useState<string>("");
   const [payPage, setPayPage] = useState<boolean>(
@@ -161,7 +161,7 @@ const Edit: React.FC<{
                 onClick={handleOpenMapWindow}
                 id="location"
                 type="text"
-                value={location || item.location}
+                value={location}
                 autoComplete="off"
                 onChange={() => setLocation}
               />

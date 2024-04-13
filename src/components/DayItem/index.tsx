@@ -48,7 +48,8 @@ const DayItem: React.FC<{
     setPopId(id);
   };
 
-  const handleItemRemove = async (item: object, day: string) => {
+  const handleItemRemove = async (e: React.MouseEvent ,item: object, day: string) => {
+    e.stopPropagation()
     const response = localStorage.getItem("loginData");
     if (response !== null) {
       const data = JSON.parse(response);
@@ -97,7 +98,7 @@ const DayItem: React.FC<{
                   </div>
                   <p>${item.price}</p>
                   <div
-                    onClick={() => handleItemRemove(item, day)}
+                    onClick={(e) => handleItemRemove(e, item, day)}
                     className={home.trash}
                   >
                     <i className="fa-regular fa-trash-can"></i>
