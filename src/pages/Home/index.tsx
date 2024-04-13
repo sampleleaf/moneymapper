@@ -32,7 +32,7 @@ const Home: React.FC = () => {
           // console.log(Object.keys(dayArray).length);
           console.log(dayArray);
           setAllItemsOfMonth(dayArray);
-          setDays(Object.keys(docSnap.data()));
+          setDays(Object.keys(docSnap.data()).reverse());
         } else {
           // docSnap.data() will be undefined in this case
           setAllItemsOfMonth([]);
