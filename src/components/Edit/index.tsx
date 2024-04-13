@@ -24,7 +24,9 @@ const Edit: React.FC<{
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState<string>("");
   const [incomeItem, setIncomeItem] = useState<string>("");
-  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
+  const [payPage, setPayPage] = useState<boolean>(
+    item.price < 0 ? true : false
+  );
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -135,7 +137,7 @@ const Edit: React.FC<{
           <div className={create.item}>
             <div className={create.iconAndMoney}>
               <label htmlFor="icon">
-                {(payPage ? payItem : incomeItem) || item.item}
+                {payPage ? payItem || (item.price < 0 ? item.item : '早餐') : incomeItem || (item.price > 0 ? item.item : '薪水')}
               </label>
               <input
                 id="icon"

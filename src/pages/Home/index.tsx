@@ -2,7 +2,7 @@ import home from "@/css/Home.module.css";
 import DayItem from "@/components/DayItem";
 import { useEffect, useState } from "react";
 import { db } from "@/utils/firebase";
-import { doc, getDoc, updateDoc, arrayRemove } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 const Home: React.FC = () => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
