@@ -9,7 +9,9 @@ const Home: React.FC = () => {
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [days, setDays] = useState<string[]>([]);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
-  const [allItemsOfMonth, setAllItemsOfMonth] = useState<{ price: number; item: string; id: string }[]>([]);
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<
+    { price: number; item: string; id: string }[]
+  >([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -55,32 +57,32 @@ const Home: React.FC = () => {
             <div>
               {years}年{months}月
             </div>
-            <div className={isDropdown ? home.closeList : home.dropdown}>
+            <div
+              className={home.dropdown}
+              style={isDropdown ? { transform: "rotate(180deg)" } : {}}
+            >
               <i className="fa-solid fa-caret-up"></i>
             </div>
           </div>
-          {isDropdown ? (
-            <div className={home.dropdownList}>
-              <div className={home.selectYear}>
-                <div onClick={() => setYears((prev) => prev - 1)}>
-                  <i className="fa-solid fa-caret-left"></i>
-                </div>
-                <p>{years}</p>
-                <div onClick={() => setYears((prev) => prev + 1)}>
-                  <i className="fa-solid fa-caret-right"></i>
-                </div>
-              </div>
-              <div className={home.selectMonth}>
-                {defaultMonth.map((month) => (
-                  <div onClick={() => setMonths(month)} key={month}>
-                    {month}
-                  </div>
-                ))}
-              </div>
+        </div>
+        <div onClick={handleDropDown} className={isDropdown ? home.dropdownLayout : ''}></div>
+        <div className={home.dropdownList} style={isDropdown ? { transform: "translateY(0)" } : {}}>
+          <div className={home.selectYear}>
+            <div onClick={() => setYears((prev) => prev - 1)}>
+              <i className="fa-solid fa-caret-left"></i>
             </div>
-          ) : (
-            ""
-          )}
+            <p>{years}</p>
+            <div onClick={() => setYears((prev) => prev + 1)}>
+              <i className="fa-solid fa-caret-right"></i>
+            </div>
+          </div>
+          <div className={home.selectMonth}>
+            {defaultMonth.map((month) => (
+              <div onClick={() => setMonths(month)} key={month}>
+                {month}月
+              </div>
+            ))}
+          </div>
         </div>
         <div className={home.analyze}>
           <div>
