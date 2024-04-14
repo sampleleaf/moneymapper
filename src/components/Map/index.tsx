@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "react-leaflet";
 
-const Map: React.FC<{ setLocation: Function, autoMap: boolean, setLoadingLocation: Function }> = memo(({ setLocation, autoMap, setLoadingLocation }) => {
+const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocation: Function }> = memo(({ setMapResult, autoMap, setLoadingLocation }) => {
 
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
@@ -31,7 +31,7 @@ const Map: React.FC<{ setLocation: Function, autoMap: boolean, setLoadingLocatio
           }
           const data = await response.json();
           console.log(data.address.city || data.address.county);
-          setLocation(data.address.city || data.address.county);
+          setMapResult(data.address.city || data.address.county);
           setLoadingLocation(false)
         } catch (error) {
           console.error("Error fetching location:", error);
@@ -67,7 +67,7 @@ const Map: React.FC<{ setLocation: Function, autoMap: boolean, setLoadingLocatio
         }
         const data = await response.json();
         console.log(data.address.city || data.address.county);
-        setLocation(data.address.city || data.address.county);
+        setMapResult(data.address.city || data.address.county);
         setLoadingLocation(false)
       } catch (error) {
         console.error("Error fetching location:", error);

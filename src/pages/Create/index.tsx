@@ -101,8 +101,9 @@ const Create: React.FC = () => {
     }
   };
 
-  const handleMapResult = () => {
-    setMapResult(location)
+  const handleLocation = () => {
+    // setMapResult(location)
+    setLocation(mapResult)
     setMapWindow(false)
   }
 
@@ -124,10 +125,10 @@ const Create: React.FC = () => {
             ) : (
               <p className={create.hint}>點選地圖會顯示您選擇的位置</p>
             )}
-            <Map setLocation={setLocation} autoMap={autoMap} setLoadingLocation={setLoadingLocation} />
-            <div className={create.mapResult}>{location ? <p>您的位置在<b>{location}</b></p> : <p>您尚未選擇位置</p>}</div>
+            <Map setMapResult={setMapResult} autoMap={autoMap} setLoadingLocation={setLoadingLocation} />
+            <div className={create.mapResult}>{mapResult ? <p>您的位置在<b>{mapResult}</b></p> : <p>您尚未選擇位置</p>}</div>
             <div className={create.mapButton}>
-              {loadingLocation ? <img src="loading.gif" alt="loading" /> : <button onClick={handleMapResult}>確定</button>}
+              {loadingLocation ? <img src="loading.gif" alt="loading" /> : <button onClick={handleLocation}>確定</button>}
             </div>
           </div>
         </div>
@@ -167,7 +168,7 @@ const Create: React.FC = () => {
               onClick={handleOpenMapWindow}
               id="location"
               type="text"
-              value={mapResult}
+              value={location}
               autoComplete="off"
               onChange={() => setLocation}
             />
