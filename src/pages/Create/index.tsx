@@ -111,7 +111,9 @@ const Create: React.FC = () => {
           </div>
         </div>
       )}
-      <Calendar onChange={onChange} value={value} />
+      <div className={create.calendar}>
+        <Calendar onChange={onChange} value={value} />
+      </div>
       <Budget
         payPage={payPage}
         setPayPage={setPayPage}
