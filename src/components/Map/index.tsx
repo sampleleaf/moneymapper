@@ -9,8 +9,7 @@ import {
   Tooltip,
 } from "react-leaflet";
 
-const Map: React.FC<{ setLocation: Function }> = memo(({ setLocation }) => {
-  const [auto, setAuto] = useState(false);
+const Map: React.FC<{ setLocation: Function, autoMap: boolean }> = memo(({ setLocation, autoMap }) => {
 
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
@@ -81,7 +80,7 @@ const Map: React.FC<{ setLocation: Function }> = memo(({ setLocation }) => {
 
   return (
     <>
-      {auto ? (
+      {autoMap ? (
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
           zoom={7}

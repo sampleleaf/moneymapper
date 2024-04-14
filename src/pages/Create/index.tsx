@@ -20,6 +20,7 @@ const Create: React.FC = () => {
   const [payItem, setPayItem] = useState<string>("早餐");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [payPage, setPayPage] = useState<boolean>(true);
+  const [autoMap, setAutoMap] = useState(true);
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -106,8 +107,16 @@ const Create: React.FC = () => {
             <div onClick={handleCloseMapWindow} className={create.cross}>
               <i className="fa-solid fa-xmark"></i>
             </div>
-            <p>點選地圖會自動偵測您的位置</p>
-            <Map setLocation={setLocation} />
+            <div className={create.selectMap}>
+              <div onClick={() => setAutoMap(true)} style={autoMap ? { opacity: "1" } : {}}>自動偵測</div>
+              <div onClick={() => setAutoMap(false)} style={autoMap ? {} : { opacity: "1" }}>手動選擇</div>
+            </div>
+            {autoMap ? (
+              <p className={create.hint}>點選地圖會自動偵測您的位置</p>
+            ) : (
+              <p className={create.hint}>點選地圖會顯示您選擇的位置</p>
+            )}
+            <Map setLocation={setLocation} autoMap={autoMap} />
           </div>
         </div>
       )}
