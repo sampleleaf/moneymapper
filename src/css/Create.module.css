@@ -21,6 +21,17 @@
     position: relative;
 }
 
+.cross{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.cross svg{
+    font-size: 20px;
+}
+
 .selectMap{
     display: flex;
     justify-content: space-around;
@@ -80,17 +91,6 @@
     background-color: black;
     color: white;
     font-weight: bold;
-}
-
-.cross{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-}
-
-.cross svg{
-    font-size: 20px;
 }
 
 .item{
