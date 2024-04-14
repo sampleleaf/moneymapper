@@ -14,6 +14,7 @@
 
 .mapFrame{
     width: 85%;
+    height: 480px;
     margin: 0 auto;
     padding: 25px;
     background-color: white;
@@ -84,7 +85,7 @@
 }
 
 .mapButton img{
-    height: 45px;
+    height: 30.5px;
 }
 
 .mapButton button:hover{

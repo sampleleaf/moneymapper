@@ -112,8 +112,8 @@ const Create: React.FC = () => {
     <>
       <div className={create.space}></div>
       {mapWindow && (
-        <div className={create.mapSpace}>
-          <div className={create.mapFrame}>
+        <div className={create.mapSpace} onClick={handleCloseMapWindow} >
+          <div className={create.mapFrame} onClick={e => e.stopPropagation()} >
             <div onClick={handleCloseMapWindow} className={create.cross}>
               <i className="fa-solid fa-xmark"></i>
             </div>
