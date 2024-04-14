@@ -9,12 +9,13 @@ import {
   Tooltip,
 } from "react-leaflet";
 
-const Map: React.FC<{ setLocation: Function, autoMap: boolean }> = memo(({ setLocation, autoMap }) => {
+const Map: React.FC<{ setLocation: Function, autoMap: boolean, setLoadingLocation: Function }> = memo(({ setLocation, autoMap, setLoadingLocation }) => {
 
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
     const map = useMapEvents({
       click() {
+        setLoadingLocation(true)
         map.locate();
       },
       async locationfound(e) {
@@ -31,6 +32,7 @@ const Map: React.FC<{ setLocation: Function, autoMap: boolean }> = memo(({ setLo
           const data = await response.json();
           console.log(data.address.city || data.address.county);
           setLocation(data.address.city || data.address.county);
+          setLoadingLocation(false)
         } catch (error) {
           console.error("Error fetching location:", error);
         }
@@ -53,6 +55,7 @@ const Map: React.FC<{ setLocation: Function, autoMap: boolean }> = memo(({ setLo
   const ManualLocation = () => {
     const [position, setPosition] = useState(null);
     const map = useMapEvent("click", async (e) => {
+      setLoadingLocation(true)
       setPosition(e.latlng as any);
       map.flyTo(e.latlng, map.getZoom());
       try {
@@ -65,6 +68,7 @@ const Map: React.FC<{ setLocation: Function, autoMap: boolean }> = memo(({ setLo
         const data = await response.json();
         console.log(data.address.city || data.address.county);
         setLocation(data.address.city || data.address.county);
+        setLoadingLocation(false)
       } catch (error) {
         console.error("Error fetching location:", error);
       }

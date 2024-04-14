@@ -53,6 +53,35 @@
     font-weight: bold;
 }
 
+.mapResult p{
+    text-align: center;
+    font-size: 20px;
+    border: 2px dashed rgb(0, 150, 0);
+}
+
+.mapButton{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.mapButton button{
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 8px 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mapButton img{
+    height: 45px;
+}
+
+.mapButton button:hover{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
 .cross{
     position: absolute;
     top: 5px;

@@ -21,6 +21,8 @@ const Create: React.FC = () => {
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [payPage, setPayPage] = useState<boolean>(true);
   const [autoMap, setAutoMap] = useState(true);
+  const [loadingLocation, setLoadingLocation] = useState(false)
+  const [mapResult, setMapResult] = useState<string | undefined>('')
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -32,6 +34,7 @@ const Create: React.FC = () => {
 
   const handleClearLocation = () => {
     setLocation("");
+    setMapResult("")
   };
 
   const handlePaySubmit = async (e: React.FormEvent) => {
@@ -98,6 +101,11 @@ const Create: React.FC = () => {
     }
   };
 
+  const handleMapResult = () => {
+    setMapResult(location)
+    setMapWindow(false)
+  }
+
   return (
     <>
       <div className={create.space}></div>
@@ -116,7 +124,11 @@ const Create: React.FC = () => {
             ) : (
               <p className={create.hint}>點選地圖會顯示您選擇的位置</p>
             )}
-            <Map setLocation={setLocation} autoMap={autoMap} />
+            <Map setLocation={setLocation} autoMap={autoMap} setLoadingLocation={setLoadingLocation} />
+            <div className={create.mapResult}>{location ? <p>您的位置在<b>{location}</b></p> : <p>您尚未選擇位置</p>}</div>
+            <div className={create.mapButton}>
+              {loadingLocation ? <img src="loading.gif" alt="loading" /> : <button onClick={handleMapResult}>確定</button>}
+            </div>
           </div>
         </div>
       )}
@@ -155,7 +167,7 @@ const Create: React.FC = () => {
               onClick={handleOpenMapWindow}
               id="location"
               type="text"
-              value={location}
+              value={mapResult}
               autoComplete="off"
               onChange={() => setLocation}
             />
