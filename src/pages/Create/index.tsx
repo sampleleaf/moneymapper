@@ -37,6 +37,13 @@ const Create: React.FC = () => {
     setMapResult("")
   };
 
+
+  const handleLocation = () => {
+    // setMapResult(location)
+    setLocation(mapResult)
+    setMapWindow(false)
+  }
+
   const handlePaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
@@ -101,12 +108,6 @@ const Create: React.FC = () => {
     }
   };
 
-  const handleLocation = () => {
-    // setMapResult(location)
-    setLocation(mapResult)
-    setMapWindow(false)
-  }
-
   return (
     <>
       <div className={create.space}></div>
@@ -121,9 +122,9 @@ const Create: React.FC = () => {
               <div onClick={() => setAutoMap(false)} style={autoMap ? {} : { opacity: "1" }}>手動選擇</div>
             </div>
             {autoMap ? (
-              <p className={create.hint}>點選地圖會自動偵測您的位置</p>
+              <div className={create.hint}>點選地圖會自動偵測您的位置</div>
             ) : (
-              <p className={create.hint}>點選地圖會顯示您選擇的位置</p>
+              <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
             )}
             <Map setMapResult={setMapResult} autoMap={autoMap} setLoadingLocation={setLoadingLocation} />
             <div className={create.mapResult}>{mapResult ? <p>您的位置在<b>{mapResult}</b></p> : <p>您尚未選擇位置</p>}</div>

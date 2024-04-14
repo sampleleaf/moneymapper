@@ -4,12 +4,12 @@
 
 .mapSpace{
     width: 100%;
+    height: calc(100vh - 52px);
     position: fixed;
-    padding: 25px 0;
+    display: flex;
+    align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-    /* left: 50%;
-    transform: translateX(-50%); */
-    z-index: 3;
+    z-index: 6;
 }
 
 .mapFrame{
@@ -38,8 +38,7 @@
 }
 
 .selectMap div{
-    width: 120px;
-    padding: 10px 20px;
+    padding: 0 10px;
     font-weight: bold;
     text-align: center;
     border-radius: 8px;
@@ -59,14 +58,15 @@
     border-radius: 4px;
     color: white;
     margin: 5px 0;
-    padding: 5px 0;
     white-space: nowrap;
+    font-size: 14px;
     font-weight: bold;
 }
 
 .mapResult p{
+    margin-top: 2px;
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
     border: 2px dashed rgb(0, 150, 0);
 }
 
@@ -78,7 +78,7 @@
 .mapButton button{
     border-radius: 8px;
     font-size: 20px;
-    padding: 8px 40px;
+    padding: 0 20px;
     cursor: pointer;
     transition: all 0.2s;
 }
@@ -97,7 +97,8 @@
     display: grid;
     grid-template-columns: 49% 2% 49%;
     align-items: center;
-    border: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
     border-bottom: none;
     padding: 10px;
 }
@@ -118,7 +119,8 @@
 }
 
 .locationLayout{
-    border: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
     padding: 10px;
 }
 
@@ -161,9 +163,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
-
-/* control calender style*/
-
+/*=========================
+control calender style
+=========================*/
 .calendar > div{
     width: auto;
 }
@@ -171,3 +173,10 @@
 /* .calendar > div button{
     font-size: 16px;
 } */
+
+/*=========================
+control map style
+=========================*/
+.mapFrame div:nth-child(4){
+    height: 300px;
+}

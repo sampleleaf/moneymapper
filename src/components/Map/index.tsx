@@ -87,7 +87,7 @@ const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocati
       {autoMap ? (
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
-          zoom={7}
+          zoom={6}
           // scrollWheelZoom={false}
         >
           <TileLayer
@@ -99,7 +99,7 @@ const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocati
       ) : (
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
-          zoom={7}
+          zoom={6}
           // scrollWheelZoom={false}
         >
           <TileLayer
