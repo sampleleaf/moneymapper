@@ -9,15 +9,19 @@ const Budget: React.FC<{
   return (
     <>
       <div className={budget.header}>
-        <div className={budget.icon}>
-          <i className="fa-solid fa-chevron-left"></i>
-        </div>
+        <div
+          className={budget.triggerPage}
+          style={
+            payPage
+              ? { backgroundColor: "yellow" }
+              : { transform: "translateX(100%)", backgroundColor: "aqua" }
+          }
+        ></div>
         <div className={budget.choose}>
           <div onClick={() => setPayPage(true)}>支出</div>
           <span className={budget.vertical}></span>
           <div onClick={() => setPayPage(false)}>收入</div>
         </div>
-        <div></div>
       </div>
       {payPage ? (
         <div className={budget.iconList}>

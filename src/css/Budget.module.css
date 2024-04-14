@@ -2,11 +2,11 @@
 .header{
     width: 100%;
     height: 50px;
-    background-color: bisque;
+    /* background-color: bisque; */
     display: grid;
     align-items: center;
-    grid-template-columns: 25% 50% 25%;
-    padding: 0 15px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    position: relative;
 }
 
 .icon{
@@ -14,7 +14,9 @@
 }
 
 .choose{
+    width: 50%;
     height: 35px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -22,7 +24,26 @@
     border-radius: 6px;
     position: relative;
     font-weight: bold;
-    background-color: white;
+    /* background-color: white; */
+}
+
+.choose div{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.triggerPage{
+    position: absolute;
+    width: 25%;
+    height: 35px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: all 0.3s;
+    right: 50%;
 }
 
 .vertical{
@@ -33,8 +54,8 @@
 }
 
 .iconList{
-    /* height: 180px;
-    overflow: auto; */
+    height: 205px;
+    /* overflow: auto; */
     padding: 20px 30px;
     display: grid;
     grid-template-columns: repeat(4, auto);
