@@ -2,7 +2,7 @@ import header from "@/css/Header.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
+const Header: React.FC<{ setLogin: Function, setDetailsTranslateX: Function}> = ({ setLogin, setDetailsTranslateX }) => {
   const [sidebar, setSidebar] = useState(false);
 
   const loginData = localStorage.getItem('loginData')
@@ -34,7 +34,9 @@ const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         >
           <div className={header.sidebarContainer}>
             <h3 className={header.username}>Hello, {loginData && JSON.parse(loginData).name}</h3>
-            <Link to="details">收支</Link>
+            <Link onClick={() => setDetailsTranslateX('translateX(-102.5%)') } to="details/pay">支出</Link>
+            <Link onClick={() => setDetailsTranslateX('translateX(0)') } to="details/income">收入</Link>
+            <Link onClick={() => setDetailsTranslateX('translateX(102.5%)') } to="details/remainder">結餘</Link>
           </div>
         </div>
       </div>

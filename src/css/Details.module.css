@@ -16,29 +16,36 @@
     height: 20px;
 }
 
+.triggerLink{
+    position: absolute;
+    width: 62.5px;
+    height: 32px;
+    background-color: rgb(172, 245, 192);
+    transition: transform 0.3s, background-color 0.3s;
+}
+
 .navbarLayout{
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .navbarContainer{
     border: 2px solid black;
-    border-radius: 8px;
+    border-radius: 4px;
     display: flex;
+    position: relative;
 }
 
 .navbarContainer a{
+    color: black;
+    font-weight: bold;
     padding: 5px 15px;
 }
 
-.navbarContainer div:nth-child(2){
+.navbarContainer a:nth-child(2){
     border-left: 2px solid black;
     border-right: 2px solid black;
-}
-
-.test{
-    transition: all 5s;
 }
