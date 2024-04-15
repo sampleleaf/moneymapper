@@ -174,10 +174,3 @@ control calender style
 /* .calendar > div button{
     font-size: 16px;
 } */
-
-/*=========================
-control map style
-=========================*/
-.mapFrame div:nth-child(4){
-    height: 300px;
-}

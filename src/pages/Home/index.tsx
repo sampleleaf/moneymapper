@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { Chart } from "react-google-charts";
 
 const Home: React.FC = () => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
@@ -50,6 +51,41 @@ const Home: React.FC = () => {
     setIsDropdown(!isDropdown);
   };
 
+  const monthPay =
+    allItemsOfMonth &&
+    allItemsOfMonth.reduce((acc, cur) => {
+      if (cur.price < 0) {
+        return acc + cur.price;
+      } else {
+        return acc;
+      }
+    }, 0);
+
+  const monthIncome =
+    allItemsOfMonth &&
+    allItemsOfMonth.reduce((acc, cur) => {
+      if (cur.price > 0) {
+        return acc + cur.price;
+      } else {
+        return acc;
+      }
+    }, 0);
+
+  const monthRemainder =
+    allItemsOfMonth && allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0);
+
+  const googleChartData = [
+    ["Major", "Degrees"],
+    ["收入", monthIncome],
+    ["支出", Math.abs(monthPay)],
+  ];
+
+  const googleChartOptions = {
+    pieHole: 0.5,
+    is3D: false,
+    legend: "none",
+  };
+
   return (
     <>
       <div className={home.container}>
@@ -66,8 +102,14 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        <div onClick={handleDropDown} className={isDropdown ? home.dropdownLayout : ''}></div>
-        <div className={home.dropdownList} style={isDropdown ? { transform: "translateY(0)" } : {}}>
+        <div
+          onClick={handleDropDown}
+          className={isDropdown ? home.dropdownLayout : ""}
+        ></div>
+        <div
+          className={home.dropdownList}
+          style={isDropdown ? { transform: "translateY(0)" } : {}}
+        >
           <div className={home.selectYear}>
             <div onClick={() => setYears((prev) => prev - 1)}>
               <i className="fa-solid fa-caret-left"></i>
@@ -88,46 +130,25 @@ const Home: React.FC = () => {
         <div className={home.analyze}>
           <div>
             <p>月支出</p>
-            <p>
-              $
-              {(allItemsOfMonth &&
-                allItemsOfMonth.reduce((acc, cur) => {
-                  if (cur.price < 0) {
-                    return acc + cur.price;
-                  } else {
-                    return acc;
-                  }
-                }, 0)) ||
-                0}
-            </p>
+            <p>${Math.abs(monthPay)}</p>
           </div>
           <div>
             <p>月收入</p>
-            <p>
-              $
-              {(allItemsOfMonth &&
-                allItemsOfMonth.reduce((acc, cur) => {
-                  if (cur.price > 0) {
-                    return acc + cur.price;
-                  } else {
-                    return acc;
-                  }
-                }, 0)) ||
-                0}
-            </p>
+            <p>${monthIncome}</p>
           </div>
-        </div>
-        <div className={home.echart}>
-          <div className={home.remainderSpace}></div>
           <div className={home.monthRemainder}>
             <p>月結餘</p>
-            <p>
-              $
-              {(allItemsOfMonth &&
-                allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0)) ||
-                0}
-            </p>
+            <p>${monthRemainder}</p>
           </div>
+        </div>
+        <div className={home.googleChart}>
+          <Chart
+            chartType="PieChart"
+            width="100%"
+            height="400px"
+            data={googleChartData}
+            options={googleChartOptions}
+          />
         </div>
         <div className={home.itemsByDayThisMonth}>
           {Object.keys(days).length > 0 ? (

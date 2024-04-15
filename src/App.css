@@ -10,8 +10,16 @@ a{
   text-decoration: none;
 }
 
+/*====================
+Open Street Map
+====================*/
 .leaflet-container {
-  height: 400px;
+  height: 300px;
   width: 100%;
   border-radius: 8px;
 }
+
+/*====================
+Google React Chart
+====================*/
+/* svg > g > g:last-child { pointer-events: none } */
