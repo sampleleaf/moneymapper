@@ -1,6 +1,7 @@
 import home from "@/css/Home.module.css";
 import DayItem from "@/components/DayItem";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -143,9 +144,9 @@ const Home: React.FC = () => {
           ) : (
             <p>無記帳記錄</p>
           )}
-          <a className={home.addItem} href="./create">
+          <Link className={home.addItem} to="/create">
             <i className="fa-solid fa-circle-xmark"></i>
-          </a>
+          </Link>
         </div>
       </div>
     </>

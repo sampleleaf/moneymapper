@@ -1,5 +1,6 @@
 import header from "@/css/Header.module.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -40,9 +41,9 @@ const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         <div onClick={handleSidebar} className={header.bar}>
           <i className="fa-solid fa-bars"></i>
         </div>
-        <a href="/">
+        <Link to="/">
           <div className={header.title}>MoneyMapper</div>
-        </a>
+        </Link>
         <div className={header.iconContainer}>
           <i className="fa-solid fa-map-location-dot"></i>
           <p onClick={handleLogout} className={header.logout}>
