@@ -1,3 +1,22 @@
+.sidebarBackground{
+    position: fixed;
+    z-index: 11;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    transition: background-color 0.2s;
+}
+
+.sidebar{
+    background-color: rgb(255, 255, 255);
+    width: 70%;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+}
+
+
 .container{
     width: 100%;
     height: 52px;
@@ -14,6 +33,7 @@
 
 .bar{
     height: 20px;
+    cursor: pointer;
 }
 
 .container svg{

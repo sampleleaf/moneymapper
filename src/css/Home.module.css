@@ -35,7 +35,7 @@
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    transition: all 0.3s;
+    transition: transform 0.3s;
 }
 
 .dropdownList{
@@ -48,7 +48,7 @@
     top: 102px;
     display: grid;
     padding: 0px 10px 10px 10px;
-    transition: all 0.3s;
+    transition: transform 0.3s;
     transform: translateY(-125px);
 }
 
