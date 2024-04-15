@@ -1,0 +1,44 @@
+.space{
+    padding-top: 52px;
+}
+
+.back{
+    position: absolute;
+    height: 20px;
+    top: 67px;
+    left: 15px;
+    color: black;
+    z-index: 5;
+}
+
+.back svg{
+    width: 20px;
+    height: 20px;
+}
+
+.navbarLayout{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+}
+
+.navbarContainer{
+    border: 2px solid black;
+    border-radius: 8px;
+    display: flex;
+}
+
+.navbarContainer a{
+    padding: 5px 15px;
+}
+
+.navbarContainer div:nth-child(2){
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.test{
+    transition: all 5s;
+}

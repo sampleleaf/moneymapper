@@ -34,6 +34,7 @@ const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         >
           <div className={header.sidebarContainer}>
             <h3 className={header.username}>Hello, {loginData && JSON.parse(loginData).name}</h3>
+            <Link to="details">收支</Link>
           </div>
         </div>
       </div>
