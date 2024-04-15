@@ -84,13 +84,13 @@
 }
 
 .analyze{
+    margin-top: 50px;
     display: flex;
     justify-content: space-between;
 }
 
 .echart{
     justify-self: center;
-    margin-top: 50px;
     width: 200px;
     height: 200px;
     background-color: blueviolet;
