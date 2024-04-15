@@ -10,10 +10,18 @@
 
 .sidebar{
     background-color: rgb(255, 255, 255);
-    width: 70%;
+    width: 60%;
     height: 100vh;
     transform: translateX(-100%);
     transition: transform 0.3s;
+}
+
+.sidebarContainer{
+    padding: 0 32px;
+}
+
+.username{
+    padding: 32px 0;
 }
 
 

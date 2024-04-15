@@ -4,6 +4,8 @@ import { useState } from "react";
 const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   const [sidebar, setSidebar] = useState(false);
 
+  const loginData = localStorage.getItem('loginData')
+
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLogin(localStorage.getItem("loginData"));
@@ -18,13 +20,21 @@ const Header: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
       <div
         onClick={handleSidebar}
         className={header.sidebarBackground}
-        style={sidebar ? { backgroundColor: 'rgba(0, 0, 0, 0.5)', pointerEvents: "auto" } : {}}
+        style={
+          sidebar
+            ? { backgroundColor: "rgba(0, 0, 0, 0.5)", pointerEvents: "auto" }
+            : {}
+        }
       >
         <div
           onClick={(e) => e.stopPropagation()}
           className={header.sidebar}
           style={sidebar ? { transform: "translateX(0)" } : {}}
-        ></div>
+        >
+          <div className={header.sidebarContainer}>
+            <h3 className={header.username}>Hello, {loginData && JSON.parse(loginData).name}</h3>
+          </div>
+        </div>
       </div>
       <div className={header.container}>
         <div onClick={handleSidebar} className={header.bar}>
