@@ -32,11 +32,13 @@ const Header: React.FC<{ setLogin: Function, setDetailsTranslateX: Function}> = 
           className={header.sidebar}
           style={sidebar ? { transform: "translateX(0)" } : {}}
         >
-          <div className={header.sidebarContainer}>
+          <div className={header.sidebarLayout}>
             <h3 className={header.username}>Hello, {loginData && JSON.parse(loginData).name}</h3>
-            <Link onClick={() => setDetailsTranslateX('translateX(-102.5%)') } to="details/pay">支出</Link>
-            <Link onClick={() => setDetailsTranslateX('translateX(0)') } to="details/income">收入</Link>
-            <Link onClick={() => setDetailsTranslateX('translateX(102.5%)') } to="details/remainder">結餘</Link>
+            <div className={header.sidebarContainer}>
+              <Link onClick={() => setDetailsTranslateX('translateX(-102.5%)') } to="details/pay">支出</Link>
+              <Link onClick={() => setDetailsTranslateX('translateX(0)') } to="details/income">收入</Link>
+              <Link onClick={() => setDetailsTranslateX('translateX(102.5%)') } to="details/remainder">結餘</Link>
+            </div>
           </div>
         </div>
       </div>

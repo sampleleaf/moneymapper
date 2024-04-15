@@ -16,14 +16,28 @@
     transition: transform 0.3s;
 }
 
-.sidebarContainer{
+.sidebarLayout{
     padding: 0 32px;
 }
 
 .username{
+    font-size: 24px;
     padding: 32px 0;
 }
 
+.sidebarContainer{
+    display: grid;
+    row-gap: 5px;
+    font-weight: bold;
+}
+
+.sidebarContainer a{
+    color: black;
+}
+
+.sidebarContainer a:hover{
+    color: rgb(216, 107, 196);
+}
 
 .container{
     width: 100%;
