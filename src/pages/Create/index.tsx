@@ -20,8 +20,8 @@ const Create: React.FC = () => {
   const [payItem, setPayItem] = useState<string>("早餐");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [payPage, setPayPage] = useState<boolean>(true);
-  const [autoMap, setAutoMap] = useState(true);
-  const [loadingLocation, setLoadingLocation] = useState(false)
+  const [autoMap, setAutoMap] = useState<boolean>(true);
+  const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
   const [mapResult, setMapResult] = useState<string | undefined>('')
 
   const handleOpenMapWindow = () => {

@@ -27,8 +27,8 @@ const Edit: React.FC<{
   const [payPage, setPayPage] = useState<boolean>(
     item.price < 0 ? true : false
   );
-  const [autoMap, setAutoMap] = useState(true);
-  const [loadingLocation, setLoadingLocation] = useState(false)
+  const [autoMap, setAutoMap] = useState<boolean>(true);
+  const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
   const [mapResult, setMapResult] = useState<string | undefined>('')
 
   const handleOpenMapWindow = () => {

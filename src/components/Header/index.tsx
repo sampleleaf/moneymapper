@@ -7,7 +7,7 @@ const Header: React.FC<{
   setDetailsTranslateX: Function;
   setDetailsHighlighted: Function;
 }> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState<boolean>(false);
 
   const loginData = localStorage.getItem("loginData");
 

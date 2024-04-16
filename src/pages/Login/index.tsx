@@ -9,10 +9,10 @@ import {
 import { doc, setDoc, collection, getDoc } from "firebase/firestore";
 
 const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [newUser, setNewUser] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [newUser, setNewUser] = useState<boolean>(false);
 
   const handleNewUser = (e: React.MouseEvent) => {
     e.preventDefault();
