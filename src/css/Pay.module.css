@@ -1,0 +1,9 @@
+.googleChart{
+    position: relative;
+    top: -15px;
+}
+
+.googleChart > div{
+    position: absolute;
+    top: 0;
+}
