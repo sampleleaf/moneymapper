@@ -13,12 +13,12 @@ const Edit: React.FC<{
     price: number;
     item: string;
   };
-  setPop: Function;
+  setPopEdit: Function;
   setItemRemoved: Function;
   years: number;
   months: number;
   day: string;
-}> = ({ item, setPop, setItemRemoved, years, months, day }) => {
+}> = ({ item, setPopEdit, setItemRemoved, years, months, day }) => {
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>(item.location);
@@ -78,7 +78,7 @@ const Edit: React.FC<{
           location: location || item.location,
         }),
       });
-      setPop(false);
+      setPopEdit(false);
     }
     setItemRemoved(true);
   };
@@ -110,7 +110,7 @@ const Edit: React.FC<{
           location: location || item.location,
         }),
       });
-      setPop(false);
+      setPopEdit(false);
     }
     setItemRemoved(true);
   };
@@ -144,7 +144,7 @@ const Edit: React.FC<{
           </div>
         </div>
       )}
-        <div className={edit.previous} onClick={() => setPop(false)}><i className="fa-solid fa-chevron-left"></i></div>
+        <div className={edit.previous} onClick={() => setPopEdit(false)}><i className="fa-solid fa-chevron-left"></i></div>
         <Budget
           payPage={payPage}
           setPayPage={setPayPage}

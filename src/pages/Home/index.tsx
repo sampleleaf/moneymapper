@@ -15,6 +15,7 @@ const Home: React.FC = () => {
     { price: number; item: string; id: string }[]
   >([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
+  const [popEdit, setPopEdit] = useState<boolean>(false);
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
@@ -89,7 +90,7 @@ const Home: React.FC = () => {
   return (
     <>
       <div className={home.container}>
-        <div className={home.header}>
+        <div className={home.header} style={popEdit ? { zIndex: "-1" } : {}}>
           <div className={home.dropdownTitle} onClick={handleDropDown}>
             <div>
               {years}年{months}月
@@ -108,7 +109,7 @@ const Home: React.FC = () => {
         ></div>
         <div
           className={home.dropdownList}
-          style={isDropdown ? { transform: "translateY(0)" } : {}}
+          style={isDropdown ? { transform: "translateY(0)" } : popEdit ? { zIndex: "-1" } : {}}
         >
           <div className={home.selectYear}>
             <div onClick={() => setYears((prev) => prev - 1)}>
@@ -160,6 +161,8 @@ const Home: React.FC = () => {
                 years={years}
                 itemRemoved={itemRemoved}
                 setItemRemoved={setItemRemoved}
+                popEdit={popEdit}
+                setPopEdit={setPopEdit}
               />
             ))
           ) : (

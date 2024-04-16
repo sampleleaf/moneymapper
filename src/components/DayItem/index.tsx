@@ -16,9 +16,10 @@ const DayItem: React.FC<{
   years: number;
   itemRemoved: boolean;
   setItemRemoved: Function;
-}> = ({ day, months, years, itemRemoved, setItemRemoved }) => {
+  popEdit: boolean;
+  setPopEdit: Function;
+}> = ({ day, months, years, itemRemoved, setItemRemoved, popEdit, setPopEdit }) => {
   const [items, setItems] = useState<{ id: string; item: string; price: number; location: string | undefined }[]>([]);
-  const [pop, setPop] = useState<boolean>(false);
   const [popId, setPopId] = useState<string>("");
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const DayItem: React.FC<{
   }, [itemRemoved]);
 
   const handleEdit = (id: string) => {
-    setPop(true);
+    setPopEdit(true);
     setPopId(id);
   };
 
@@ -89,8 +90,8 @@ const DayItem: React.FC<{
           <div className={dayItem.itemsByDay}>
             {items.map((item) => (
               <div key={item.id}>
-                {pop && popId === item.id && (
-                  <Edit item={item} setPop={setPop} setItemRemoved={setItemRemoved} years={years} months={months} day={day} />
+                {popEdit && popId === item.id && (
+                  <Edit item={item} setPopEdit={setPopEdit} setItemRemoved={setItemRemoved} years={years} months={months} day={day} />
                 )}
                 <div onClick={() => handleEdit(item.id)} className={dayItem.items}>
                   <div className={dayItem.item}>
