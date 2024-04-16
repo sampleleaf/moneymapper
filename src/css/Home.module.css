@@ -103,7 +103,7 @@
     z-index: 1;
 }
 
-.googleChart svg g:nth-child(3) > path:first-child{
+/* .googleChart svg g:nth-child(3) > path:first-child{
     fill: green !important;
 } 
 
@@ -117,7 +117,7 @@
 
 .googleChart svg g:nth-child(3):hover > path:nth-child(3){
     stroke: rgb(0, 0, 0) !important;
-} 
+}  */
 
 .googleChart svg > g > g:last-child { 
     pointer-events: none !important;
