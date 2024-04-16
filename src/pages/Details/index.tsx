@@ -3,12 +3,14 @@ import { Link, Outlet } from "react-router-dom";
 import home from "@/css/Home.module.css";
 import { useState } from "react";
 
-type ContextType = { years: number, months: number };
+type ContextType = { years: number; months: number };
 
 const Details: React.FC<{
   detailsTranslateX: string;
   setDetailsTranslateX: Function;
-}> = ({ detailsTranslateX, setDetailsTranslateX }) => {
+  detailsHighlighted: string;
+  setDetailsHighlighted: Function;
+}> = ({ detailsTranslateX, setDetailsTranslateX, detailsHighlighted, setDetailsHighlighted }) => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
@@ -17,6 +19,22 @@ const Details: React.FC<{
   const handleDropDown = () => {
     setIsDropdown(!isDropdown);
   };
+
+  const handleDetailPay = () => {
+    setDetailsTranslateX("translateX(-102.5%)");
+    setDetailsHighlighted("yellow");
+  };
+
+  const handleDetailIncome = () => {
+    setDetailsTranslateX("translateX(0)");
+    setDetailsHighlighted("aqua");
+  };
+
+  const handleDetailRemainder = () => {
+    setDetailsTranslateX("translateX(102.5%)");
+    setDetailsHighlighted("lightCoral");
+  };
+
   return (
     <>
       <div className={details.space}></div>
@@ -26,23 +44,23 @@ const Details: React.FC<{
       <div className={details.navbarLayout}>
         <div
           className={details.triggerLink}
-          style={{ transform: detailsTranslateX }}
+          style={{ transform: detailsTranslateX, backgroundColor: detailsHighlighted }}
         ></div>
         <div className={details.navbarContainer}>
           <Link
-            onClick={() => setDetailsTranslateX("translateX(-102.5%)")}
+            onClick={handleDetailPay}
             to="pay"
           >
             支出
           </Link>
           <Link
-            onClick={() => setDetailsTranslateX("translateX(0)")}
+            onClick={handleDetailIncome}
             to="income"
           >
             收入
           </Link>
           <Link
-            onClick={() => setDetailsTranslateX("translateX(102.5%)")}
+            onClick={handleDetailRemainder}
             to="remainder"
           >
             結餘

@@ -2,10 +2,14 @@ import header from "@/css/Header.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Header: React.FC<{ setLogin: Function, setDetailsTranslateX: Function}> = ({ setLogin, setDetailsTranslateX }) => {
+const Header: React.FC<{
+  setLogin: Function;
+  setDetailsTranslateX: Function;
+  setDetailsHighlighted: Function;
+}> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
   const [sidebar, setSidebar] = useState(false);
 
-  const loginData = localStorage.getItem('loginData')
+  const loginData = localStorage.getItem("loginData");
 
   const handleLogout = () => {
     localStorage.removeItem("loginData");
@@ -15,6 +19,21 @@ const Header: React.FC<{ setLogin: Function, setDetailsTranslateX: Function}> = 
   const handleSidebar = () => {
     setSidebar(!sidebar);
   };
+
+  const handleDetailPay = () => {
+    setDetailsTranslateX("translateX(-102.5%)")
+    setDetailsHighlighted("yellow")
+  }
+
+  const handleDetailIncome = () => {
+    setDetailsTranslateX("translateX(0)")
+    setDetailsHighlighted("aqua")
+  }
+
+  const handleDetailRemainder = () => {
+    setDetailsTranslateX("translateX(102.5%)")
+    setDetailsHighlighted("lightCoral")
+  }
 
   return (
     <>
@@ -33,11 +52,28 @@ const Header: React.FC<{ setLogin: Function, setDetailsTranslateX: Function}> = 
           style={sidebar ? { transform: "translateX(0)" } : {}}
         >
           <div className={header.sidebarLayout}>
-            <h3 className={header.username}>Hello, {loginData && JSON.parse(loginData).name}</h3>
+            <h3 className={header.username}>
+              Hello, {loginData && JSON.parse(loginData).name}
+            </h3>
             <div className={header.sidebarContainer}>
-              <Link onClick={() => setDetailsTranslateX('translateX(-102.5%)') } to="details/pay">支出</Link>
-              <Link onClick={() => setDetailsTranslateX('translateX(0)') } to="details/income">收入</Link>
-              <Link onClick={() => setDetailsTranslateX('translateX(102.5%)') } to="details/remainder">結餘</Link>
+              <Link
+                onClick={handleDetailPay}
+                to="details/pay"
+              >
+                支出
+              </Link>
+              <Link
+                onClick={handleDetailIncome}
+                to="details/income"
+              >
+                收入
+              </Link>
+              <Link
+                onClick={handleDetailRemainder}
+                to="details/remainder"
+              >
+                結餘
+              </Link>
             </div>
           </div>
         </div>

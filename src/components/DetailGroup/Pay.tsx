@@ -9,7 +9,6 @@ type ContextType = { years: number; months: number };
 
 const Pay = () => {
   const { years, months } = useOutletContext<ContextType>();
-  const [categoryOfItems, setCategoryOfItems] = useState({})
   const [googleData, setGoogleData] = useState<(string | number)[][]>([])
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const Pay = () => {
           for (let i = 0; i < dayLength; i++) {
             items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          console.log(items)
+          // console.log(items)
           /*item category*/
           const itemTotals: { [key: string]: number } = {};
           items.forEach((item) => {
@@ -48,15 +47,12 @@ const Pay = () => {
           for(let i = 0; i < itemLength; i++){
             googleChartArray.push([Object.keys(itemTotals)[i], itemTotals[Object.keys(itemTotals)[i]]])
           }
-          console.log(itemTotals);
-          console.log(Object.keys(itemTotals))
-          console.log(...googleChartArray)
+          // console.log(itemTotals);
+          // console.log(Object.keys(itemTotals))
+          // console.log(googleChartArray)
           setGoogleData(googleChartArray)
-          // setCategoryOfItems(itemTotals)
         } else {
           // docSnap.data() will be undefined in this case
-          // setAllItemsOfMonth([]);
-          // setDays([]);
           console.log("No such document!");
         }
       })();

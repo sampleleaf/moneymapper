@@ -20,7 +20,6 @@
     position: absolute;
     width: 62.5px;
     height: 32px;
-    background-color: rgb(172, 245, 192);
     transition: transform 0.3s, background-color 0.3s;
 }
 
