@@ -30,13 +30,13 @@ const Home: React.FC = () => {
         if (docSnap.exists()) {
           // console.log(Object.keys(docSnap.data()));
           const dayLength = Object.keys(docSnap.data()).length;
-          const dayArray = [];
+          const items = [];
           for (let i = 0; i < dayLength; i++) {
-            dayArray.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
+            items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          // console.log(Object.keys(dayArray).length);
-          console.log(dayArray);
-          setAllItemsOfMonth(dayArray);
+          // console.log(Object.keys(items).length);
+          console.log(items);
+          setAllItemsOfMonth(items);
           setDays(Object.keys(docSnap.data()).reverse());
         } else {
           // docSnap.data() will be undefined in this case

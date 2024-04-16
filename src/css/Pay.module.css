@@ -1,9 +1,19 @@
 .googleChart{
     position: relative;
-    top: -15px;
+    top: 25px;
 }
 
 .googleChart > div{
     position: absolute;
     top: 0;
+}
+
+.googleChart svg > g > g:last-child { 
+    pointer-events: none !important;
+}
+
+@media screen and ( max-width : 417px ){
+    .googleChart{
+        top: calc(25px - ((417px - (100vw)) / 30) * 10);
+    }
 }

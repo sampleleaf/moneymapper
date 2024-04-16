@@ -93,7 +93,7 @@
 
 .googleChart {
     position: relative;
-    top: -105px;
+    top: -65px;
     height: 1px;
 }
 
@@ -125,7 +125,7 @@
 
 .monthRemainder{
     position: absolute;
-    top: 115px;
+    top: 153px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -137,7 +137,7 @@
     margin: 10px;
     row-gap: 10px;
     position: relative;
-    top: 220px;
+    top: 302px;
     z-index: 2;
 }
 
@@ -150,7 +150,7 @@
 .addItem{
     position: fixed;
     left: 50%;
-    top: 450px;
+    top: 500px;
     transform: translateX(-50%);
     border-radius: 50%;
 }
@@ -162,4 +162,16 @@
     transform: rotate(45deg);
     font-size: 40px;
     color: rgb(252, 103, 103);
+}
+
+@media screen and ( max-width : 417px ){
+    .googleChart{
+        top: calc(-65px - ((417px - (100vw)) / 30) * 10);
+    }
+    .monthRemainder{
+        top: calc(153px - ((417px - (100vw)) / 30) * 10);
+    }
+    .itemsByDayThisMonth{
+        top: calc(302px - ((417px - (100vw)) / 10) * 7);
+    }
 }

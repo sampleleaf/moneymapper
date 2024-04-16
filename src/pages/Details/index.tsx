@@ -1,9 +1,9 @@
 import details from "@/css/Details.module.css";
-import { Link, Outlet, useOutletContext } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import home from "@/css/Home.module.css";
 import { useState } from "react";
 
-type ContextType = { years: number };
+type ContextType = { years: number, months: number };
 
 const Details: React.FC<{
   detailsTranslateX: string;
@@ -87,7 +87,7 @@ const Details: React.FC<{
           ))}
         </div>
       </div>
-      <Outlet context={{ years } satisfies ContextType} />
+      <Outlet context={{ years, months } satisfies ContextType} />
     </>
   );
 };
