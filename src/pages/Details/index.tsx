@@ -1,6 +1,5 @@
 import details from '@/css/Details.module.css'
 import { Link, Outlet } from 'react-router-dom'
-import { useState } from 'react'
 
 const Details: React.FC<{ detailsTranslateX: string, setDetailsTranslateX: Function }> = ({ detailsTranslateX, setDetailsTranslateX }) => {
 

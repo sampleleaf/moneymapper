@@ -2,7 +2,6 @@ import React, { useState, memo } from "react";
 import {
   MapContainer,
   Marker,
-  Popup,
   TileLayer,
   useMapEvent,
   useMapEvents,
