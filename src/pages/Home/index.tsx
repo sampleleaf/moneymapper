@@ -82,11 +82,11 @@ const Home: React.FC = () => {
   ];
 
   const googleChartOptions = {
-    pieHole: 0.5,
+    pieHole: 0.4,
     is3D: false,
     legend: "none",
   };
-  
+
   return (
     <>
       <div className={home.container}>

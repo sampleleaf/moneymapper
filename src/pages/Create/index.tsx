@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import Budget from "@/components/Budget";
 import "react-calendar/dist/Calendar.css";
@@ -13,6 +14,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC = () => {
+  const navigate = useNavigate()
   const [value, onChange] = useState<Value>(new Date());
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
@@ -73,6 +75,8 @@ const Create: React.FC = () => {
           }),
         });
       }
+      alert("新增成功")
+      navigate("/")
     }
   };
 
@@ -105,6 +109,8 @@ const Create: React.FC = () => {
           }),
         });
       }
+      alert("新增成功")
+      navigate("/")
     }
   };
 
@@ -152,6 +158,7 @@ const Create: React.FC = () => {
               type="text"
               pattern="[0-9]*"
               title="請輸入數字"
+              placeholder="請輸入金額"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required

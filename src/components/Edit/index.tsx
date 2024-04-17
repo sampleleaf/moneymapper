@@ -78,6 +78,7 @@ const Edit: React.FC<{
           location: location || item.location,
         }),
       });
+      alert("編輯成功")
       setPopEdit(false);
     }
     setItemRemoved(true);
@@ -110,6 +111,7 @@ const Edit: React.FC<{
           location: location || item.location,
         }),
       });
+      alert("編輯成功")
       setPopEdit(false);
     }
     setItemRemoved(true);
