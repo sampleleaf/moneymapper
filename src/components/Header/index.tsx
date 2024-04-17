@@ -21,19 +21,22 @@ const Header: React.FC<{
   };
 
   const handleDetailPay = () => {
-    setDetailsTranslateX("translateX(-102.5%)")
-    setDetailsHighlighted("yellow")
-  }
+    setDetailsTranslateX("translateX(-102.5%)");
+    setDetailsHighlighted("yellow");
+    setSidebar(!sidebar);
+  };
 
   const handleDetailIncome = () => {
-    setDetailsTranslateX("translateX(0)")
-    setDetailsHighlighted("aqua")
-  }
+    setDetailsTranslateX("translateX(0)");
+    setDetailsHighlighted("aqua");
+    setSidebar(!sidebar);
+  };
 
   const handleDetailRemainder = () => {
-    setDetailsTranslateX("translateX(102.5%)")
-    setDetailsHighlighted("lightCoral")
-  }
+    setDetailsTranslateX("translateX(102.5%)");
+    setDetailsHighlighted("lightCoral");
+    setSidebar(!sidebar);
+  };
 
   return (
     <>
@@ -56,22 +59,13 @@ const Header: React.FC<{
               Hello, {loginData && JSON.parse(loginData).name}
             </h3>
             <div className={header.sidebarContainer}>
-              <Link
-                onClick={handleDetailPay}
-                to="details/pay"
-              >
+              <Link onClick={handleDetailPay} to="details/pay">
                 支出
               </Link>
-              <Link
-                onClick={handleDetailIncome}
-                to="details/income"
-              >
+              <Link onClick={handleDetailIncome} to="details/income">
                 收入
               </Link>
-              <Link
-                onClick={handleDetailRemainder}
-                to="details/remainder"
-              >
+              <Link onClick={handleDetailRemainder} to="details/remainder">
                 結餘
               </Link>
             </div>
