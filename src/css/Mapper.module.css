@@ -1,0 +1,87 @@
+.space{
+    padding-top: 52px;
+}
+
+.header{
+    width: 100%;
+    height: 50px;
+    display: grid;
+    align-items: center;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    position: relative;
+    top: 50px;
+}
+
+.icon{
+    height: 16px;
+}
+
+.choose{
+    width: 50%;
+    height: 35px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 6px;
+    position: relative;
+    font-weight: bold;
+}
+
+.choose div{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.triggerPage{
+    position: absolute;
+    width: 25%;
+    height: 35px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: background-color 0.3s, transform 0.3s;
+    right: 50%;
+}
+
+.vertical{
+    position: absolute;
+    width: 2px;
+    height: 35px;
+    background-color: black;
+}
+
+.description{
+    text-align: center;
+    font-weight: bold;
+    color: green;
+    margin-top: 50px;
+}
+
+.subTitle{
+    text-align: center;
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.unSelected{
+    text-align: center;
+    margin: 20px 0;
+}
+
+.unSelected img{
+    width: 120px;
+}
+
+.remind{
+    color: red;
+}

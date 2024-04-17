@@ -50,9 +50,9 @@ const Pay = () => {
               itemTotals[Object.keys(itemTotals)[i]],
             ]);
           }
-          // console.log(itemTotals);
+          console.log(itemTotals);
           // console.log(Object.keys(itemTotals))
-          console.log(googleChartArray);
+          // console.log(googleChartArray);
           setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case

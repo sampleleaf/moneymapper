@@ -80,12 +80,15 @@ const Header: React.FC<{
           <div className={header.title}>MoneyMapper</div>
         </Link>
         <div className={header.iconContainer}>
-          <i className="fa-solid fa-map-location-dot"></i>
+          <Link to="/mapper">
+            <i className="fa-solid fa-map-location-dot"></i>
+          </Link>
           <p onClick={handleLogout} className={header.logout}>
             登出
           </p>
         </div>
       </div>
+      <div className={header.space}></div>
     </>
   );
 };
