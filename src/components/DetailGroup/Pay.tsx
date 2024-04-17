@@ -56,18 +56,20 @@ const Pay = () => {
           setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case
-          setGoogleData([])
+          setGoogleData([]);
           console.log("No such document!");
         }
       })();
     }
   }, [years, months]);
 
-  const totalPay = googleData && googleData.reduce((acc, cur) => {
-    return acc + Number(cur[1])
-  }, 0)
+  const totalPay =
+    googleData &&
+    googleData.reduce((acc, cur) => {
+      return acc + Number(cur[1]);
+    }, 0);
 
-  const googleChartData = [["Major", "Degrees"], ...googleData];
+  const googleChartData = [["Major", "Degrees"], ["empty", 0], ...googleData];
 
   const googleChartOptions = {
     pieHole: 0.4,
@@ -90,17 +92,19 @@ const Pay = () => {
           <p>${totalPay}</p>
         </div>
       </div>
-      <ul className={pay.list}>
-        <li>
-          <p>消費明細</p>
-        </li>
-        {googleData.map(data => (
+      {googleData.length > 0 && (
+        <ul className={pay.list}>
           <li>
-            <p>{data[0]}</p>
-            <p>${data[1]}</p>
+            <p>消費明細</p>
           </li>
-        ))}
-      </ul>
+          {googleData.map((data) => (
+            <li key={data[0]}>
+              <p>{data[0]}</p>
+              <p>${data[1]}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };
