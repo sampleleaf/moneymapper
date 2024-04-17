@@ -67,6 +67,7 @@ const Details: React.FC<{
           </Link>
         </div>
       </div>
+      <div className={details.space2}></div>
       <div className={home.header}>
         <div className={home.dropdownTitle} onClick={handleDropDown}>
           <div>
