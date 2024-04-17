@@ -56,6 +56,7 @@ const Pay = () => {
           setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case
+          setGoogleData([])
           console.log("No such document!");
         }
       })();
