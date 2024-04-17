@@ -86,7 +86,7 @@ const Home: React.FC = () => {
     is3D: false,
     legend: "none",
   };
-
+  
   return (
     <>
       <div className={home.container}>

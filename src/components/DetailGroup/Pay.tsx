@@ -9,7 +9,7 @@ type ContextType = { years: number; months: number };
 
 const Pay = () => {
   const { years, months } = useOutletContext<ContextType>();
-  const [googleData, setGoogleData] = useState<(string | number)[][]>([])
+  const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -33,24 +33,27 @@ const Pay = () => {
           items.forEach((item) => {
             const itemName = item.item;
             const price = item.price;
-            if(price < 0){
+            if (price < 0) {
               if (itemName in itemTotals) {
                 itemTotals[itemName] += Math.abs(price);
               } else {
                 itemTotals[itemName] = Math.abs(price);
               }
-            }           
+            }
           });
           /*refactor for google charts*/
-          const itemLength = Object.keys(itemTotals).length
-          const googleChartArray = []
-          for(let i = 0; i < itemLength; i++){
-            googleChartArray.push([Object.keys(itemTotals)[i], itemTotals[Object.keys(itemTotals)[i]]])
+          const itemLength = Object.keys(itemTotals).length;
+          const googleChartArray = [];
+          for (let i = 0; i < itemLength; i++) {
+            googleChartArray.push([
+              Object.keys(itemTotals)[i],
+              itemTotals[Object.keys(itemTotals)[i]],
+            ]);
           }
           // console.log(itemTotals);
           // console.log(Object.keys(itemTotals))
-          // console.log(googleChartArray)
-          setGoogleData(googleChartArray)
+          console.log(googleChartArray);
+          setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case
           console.log("No such document!");
@@ -59,10 +62,11 @@ const Pay = () => {
     }
   }, [years, months]);
 
-  const googleChartData = [
-    ["Major", "Degrees"],
-    ...googleData
-  ];
+  const totalPay = googleData && googleData.reduce((acc, cur) => {
+    return acc + Number(cur[1])
+  }, 0)
+
+  const googleChartData = [["Major", "Degrees"], ...googleData];
 
   const googleChartOptions = {
     pieHole: 0.5,
@@ -80,11 +84,22 @@ const Pay = () => {
           data={googleChartData}
           options={googleChartOptions}
         />
+        <div className={pay.total}>
+          <p>總支出</p>
+          <p>${totalPay}</p>
+        </div>
       </div>
-      <div style={{ paddingTop: "600px" }}>
-        {years}
-        {months}
-      </div>
+      <ul className={pay.list}>
+        <li>
+          <p>消費明細</p>
+        </li>
+        {googleData.map(data => (
+          <li>
+            <p>{data[0]}</p>
+            <p>${data[1]}</p>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
