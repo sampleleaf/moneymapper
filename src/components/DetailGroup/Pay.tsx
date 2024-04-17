@@ -71,7 +71,7 @@ const Pay = () => {
   const googleChartOptions = {
     pieHole: 0.4,
     is3D: false,
-    legend: "none",
+    legend: "bottom",
   };
 
   return (

@@ -45,6 +45,6 @@
         top: calc(25px - ((417px - (100vw)) / 30) * 10);
     }
     .list{
-        margin-top: calc(405px - ((417px - (100vw)) / 10) * 7);
+        margin-top: calc(405px - ((417px - (100vw)) / 30) * 10);
     }
 }
