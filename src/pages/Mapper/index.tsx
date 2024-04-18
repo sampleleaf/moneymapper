@@ -68,7 +68,6 @@ const Mapper = () => {
 
   return (
     <>
-      <div className={mapper.space}></div>
       <div className={home.header}>
         <div className={home.dropdownTitle} onClick={handleDropDown}>
           <div>
