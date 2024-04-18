@@ -90,7 +90,7 @@ const Home: React.FC = () => {
       0: { color: "rgb(71,184,224)" },
       1: { color: "rgb(253,201,83)" },
     },
-    chartArea:{top:'5%', width:'90%', height:'90%'}
+    chartArea: { top: "5%", width: "90%", height: "90%" },
   };
 
   return (
@@ -169,7 +169,9 @@ const Home: React.FC = () => {
             data={googleChartData}
             options={googleChartOptions}
           />
-          {allItemsOfMonth.length < 1 && <div className={home.emptyChart}></div>}
+          {allItemsOfMonth.length < 1 && (
+            <div className={home.emptyChart}></div>
+          )}
           <div className={home.monthRemainder}>
             <p>月結餘</p>
             <p>${monthRemainder}</p>
@@ -192,7 +194,13 @@ const Home: React.FC = () => {
               />
             ))
           ) : (
-            <p>無記帳記錄</p>
+            <div className={home.unSelected}>
+              <img src="write.png" alt="write" />
+              <div className={home.remind}>
+                <p>{years}年{months}月無記帳記錄</p>
+              </div>
+              <p>點選底部按鈕記帳</p>
+            </div>
           )}
         </div>
       </div>

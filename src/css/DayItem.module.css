@@ -36,10 +36,16 @@
 .trash{
     margin-left: 5px;
     width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.trash svg{
+    width: 20px;
+    height: 20px;
 }
 
 .background{
