@@ -25,6 +25,7 @@ const Create: React.FC = () => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
   const [mapResult, setMapResult] = useState<string | undefined>('')
+  const [mapError, setMapError] = useState<string | undefined>('')
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -132,10 +133,10 @@ const Create: React.FC = () => {
             ) : (
               <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
             )}
-            <Map setMapResult={setMapResult} autoMap={autoMap} setLoadingLocation={setLoadingLocation} />
-            <div className={create.mapResult}>{mapResult ? <p>您的位置在<b>{mapResult}</b></p> : <p>您尚未選擇位置</p>}</div>
+            <Map setMapResult={setMapResult} autoMap={autoMap} setLoadingLocation={setLoadingLocation} setMapError={setMapError} />
+            <div className={create.mapResult}>{mapResult || mapError ? <p>您的位置：<b>{mapResult}{mapError}</b></p> : <p>您尚未選擇位置</p>}</div>
             <div className={create.mapButton}>
-              {loadingLocation ? <img src="loading.gif" alt="loading" /> : <button onClick={handleLocation}>確定</button>}
+              {loadingLocation ? <img src="loading.gif" alt="loading" /> : mapError ? "請選擇陸地或國家領海" : <button onClick={handleLocation}>確定</button>}
             </div>
           </div>
         </div>

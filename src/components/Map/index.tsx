@@ -8,13 +8,17 @@ import {
   Tooltip,
 } from "react-leaflet";
 
-const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocation: Function }> = memo(({ setMapResult, autoMap, setLoadingLocation }) => {
-
+const Map: React.FC<{
+  setMapResult: Function;
+  autoMap: boolean;
+  setLoadingLocation: Function;
+  setMapError: Function
+}> = memo(({ setMapResult, autoMap, setLoadingLocation, setMapError }) => {
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
     const map = useMapEvents({
       click() {
-        setLoadingLocation(true)
+        setLoadingLocation(true);
         map.locate();
       },
       async locationfound(e) {
@@ -29,10 +33,18 @@ const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocati
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
-          console.log(data.address.city || data.address.county);
-          setMapResult(data.address.city || data.address.county);
-          setLoadingLocation(false)
+          console.log(
+            data.address.city || data.address.county || data.address.country
+          );
+          setMapError("")
+          setMapResult(
+            data.address.city || data.address.county || `${data.address.country}領海`
+          );
+          setLoadingLocation(false);
         } catch (error) {
+          setMapResult("")
+          setMapError("偵測失效(請手動選擇)");
+          setLoadingLocation(false);
           console.error("Error fetching location:", error);
         }
       },
@@ -54,7 +66,7 @@ const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocati
   const ManualLocation = () => {
     const [position, setPosition] = useState(null);
     const map = useMapEvent("click", async (e) => {
-      setLoadingLocation(true)
+      setLoadingLocation(true);
       setPosition(e.latlng as any);
       map.flyTo(e.latlng, map.getZoom());
       try {
@@ -65,10 +77,19 @@ const Map: React.FC<{ setMapResult: Function, autoMap: boolean, setLoadingLocati
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data.address.city || data.address.county);
-        setMapResult(data.address.city || data.address.county);
-        setLoadingLocation(false)
+        console.log(data);
+        console.log(
+          data.address.city || data.address.county || data.address.country
+        );
+        setMapError("")
+        setMapResult(
+          data.address.city || data.address.county || `${data.address.country}領海`
+        );
+        setLoadingLocation(false);
       } catch (error) {
+        setMapResult("")
+        setMapError("海洋");
+        setLoadingLocation(false);
         console.error("Error fetching location:", error);
       }
     });

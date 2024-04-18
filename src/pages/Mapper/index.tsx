@@ -9,6 +9,7 @@ const Mapper = () => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
+  const [mapError, setMapError] = useState<string | undefined>("");
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
@@ -56,8 +57,8 @@ const Mapper = () => {
           setCategories(Object.keys(itemCategories));
         } else {
           // docSnap.data() will be undefined in this case
-          setCategories([])
-          setPriceOfCategories({})
+          setCategories([]);
+          setPriceOfCategories({});
           console.log("No such document!");
         }
       })();
@@ -130,6 +131,7 @@ const Mapper = () => {
           autoMap={autoMap}
           setLoadingLocation={setLoadingLocation}
           setMapResult={setMapResult}
+          setMapError={setMapError}
         />
       </div>
       {loadingLocation ? (
@@ -191,13 +193,18 @@ const Mapper = () => {
         ) : (
           <div className={mapper.unSelected}>
             <img src="write.png" alt="write" />
-            <p className={mapper.remind}>無記帳記錄</p>
+            <p className={mapper.remind}>
+              <p>{mapResult}</p>
+              <p>無記帳記錄</p>
+            </p>
           </div>
         )
       ) : (
         <div className={mapper.unSelected}>
           <img src="mapMarker.png" alt="mapMarker" />
-          <p className={mapper.remind}>您尚未選擇地點</p>
+          <p className={mapper.remind}>
+            {mapError ? "請選擇陸地或國家領海" : "您尚未選擇地點"}
+          </p>
         </div>
       )}
     </>
