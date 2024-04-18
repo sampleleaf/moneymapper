@@ -178,10 +178,10 @@ const Home: React.FC = () => {
           ) : (
             <p>無記帳記錄</p>
           )}
-          <Link className={home.addItem} to="/create">
-            <i className="fa-solid fa-circle-xmark"></i>
-          </Link>
         </div>
+        <Link className={home.addItem} to="/create">
+          <i className="fa-solid fa-plus"></i>
+        </Link>
       </div>
     </>
   );
