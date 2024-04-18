@@ -21,7 +21,7 @@ const Mapper = () => {
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
-    if (response !== null) {
+    if (response !== null && mapResult) {
       const data = JSON.parse(response);
       (async () => {
         const yearString = years.toString();
@@ -34,15 +34,12 @@ const Mapper = () => {
           for (let i = 0; i < dayLength; i++) {
             allItems.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          console.log(allItems);
+          // console.log(allItems);
           /*item category*/
-          if (!mapResult) {
-            return;
-          }
           const allItemsOfSameLocation = allItems.filter((item) => {
             return item.location === mapResult;
           });
-          console.log(allItemsOfSameLocation);
+          // console.log(allItemsOfSameLocation);
           const itemCategories: { [key: string]: number[] } = {};
           allItemsOfSameLocation.forEach((item) => {
             if (item.item in itemCategories) {
@@ -51,8 +48,8 @@ const Mapper = () => {
               itemCategories[item.item] = [item.price];
             }
           });
-          console.log(itemCategories);
-          console.log(Object.keys(itemCategories));
+          // console.log(itemCategories);
+          // console.log(Object.keys(itemCategories));
           setPriceOfCategories(itemCategories);
           setCategories(Object.keys(itemCategories));
         } else {
@@ -193,10 +190,10 @@ const Mapper = () => {
         ) : (
           <div className={mapper.unSelected}>
             <img src="write.png" alt="write" />
-            <p className={mapper.remind}>
+            <div className={mapper.remind}>
               <p>{mapResult}</p>
               <p>無記帳記錄</p>
-            </p>
+            </div>
           </div>
         )
       ) : (
