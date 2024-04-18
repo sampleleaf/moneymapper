@@ -5,6 +5,7 @@ import Budget from "@/components/Budget";
 import { db } from "@/utils/firebase";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Edit: React.FC<{
   item: {
@@ -79,7 +80,10 @@ const Edit: React.FC<{
           location: location || item.location,
         }),
       });
-      alert("編輯成功")
+      toast.success("編輯成功 !", {
+        theme: "dark",
+        position: "top-center"
+      });
       setPopEdit(false);
     }
     setItemRemoved(true);
@@ -112,7 +116,10 @@ const Edit: React.FC<{
           location: location || item.location,
         }),
       });
-      alert("編輯成功")
+      toast.success("編輯成功 !", {
+        theme: "dark",
+        position: "top-center"
+      });
       setPopEdit(false);
     }
     setItemRemoved(true);

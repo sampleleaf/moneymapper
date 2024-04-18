@@ -9,6 +9,7 @@ import {
   deleteField,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const DayItem: React.FC<{
   day: string;
@@ -79,6 +80,10 @@ const DayItem: React.FC<{
       }
       setItemRemoved(true);
       setRemindDelete(false);
+      toast.success("成功刪除 !", {
+        theme: "dark",
+        position: "top-center"
+      });
     }
   };
   return (

@@ -10,6 +10,9 @@ import Income from "@/components/DetailGroup/Income";
 import Remainder from "@/components/DetailGroup/Remainder";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import { Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<string | null>(
@@ -34,6 +37,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="mapper" element={<Mapper />} />
           </Routes>
+          <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>
       ) : (
         <Login setLogin={setLogin} />

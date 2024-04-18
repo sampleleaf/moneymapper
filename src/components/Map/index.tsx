@@ -1,4 +1,5 @@
 import React, { useState, memo } from "react";
+import { toast } from "react-toastify";
 import {
   MapContainer,
   Marker,
@@ -42,6 +43,10 @@ const Map: React.FC<{
           );
           setLoadingLocation(false);
         } catch (error) {
+          toast.error("偵測失敗，請改用手動選擇 !", {
+            theme: "dark",
+            position: "top-center"
+          });
           setMapResult("")
           setMapError("偵測失效(請手動選擇)");
           setLoadingLocation(false);
@@ -87,6 +92,10 @@ const Map: React.FC<{
         );
         setLoadingLocation(false);
       } catch (error) {
+        toast.warn("請選擇陸地或國家領海 !", {
+          theme: "dark",
+          position: "top-center"
+        });
         setMapResult("")
         setMapError("海洋");
         setLoadingLocation(false);

@@ -5,6 +5,7 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Calendar from "react-calendar";
 import Budget from "@/components/Budget";
 import "react-calendar/dist/Calendar.css";
@@ -76,7 +77,10 @@ const Create: React.FC = () => {
           }),
         });
       }
-      alert("新增成功")
+      toast.success("新增成功 !", {
+        theme: "dark",
+        position: "top-center"
+      });
       navigate("/")
     }
   };
@@ -110,7 +114,10 @@ const Create: React.FC = () => {
           }),
         });
       }
-      alert("新增成功")
+      toast.success("新增成功 !", {
+        theme: "dark",
+        position: "top-center"
+      });
       navigate("/")
     }
   };
