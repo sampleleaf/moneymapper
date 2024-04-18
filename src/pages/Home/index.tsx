@@ -16,6 +16,7 @@ const Home: React.FC = () => {
   >([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const [popEdit, setPopEdit] = useState<boolean>(false);
+  const [remindDelete, setRemindDelete] = useState<boolean>(false);
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
@@ -89,12 +90,21 @@ const Home: React.FC = () => {
       0: { color: "rgb(71,184,224)" },
       1: { color: "rgb(253,201,83)" },
     },
+    chartArea:{top:'5%', width:'90%', height:'90%'}
   };
 
   return (
     <>
+      <Link className={home.addItem} to="/create">
+        <i className="fa-solid fa-plus"></i>
+      </Link>
       <div className={home.container}>
-        <div className={home.header} style={popEdit ? { zIndex: "-1" } : {}}>
+        <div
+          className={home.header}
+          style={
+            popEdit ? { zIndex: "-1" } : remindDelete ? { zIndex: "2" } : {}
+          }
+        >
           <div className={home.dropdownTitle} onClick={handleDropDown}>
             <div>
               {years}年{months}月
@@ -117,6 +127,8 @@ const Home: React.FC = () => {
             isDropdown
               ? { transform: "translateY(0)" }
               : popEdit
+              ? { zIndex: "-1" }
+              : remindDelete
               ? { zIndex: "-1" }
               : {}
           }
@@ -173,15 +185,14 @@ const Home: React.FC = () => {
                 setItemRemoved={setItemRemoved}
                 popEdit={popEdit}
                 setPopEdit={setPopEdit}
+                remindDelete={remindDelete}
+                setRemindDelete={setRemindDelete}
               />
             ))
           ) : (
             <p>無記帳記錄</p>
           )}
         </div>
-        <Link className={home.addItem} to="/create">
-          <i className="fa-solid fa-plus"></i>
-        </Link>
       </div>
     </>
   );

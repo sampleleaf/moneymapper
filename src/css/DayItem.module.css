@@ -41,3 +41,12 @@
     align-items: center;
     cursor: pointer;
 }
+
+.background{
+    position: fixed;
+    width: calc(100vw - 17px);
+    height: 100vh;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: auto;
+}

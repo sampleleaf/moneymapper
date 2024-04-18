@@ -88,8 +88,6 @@
     margin-top: 50px;
     display: flex;
     justify-content: space-between;
-    position: relative;
-    z-index: 2;
     padding: 10px 10px 0;
 }
 
@@ -122,32 +120,21 @@
     background-color: rgb(71,184,224)
 }
 
-.googleChart {
+.googleChart{
     position: relative;
-    top: -65px;
 }
 
-.googleChart > div:first-child{
-    position: absolute;
-    top: 0;
-    z-index: 1;
+.googleChart div:first-child{
+    height: 273px !important;
 }
 
-/* .googleChart svg g:nth-child(3) > path:first-child{
-    fill: green !important;
-} 
+.googleChart div:first-child div{
+    height: 273px !important;
+}
 
-.googleChart svg g:nth-child(3):hover > path:nth-child(1){
-    fill: aqua !important;
-} 
-
-.googleChart svg g:nth-child(3) > path:nth-child(2){
-    stroke: rgb(223, 21, 234) !important;
-} 
-
-.googleChart svg g:nth-child(3):hover > path:nth-child(3){
-    stroke: rgb(0, 0, 0) !important;
-}  */
+.googleChart div div div div:nth-child(3){
+    height: 0 !important;
+}
 
 .googleChart svg > g > g:last-child { 
     pointer-events: none !important;
@@ -155,20 +142,16 @@
 
 .monthRemainder{
     position: absolute;
-    top: 200px;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 1;
 }
 
 .itemsByDayThisMonth{
     display: grid;
     margin: 10px;
     row-gap: 10px;
-    position: relative;
-    top: 302px;
-    z-index: 2;
 }
 
 .itemsByDayThisMonth > div{
@@ -185,7 +168,7 @@
     bottom: 10px;
     transform: translateX(-50%);
     border-radius: 50%;
-    z-index: 2;
+    z-index: 3;
     background-color: rgb(252, 103, 103);
     box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.7);
 }
@@ -198,13 +181,4 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: rgb(255, 255, 255);
-}
-
-@media screen and ( max-width : 417px ){
-    .googleChart{
-        top: calc(-65px - ((417px - (100vw)) / 30) * 10);
-    }
-    .itemsByDayThisMonth{
-        top: calc(302px - ((417px - (100vw)) / 10) * 7);
-    }
 }

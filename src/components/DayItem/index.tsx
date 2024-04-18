@@ -18,7 +18,9 @@ const DayItem: React.FC<{
   setItemRemoved: Function;
   popEdit: boolean;
   setPopEdit: Function;
-}> = ({ day, months, years, itemRemoved, setItemRemoved, popEdit, setPopEdit }) => {
+  remindDelete: boolean;
+  setRemindDelete: Function;
+}> = ({ day, months, years, itemRemoved, setItemRemoved, popEdit, setPopEdit, remindDelete, setRemindDelete }) => {
   const [items, setItems] = useState<{ id: string; item: string; price: number; location: string | undefined }[]>([]);
   const [popId, setPopId] = useState<string>("");
 
@@ -48,6 +50,12 @@ const DayItem: React.FC<{
     setPopEdit(true);
     setPopId(id);
   };
+
+  const handleDeleteRemind = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation()
+    setRemindDelete(true)
+    setPopId(id)
+  }
 
   const handleItemRemove = async (e: React.MouseEvent ,item: object, day: string) => {
     e.stopPropagation()
@@ -95,14 +103,16 @@ const DayItem: React.FC<{
                 )}
                 <div onClick={() => handleEdit(item.id)} className={dayItem.items}>
                   <div className={dayItem.item}>
-                    <p>{item.item}</p>
+                    <p style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}>{item.item}</p>
                   </div>
                   <p>${item.price}</p>
                   <div
-                    onClick={(e) => handleItemRemove(e, item, day)}
+                    // onClick={(e) => handleItemRemove(e, item, day)}
+                    onClick={(e) => handleDeleteRemind(e, item.id)}
                     className={dayItem.trash}
                   >
                     <i className="fa-regular fa-trash-can"></i>
+                    {remindDelete && popId === item.id && <div className={dayItem.background}>{item.id}</div>}
                   </div>
                 </div>
               </div>
