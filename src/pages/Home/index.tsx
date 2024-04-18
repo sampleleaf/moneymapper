@@ -85,6 +85,10 @@ const Home: React.FC = () => {
     pieHole: 0.4,
     is3D: false,
     legend: "none",
+    slices: {
+      0: { color: "rgb(71,184,224)" },
+      1: { color: "rgb(253,201,83)" },
+    },
   };
 
   return (
@@ -109,7 +113,13 @@ const Home: React.FC = () => {
         ></div>
         <div
           className={home.dropdownList}
-          style={isDropdown ? { transform: "translateY(0)" } : popEdit ? { zIndex: "-1" } : {}}
+          style={
+            isDropdown
+              ? { transform: "translateY(0)" }
+              : popEdit
+              ? { zIndex: "-1" }
+              : {}
+          }
         >
           <div className={home.selectYear}>
             <div onClick={() => setYears((prev) => prev - 1)}>
@@ -137,10 +147,6 @@ const Home: React.FC = () => {
             <p>月收入</p>
             <p>${monthIncome}</p>
           </div>
-          <div className={home.monthRemainder}>
-            <p>月結餘</p>
-            <p>${monthRemainder}</p>
-          </div>
         </div>
         <div className={home.googleChart}>
           <Chart
@@ -150,6 +156,10 @@ const Home: React.FC = () => {
             data={googleChartData}
             options={googleChartOptions}
           />
+          <div className={home.monthRemainder}>
+            <p>月結餘</p>
+            <p>${monthRemainder}</p>
+          </div>
         </div>
         <div className={home.itemsByDayThisMonth}>
           {Object.keys(days).length > 0 ? (

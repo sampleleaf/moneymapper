@@ -122,7 +122,7 @@ const Mapper = () => {
           <div onClick={() => setAutoMap(false)}>手動</div>
         </div>
       </div>
-      <p className={mapper.description}>點選地圖會顯示游標所在地區的平均消費</p>
+      <p className={mapper.description}>點選地圖會顯示標記所在地區的平均消費</p>
       <div style={isDropdown ? { position: "relative", zIndex: 2 } : {}}>
         <Map
           autoMap={autoMap}
@@ -192,7 +192,7 @@ const Mapper = () => {
             <img src="write.png" alt="write" />
             <div className={mapper.remind}>
               <p>{mapResult}</p>
-              <p>無記帳記錄</p>
+              <p>{years}年{months}月無記帳記錄</p>
             </div>
           </div>
         )

@@ -33,9 +33,9 @@ const Map: React.FC<{
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
-          console.log(
-            data.address.city || data.address.county || data.address.country
-          );
+          // console.log(
+          //   data.address.city || data.address.county || data.address.country
+          // );
           setMapError("")
           setMapResult(
             data.address.city || data.address.county || `${data.address.country}領海`
@@ -77,10 +77,10 @@ const Map: React.FC<{
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data);
-        console.log(
-          data.address.city || data.address.county || data.address.country
-        );
+        // console.log(data);
+        // console.log(
+        //   data.address.city || data.address.county || data.address.country
+        // );
         setMapError("")
         setMapResult(
           data.address.city || data.address.county || `${data.address.country}領海`

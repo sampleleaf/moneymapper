@@ -5,7 +5,8 @@
 .header{
     width: 100%;
     height: 50px;
-    background-color: bisque;
+    /* background-color: bisque; */
+    background-image: linear-gradient(180deg, rgb(236, 238, 255), rgb(251,241,232));
     text-align: center;
     display: flex;
     align-items: center;
@@ -42,7 +43,8 @@
     height: 125px;
     text-align: center;
     position: fixed;
-    background-color: rgb(128, 219, 71);
+    /* background-color: rgb(253,240,232); */
+    background-image: linear-gradient(180deg, rgb(253,240,232), rgb(244,218,224));
     z-index: 3;
     top: 102px;
     display: grid;
@@ -79,7 +81,9 @@
 }
 
 .selectMonth div:hover{
-    background-color: yellow;
+    background-color: rgb(236, 238, 255);
+    color: rgb(83, 100, 255);
+    border: 1px solid rgb(83, 100, 255);
 }
 
 .analyze{
@@ -88,7 +92,36 @@
     justify-content: space-between;
     position: relative;
     z-index: 2;
-    padding: 0 10px;
+    padding: 10px 10px 0;
+}
+
+.analyze div{
+    display: grid;
+    row-gap: 5px;
+    text-align: center;
+}
+
+.analyze div p:first-child{
+    position: relative;
+    font-weight: bold;
+}
+
+.analyze div p:first-child::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 5px;
+    border-radius: 4px;
+}
+
+.analyze div:nth-child(1) p:first-child::after{
+    background-color: rgb(253,201,83);
+}
+
+.analyze div:nth-child(2) p:first-child::after{
+    background-color: rgb(71,184,224)
 }
 
 .googleChart {
@@ -96,7 +129,7 @@
     top: -65px;
 }
 
-.googleChart > div{
+.googleChart > div:first-child{
     position: absolute;
     top: 0;
     z-index: 1;
@@ -124,9 +157,9 @@
 
 .monthRemainder{
     position: absolute;
-    top: 153px;
+    top: 200px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     text-align: center;
     z-index: 1;
 }
@@ -166,9 +199,6 @@
 @media screen and ( max-width : 417px ){
     .googleChart{
         top: calc(-65px - ((417px - (100vw)) / 30) * 10);
-    }
-    .monthRemainder{
-        top: calc(153px - ((417px - (100vw)) / 30) * 10);
     }
     .itemsByDayThisMonth{
         top: calc(302px - ((417px - (100vw)) / 10) * 7);
