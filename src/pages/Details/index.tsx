@@ -32,12 +32,11 @@ const Details: React.FC<{
 
   const handleDetailRemainder = () => {
     setDetailsTranslateX("translateX(102.5%)");
-    setDetailsHighlighted("lightCoral");
+    setDetailsHighlighted("rgb(248, 199, 199)");
   };
 
   return (
     <>
-      <div className={details.space}></div>
       <Link to=".." className={details.back}>
         <i className="fa-solid fa-chevron-left"></i>
       </Link>
@@ -67,7 +66,7 @@ const Details: React.FC<{
           </Link>
         </div>
       </div>
-      <div className={details.space2}></div>
+      <div className={details.space}></div>
       <div className={home.header}>
         <div className={home.dropdownTitle} onClick={handleDropDown}>
           <div>
@@ -106,6 +105,7 @@ const Details: React.FC<{
           ))}
         </div>
       </div>
+      <div className={details.space}></div>
       <Outlet context={{ years, months } satisfies ContextType} />
     </>
   );
