@@ -93,3 +93,7 @@
 .logout:hover{
     background-color: rgb(87, 87, 87);
 }
+
+.space{
+    height: 52px;
+}

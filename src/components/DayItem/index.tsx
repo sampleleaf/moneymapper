@@ -78,6 +78,7 @@ const DayItem: React.FC<{
         });
       }
       setItemRemoved(true);
+      setRemindDelete(false);
     }
   };
   return (
@@ -101,6 +102,18 @@ const DayItem: React.FC<{
                 {popEdit && popId === item.id && (
                   <Edit item={item} setPopEdit={setPopEdit} setItemRemoved={setItemRemoved} years={years} months={months} day={day} />
                 )}
+                {remindDelete && popId === item.id && (
+                  <div onClick={() => setRemindDelete(false)} className={dayItem.background}>
+                    <div onClick={e => e.stopPropagation()} className={dayItem.remindWindow}>
+                      <p>系統通知</p>
+                      <p>請問您確定要刪除此筆<b>{item.item}</b>記錄</p>
+                      <div className={dayItem.deleteChoice}>
+                        <p onClick={() => setRemindDelete(false)}>取消</p>
+                        <p onClick={(e) => handleItemRemove(e, item, day)}>確認刪除</p>
+                      </div>
+                    </div>       
+                  </div>
+                )}
                 <div onClick={() => handleEdit(item.id)} className={dayItem.items}>
                   <div className={dayItem.item}>
                     <p style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}>{item.item}</p>
@@ -112,7 +125,6 @@ const DayItem: React.FC<{
                     className={dayItem.trash}
                   >
                     <i className="fa-regular fa-trash-can"></i>
-                    {remindDelete && popId === item.id && <div className={dayItem.background}>{item.id}</div>}
                   </div>
                 </div>
               </div>

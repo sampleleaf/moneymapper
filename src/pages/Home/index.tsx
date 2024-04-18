@@ -102,7 +102,7 @@ const Home: React.FC = () => {
         <div
           className={home.header}
           style={
-            popEdit ? { zIndex: "-1" } : remindDelete ? { zIndex: "2" } : {}
+            popEdit ? { zIndex: "-1" } : remindDelete ? { zIndex: "-1" } : {}
           }
         >
           <div className={home.dropdownTitle} onClick={handleDropDown}>
@@ -117,6 +117,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
+        <div className={home.space}></div>
         <div
           onClick={handleDropDown}
           className={isDropdown ? home.dropdownLayout : ""}
@@ -127,9 +128,9 @@ const Home: React.FC = () => {
             isDropdown
               ? { transform: "translateY(0)" }
               : popEdit
-              ? { zIndex: "-1" }
+              ? { zIndex: "-2" }
               : remindDelete
-              ? { zIndex: "-1" }
+              ? { zIndex: "-2" }
               : {}
           }
         >

@@ -75,6 +75,7 @@ const Pay = () => {
     pieHole: 0.4,
     is3D: false,
     legend: "bottom",
+    chartArea:{top:'10%', width:'80%', height:'80%'}
   };
 
   return (
