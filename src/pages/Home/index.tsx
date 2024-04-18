@@ -83,7 +83,7 @@ const Home: React.FC = () => {
   ];
 
   const googleChartOptions = {
-    pieHole: 0.4,
+    pieHole: 0.5,
     is3D: false,
     legend: "none",
     slices: {
@@ -169,6 +169,7 @@ const Home: React.FC = () => {
             data={googleChartData}
             options={googleChartOptions}
           />
+          {allItemsOfMonth.length < 1 && <div className={home.emptyChart}></div>}
           <div className={home.monthRemainder}>
             <p>月結餘</p>
             <p>${monthRemainder}</p>

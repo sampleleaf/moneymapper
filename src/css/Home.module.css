@@ -139,12 +139,30 @@
     pointer-events: none !important;
 }
 
+.emptyChart{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 246px;
+    height: 246px;
+    background-color: rgb(99, 99, 99);
+    border-radius: 50%;
+}
+
 .monthRemainder{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 123px;
+    height: 123px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .itemsByDayThisMonth{
