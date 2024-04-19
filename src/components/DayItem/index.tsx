@@ -22,7 +22,7 @@ const DayItem: React.FC<{
   remindDelete: boolean;
   setRemindDelete: Function;
 }> = ({ day, months, years, itemRemoved, setItemRemoved, popEdit, setPopEdit, remindDelete, setRemindDelete }) => {
-  const [items, setItems] = useState<{ id: string; item: string; src: string; price: number; location: string | undefined }[]>([]);
+  const [items, setItems] = useState<{ id: string; item: string; src: string; note: string; price: number; location: string | undefined }[]>([]);
   const [popId, setPopId] = useState<string>("");
 
   useEffect(() => {
@@ -122,7 +122,7 @@ const DayItem: React.FC<{
                 <div onClick={() => handleEdit(item.id)} className={dayItem.items}>
                   <div className={dayItem.item}>
                     <img src={item.src} alt={item.src} />
-                    <p /*style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}*/>{item.item}</p>
+                    <p /*style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}*/>{item.note || item.item}</p>
                   </div>
                   <p>${item.price}</p>
                   <div

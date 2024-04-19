@@ -15,20 +15,21 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [value, onChange] = useState<Value>(new Date());
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState<string>("早餐");
-  const [paySrc, setPaySrc] = useState<string>("breakfast.png")
+  const [paySrc, setPaySrc] = useState<string>("breakfast.png");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
-  const [incomeSrc, setIncomeSrc] = useState<string>("salary.png")
+  const [incomeSrc, setIncomeSrc] = useState<string>("salary.png");
+  const [itemNote, setItemNote] = useState<string>("");
   const [payPage, setPayPage] = useState<boolean>(true);
   const [autoMap, setAutoMap] = useState<boolean>(true);
-  const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
-  const [mapResult, setMapResult] = useState<string | undefined>('')
-  const [mapError, setMapError] = useState<string | undefined>('')
+  const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
+  const [mapResult, setMapResult] = useState<string | undefined>("");
+  const [mapError, setMapError] = useState<string | undefined>("");
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -40,15 +41,14 @@ const Create: React.FC = () => {
 
   const handleClearLocation = () => {
     setLocation("");
-    setMapResult("")
+    setMapResult("");
   };
-
 
   const handleLocation = () => {
     // setMapResult(location)
-    setLocation(mapResult)
-    setMapWindow(false)
-  }
+    setLocation(mapResult);
+    setMapWindow(false);
+  };
 
   const handlePaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,6 +66,7 @@ const Create: React.FC = () => {
             id: uuidv4(),
             item: payItem,
             src: paySrc,
+            note: itemNote,
             price: -parseInt(price),
             location: location,
           }),
@@ -76,6 +77,7 @@ const Create: React.FC = () => {
             id: uuidv4(),
             item: payItem,
             src: paySrc,
+            note: itemNote,
             price: -parseInt(price),
             location: location,
           }),
@@ -83,9 +85,9 @@ const Create: React.FC = () => {
       }
       toast.success("新增成功 !", {
         theme: "dark",
-        position: "top-center"
+        position: "top-center",
       });
-      navigate("/")
+      navigate("/");
     }
   };
 
@@ -105,6 +107,7 @@ const Create: React.FC = () => {
             id: uuidv4(),
             item: incomeItem,
             src: incomeSrc,
+            note: itemNote,
             price: parseInt(price),
             location: location,
           }),
@@ -115,6 +118,7 @@ const Create: React.FC = () => {
             id: uuidv4(),
             item: incomeItem,
             src: incomeSrc,
+            note: itemNote,
             price: parseInt(price),
             location: location,
           }),
@@ -122,33 +126,66 @@ const Create: React.FC = () => {
       }
       toast.success("新增成功 !", {
         theme: "dark",
-        position: "top-center"
+        position: "top-center",
       });
-      navigate("/")
+      navigate("/");
     }
   };
 
   return (
     <>
       {mapWindow && (
-        <div className={create.mapSpace} onClick={handleCloseMapWindow} >
-          <div className={create.mapFrame} onClick={e => e.stopPropagation()} >
+        <div className={create.mapSpace} onClick={handleCloseMapWindow}>
+          <div className={create.mapFrame} onClick={(e) => e.stopPropagation()}>
             <div onClick={handleCloseMapWindow} className={create.cross}>
               <i className="fa-solid fa-xmark"></i>
             </div>
             <div className={create.selectMap}>
-              <div onClick={() => setAutoMap(true)} style={autoMap ? { opacity: "1" } : {}}>自動偵測</div>
-              <div onClick={() => setAutoMap(false)} style={autoMap ? {} : { opacity: "1" }}>手動選擇</div>
+              <div
+                onClick={() => setAutoMap(true)}
+                style={autoMap ? { opacity: "1" } : {}}
+              >
+                自動偵測
+              </div>
+              <div
+                onClick={() => setAutoMap(false)}
+                style={autoMap ? {} : { opacity: "1" }}
+              >
+                手動選擇
+              </div>
             </div>
             {autoMap ? (
               <div className={create.hint}>點選地圖會自動偵測您的位置</div>
             ) : (
               <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
             )}
-            <Map setMapResult={setMapResult} autoMap={autoMap} setLoadingLocation={setLoadingLocation} setMapError={setMapError} />
-            <div className={create.mapResult}>{mapResult || mapError ? <p>您的位置：<b>{mapResult}{mapError}</b></p> : <p>您尚未選擇位置</p>}</div>
+            <Map
+              setMapResult={setMapResult}
+              autoMap={autoMap}
+              setLoadingLocation={setLoadingLocation}
+              setMapError={setMapError}
+            />
+            <div className={create.mapResult}>
+              {mapResult || mapError ? (
+                <p>
+                  您的位置：
+                  <b>
+                    {mapResult}
+                    {mapError}
+                  </b>
+                </p>
+              ) : (
+                <p>您尚未選擇位置</p>
+              )}
+            </div>
             <div className={create.mapButton}>
-              {loadingLocation ? <img src="loading.gif" alt="loading" /> : mapError ? "請選擇陸地或國家領海" : <button onClick={handleLocation}>確定</button>}
+              {loadingLocation ? (
+                <img src="loading.gif" alt="loading" />
+              ) : mapError ? (
+                "請選擇陸地或國家領海"
+              ) : (
+                <button onClick={handleLocation}>確定</button>
+              )}
             </div>
           </div>
         </div>
@@ -168,7 +205,12 @@ const Create: React.FC = () => {
         <div className={create.item}>
           <div className={create.iconAndMoney}>
             {/* <label htmlFor="icon">{payPage ? payItem : incomeItem}</label> */}
-            <label htmlFor="icon"><img src={payPage ? paySrc : incomeSrc} alt={payPage ? paySrc : incomeSrc} /></label>
+            <label htmlFor="icon">
+              <img
+                src={payPage ? paySrc : incomeSrc}
+                alt={payPage ? paySrc : incomeSrc}
+              />
+            </label>
             <input
               id="icon"
               type="text"
@@ -182,7 +224,12 @@ const Create: React.FC = () => {
           </div>
           <div></div>
           <div>
-            <input type="text" placeholder="在此輸入備註" />
+            <input
+              type="text"
+              placeholder="可輸入備註"
+              value={itemNote}
+              onChange={(e) => setItemNote(e.target.value)}
+            />
           </div>
         </div>
         <div className={create.locationLayout}>

@@ -14,6 +14,7 @@ const Edit: React.FC<{
     price: number;
     item: string;
     src: string;
+    note: string;
   };
   setPopEdit: Function;
   setItemRemoved: Function;
@@ -25,14 +26,17 @@ const Edit: React.FC<{
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>(item.location);
   const [payItem, setPayItem] = useState<string>("");
-  const [paySrc, setPaySrc] = useState<string>("")
+  const [paySrc, setPaySrc] = useState<string>("");
   const [incomeItem, setIncomeItem] = useState<string>("");
-  const [incomeSrc, setIncomeSrc] = useState<string>("")
-  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
+  const [incomeSrc, setIncomeSrc] = useState<string>("");
+  const [itemNote, setItemNote] = useState<string>(item.note);
+  const [payPage, setPayPage] = useState<boolean>(
+    item.price < 0 ? true : false
+  );
   const [autoMap, setAutoMap] = useState<boolean>(true);
-  const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
-  const [mapResult, setMapResult] = useState<string | undefined>('')
-  const [mapError, setMapError] = useState<string | undefined>('')
+  const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
+  const [mapResult, setMapResult] = useState<string | undefined>("");
+  const [mapError, setMapError] = useState<string | undefined>("");
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -44,15 +48,14 @@ const Edit: React.FC<{
 
   const handleClearLocation = () => {
     setLocation("");
-    setMapResult("")
+    setMapResult("");
   };
-
 
   const handleLocation = () => {
     // setMapResult(location)
-    setLocation(mapResult)
-    setMapWindow(false)
-  }
+    setLocation(mapResult);
+    setMapWindow(false);
+  };
 
   const handlePaySubmit = async (
     e: React.FormEvent,
@@ -62,6 +65,7 @@ const Edit: React.FC<{
       price: number;
       item: string;
       src: string;
+      note: string;
     }
   ) => {
     e.preventDefault();
@@ -79,13 +83,14 @@ const Edit: React.FC<{
           id: item.id,
           item: payItem || item.item,
           src: paySrc || item.src,
+          note: itemNote || item.item,
           price: -parseInt(price) || -Math.abs(item.price),
           location: location || item.location,
         }),
       });
       toast.success("編輯成功 !", {
         theme: "dark",
-        position: "top-center"
+        position: "top-center",
       });
       setPopEdit(false);
     }
@@ -100,6 +105,7 @@ const Edit: React.FC<{
       price: number;
       item: string;
       src: string;
+      note: string;
     }
   ) => {
     e.preventDefault();
@@ -117,13 +123,14 @@ const Edit: React.FC<{
           id: item.id,
           item: incomeItem || item.item,
           src: incomeSrc || item.src,
+          note: itemNote || item.item,
           price: parseInt(price) || Math.abs(item.price),
           location: location || item.location,
         }),
       });
       toast.success("編輯成功 !", {
         theme: "dark",
-        position: "top-center"
+        position: "top-center",
       });
       setPopEdit(false);
     }
@@ -136,30 +143,68 @@ const Edit: React.FC<{
       className={edit.background}
     >
       <div className={edit.container}>
-      {mapWindow && (
-        <div className={create.mapSpace} onClick={handleCloseMapWindow} >
-          <div className={create.mapFrame} onClick={e => e.stopPropagation()} >
-            <div onClick={handleCloseMapWindow} className={create.cross}>
-              <i className="fa-solid fa-xmark"></i>
-            </div>
-            <div className={create.selectMap}>
-              <div onClick={() => setAutoMap(true)} style={autoMap ? { opacity: "1" } : {}}>自動偵測</div>
-              <div onClick={() => setAutoMap(false)} style={autoMap ? {} : { opacity: "1" }}>手動選擇</div>
-            </div>
-            {autoMap ? (
-              <div className={create.hint}>點選地圖會自動偵測您的位置</div>
-            ) : (
-              <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
-            )}
-            <Map setMapResult={setMapResult} autoMap={autoMap} setLoadingLocation={setLoadingLocation} setMapError={setMapError} />
-            <div className={create.mapResult}>{mapResult || mapError ? <p>您的位置：<b>{mapResult}{mapError}</b></p> : <p>您尚未選擇位置</p>}</div>
-            <div className={create.mapButton}>
-              {loadingLocation ? <img src="loading.gif" alt="loading" /> : mapError ? "請選擇陸地或國家領海" : <button onClick={handleLocation}>確定</button>}
+        {mapWindow && (
+          <div className={create.mapSpace} onClick={handleCloseMapWindow}>
+            <div
+              className={create.mapFrame}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div onClick={handleCloseMapWindow} className={create.cross}>
+                <i className="fa-solid fa-xmark"></i>
+              </div>
+              <div className={create.selectMap}>
+                <div
+                  onClick={() => setAutoMap(true)}
+                  style={autoMap ? { opacity: "1" } : {}}
+                >
+                  自動偵測
+                </div>
+                <div
+                  onClick={() => setAutoMap(false)}
+                  style={autoMap ? {} : { opacity: "1" }}
+                >
+                  手動選擇
+                </div>
+              </div>
+              {autoMap ? (
+                <div className={create.hint}>點選地圖會自動偵測您的位置</div>
+              ) : (
+                <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
+              )}
+              <Map
+                setMapResult={setMapResult}
+                autoMap={autoMap}
+                setLoadingLocation={setLoadingLocation}
+                setMapError={setMapError}
+              />
+              <div className={create.mapResult}>
+                {mapResult || mapError ? (
+                  <p>
+                    您的位置：
+                    <b>
+                      {mapResult}
+                      {mapError}
+                    </b>
+                  </p>
+                ) : (
+                  <p>您尚未選擇位置</p>
+                )}
+              </div>
+              <div className={create.mapButton}>
+                {loadingLocation ? (
+                  <img src="loading.gif" alt="loading" />
+                ) : mapError ? (
+                  "請選擇陸地或國家領海"
+                ) : (
+                  <button onClick={handleLocation}>確定</button>
+                )}
+              </div>
             </div>
           </div>
+        )}
+        <div className={edit.previous} onClick={() => setPopEdit(false)}>
+          <i className="fa-solid fa-chevron-left"></i>
         </div>
-      )}
-        <div className={edit.previous} onClick={() => setPopEdit(false)}><i className="fa-solid fa-chevron-left"></i></div>
         <Budget
           payPage={payPage}
           setPayPage={setPayPage}
@@ -181,7 +226,18 @@ const Edit: React.FC<{
                 {payPage ? payItem || (item.price < 0 ? item.item : '早餐') : incomeItem || (item.price > 0 ? item.item : '薪水')}
               </label> */}
               <label htmlFor="icon">
-                <img src={payPage ? paySrc || (item.price < 0 ? item.src : "breakfast.png") : incomeSrc || (item.price > 0 ? item.src : 'salary.png')} alt={payPage ? paySrc || (item.price < 0 ? item.src : "breakfast.png") : incomeSrc || (item.price > 0 ? item.src : 'salary.png')} />
+                <img
+                  src={
+                    payPage
+                      ? paySrc || (item.price < 0 ? item.src : "breakfast.png")
+                      : incomeSrc || (item.price > 0 ? item.src : "salary.png")
+                  }
+                  alt={
+                    payPage
+                      ? paySrc || (item.price < 0 ? item.src : "breakfast.png")
+                      : incomeSrc || (item.price > 0 ? item.src : "salary.png")
+                  }
+                />
               </label>
               <input
                 id="icon"
@@ -195,7 +251,12 @@ const Edit: React.FC<{
             </div>
             <div></div>
             <div>
-              <input type="text" placeholder="在此輸入備註" />
+              <input
+                type="text"
+                placeholder="在此輸入備註"
+                value={itemNote}
+                onChange={(e) => setItemNote(e.target.value)}
+              />
             </div>
           </div>
           <div className={create.locationLayout}>
