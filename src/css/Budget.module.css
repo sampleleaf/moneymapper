@@ -54,7 +54,7 @@
 }
 
 .iconList{
-    height: 205px;
+    /* height: 205px; */
     /* overflow: auto; */
     padding: 20px 30px;
     display: grid;
@@ -64,15 +64,19 @@
 }
 
 .iconList div{
-    padding: 10px 0;
     display: grid;
+    justify-items: center;
     align-items: center;
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.iconList div svg{
+.iconList img{
+    width: 30px;
+    height: 30px;
+}
+/* .iconList div svg{
     font-size: 20px;
     justify-self: center;
-}
+} */

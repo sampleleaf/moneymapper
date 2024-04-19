@@ -21,7 +21,9 @@ const Create: React.FC = () => {
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState<string>("早餐");
+  const [paySrc, setPaySrc] = useState<string>("breakfast.png")
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
+  const [incomeSrc, setIncomeSrc] = useState<string>("salary.png")
   const [payPage, setPayPage] = useState<boolean>(true);
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
@@ -124,7 +126,6 @@ const Create: React.FC = () => {
 
   return (
     <>
-      <div className={create.space}></div>
       {mapWindow && (
         <div className={create.mapSpace} onClick={handleCloseMapWindow} >
           <div className={create.mapFrame} onClick={e => e.stopPropagation()} >
@@ -155,12 +156,15 @@ const Create: React.FC = () => {
         payPage={payPage}
         setPayPage={setPayPage}
         setPayItem={setPayItem}
+        setPaySrc={setPaySrc}
         setIncomeItem={setIncomeItem}
+        setIncomeSrc={setIncomeSrc}
       />
       <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
         <div className={create.item}>
           <div className={create.iconAndMoney}>
-            <label htmlFor="icon">{payPage ? payItem : incomeItem}</label>
+            {/* <label htmlFor="icon">{payPage ? payItem : incomeItem}</label> */}
+            <label htmlFor="icon"><img src={payPage ? paySrc : incomeSrc} alt={payPage ? paySrc : incomeSrc} /></label>
             <input
               id="icon"
               type="text"
