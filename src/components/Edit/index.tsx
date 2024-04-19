@@ -13,6 +13,7 @@ const Edit: React.FC<{
     location: string | undefined;
     price: number;
     item: string;
+    src: string;
   };
   setPopEdit: Function;
   setItemRemoved: Function;
@@ -24,10 +25,10 @@ const Edit: React.FC<{
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>(item.location);
   const [payItem, setPayItem] = useState<string>("");
+  const [paySrc, setPaySrc] = useState<string>("")
   const [incomeItem, setIncomeItem] = useState<string>("");
-  const [payPage, setPayPage] = useState<boolean>(
-    item.price < 0 ? true : false
-  );
+  const [incomeSrc, setIncomeSrc] = useState<string>("")
+  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false)
   const [mapResult, setMapResult] = useState<string | undefined>('')
@@ -60,6 +61,7 @@ const Edit: React.FC<{
       location: string | undefined;
       price: number;
       item: string;
+      src: string;
     }
   ) => {
     e.preventDefault();
@@ -76,6 +78,7 @@ const Edit: React.FC<{
         [day]: arrayUnion({
           id: item.id,
           item: payItem || item.item,
+          src: paySrc || item.src,
           price: -parseInt(price) || -Math.abs(item.price),
           location: location || item.location,
         }),
@@ -96,6 +99,7 @@ const Edit: React.FC<{
       location: string | undefined;
       price: number;
       item: string;
+      src: string;
     }
   ) => {
     e.preventDefault();
@@ -112,6 +116,7 @@ const Edit: React.FC<{
         [day]: arrayUnion({
           id: item.id,
           item: incomeItem || item.item,
+          src: incomeSrc || item.src,
           price: parseInt(price) || Math.abs(item.price),
           location: location || item.location,
         }),
@@ -159,7 +164,9 @@ const Edit: React.FC<{
           payPage={payPage}
           setPayPage={setPayPage}
           setPayItem={setPayItem}
+          setPaySrc={setPaySrc}
           setIncomeItem={setIncomeItem}
+          setIncomeSrc={setIncomeSrc}
         />
         <form
           onSubmit={
@@ -170,8 +177,11 @@ const Edit: React.FC<{
         >
           <div className={create.item}>
             <div className={create.iconAndMoney}>
-              <label htmlFor="icon">
+              {/* <label htmlFor="icon">
                 {payPage ? payItem || (item.price < 0 ? item.item : '早餐') : incomeItem || (item.price > 0 ? item.item : '薪水')}
+              </label> */}
+              <label htmlFor="icon">
+                <img src={payPage ? paySrc || (item.price < 0 ? item.src : "breakfast.png") : incomeSrc || (item.price > 0 ? item.src : 'salary.png')} alt={payPage ? paySrc || (item.price < 0 ? item.src : "breakfast.png") : incomeSrc || (item.price > 0 ? item.src : 'salary.png')} />
               </label>
               <input
                 id="icon"

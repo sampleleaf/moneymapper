@@ -24,13 +24,19 @@
 .items{
     display: flex;
     align-items: center;
-    padding: 5px 0;
+    padding: 2px 0;
 }
 
 .item{
     display: flex;
-    column-gap: 10px;
+    column-gap: 8px;
     margin-right: auto;
+    align-items: center;
+}
+
+.item img{
+    width: 30px;
+    height: 30px;
 }
 
 .trash{

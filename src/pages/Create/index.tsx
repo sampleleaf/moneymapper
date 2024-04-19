@@ -65,6 +65,7 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: payItem,
+            src: paySrc,
             price: -parseInt(price),
             location: location,
           }),
@@ -74,6 +75,7 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: payItem,
+            src: paySrc,
             price: -parseInt(price),
             location: location,
           }),
@@ -102,6 +104,7 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: incomeItem,
+            src: incomeSrc,
             price: parseInt(price),
             location: location,
           }),
@@ -111,6 +114,7 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: incomeItem,
+            src: incomeSrc,
             price: parseInt(price),
             location: location,
           }),
