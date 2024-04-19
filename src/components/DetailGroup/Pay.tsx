@@ -27,7 +27,7 @@ const Pay = () => {
           for (let i = 0; i < dayLength; i++) {
             items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          // console.log(items)
+          console.log(items)
           /*item category*/
           const itemTotals: { [key: string]: number } = {};
           items.forEach((item) => {
@@ -52,7 +52,7 @@ const Pay = () => {
           }
           console.log(itemTotals);
           // console.log(Object.keys(itemTotals))
-          // console.log(googleChartArray);
+          console.log(googleChartArray);
           setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case

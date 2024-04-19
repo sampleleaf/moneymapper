@@ -21,9 +21,7 @@ const Create: React.FC = () => {
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
   const [payItem, setPayItem] = useState<string>("早餐");
-  const [paySrc, setPaySrc] = useState<string>("breakfast.png");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
-  const [incomeSrc, setIncomeSrc] = useState<string>("salary.png");
   const [itemNote, setItemNote] = useState<string>("");
   const [payPage, setPayPage] = useState<boolean>(true);
   const [autoMap, setAutoMap] = useState<boolean>(true);
@@ -65,7 +63,6 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: payItem,
-            src: paySrc,
             note: itemNote,
             price: -parseInt(price),
             location: location,
@@ -76,7 +73,6 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: payItem,
-            src: paySrc,
             note: itemNote,
             price: -parseInt(price),
             location: location,
@@ -106,7 +102,6 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: incomeItem,
-            src: incomeSrc,
             note: itemNote,
             price: parseInt(price),
             location: location,
@@ -117,7 +112,6 @@ const Create: React.FC = () => {
           [day]: arrayUnion({
             id: uuidv4(),
             item: incomeItem,
-            src: incomeSrc,
             note: itemNote,
             price: parseInt(price),
             location: location,
@@ -197,9 +191,7 @@ const Create: React.FC = () => {
         payPage={payPage}
         setPayPage={setPayPage}
         setPayItem={setPayItem}
-        setPaySrc={setPaySrc}
         setIncomeItem={setIncomeItem}
-        setIncomeSrc={setIncomeSrc}
       />
       <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
         <div className={create.item}>
@@ -207,8 +199,8 @@ const Create: React.FC = () => {
             {/* <label htmlFor="icon">{payPage ? payItem : incomeItem}</label> */}
             <label htmlFor="icon">
               <img
-                src={payPage ? paySrc : incomeSrc}
-                alt={payPage ? paySrc : incomeSrc}
+                src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
+                alt={payPage ? payItem : incomeItem}
               />
             </label>
             <input
