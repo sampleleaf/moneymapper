@@ -75,7 +75,7 @@ const Income = () => {
     pieHole: 0.4,
     is3D: false,
     legend: "bottom",
-    chartArea:{top:'10%', width:'80%', height:'80%'}
+    chartArea: { top: "10%", width: "80%", height: "80%" },
   };
 
   return (
@@ -100,7 +100,10 @@ const Income = () => {
           </li>
           {googleData.map((data) => (
             <li key={data[0]}>
-              <p>{data[0]}</p>
+              <div className={pay.item}>
+                <img src={`../${data[0]}.png`} alt={`${data[0]}`} />
+                <p>{data[0]}</p>
+              </div>
               <p>${data[1]}</p>
             </li>
           ))}
