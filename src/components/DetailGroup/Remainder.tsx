@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import pay from '@/css/Pay.module.css'
+import detailGroup from "@/css/DetailGroup.module.css";
 
 type ContextType = { years: number; months: number };
 
@@ -93,7 +93,7 @@ const Remainder = () => {
 
   return (
     <>
-      <div className={`${pay.googleChart} ${pay.lineChart}`}>
+      <div className={`${detailGroup.googleChart} ${detailGroup.lineChart}`}>
         <Chart
           chartType="LineChart"
           width="100%"
@@ -103,13 +103,13 @@ const Remainder = () => {
         />
       </div>
       {googleData.length > 0 && (
-        <ul className={pay.list}>
+        <ul className={detailGroup.list}>
           <li>
             <p>日結餘</p>
           </li>
           {googleData.map((data) => (
             <li key={data[0]}>
-              <div className={pay.item}>
+              <div className={detailGroup.item}>
                 <p>{data[0]}</p>
               </div>
               <p>${data[3]}</p>
