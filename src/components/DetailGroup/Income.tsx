@@ -84,7 +84,7 @@ const Income = () => {
         <Chart
           chartType="PieChart"
           width="100%"
-          height="400px"
+          height="273px"
           data={googleChartData}
           options={googleChartOptions}
         />
@@ -96,7 +96,7 @@ const Income = () => {
           <p>${totalPay}</p>
         </div>
       </div>
-      {googleData.length > 0 && (
+      {googleData.length > 0 ? (
         <ul className={detailGroup.list}>
           <li>
             <p>消費明細</p>
@@ -111,6 +111,15 @@ const Income = () => {
             </li>
           ))}
         </ul>
+      ) : (
+        <div className={detailGroup.unSelected}>
+          <img src="../write.png" alt="write" />
+          <div className={detailGroup.remind}>
+            <p>
+              {years}年{months}月無記帳記錄
+            </p>
+          </div>
+        </div>
       )}
     </>
   );

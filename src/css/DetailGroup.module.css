@@ -4,13 +4,13 @@
     height: 273px;
 }
 
-.googleChart div:first-child{
+/* .googleChart div:first-child{
     height: 273px !important;
 }
 
 .googleChart div:first-child div{
     height: 273px !important;
-}
+} */
 
 /* .googleChart div div div div:nth-child(3){
     height: 0 !important;
@@ -77,4 +77,19 @@
 .item img{
     width: 30px;
     height: 30px;
+}
+
+.unSelected{
+    border: none !important;
+    padding: 0 !important;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.unSelected img{
+    width: 120px;
+}
+
+.remind{
+    color: red;
 }

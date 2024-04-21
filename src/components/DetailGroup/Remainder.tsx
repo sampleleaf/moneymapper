@@ -63,6 +63,7 @@ const Remainder = () => {
           setGoogleData(googleArray);
         } else {
           // docSnap.data() will be undefined in this case
+          setGoogleData([]);
           console.log("No such document!");
         }
       })();
@@ -78,9 +79,9 @@ const Remainder = () => {
     series: {
       0: { color: "rgb(71,184,224)" },
       1: { color: "rgb(253,201,83)" },
-      2: { color: 'rgb(254,116,113)'}
-      },
-      
+      2: { color: "rgb(254,116,113)" },
+    },
+
     tooltip: { trigger: "focus" },
     focusTarget: "category",
     pointSize: "5",
@@ -93,29 +94,42 @@ const Remainder = () => {
 
   return (
     <>
-      <div className={`${detailGroup.googleChart} ${detailGroup.lineChart}`}>
-        <Chart
-          chartType="LineChart"
-          width="100%"
-          height="400px"
-          data={googleChartData}
-          options={googleChartOptions}
-        />
-      </div>
-      {googleData.length > 0 && (
-        <ul className={detailGroup.list}>
-          <li>
-            <p>日結餘</p>
-          </li>
-          {googleData.map((data) => (
-            <li key={data[0]}>
-              <div className={detailGroup.item}>
-                <p>{data[0]}</p>
-              </div>
-              <p>${data[3]}</p>
+      {googleData.length > 0 ? (
+        <div>
+          <div
+            className={`${detailGroup.googleChart} ${detailGroup.lineChart}`}
+          >
+            <Chart
+              chartType="LineChart"
+              width="100%"
+              height="273px"
+              data={googleChartData}
+              options={googleChartOptions}
+            />
+          </div>
+          <ul className={detailGroup.list}>
+            <li>
+              <p>日結餘</p>
             </li>
-          ))}
-        </ul>
+            {googleData.map((data) => (
+              <li key={data[0]}>
+                <div className={detailGroup.item}>
+                  <p>{data[0]}</p>
+                </div>
+                <p>${data[3]}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className={detailGroup.unSelected}>
+          <img src="../write.png" alt="write" />
+          <div className={detailGroup.remind}>
+            <p>
+              {years}年{months}月無記帳記錄
+            </p>
+          </div>
+        </div>
       )}
     </>
   );

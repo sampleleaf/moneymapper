@@ -148,7 +148,7 @@
     height: 273px;
 }
 
-.googleChart div:first-child{
+/* .googleChart div:first-child{
     height: 273px !important;
 }
 
@@ -158,7 +158,7 @@
 
 .googleChart div div div div:nth-child(3){
     height: 0 !important;
-}
+} */
 
 .googleChart svg > g > g:last-child { 
     pointer-events: none !important;

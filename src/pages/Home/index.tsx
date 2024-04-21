@@ -165,7 +165,7 @@ const Home: React.FC = () => {
           <Chart
             chartType="PieChart"
             width="100%"
-            height="400px"
+            height="273px"
             data={googleChartData}
             options={googleChartOptions}
           />
