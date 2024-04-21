@@ -27,7 +27,7 @@ const Pay = () => {
           for (let i = 0; i < dayLength; i++) {
             items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          console.log(items)
+          console.log(items);
           /*item category*/
           const itemTotals: { [key: string]: number } = {};
           items.forEach((item) => {
@@ -72,10 +72,10 @@ const Pay = () => {
   const googleChartData = [["Major", "Degrees"], ["empty", 0], ...googleData];
 
   const googleChartOptions = {
-    pieHole: 0.4,
+    pieHole: 0.5,
     is3D: false,
     legend: "bottom",
-    chartArea:{top:'10%', width:'80%', height:'80%'}
+    chartArea: { top: "10%", width: "80%", height: "80%" },
   };
 
   return (
@@ -88,6 +88,9 @@ const Pay = () => {
           data={googleChartData}
           options={googleChartOptions}
         />
+        {googleData.length < 1 && (
+          <div className={detailGroup.emptyDonut}></div>
+        )}
         <div className={detailGroup.total}>
           <p>總支出</p>
           <p>${totalPay}</p>

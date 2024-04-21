@@ -72,7 +72,7 @@ const Income = () => {
   const googleChartData = [["Major", "Degrees"], ["empty", 0], ...googleData];
 
   const googleChartOptions = {
-    pieHole: 0.4,
+    pieHole: 0.5,
     is3D: false,
     legend: "bottom",
     chartArea: { top: "10%", width: "80%", height: "80%" },
@@ -88,6 +88,9 @@ const Income = () => {
           data={googleChartData}
           options={googleChartOptions}
         />
+        {googleData.length < 1 && (
+          <div className={detailGroup.emptyDonut}></div>
+        )}
         <div className={detailGroup.total}>
           <p>總收入</p>
           <p>${totalPay}</p>
