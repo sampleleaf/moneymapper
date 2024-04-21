@@ -14,8 +14,12 @@
     height: 0 !important;
 }
 
-.googleChart svg > g > g:last-child { 
+.googleChart svg > g:last-child { 
     pointer-events: none !important;
+}
+
+.lineChart div div div div div svg g{
+    pointer-events: none;
 }
 
 .total{

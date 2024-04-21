@@ -32,7 +32,7 @@ const Details: React.FC<{
 
   const handleDetailRemainder = () => {
     setDetailsTranslateX("translateX(102.5%)");
-    setDetailsHighlighted("rgb(248, 199, 199)");
+    setDetailsHighlighted("rgb(254,116,113)");
   };
 
   return (
