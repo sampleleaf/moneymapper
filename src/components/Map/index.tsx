@@ -1,4 +1,4 @@
-import React, { useState, memo, useEffect } from "react";
+import React, { useState, memo } from "react";
 import { toast } from "react-toastify";
 import {
   MapContainer,
@@ -7,7 +7,6 @@ import {
   useMapEvent,
   useMapEvents,
   Tooltip,
-  GeoJSON
 } from "react-leaflet";
 
 const Map: React.FC<{
@@ -18,12 +17,12 @@ const Map: React.FC<{
 }> = memo(({ setMapResult, autoMap, setLoadingLocation, setMapError }) => {
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
-    const [geoResult, setGeoResult] = useState(null)
+    // const [geoResult, setGeoResult] = useState(null)
 
-    useEffect(() => {
-      console.log(geoResult)
-      setGeoResult(null)
-    }, [position])
+    // useEffect(() => {
+    //   console.log(geoResult)
+    //   setGeoResult(null)
+    // }, [position])
 
     const map = useMapEvents({
       click() {
@@ -42,20 +41,17 @@ const Map: React.FC<{
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
-          const dataAdress = data.address.city || data.address.county || data.address.country
-          const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${encodeURIComponent(dataAdress)}`);
-          const geoData = await geoResponse.json();
-          if (geoData.length > 0 && geoData[0].geojson) {
-              setGeoResult(geoData[0].geojson);
-          } else {
-              console.error('無法找到指定縣市的邊界數據');
-          }
-          // console.log(
-          //   data.address.city || data.address.county || data.address.country
-          // );
+          // const dataAdress = data.address.city || data.address.county || data.address.country
+          // const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${encodeURIComponent(dataAdress)}`);
+          // const geoData = await geoResponse.json();
+          // if (geoData.length > 0 && geoData[0].geojson) {
+          //     setGeoResult(geoData[0].geojson);
+          // } else {
+          //     console.error('無法找到指定縣市的邊界數據');
+          // }
           setMapError("")
           setMapResult(
-            data.address.city || data.address.county || `${data.address.country}`
+            data.address.city || data.address.county || `${data.address.country}領海`
           );
           setLoadingLocation(false);
         } catch (error) {
@@ -75,7 +71,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You are here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'red' }} />}
+          {/* {geoResult && <GeoJSON data={geoResult} style={{ color: 'red' }} />} */}
         </Marker>
       </>
     );
@@ -83,12 +79,12 @@ const Map: React.FC<{
 
   const ManualLocation = () => {
     const [position, setPosition] = useState(null);
-    const [geoResult, setGeoResult] = useState(null)
+    // const [geoResult, setGeoResult] = useState(null)
 
-    useEffect(() => {
-      console.log(geoResult)
-      setGeoResult(null)
-    }, [position])
+    // useEffect(() => {
+    //   console.log(geoResult)
+    //   setGeoResult(null)
+    // }, [position])
 
     const map = useMapEvent("click", async (e) => {
       setLoadingLocation(true);
@@ -102,19 +98,14 @@ const Map: React.FC<{
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data);
-        const dataAdress = data.address.city || data.address.county || data.address.country
-        const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${encodeURIComponent(dataAdress)}`);
-        const geoData = await geoResponse.json();
-        console.log(geoData)
-        if (geoData.length > 0 && geoData[0].geojson) {
-            setGeoResult(geoData[0].geojson);
-        } else {
-            console.error('無法找到指定縣市的邊界數據');
-        }
-        // console.log(
-        //   data.address.city || data.address.county || data.address.country
-        // );
+        // const dataAdress = data.address.city || data.address.county || data.address.country
+        // const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${encodeURIComponent(dataAdress)}`);
+        // const geoData = await geoResponse.json();
+        // if (geoData.length > 0 && geoData[0].geojson) {
+        //     setGeoResult(geoData[0].geojson);
+        // } else {
+        //     console.error('無法找到指定縣市的邊界數據');
+        // }
         setMapError("")
         setMapResult(
           data.address.city || data.address.county || `${data.address.country}領海`
@@ -135,7 +126,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You select here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'red' }} />}
+          {/* {geoResult && <GeoJSON data={geoResult} style={{ color: 'red' }} />} */}
         </Marker>
       </>
     );
