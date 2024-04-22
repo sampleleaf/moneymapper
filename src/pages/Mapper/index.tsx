@@ -2,6 +2,7 @@ import Map from "@/components/Map";
 import mapper from "@/css/Mapper.module.css";
 import home from "@/css/Home.module.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -68,6 +69,9 @@ const Mapper = () => {
 
   return (
     <>
+      <Link to=".." className={mapper.back}>
+        <i className="fa-solid fa-chevron-left"></i>
+      </Link>
       <div className={home.header}>
         <div className={home.dropdownTitle} onClick={handleDropDown}>
           <div>
@@ -191,7 +195,9 @@ const Mapper = () => {
             <img src="write.png" alt="write" />
             <div className={mapper.remind}>
               <p>{mapResult}</p>
-              <p>{years}年{months}月無記帳記錄</p>
+              <p>
+                {years}年{months}月無記帳記錄
+              </p>
             </div>
           </div>
         )

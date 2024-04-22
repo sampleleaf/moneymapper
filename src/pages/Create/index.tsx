@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Calendar from "react-calendar";
 import Budget from "@/components/Budget";
@@ -187,6 +187,9 @@ const Create: React.FC = () => {
       <div className={create.calendar}>
         <Calendar onChange={onChange} value={value} />
       </div>
+      <Link to=".." className={create.back}>
+        <i className="fa-solid fa-chevron-left"></i>
+      </Link>
       <Budget
         payPage={payPage}
         setPayPage={setPayPage}

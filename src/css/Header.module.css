@@ -1,6 +1,6 @@
 .sidebarBackground{
     position: fixed;
-    z-index: 1001;
+    z-index: 1010;
     background-color: rgba(0, 0, 0, 0);
     width: 100%;
     height: 100vh;

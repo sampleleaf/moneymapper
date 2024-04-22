@@ -90,6 +90,20 @@
     font-weight: bold;
 }
 
+.back{
+    position: absolute;
+    height: 20px;
+    top: 349px;
+    left: 15px;
+    color: black;
+    z-index: 5;
+}
+
+.back svg{
+    width: 20px;
+    height: 20px;
+}
+
 .item{
     display: grid;
     grid-template-columns: 49% 2% 49%;
