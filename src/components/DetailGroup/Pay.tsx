@@ -27,7 +27,7 @@ const Pay = () => {
           for (let i = 0; i < dayLength; i++) {
             items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          console.log(items);
+          // console.log(items);
           /*item category*/
           const itemTotals: { [key: string]: number } = {};
           items.forEach((item) => {
@@ -50,9 +50,9 @@ const Pay = () => {
               itemTotals[Object.keys(itemTotals)[i]],
             ]);
           }
-          console.log(itemTotals);
+          // console.log(itemTotals);
           // console.log(Object.keys(itemTotals))
-          console.log(googleChartArray);
+          // console.log(googleChartArray);
           setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case
@@ -99,7 +99,7 @@ const Pay = () => {
       {googleData.length > 0 ? (
         <ul className={detailGroup.list}>
           <li>
-            <p>消費明細</p>
+            <p>項目支出</p>
           </li>
           {googleData.map((data) => (
             <li key={data[0]}>

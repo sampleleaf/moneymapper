@@ -36,7 +36,7 @@ const Home: React.FC = () => {
             items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
           // console.log(Object.keys(items).length);
-          console.log(items);
+          // console.log(items);
           setAllItemsOfMonth(items);
           setDays(Object.keys(docSnap.data()).reverse());
         } else {

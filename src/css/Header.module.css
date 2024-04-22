@@ -58,6 +58,10 @@
     cursor: pointer;
 }
 
+.bar svg{
+    padding: 0 5px;
+}
+
 .container svg{
     font-size: 20px;
 }

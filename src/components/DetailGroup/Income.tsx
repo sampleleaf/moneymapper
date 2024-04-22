@@ -52,7 +52,7 @@ const Income = () => {
           }
           // console.log(itemTotals);
           // console.log(Object.keys(itemTotals))
-          console.log(googleChartArray);
+          // console.log(googleChartArray);
           setGoogleData(googleChartArray);
         } else {
           // docSnap.data() will be undefined in this case
@@ -99,7 +99,7 @@ const Income = () => {
       {googleData.length > 0 ? (
         <ul className={detailGroup.list}>
           <li>
-            <p>消費明細</p>
+            <p>項目收入</p>
           </li>
           {googleData.map((data) => (
             <li key={data[0]}>

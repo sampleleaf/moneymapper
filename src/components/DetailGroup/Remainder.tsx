@@ -29,8 +29,8 @@ const Remainder = () => {
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          console.log(docSnap.data());
-          console.log(Object.keys(docSnap.data()));
+          // console.log(docSnap.data());
+          // console.log(Object.keys(docSnap.data()));
           const dayLength = Object.keys(docSnap.data()).length;
           const googleArray = [];
           for (let i = 0; i < dayLength; i++) {
@@ -59,7 +59,7 @@ const Remainder = () => {
             ]);
             // console.log(docSnap.data()[Object.keys(docSnap.data())[i]])
           }
-          console.log(googleArray);
+          // console.log(googleArray);
           setGoogleData(googleArray);
         } else {
           // docSnap.data() will be undefined in this case
