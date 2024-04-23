@@ -74,7 +74,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You are here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'red' }} />}
+          {geoResult && <GeoJSON data={geoResult} style={{ color: 'orange' }} />}
         </Marker>
       </>
     );
@@ -131,7 +131,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You select here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'red' }} />}
+          {geoResult && <GeoJSON data={geoResult} style={{ color: 'orange' }} />}
         </Marker>
       </>
     );
@@ -142,7 +142,7 @@ const Map: React.FC<{
       {autoMap ? (
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
-          zoom={6}
+          zoom={7}
           // scrollWheelZoom={false}
         >
           <TileLayer
@@ -154,7 +154,7 @@ const Map: React.FC<{
       ) : (
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
-          zoom={6}
+          zoom={7}
           // scrollWheelZoom={false}
         >
           <TileLayer
