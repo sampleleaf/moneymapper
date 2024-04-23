@@ -17,13 +17,14 @@ const DayItem: React.FC<{
   years: number;
   itemRemoved: boolean;
   setItemRemoved: Function;
+  popId: string;
+  setPopId: Function;
   popEdit: boolean;
   setPopEdit: Function;
   remindDelete: boolean;
   setRemindDelete: Function;
-}> = ({ day, months, years, itemRemoved, setItemRemoved, popEdit, setPopEdit, remindDelete, setRemindDelete }) => {
+}> = ({ day, months, years, itemRemoved, setItemRemoved, popId, setPopId, popEdit, setPopEdit, remindDelete, setRemindDelete }) => {
   const [items, setItems] = useState<{ id: string; item: string; src: string; note: string; price: number; location: string | undefined }[]>([]);
-  const [popId, setPopId] = useState<string>("");
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -105,7 +106,7 @@ const DayItem: React.FC<{
             {items.map((item) => (
               <div key={item.id}>
                 {popEdit && popId === item.id && (
-                  <Edit item={item} setPopEdit={setPopEdit} setItemRemoved={setItemRemoved} years={years} months={months} day={day} />
+                  <Edit item={item} setPopEdit={setPopEdit} setItemRemoved={setItemRemoved} setPopId={setPopId} years={years} months={months} day={day} />
                 )}
                 {remindDelete && popId === item.id && (
                   <div onClick={() => setRemindDelete(false)} className={dayItem.background}>

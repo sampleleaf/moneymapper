@@ -216,3 +216,32 @@
 .remind{
     color: red;
 }
+
+@media screen and ( min-width : 768px ){
+    .container{
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+    .filtergridArea{
+        grid-area: 1 / 2 / 2 / 3;
+    }
+    .header{
+        position: static;
+    }
+    .space{
+        display: none;
+    }
+    .dropdownLayout{
+        display: none;
+    }
+    .noLayout{
+        display: none;
+    }
+    .dropdown{
+        display: none;
+    }
+    .dropdownList{
+        position: static;
+        transform: translateY(0);
+    }
+}

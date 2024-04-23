@@ -17,6 +17,7 @@ const Home: React.FC = () => {
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const [popEdit, setPopEdit] = useState<boolean>(false);
   const [remindDelete, setRemindDelete] = useState<boolean>(false);
+  const [popId, setPopId] = useState<string>("");
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
@@ -99,82 +100,86 @@ const Home: React.FC = () => {
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>
-        <div
-          className={home.header}
-          style={
-            popEdit ? { zIndex: "-1" } : remindDelete ? { zIndex: "-1" } : {}
-          }
-        >
-          <div className={home.dropdownTitle} onClick={handleDropDown}>
-            <div>
-              {years}年{months}月
-            </div>
-            <div
-              className={home.dropdown}
-              style={isDropdown ? { transform: "rotate(180deg)" } : {}}
-            >
-              <i className="fa-solid fa-caret-up"></i>
-            </div>
-          </div>
-        </div>
-        <div className={home.space}></div>
-        <div
-          onClick={handleDropDown}
-          className={isDropdown ? home.dropdownLayout : ""}
-        ></div>
-        <div
-          className={home.dropdownList}
-          style={
-            isDropdown
-              ? { transform: "translateY(0)" }
-              : popEdit
-              ? { zIndex: "-2" }
-              : remindDelete
-              ? { zIndex: "-2" }
-              : {}
-          }
-        >
-          <div className={home.selectYear}>
-            <div onClick={() => setYears((prev) => prev - 1)}>
-              <i className="fa-solid fa-caret-left"></i>
-            </div>
-            <p>{years}</p>
-            <div onClick={() => setYears((prev) => prev + 1)}>
-              <i className="fa-solid fa-caret-right"></i>
-            </div>
-          </div>
-          <div className={home.selectMonth}>
-            {defaultMonth.map((month) => (
-              <div onClick={() => setMonths(month)} key={month}>
-                {month}月
+        <div className={home.filtergridArea}>
+          <div
+            className={home.header}
+            style={
+              popEdit ? { zIndex: "-1" } : remindDelete ? { zIndex: "-1" } : {}
+            }
+          >
+            <div className={home.dropdownTitle} onClick={handleDropDown}>
+              <div>
+                {years}年{months}月
               </div>
-            ))}
+              <div
+                className={home.dropdown}
+                style={isDropdown ? { transform: "rotate(180deg)" } : {}}
+              >
+                <i className="fa-solid fa-caret-up"></i>
+              </div>
+            </div>
+          </div>
+          <div className={home.space}></div>
+          <div
+            onClick={handleDropDown}
+            className={isDropdown ? home.dropdownLayout : home.noLayout}
+          ></div>
+          <div
+            className={home.dropdownList}
+            style={
+              isDropdown
+                ? { transform: "translateY(0)" }
+                : popEdit
+                ? { zIndex: "-2" }
+                : remindDelete
+                ? { zIndex: "-2" }
+                : {}
+            }
+          >
+            <div className={home.selectYear}>
+              <div onClick={() => setYears((prev) => prev - 1)}>
+                <i className="fa-solid fa-caret-left"></i>
+              </div>
+              <p>{years}</p>
+              <div onClick={() => setYears((prev) => prev + 1)}>
+                <i className="fa-solid fa-caret-right"></i>
+              </div>
+            </div>
+            <div className={home.selectMonth}>
+              {defaultMonth.map((month) => (
+                <div onClick={() => setMonths(month)} key={month}>
+                  {month}月
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className={home.analyze}>
-          <div>
-            <p>月支出</p>
-            <p>${Math.abs(monthPay)}</p>
+        <div>
+          <div className={home.analyze}>
+            <div>
+              <p>月支出</p>
+              <p>${Math.abs(monthPay)}</p>
+            </div>
+            <div>
+              <p>月收入</p>
+              <p>${monthIncome}</p>
+            </div>
           </div>
-          <div>
-            <p>月收入</p>
-            <p>${monthIncome}</p>
-          </div>
-        </div>
-        <div className={home.googleChart}>
-          <Chart
-            chartType="PieChart"
-            width="100%"
-            height="273px"
-            data={googleChartData}
-            options={googleChartOptions}
-          />
-          {allItemsOfMonth.length < 1 && (
-            <div className={home.emptyChart}></div>
-          )}
-          <div className={home.monthRemainder}>
-            <p>月結餘</p>
-            <p>${monthRemainder}</p>
+          <div className={home.googleChart}>
+            <Chart
+              chartType="PieChart"
+              width="100%"
+              height="273px"
+              data={googleChartData}
+              options={googleChartOptions}
+            />
+            {allItemsOfMonth.length < 1 && (
+              <div className={home.emptyChart}></div>
+            )}
+            <div className={home.monthRemainder}>
+              <p>月結餘</p>
+              <p>${monthRemainder}</p>
+            </div>
           </div>
         </div>
         <div className={home.itemsByDayThisMonth}>
@@ -187,6 +192,8 @@ const Home: React.FC = () => {
                 years={years}
                 itemRemoved={itemRemoved}
                 setItemRemoved={setItemRemoved}
+                popId={popId}
+                setPopId={setPopId}
                 popEdit={popEdit}
                 setPopEdit={setPopEdit}
                 remindDelete={remindDelete}
@@ -197,7 +204,9 @@ const Home: React.FC = () => {
             <div className={home.unSelected}>
               <img src="write.png" alt="write" />
               <div className={home.remind}>
-                <p>{years}年{months}月無記帳記錄</p>
+                <p>
+                  {years}年{months}月無記帳記錄
+                </p>
               </div>
               <p>點選底部按鈕記帳</p>
             </div>
