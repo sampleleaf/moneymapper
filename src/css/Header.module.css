@@ -17,7 +17,7 @@
 }
 
 .sidebarLayout{
-    padding: 0 32px;
+    padding: 0 22px;
 }
 
 .cross{
@@ -36,7 +36,7 @@
 
 .username{
     font-size: 24px;
-    padding: 81px 0;
+    padding: 81px 10px;
 }
 
 .sidebarContainer{
@@ -48,12 +48,22 @@
 .sidebarContainer a{
     color: black;
     font-size: 18px;
-    padding: 5px 10px;
     border-radius: 8px;
+    padding: 5px 10px;
 }
 
 .sidebarContainer a:hover{
     background-color: rgb(200, 200, 200);
+}
+
+.sidebarContainer a div{
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.sidebarContainer a div img{
+    width: 35px;
 }
 
 .container{

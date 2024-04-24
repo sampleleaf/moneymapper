@@ -55,22 +55,36 @@ const Header: React.FC<{
           style={sidebar ? { transform: "translateX(0)" } : {}}
         >
           <div className={header.sidebarLayout}>
-            <div className={header.cross} onClick={() => setSidebar(false)} ><i className="fa-solid fa-xmark"></i></div>
+            <div className={header.cross} onClick={() => setSidebar(false)}>
+              <i className="fa-solid fa-xmark"></i>
+            </div>
             <h3 className={header.username}>
               Hello, {loginData && JSON.parse(loginData).name}
             </h3>
             <div className={header.sidebarContainer}>
               <Link onClick={handleDetailPay} to="details/pay">
-                支出
+                <div>
+                  <img src="pay.png" alt="pay" />
+                  <p>支出</p>
+                </div>
               </Link>
               <Link onClick={handleDetailIncome} to="details/income">
-                收入
+                <div>
+                  <img src="income.png" alt="income" />
+                  <p>收入</p>
+                </div>
               </Link>
               <Link onClick={handleDetailRemainder} to="details/remainder">
-                結餘
+                <div>
+                  <img src="remainder.png" alt="remainder" />
+                  <p>支出</p>
+                </div>
               </Link>
               <Link to="mapper">
-                地區平均收支
+                <div>
+                  <img src="map.png" alt="map" />
+                  <p>地區收支</p>
+                </div>
               </Link>
             </div>
           </div>
