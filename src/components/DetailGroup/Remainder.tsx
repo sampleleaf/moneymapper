@@ -95,17 +95,19 @@ const Remainder = () => {
   return (
     <>
       {googleData.length > 0 ? (
-        <div>
-          <div
-            className={`${detailGroup.googleChart} ${detailGroup.lineChart}`}
-          >
-            <Chart
-              chartType="LineChart"
-              width="100%"
-              height="273px"
-              data={googleChartData}
-              options={googleChartOptions}
-            />
+        <>
+          <div className={detailGroup.chartGridArea}>
+            <div
+              className={`${detailGroup.googleChart} ${detailGroup.lineChart}`}
+            >
+              <Chart
+                chartType="LineChart"
+                width="100%"
+                height="273px"
+                data={googleChartData}
+                options={googleChartOptions}
+              />
+            </div>
           </div>
           <ul className={detailGroup.list}>
             <li>
@@ -120,7 +122,7 @@ const Remainder = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </>
       ) : (
         <div className={detailGroup.unSelected}>
           <img src="../write.png" alt="write" />

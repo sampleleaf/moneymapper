@@ -303,6 +303,7 @@
     }
     .dropdownTitle{
         padding: 5px 10px;
+        cursor: auto;
     }
     .space{
         display: none;

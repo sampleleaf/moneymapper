@@ -15,6 +15,194 @@
     height: inherit;
 }
 
+.mapSpace{
+    width: 100%;
+    height: calc(100vh - 52px);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 6;
+}
+
+.mapFrame{
+    width: 85%;
+    height: 480px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: white;
+    border-radius: 8px;
+    position: relative;
+}
+
+.cross{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.cross svg{
+    font-size: 20px;
+}
+
+.selectMap{
+    display: flex;
+    justify-content: space-around;
+}
+
+.selectMap div{
+    padding: 0 10px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid black;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.selectMap div:hover{
+    opacity: 1;
+    background-color: rgb(252, 255, 86);
+}
+
+.hint{
+    text-align: center;
+    background-color: black;
+    border-radius: 4px;
+    color: white;
+    margin: 5px 0;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.mapResult p{
+    margin-top: 2px;
+    text-align: center;
+    font-size: 16px;
+    border: 2px dashed rgb(0, 150, 0);
+}
+
+.mapButton{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.mapButton button{
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.mapButton img{
+    height: 30.5px;
+}
+
+.mapButton button:hover{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+.back{
+    position: absolute;
+    height: 20px;
+    top: 349px;
+    left: 15px;
+    color: black;
+    z-index: 5;
+}
+
+.back svg{
+    width: 20px;
+    height: 20px;
+}
+
+.item{
+    display: grid;
+    grid-template-columns: 49% 2% 49%;
+    align-items: center;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-bottom: none;
+    padding: 10px;
+}
+
+.item input{
+    width: 100%;
+    height: 30px;
+    padding-left: 5px;
+    font-size: 16px;
+}
+
+.iconAndMoney{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    align-items: center;
+    column-gap: 10px;
+}
+
+.iconAndMoney label{
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.iconAndMoney img{
+    width: 30px;
+    height: 30px;
+}
+
+.locationLayout{
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 10px;
+}
+
+.location{
+    display: grid;
+    grid-template-columns: 25% 40% 35%;
+    align-items: center;
+}
+
+.location input{
+    width: 62.5%;
+    height: 30px;
+    font-size: 16px;
+    padding-left: 10px;
+    margin-right: auto;
+}
+
+.clearLocation{
+    font-weight: bold;
+    padding: 3px;
+    background-color: rgb(150, 150, 150);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.submit button{
+    width: 150px;
+    height: 50px;
+    font-size: 24px;
+    border: none;
+    background-color: rgb(248, 155, 155);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .previous{
     position: absolute;
     height: 20px;
@@ -45,6 +233,11 @@
         height: 50%;
         border: 2px solid black;
         border-radius: 8px;
+        position: relative;
+    }
+    .mapSpace{
+        width: calc(50% - 4px);
+        height: calc(50% - 4px);
     }
     .previous{
         display: none;

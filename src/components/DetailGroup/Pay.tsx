@@ -80,20 +80,22 @@ const Pay = () => {
 
   return (
     <>
-      <div className={detailGroup.googleChart}>
-        <Chart
-          chartType="PieChart"
-          width="100%"
-          height="273px"
-          data={googleChartData}
-          options={googleChartOptions}
-        />
-        {googleData.length < 1 && (
-          <div className={detailGroup.emptyDonut}></div>
-        )}
-        <div className={detailGroup.total}>
-          <p>總支出</p>
-          <p>${totalPay}</p>
+      <div className={detailGroup.chartGridArea}>
+        <div className={detailGroup.googleChart}>
+          <Chart
+            chartType="PieChart"
+            width="100%"
+            height="273px"
+            data={googleChartData}
+            options={googleChartOptions}
+          />
+          {googleData.length < 1 && (
+            <div className={detailGroup.emptyDonut}></div>
+          )}
+          <div className={detailGroup.total}>
+            <p>總支出</p>
+            <p>${totalPay}</p>
+          </div>
         </div>
       </div>
       {googleData.length > 0 ? (

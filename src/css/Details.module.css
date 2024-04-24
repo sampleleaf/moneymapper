@@ -52,3 +52,35 @@
 .space{
     height: 50px;
 }
+
+@media screen and ( min-width : 768px ){
+    .back{
+        top: 77px;
+    }
+    .layout{
+        display: grid;
+        grid-template-columns: 70% 30%;
+    }
+    .navbarLayout{
+        width: calc(70% - 20px);
+        margin: 10px;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+    }
+    .space{
+        height: 70px;
+    }
+}
+
+@media screen and ( min-width : 1068px) {
+    .back{
+        left: calc(30% + 25px);
+    }
+    .layout{
+        grid-template-columns: 30% 40% 30%;
+    }
+    .navbarLayout{
+        width: calc(40% - 20px);
+        justify-self: center;
+    }
+}

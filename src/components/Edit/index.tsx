@@ -1,5 +1,4 @@
 import edit from "@/css/Edit.module.css";
-import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import Budget from "@/components/Budget";
 import { db } from "@/utils/firebase";
@@ -140,15 +139,15 @@ const Edit: React.FC<{
     <div onClick={handleCloseEdit} className={edit.background}>
       <div className={edit.container} onClick={(e) => e.stopPropagation()}>
         {mapWindow && (
-          <div className={create.mapSpace} onClick={handleCloseMapWindow}>
+          <div className={edit.mapSpace} onClick={handleCloseMapWindow}>
             <div
-              className={create.mapFrame}
+              className={edit.mapFrame}
               onClick={(e) => e.stopPropagation()}
             >
-              <div onClick={handleCloseMapWindow} className={create.cross}>
+              <div onClick={handleCloseMapWindow} className={edit.cross}>
                 <i className="fa-solid fa-xmark"></i>
               </div>
-              <div className={create.selectMap}>
+              <div className={edit.selectMap}>
                 <div
                   onClick={() => setAutoMap(true)}
                   style={autoMap ? { opacity: "1" } : {}}
@@ -163,9 +162,9 @@ const Edit: React.FC<{
                 </div>
               </div>
               {autoMap ? (
-                <div className={create.hint}>點選地圖會自動偵測您的位置</div>
+                <div className={edit.hint}>點選地圖會自動偵測您的位置</div>
               ) : (
-                <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
+                <div className={edit.hint}>點選地圖會顯示您選擇的位置</div>
               )}
               <Map
                 setMapResult={setMapResult}
@@ -173,7 +172,7 @@ const Edit: React.FC<{
                 setLoadingLocation={setLoadingLocation}
                 setMapError={setMapError}
               />
-              <div className={create.mapResult}>
+              <div className={edit.mapResult}>
                 {mapResult || mapError ? (
                   <p>
                     您的位置：
@@ -186,7 +185,7 @@ const Edit: React.FC<{
                   <p>您尚未選擇位置</p>
                 )}
               </div>
-              <div className={create.mapButton}>
+              <div className={edit.mapButton}>
                 {loadingLocation ? (
                   <img src="loading.gif" alt="loading" />
                 ) : mapError ? (
@@ -214,8 +213,8 @@ const Edit: React.FC<{
               : (e) => handleIncomeSubmit(e, item)
           }
         >
-          <div className={create.item}>
-            <div className={create.iconAndMoney}>
+          <div className={edit.item}>
+            <div className={edit.iconAndMoney}>
               {/* <label htmlFor="icon">
                 {payPage ? payItem || (item.price < 0 ? item.item : '早餐') : incomeItem || (item.price > 0 ? item.item : '薪水')}
               </label> */}
@@ -261,8 +260,8 @@ const Edit: React.FC<{
               />
             </div>
           </div>
-          <div className={create.locationLayout}>
-            <div className={create.location}>
+          <div className={edit.locationLayout}>
+            <div className={edit.location}>
               <label htmlFor="location">消費區域</label>
               <input
                 onClick={handleOpenMapWindow}
@@ -274,13 +273,13 @@ const Edit: React.FC<{
               />
               <div
                 onClick={handleClearLocation}
-                className={create.clearLocation}
+                className={edit.clearLocation}
               >
                 清空消費區域
               </div>
             </div>
           </div>
-          <div className={create.submit}>
+          <div className={edit.submit}>
             <button type="submit">更新</button>
           </div>
         </form>
