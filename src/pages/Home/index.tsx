@@ -147,14 +147,14 @@ const Home: React.FC = () => {
             </div>
             <div className={home.selectMonth}>
               {defaultMonth.map((month) => (
-                <div onClick={() => setMonths(month)} key={month}>
-                  {month}月
+                <div onClick={() => setMonths(month)} key={month} className={`${months === month ? home.highlightedMonth : ""}`}>
+                  <p>{month}月</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div>
+        <div className={home.chartGridArea}>
           <div className={home.analyze}>
             <div>
               <p>月支出</p>

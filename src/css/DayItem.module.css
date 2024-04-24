@@ -115,3 +115,14 @@
     left: 0;
     top: 0;
 }
+
+@media screen and ( min-width : 768px ){
+    .line{
+        width: 100%;
+        transform: none;
+        height: 3px;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(200, 200, 200); 
+    }
+}

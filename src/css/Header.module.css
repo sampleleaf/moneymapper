@@ -9,7 +9,7 @@
 }
 
 .sidebar{
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     width: 60%;
     height: 100vh;
     transform: translateX(-100%);
@@ -20,9 +20,23 @@
     padding: 0 32px;
 }
 
+.cross{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.cross svg{
+    width: 20px;
+    height: 20px;
+}
+
 .username{
     font-size: 24px;
-    padding: 32px 0;
+    padding: 80px 0;
 }
 
 .sidebarContainer{
@@ -33,10 +47,13 @@
 
 .sidebarContainer a{
     color: black;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 8px;
 }
 
 .sidebarContainer a:hover{
-    color: rgb(216, 107, 196);
+    background-color: rgb(200, 200, 200);
 }
 
 .container{
@@ -100,4 +117,31 @@
 
 .space{
     height: 52px;
+}
+
+@media screen and ( min-width : 768px ){
+    .sidebar{
+        width: 45%;
+    }
+}
+
+@media screen and ( min-width : 1068px ){
+    .sidebarBackground{
+        z-index: 9;
+        background-color: rgba(0, 0, 0, 0) !important;
+        pointer-events: none !important;
+    }
+    .sidebar{
+        transition: none;
+        transform: none;
+        width: 30%;
+        pointer-events: auto;
+        background-color: transparent;
+    }
+    .cross{
+        display: none;
+    }
+    .bar{
+        visibility: hidden;
+    }
 }

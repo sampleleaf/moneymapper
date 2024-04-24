@@ -55,6 +55,7 @@ const Header: React.FC<{
           style={sidebar ? { transform: "translateX(0)" } : {}}
         >
           <div className={header.sidebarLayout}>
+            <div className={header.cross} onClick={() => setSidebar(false)} ><i className="fa-solid fa-xmark"></i></div>
             <h3 className={header.username}>
               Hello, {loginData && JSON.parse(loginData).name}
             </h3>

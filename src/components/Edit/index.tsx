@@ -132,16 +132,13 @@ const Edit: React.FC<{
   };
 
   const handleCloseEdit = () => {
-    setPopId("")
-    setPopEdit(false)
-  }
+    setPopId("");
+    setPopEdit(false);
+  };
 
   return (
-    <div
-      // onClick={() => setPop(false)}
-      className={edit.background}
-    >
-      <div className={edit.container}>
+    <div onClick={handleCloseEdit} className={edit.background}>
+      <div className={edit.container} onClick={(e) => e.stopPropagation()}>
         {mapWindow && (
           <div className={create.mapSpace} onClick={handleCloseMapWindow}>
             <div
@@ -226,13 +223,21 @@ const Edit: React.FC<{
                 <img
                   src={
                     payPage
-                      ? item.price < 0 ? `${payItem}.png` : "早餐.png"
-                      : item.price > 0 ? `${incomeItem}.png` : "薪水.png"
+                      ? item.price < 0
+                        ? `${payItem}.png`
+                        : "早餐.png"
+                      : item.price > 0
+                      ? `${incomeItem}.png`
+                      : "薪水.png"
                   }
                   alt={
                     payPage
-                      ? item.price < 0 ? `${payItem}.png` : "早餐.png"
-                      : item.price > 0 ? `${incomeItem}.png` : "薪水.png"
+                      ? item.price < 0
+                        ? `${payItem}.png`
+                        : "早餐.png"
+                      : item.price > 0
+                      ? `${incomeItem}.png`
+                      : "薪水.png"
                   }
                 />
               </label>
@@ -276,7 +281,7 @@ const Edit: React.FC<{
             </div>
           </div>
           <div className={create.submit}>
-            <button type="submit">OK</button>
+            <button type="submit">更新</button>
           </div>
         </form>
       </div>
