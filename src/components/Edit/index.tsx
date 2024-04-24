@@ -78,7 +78,7 @@ const Edit: React.FC<{
         [day]: arrayUnion({
           id: item.id,
           item: payItem || item.item,
-          note: itemNote || item.item,
+          note: itemNote,
           price: -parseInt(price) || -Math.abs(item.price),
           location: location || item.location,
         }),
@@ -116,7 +116,7 @@ const Edit: React.FC<{
         [day]: arrayUnion({
           id: item.id,
           item: incomeItem || item.item,
-          note: itemNote || item.item,
+          note: itemNote,
           price: parseInt(price) || Math.abs(item.price),
           location: location || item.location,
         }),

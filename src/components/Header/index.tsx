@@ -69,6 +69,9 @@ const Header: React.FC<{
               <Link onClick={handleDetailRemainder} to="details/remainder">
                 結餘
               </Link>
+              <Link to="mapper">
+                地區平均收支
+              </Link>
             </div>
           </div>
         </div>
