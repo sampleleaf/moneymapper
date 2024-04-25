@@ -9,7 +9,7 @@ const Header: React.FC<{
 }> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
   const [sidebar, setSidebar] = useState<boolean>(false);
 
-  const loginData = localStorage.getItem("loginData");
+  // const loginData = localStorage.getItem("loginData");
 
   const handleLogout = () => {
     localStorage.removeItem("loginData");
@@ -59,32 +59,29 @@ const Header: React.FC<{
               <i className="fa-solid fa-xmark"></i>
             </div>
             <h3 className={header.username}>
-              Hello, {loginData && JSON.parse(loginData).name}
+              {/* Hello, {loginData && JSON.parse(loginData).name} */}
+              Menu
             </h3>
             <div className={header.sidebarContainer}>
+              <Link to="/">
+                <i className="fa-solid fa-house"></i>
+                首頁
+              </Link>
               <Link onClick={handleDetailPay} to="details/pay">
-                <div>
-                  <img src="pay.png" alt="pay" />
-                  <p>支出</p>
-                </div>
+                <i className="fa-solid fa-hand-holding-dollar"></i>
+                支出
               </Link>
               <Link onClick={handleDetailIncome} to="details/income">
-                <div>
-                  <img src="income.png" alt="income" />
-                  <p>收入</p>
-                </div>
+                <i className="fa-solid fa-sack-dollar"></i>
+                收入
               </Link>
               <Link onClick={handleDetailRemainder} to="details/remainder">
-                <div>
-                  <img src="remainder.png" alt="remainder" />
-                  <p>支出</p>
-                </div>
+                <i className="fa-solid fa-chart-line"></i>
+                結餘
               </Link>
               <Link to="mapper">
-                <div>
-                  <img src="map.png" alt="map" />
-                  <p>地區收支</p>
-                </div>
+                <i className="fa-solid fa-map-location-dot"></i>
+                地區收支
               </Link>
             </div>
           </div>
