@@ -1,3 +1,5 @@
+import Calendar from "react-calendar";
+// import "react-calendar/dist/Calendar.css";
 import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import { v4 as uuidv4 } from "uuid";
@@ -6,9 +8,7 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Calendar from "react-calendar";
 import Budget from "@/components/Budget";
-import "react-calendar/dist/Calendar.css";
 
 type ValuePiece = Date | null;
 

@@ -185,13 +185,3 @@
     border-radius: 4px;
     cursor: pointer;
 }
-/*=========================
-control calender style
-=========================*/
-.calendar > div{
-    width: auto;
-}
-
-/* .calendar > div button{
-    font-size: 16px;
-} */
