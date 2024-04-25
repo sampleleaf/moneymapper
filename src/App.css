@@ -43,6 +43,7 @@ React Calender
   background: white;
   /* border: 1px solid #a0a096; */
   line-height: 1.125em;
+  margin: 0 auto;
 }
 
 .react-calendar *{
@@ -85,11 +86,11 @@ React Calender
 
 .react-calendar__navigation {
   display: flex;
-  height: 44px;
+  height: 70px;
   /* margin-bottom: 1em; */
   align-items: center;
   justify-content: center;
-  column-gap: 10px;
+  column-gap: calc(5px + (100vw - 320px) / 5.2);
 }
 
 .react-calendar__navigation button {
@@ -115,7 +116,7 @@ React Calender
   border: 2px solid rgb(254, 254, 254);
   background-color: rgb(134,217,200);
   display: flex;
-  align-items: center;
+  line-height: 19.5px;
   justify-content: center;
 }
 
@@ -196,7 +197,7 @@ React Calender
 }
 
 .react-calendar__tile {
-  max-width: 100%;
+  max-width: 50px;
   aspect-ratio: 1 / 1;
   /* padding: 10px 6.6667px; */
   border: 2px solid rgb(254, 254, 254) !important;
@@ -271,4 +272,14 @@ React Calender
 
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
+}
+
+@media screen and ( min-width : 370px ){
+  .react-calendar{
+    width: 100%;
+  }
+  .react-calendar__tile{
+    width: 50px;
+    justify-self: center;
+  }
 }

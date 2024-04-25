@@ -93,7 +93,7 @@
 .back{
     position: absolute;
     height: 20px;
-    top: 349px;
+    top: 77px;
     left: 15px;
     color: black;
     z-index: 5;
@@ -104,12 +104,18 @@
     height: 20px;
 }
 
+.iconCard{
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
 .item{
     display: grid;
-    grid-template-columns: 49% 2% 49%;
+    grid-template-columns: repeat(2, calc(50% - 5px));
+    column-gap: 10px;
     align-items: center;
     border-top: 2px solid black;
-    border-bottom: 2px solid black;
     border-bottom: none;
     padding: 10px;
 }
@@ -123,8 +129,7 @@
 
 .iconAndMoney{
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, auto);
+    display: flex;
     align-items: center;
     column-gap: 10px;
 }
@@ -148,16 +153,26 @@
 
 .location{
     display: grid;
-    grid-template-columns: 25% 40% 35%;
+    column-gap: 10px;
+    row-gap: 10px;
     align-items: center;
 }
 
+.noteLocation{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.location label{
+    white-space: nowrap;
+}
+
 .location input{
-    width: 62.5%;
+    width: 100%;
     height: 30px;
     font-size: 16px;
-    padding-left: 10px;
-    margin-right: auto;
+    padding-left: 5px;
 }
 
 .clearLocation{
@@ -167,6 +182,12 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.clearLocation:hover{
+    background-color: black;
 }
 
 .submit{
@@ -185,3 +206,10 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* @media screen and ( min-width : 450px ){
+    .iconCard{
+        width: 413px;
+        margin: 10px auto;
+    }
+} */

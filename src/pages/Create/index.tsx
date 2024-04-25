@@ -188,65 +188,71 @@ const Create: React.FC = () => {
         <Calendar onChange={onChange} value={value} />
       </div>
       <Link to=".." className={create.back}>
-        <i className="fa-solid fa-chevron-left"></i>
+        <i className="fa-solid fa-house"></i>
       </Link>
-      <Budget
-        payPage={payPage}
-        setPayPage={setPayPage}
-        setPayItem={setPayItem}
-        setIncomeItem={setIncomeItem}
-      />
-      <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
-        <div className={create.item}>
-          <div className={create.iconAndMoney}>
-            {/* <label htmlFor="icon">{payPage ? payItem : incomeItem}</label> */}
-            <label htmlFor="icon">
-              <img
-                src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
-                alt={payPage ? payItem : incomeItem}
+      <div className={create.iconCard}>
+        <Budget
+          payPage={payPage}
+          setPayPage={setPayPage}
+          setPayItem={setPayItem}
+          setIncomeItem={setIncomeItem}
+        />
+        <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
+          <div className={create.item}>
+            <div className={create.iconAndMoney}>
+              <label htmlFor="icon">
+                <img
+                  src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
+                  alt={payPage ? payItem : incomeItem}
+                />
+              </label>
+              <input
+                id="icon"
+                type="text"
+                pattern="[0-9]*"
+                title="請輸入數字"
+                placeholder="輸入金額"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
               />
-            </label>
-            <input
-              id="icon"
-              type="text"
-              pattern="[0-9]*"
-              title="請輸入數字"
-              placeholder="請輸入金額"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </div>
-          <div></div>
-          <div>
-            <input
-              type="text"
-              placeholder="可輸入備註"
-              value={itemNote}
-              onChange={(e) => setItemNote(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className={create.locationLayout}>
-          <div className={create.location}>
-            <label htmlFor="location">消費區域</label>
-            <input
-              onClick={handleOpenMapWindow}
-              id="location"
-              type="text"
-              value={location}
-              autoComplete="off"
-              onChange={() => setLocation}
-            />
-            <div onClick={handleClearLocation} className={create.clearLocation}>
-              清空消費區域
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="可輸入備註"
+                value={itemNote}
+                onChange={(e) => setItemNote(e.target.value)}
+              />
             </div>
           </div>
-        </div>
-        <div className={create.submit}>
-          <button type="submit">OK</button>
-        </div>
-      </form>
+          <div className={create.locationLayout}>
+            <div className={create.location}>
+              <div className={create.noteLocation}>
+                <label htmlFor="location">記錄區域</label>
+                <input
+                  onClick={handleOpenMapWindow}
+                  id="location"
+                  type="text"
+                  value={location}
+                  placeholder="點擊來選擇區域"
+                  autoComplete="off"
+                  onChange={() => setLocation}
+                />
+              </div>
+              <div
+                onClick={handleClearLocation}
+                className={create.clearLocation}
+              >
+                清空地區
+              </div>
+            </div>
+          </div>
+          <div className={create.submit}>
+            <button type="submit">OK</button>
+          </div>
+        </form>
+      </div>
     </>
   );
 };

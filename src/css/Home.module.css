@@ -295,6 +295,7 @@
         width: 60%;
         position: static;
         background-image: none;
+        background-color: transparent;
         border-bottom: 1px solid rgb(167, 167, 167);
         box-shadow: none;
         font-size: 24px;
