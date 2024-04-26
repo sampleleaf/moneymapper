@@ -106,107 +106,142 @@
 
 .iconCard{
     margin: 10px;
-    border: 2px solid black;
     border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 2px;
 }
 
-.item{
+.inputGroup{
     display: grid;
-    grid-template-columns: repeat(2, calc(50% - 5px));
-    column-gap: 10px;
-    align-items: center;
-    border-top: 2px solid black;
-    border-bottom: none;
-    padding: 10px;
 }
 
-.item input{
-    width: 100%;
-    height: 30px;
-    padding-left: 5px;
-    font-size: 16px;
+.inputGroup > div{
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    height: 40px;
 }
 
-.iconAndMoney{
-    width: 100%;
+.inputItem{
     display: flex;
     align-items: center;
-    column-gap: 10px;
 }
 
-.iconAndMoney label{
-    display: flex;
-    align-items: center;
-    height: 30px;
-}
-
-.iconAndMoney img{
+.inputItem img{
     width: 30px;
     height: 30px;
 }
 
-.locationLayout{
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    padding: 10px;
-}
-
-.location{
+.inputFormat{
     display: grid;
-    column-gap: 10px;
-    row-gap: 10px;
+    grid-template-columns: 32px 16px calc(100% - 68px);
     align-items: center;
 }
 
-.noteLocation{
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-}
-
-.location label{
+.inputFormat label{
     white-space: nowrap;
 }
 
-.location input{
+.inputFormat p{
+    color: red;
+}
+
+.styleInput{
+    position: relative;
+}
+
+.styleInput input{
     width: 100%;
     height: 30px;
-    font-size: 16px;
-    padding-left: 5px;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 3px;
+    padding: 0 39px 0 33.5px;
+    font-size: 14px;
+    transition: border 0.2s;
 }
 
-.clearLocation{
-    font-weight: bold;
-    padding: 3px;
-    background-color: rgb(150, 150, 150);
-    color: white;
-    border-radius: 4px;
+.styleInput div{
+    position: absolute;
+    top: 50%;
+    left: 7px;
+    transform: translateY(-50%);
+    transition: color 0.2s;
+}
+
+.styleInput div, .styleInput svg{
+    width: 16px;
+    height: 16px;
+}
+
+.styleInput div::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 21px;
+    transform: translateY(-50%);
+    border-right: 1px solid rgb(170, 170, 170);
+    height: 24px;
+    transition: border 0.2s;
+}
+
+.styleInput span{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    height: 21px;
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    transform: translateY(-50%);
+    border: none;
+    border-radius: 3px;
+    padding: 2px;
     cursor: pointer;
-    text-align: center;
-    transition: background 0.2s;
+    background-color: rgb(99, 99, 99);
+    color: white;
 }
 
-.clearLocation:hover{
+.styleInput span:hover{
     background-color: black;
+}
+
+.styleInput:focus-within input{
+    outline: none;
+    border: 1px solid rgb(189, 130, 0);
+}
+
+.styleInput:focus-within div, .styleInput:focus-within div::after{
+    color: rgb(240, 165, 0);
+    border-color: rgb(240, 165, 0);
 }
 
 .submit{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: 70px;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .submit button{
-    width: 150px;
-    height: 50px;
+    width: 100px;
+    height: 40px;
     font-size: 24px;
+    font-weight: bold;
     border: none;
-    background-color: rgb(248, 155, 155);
+    background-image: linear-gradient(to right, #fc8181, #f56565, #e53e3e);
+    color: white;
     border-radius: 4px;
     cursor: pointer;
+    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2), 0 10px 15px -3px rgba(239, 68, 68, 0.5), 0 4px 6px -2px rgba(239, 68, 68, 0.1);
 }
 
+.submit button:hover{
+    background-image: radial-gradient(circle, #fc8181, #f56565, #e53e3e);
+}
+
+.submit button:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
+    outline: none;
+}
 /* @media screen and ( min-width : 450px ){
     .iconCard{
         width: 413px;

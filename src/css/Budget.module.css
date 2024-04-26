@@ -54,14 +54,14 @@
 }
 
 .iconList{
-    /* height: 205px; */
-    /* overflow: auto; */
-    padding: 20px 30px;
+    height: 215px;
+    padding: 10px 0;
     display: grid;
     grid-template-columns: repeat(4, auto);
-    justify-content: space-between;
-    row-gap: 20px;
-    border-top: 2px solid black;
+    justify-content: space-around;
+    align-items: center;
+    row-gap: 10px;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .iconList div{
