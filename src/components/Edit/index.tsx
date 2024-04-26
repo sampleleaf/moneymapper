@@ -79,7 +79,7 @@ const Edit: React.FC<{
           id: item.id,
           item: payItem || item.item,
           note: itemNote,
-          price: -parseInt(price) || -Math.abs(item.price),
+          price: parseInt(price) == 0 ? 0 : -parseInt(price) || -Math.abs(item.price),
           location: location,
         }),
       });
@@ -117,7 +117,7 @@ const Edit: React.FC<{
           id: item.id,
           item: incomeItem || item.item,
           note: itemNote,
-          price: parseInt(price) || Math.abs(item.price),
+          price: parseInt(price) == 0 ? 0 : parseInt(price) || Math.abs(item.price),
           location: location,
         }),
       });
