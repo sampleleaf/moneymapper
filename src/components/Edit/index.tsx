@@ -80,7 +80,7 @@ const Edit: React.FC<{
           item: payItem || item.item,
           note: itemNote,
           price: -parseInt(price) || -Math.abs(item.price),
-          location: location || item.location,
+          location: location,
         }),
       });
       toast.success("編輯成功 !", {
@@ -118,7 +118,7 @@ const Edit: React.FC<{
           item: incomeItem || item.item,
           note: itemNote,
           price: parseInt(price) || Math.abs(item.price),
-          location: location || item.location,
+          location: location,
         }),
       });
       toast.success("編輯成功 !", {
@@ -140,10 +140,7 @@ const Edit: React.FC<{
       <div className={edit.container} onClick={(e) => e.stopPropagation()}>
         {mapWindow && (
           <div className={edit.mapSpace} onClick={handleCloseMapWindow}>
-            <div
-              className={edit.mapFrame}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className={edit.mapFrame} onClick={(e) => e.stopPropagation()}>
               <div onClick={handleCloseMapWindow} className={edit.cross}>
                 <i className="fa-solid fa-xmark"></i>
               </div>
@@ -213,69 +210,78 @@ const Edit: React.FC<{
               : (e) => handleIncomeSubmit(e, item)
           }
         >
-          <div className={edit.item}>
-            <div className={edit.iconAndMoney}>
-              {/* <label htmlFor="icon">
-                {payPage ? payItem || (item.price < 0 ? item.item : '早餐') : incomeItem || (item.price > 0 ? item.item : '薪水')}
-              </label> */}
-              <label htmlFor="icon">
-                <img
-                  src={
-                    payPage
-                      ? item.price < 0
-                        ? `${payItem}.png`
-                        : "早餐.png"
-                      : item.price > 0
-                      ? `${incomeItem}.png`
-                      : "薪水.png"
-                  }
-                  alt={
-                    payPage
-                      ? item.price < 0
-                        ? `${payItem}.png`
-                        : "早餐.png"
-                      : item.price > 0
-                      ? `${incomeItem}.png`
-                      : "薪水.png"
-                  }
+          <div className={edit.inputGroup}>
+            <div className={edit.inputItem}>
+              <p>項目</p>
+              <p>：</p>
+              <img
+                src={
+                  payPage
+                    ? `${payItem}.png` || "早餐.png"
+                    : `${incomeItem}.png` || "薪水.png"
+                }
+                alt={
+                  payPage
+                    ? `${payItem}` || "早餐"
+                    : `${incomeItem}` || "薪水"
+                }
+              />
+            </div>
+            <div className={edit.inputFormat}>
+              <label htmlFor="price">金額</label>
+              <p>＊</p>
+              <div className={edit.styleInput}>
+                <input
+                  id="price"
+                  type="text"
+                  pattern="[0-9]*"
+                  title="請輸入數字"
+                  placeholder="請輸入金額"
+                  autoComplete="off"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
                 />
-              </label>
-              <input
-                id="icon"
-                type="text"
-                pattern="[0-9]*"
-                title="請輸入數字"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-              />
+                <div>
+                  <i className="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                {price && <span onClick={() => setPrice("")}>清空</span>}
+              </div>
             </div>
-            <div></div>
-            <div>
-              <input
-                type="text"
-                placeholder="在此輸入備註"
-                value={itemNote}
-                onChange={(e) => setItemNote(e.target.value)}
-              />
+            <div className={edit.inputFormat}>
+              <label htmlFor="price">備註</label>
+              <p>　</p>
+              <div className={edit.styleInput}>
+                <input
+                  type="text"
+                  placeholder="可輸入備註"
+                  autoComplete="off"
+                  value={itemNote}
+                  onChange={(e) => setItemNote(e.target.value)}
+                />
+                <div>
+                  <i className="fa-solid fa-file-pen"></i>
+                </div>
+                {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
+              </div>
             </div>
-          </div>
-          <div className={edit.locationLayout}>
-            <div className={edit.location}>
-              <label htmlFor="location">消費區域</label>
-              <input
-                onClick={handleOpenMapWindow}
-                id="location"
-                type="text"
-                value={location}
-                autoComplete="off"
-                onChange={() => setLocation}
-              />
-              <div
-                onClick={handleClearLocation}
-                className={edit.clearLocation}
-              >
-                清空消費區域
+            <div className={edit.inputFormat}>
+              <label htmlFor="price">地區</label>
+              <p>　</p>
+              <div className={edit.styleInput}>
+                <input
+                  onClick={handleOpenMapWindow}
+                  id="location"
+                  type="text"
+                  value={location}
+                  placeholder="點擊記錄地區"
+                  autoComplete="off"
+                  onChange={() => setLocation}
+                />
+                <div>
+                  <i className="fa-solid fa-map-location-dot"></i>
+                </div>
+                {location && <span onClick={handleClearLocation}>清空</span>}
               </div>
             </div>
           </div>

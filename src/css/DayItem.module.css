@@ -130,5 +130,6 @@
 @media screen and ( min-width : 1068px ){
     .background{
         transform: translate(calc(-30% - 22px));
+        z-index: 9;
     }
 }
