@@ -118,7 +118,7 @@ const Income = () => {
           <img src="../write.png" alt="write" />
           <div className={detailGroup.remind}>
             <p>
-              {years}年{months}月無記帳記錄
+              {years}年{months}月無收入記錄
             </p>
           </div>
         </div>
