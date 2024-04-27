@@ -28,7 +28,7 @@ const Header: React.FC<{
 
   const handleDetailIncome = () => {
     setDetailsTranslateX("translateX(0)");
-    setDetailsHighlighted("aqua");
+    setDetailsHighlighted("rgb(158,225,255)");
     setSidebar(!sidebar);
   };
 
