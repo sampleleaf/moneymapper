@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Budget from "@/components/Budget";
 
