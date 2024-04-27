@@ -4,12 +4,16 @@ import { useOutletContext } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import detailGroup from "@/css/DetailGroup.module.css";
+import PayNote from "@/components/DetailNote/PayNote";
 
 type ContextType = { years: number; months: number };
 
 const Pay = () => {
   const { years, months } = useOutletContext<ContextType>();
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
+  const [isPop, setIsPop] = useState<boolean>(false);
+  const [popItem, setPopItem] = useState<string | number>("");
+  const [days, setDays] = useState<string[]>([]);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -22,6 +26,7 @@ const Pay = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // console.log(Object.keys(docSnap.data()));
+          setDays(Object.keys(docSnap.data()).reverse());
           const dayLength = Object.keys(docSnap.data()).length;
           const items = [];
           for (let i = 0; i < dayLength; i++) {
@@ -78,6 +83,17 @@ const Pay = () => {
     chartArea: { top: "10%", width: "80%", height: "80%" },
   };
 
+  const handlePopDetail = (item: string | number) => {
+    setPopItem(item);
+    setIsPop(true);
+  };
+
+  const handleCloseDetail = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setPopItem("");
+    setIsPop(false);
+  }
+
   return (
     <>
       <div className={detailGroup.chartGridArea}>
@@ -104,7 +120,29 @@ const Pay = () => {
             <p>項目支出</p>
           </li>
           {googleData.map((data) => (
-            <li key={data[0]}>
+            <li key={data[0]} onClick={() => handlePopDetail(data[0])}>
+              {isPop && popItem === data[0] && (
+                <div className={detailGroup.noteBackground} onClick={(e) => handleCloseDetail(e)}>
+                  <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(253,201,83)"}}>
+                    <div className={detailGroup.cross} onClick={(e) => handleCloseDetail(e)}><i className="fa-solid fa-xmark"></i></div>
+                    <img src={`../${popItem}.png`} alt={`${popItem}`} />
+                    <p>{popItem}</p>
+                  </div>
+                  <div className={detailGroup.noteDescribe}>支出明細</div>
+                  <div className={detailGroup.noteCard} onClick={(e) => e.stopPropagation()}>
+                    {days.map((day) => (
+                      <PayNote
+                        key={day}
+                        popItem={popItem}
+                        total={data[1]}
+                        day={day}
+                        months={months}
+                        years={years}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className={detailGroup.item}>
                 <img src={`../${data[0]}.png`} alt={`${data[0]}`} />
                 <p>{data[0]}</p>

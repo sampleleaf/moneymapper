@@ -27,7 +27,7 @@ const Details: React.FC<{
 
   const handleDetailPay = () => {
     setDetailsTranslateX("translateX(-102.5%)");
-    setDetailsHighlighted("yellow");
+    setDetailsHighlighted("rgb(253,201,83)");
   };
 
   const handleDetailIncome = () => {

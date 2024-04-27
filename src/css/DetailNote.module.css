@@ -1,0 +1,57 @@
+.dayRemainder{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(240, 240, 240);
+    color: rgb(138, 138, 138);
+    font-weight: bold;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.dayRemainder p:nth-child(2){
+    color: rgb(254,116,113);
+}
+
+.dayItems{
+    padding: 0 10px;
+}
+
+.itemGroup{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.itemGroup:not(:first-child){
+    border-top: 1px solid rgb(195, 195, 195);
+}
+
+.percentGroup{
+    display: grid;
+    width: 75%;
+}
+
+.percent{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.percentBarContainer{
+    position: relative;
+}
+
+.percentBarContainer div{
+    position: absolute;
+    height: 3px;
+    border-radius: 3px;
+}
+
+.percentBar{
+    background-color: rgb(180, 180, 180);
+    width: 100%;
+}

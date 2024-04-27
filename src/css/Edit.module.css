@@ -292,6 +292,7 @@
         height: 65%;
         border: 2px solid rgb(170, 170, 170);
         position: relative;
+        border-radius: 8px;
     }
     .mapSpace{
         width: calc(50% - 4px);
