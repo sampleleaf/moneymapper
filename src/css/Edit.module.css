@@ -244,7 +244,9 @@
     font-size: 24px;
     font-weight: bold;
     border: none;
-    background-image: linear-gradient(to right, #fc8181, #f56565, #e53e3e);
+    background-image: linear-gradient(to right, #fc8181, #f56565, #e53e3e, #f56565, #fc8181);
+    background-size: 200%;
+    transition: background 0.3s;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -252,7 +254,7 @@
 }
 
 .submit button:hover{
-    background-image: radial-gradient(circle, #fc8181, #f56565, #e53e3e);
+    background-position: 100%;
 }
 
 .submit button:focus {
@@ -287,14 +289,13 @@
     }
     .container{
         width: 50%;
-        height: 50%;
+        height: 65%;
         border: 2px solid rgb(170, 170, 170);
-        border-radius: 8px;
         position: relative;
     }
     .mapSpace{
         width: calc(50% - 4px);
-        height: calc(50% - 4px);
+        height: calc(65% - 4px);
     }
     .previous{
         display: none;

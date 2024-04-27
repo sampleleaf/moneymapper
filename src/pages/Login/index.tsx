@@ -1,5 +1,6 @@
 import login from "@/css/Login.module.css";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { db } from "@/utils/firebase";
 import {
   getAuth,
@@ -34,14 +35,20 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           name: username,
         });
         setNewUser(!newUser);
-        alert("註冊成功");
+        toast.success(<span>註冊成功 <br /> 您可以登入了</span>, {
+          theme: "dark",
+          position: "top-center",
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        alert("註冊失敗");
+        toast.error(<span>註冊失敗 <br /> {errorCode}</span>, {
+          theme: "dark",
+          position: "top-center"
+        });
       });
   };
 
@@ -56,7 +63,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         if (docSnap.exists()) {
           // console.log("Document data:", docSnap.data());
           localStorage.setItem("loginData", JSON.stringify(docSnap.data()));
-          setLogin(localStorage.getItem('loginData'))
+          setLogin(localStorage.getItem("loginData"));
         } else {
           console.log("No such document!");
         }
@@ -66,7 +73,10 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        alert("登入失敗");
+        toast.error(<span>登入失敗 <br /> {errorCode}</span>, {
+          theme: "dark",
+          position: "top-center"
+        });
       });
   };
 
@@ -83,10 +93,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           <p>洞察生活足跡</p>
         </div>
         <form className={login.form}>
-          <div className={login.inputContainer}>
-            <label htmlFor="email">
-              <i className="fa-solid fa-envelope"></i>
-            </label>
+          <div className={login.styleInput}>
             <input
               id="email"
               type="email"
@@ -95,11 +102,11 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <div>
+              <i className="fa-solid fa-envelope"></i>
+            </div>
           </div>
-          <div className={login.inputContainer}>
-            <label htmlFor="password">
-              <i className="fa-solid fa-lock"></i>
-            </label>
+          <div className={login.styleInput}>
             <input
               id="password"
               type="password"
@@ -108,12 +115,12 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <div>
+              <i className="fa-solid fa-lock"></i>
+            </div>
           </div>
           {newUser ? (
-            <div className={login.inputContainer}>
-              <label htmlFor="username">
-                <i className="fa-solid fa-circle-user"></i>
-              </label>
+            <div className={login.styleInput}>
               <input
                 id="username"
                 type="text"
@@ -122,6 +129,9 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
+              <div>
+                <i className="fa-solid fa-circle-user"></i>
+              </div>
             </div>
           ) : (
             <div className={login.signIn}>
@@ -131,16 +141,23 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           {newUser ? (
             <>
               <div className={login.signIn}>
-                <button onClick={handleNewUser}>回到登入</button>
+                <button onClick={handleNewUser}>返回登入</button>
               </div>
               <div className={login.signUp}>
                 <button onClick={handleSignUp}>註冊</button>
               </div>
             </>
           ) : (
-            <div className={login.signUp}>
-              <button onClick={handleNewUser}>我是新使用者</button>
-            </div>
+            <>
+              <div className={login.seperate}>
+                <div></div>
+                <p>OR</p>
+                <div></div>
+              </div>
+              <div className={login.signUp}>
+                <button onClick={handleNewUser}>我是新使用者</button>
+              </div>
+            </>
           )}
         </form>
       </div>

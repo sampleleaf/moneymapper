@@ -40,7 +40,10 @@ const App: React.FC = () => {
           <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>
       ) : (
-        <Login setLogin={setLogin} />
+        <>
+          <Login setLogin={setLogin} />
+          <ToastContainer autoClose={3000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
+        </>
       )}
     </>
   );

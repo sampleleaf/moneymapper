@@ -205,12 +205,12 @@
 
 .styleInput:focus-within input{
     outline: none;
-    border: 1px solid rgb(189, 130, 0);
+    border: 1px solid rgb(0, 189, 82);
 }
 
 .styleInput:focus-within div, .styleInput:focus-within div::after{
-    color: rgb(240, 165, 0);
-    border-color: rgb(240, 165, 0);
+    color: rgb(72, 212, 121);
+    border-color: rgb(72, 212, 121);
 }
 
 .submit{
@@ -227,7 +227,9 @@
     font-size: 24px;
     font-weight: bold;
     border: none;
-    background-image: linear-gradient(to right, #fc8181, #f56565, #e53e3e);
+    background-image: linear-gradient(to right, #fc8181, #f56565, #e53e3e, #f56565, #fc8181);
+    background-size: 200%;
+    transition: background 0.3s;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -235,7 +237,7 @@
 }
 
 .submit button:hover{
-    background-image: radial-gradient(circle, #fc8181, #f56565, #e53e3e);
+    background-position: 100%;
 }
 
 .submit button:focus {
