@@ -43,7 +43,7 @@ const Details: React.FC<{
   return (
     <div className={details.layout}>
       <Link to=".." className={details.back}>
-        <i className="fa-solid fa-chevron-left"></i>
+        <i className="fa-solid fa-house"></i>
       </Link>
       <div className={details.navbarLayout}>
         <div

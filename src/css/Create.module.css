@@ -256,6 +256,9 @@
         display: grid;
         grid-template-columns: calc(100% - 370px) 370px;
     }
+    .back{
+        left: 25px;
+    }
     .displayLargeScreen{
         background-color: white;
         border-radius: 8px;
@@ -325,6 +328,9 @@
     .gridContainer{
         display: grid;
         grid-template-columns: 260px calc(100% - 630px) 370px;
+    }
+    .back{
+        display: none;
     }
     .displayLargeScreen{
         grid-area: 1 / 2 / 2 / 3;

@@ -88,9 +88,12 @@
     align-items: center;
 }
 
+.noteBackground > div{
+    width: 85%;
+}
+
 .noteTitle{
     border-radius: 8px 8px 0 0;
-    width: 85%;
     height: 40px;
     display: flex;
     align-items: center;
@@ -122,7 +125,6 @@
 
 .noteDescribe{
     background-color: white;
-    width: 85%;
     height: 40px;
     display: flex;
     align-items: center;
@@ -133,8 +135,7 @@
 .noteCard{
     background-color: white;
     border-radius: 0 0 8px 8px;
-    width: 85%;
-    height: 50%;
+    height: 40%;
     overflow: auto;
 }
 
@@ -185,6 +186,9 @@
     .list li:not(:first-child){
         border-top: 1px solid rgb(195, 195, 195);
     }
+    .noteBackground > div{
+        width: 50%;
+    }
     .unSelected{
         grid-area: 3 / 1 / 4 / 2;
     }
@@ -196,6 +200,9 @@
     }
     .list{
         grid-area: 3 / 2 / 4 / 3;
+    }
+    .noteBackground > div{
+        width: 40%;
     }
     .unSelected{
         grid-area: 3 / 2 / 4 / 3;

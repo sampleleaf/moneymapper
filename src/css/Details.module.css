@@ -56,6 +56,7 @@
 @media screen and ( min-width : 768px ){
     .back{
         top: 77px;
+        left: 25px;
     }
     .layout{
         display: grid;
@@ -74,7 +75,8 @@
 
 @media screen and ( min-width : 1068px) {
     .back{
-        left: calc(30% + 25px);
+        /* left: calc(30% + 25px); */
+        display: none;
     }
     .layout{
         grid-template-columns: 30% 40% 30%;

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Budget from "@/components/Budget";
 
@@ -186,9 +186,9 @@ const Create: React.FC = () => {
       )}
       <div className={create.gridContainer}>
         <Calendar onChange={onChange} value={value} />
-        {/* <Link to=".." className={create.back}>
+        <Link to=".." className={create.back}>
           <i className="fa-solid fa-house"></i>
-        </Link> */}
+        </Link>
         <div className={create.displayLargeScreen}>
           <Budget
             payPage={payPage}
