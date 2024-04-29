@@ -22,7 +22,7 @@ const Map: React.FC<{
     const [geoResult, setGeoResult] = useState<any>(null)
 
     useEffect(() => {
-      console.log(geoResult)
+      // console.log(geoResult)
       setGeoResult(null)
     }, [position])
 

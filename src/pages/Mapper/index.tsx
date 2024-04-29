@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import Switch from "react-switch";
 import mapper from "@/css/Mapper.module.css";
 
 const Mapper = () => {
@@ -67,10 +68,14 @@ const Mapper = () => {
     setIsDropdown(!isDropdown);
   };
 
+  const handleChange = (nextChecked: boolean) => {
+    setAutoMap(nextChecked);
+  };
+
   return (
     <>
       <Link to=".." className={mapper.back}>
-        <i className="fa-solid fa-chevron-left"></i>
+        <i className="fa-solid fa-house"></i>
       </Link>
       <div className={home.filtergridArea}>
         <div className={home.header}>
@@ -112,22 +117,12 @@ const Mapper = () => {
           </div>
         </div>
       </div>
+      <div className={mapper.space}></div>
+      <div className={mapper.selectMap}>
+        <div className={`${mapper.autoButton} ${autoMap ? mapper.autoMapOn : ""}`}>自動偵測</div>
+        <Switch onChange={handleChange} checked={autoMap} />
+      </div>
       <div className={mapper.layout}>
-        <div className={mapper.header}>
-          <div
-            className={mapper.triggerPage}
-            style={
-              autoMap
-                ? { backgroundColor: "yellow" }
-                : { transform: "translateX(100%)", backgroundColor: "aqua" }
-            }
-          ></div>
-          <div className={mapper.choose}>
-            <div onClick={() => setAutoMap(true)}>自動</div>
-            <span className={mapper.vertical}></span>
-            <div onClick={() => setAutoMap(false)}>手動</div>
-          </div>
-        </div>
         <p className={mapper.description}>
           點選地圖會顯示標記所在地區的平均消費
         </p>

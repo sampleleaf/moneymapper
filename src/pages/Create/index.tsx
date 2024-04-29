@@ -8,6 +8,7 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Switch from "react-switch";
 import Budget from "@/components/Budget";
 
 type ValuePiece = Date | null;
@@ -35,6 +36,10 @@ const Create: React.FC = () => {
 
   const handleCloseMapWindow = () => {
     setMapWindow(false);
+  };
+
+  const handleChange = (nextChecked: boolean) => {
+    setAutoMap(nextChecked);
   };
 
   const handleClearLocation = () => {
@@ -135,7 +140,7 @@ const Create: React.FC = () => {
               <i className="fa-solid fa-xmark"></i>
             </div>
             <div className={create.selectMap}>
-              <div
+              {/* <div
                 onClick={() => setAutoMap(true)}
                 style={autoMap ? { opacity: "1" } : {}}
               >
@@ -146,12 +151,14 @@ const Create: React.FC = () => {
                 style={autoMap ? {} : { opacity: "1" }}
               >
                 手動選擇
-              </div>
+              </div> */}
+              <div className={`${create.autoButton} ${autoMap ? create.autoMapOn : ""}`}>自動偵測</div>
+              <Switch onChange={handleChange} checked={autoMap} />
             </div>
             {autoMap ? (
-              <div className={create.hint}>點選地圖會自動偵測您的位置</div>
+              <div className={create.hint}>點選地圖會<b style={{color: "lightgreen"}}>自動偵測您的位置</b></div>
             ) : (
-              <div className={create.hint}>點選地圖會顯示您選擇的位置</div>
+              <div className={create.hint}>點選地圖會<b style={{color: "yellow"}}>顯示您選擇的位置</b></div>
             )}
             <Map
               setMapResult={setMapResult}
@@ -161,7 +168,7 @@ const Create: React.FC = () => {
             />
             <div className={create.mapResult}>
               {mapResult || mapError ? (
-                <p>
+                <p style={mapResult ? { backgroundColor: "SteelBlue" } : {}}>
                   您的位置：
                   <b>
                     {mapResult}
@@ -169,7 +176,7 @@ const Create: React.FC = () => {
                   </b>
                 </p>
               ) : (
-                <p>您尚未選擇位置</p>
+                <p>您尚未選擇地區</p>
               )}
             </div>
             <div className={create.mapButton}>
@@ -177,9 +184,9 @@ const Create: React.FC = () => {
                 <img src="loading.gif" alt="loading" />
               ) : mapError ? (
                 "請選擇陸地或國家領海"
-              ) : (
+              ) : mapResult ? (
                 <button onClick={handleLocation}>確定</button>
-              )}
+              ) : "選完地區，會出現提交按鈕"}
             </div>
           </div>
         </div>
@@ -267,12 +274,13 @@ const Create: React.FC = () => {
                     value={location}
                     placeholder="點擊記錄地區"
                     autoComplete="off"
+                    readOnly
                     onChange={() => setLocation}
                   />
                   <div>
                     <i className="fa-solid fa-map-location-dot"></i>
                   </div>
-                  {location && <span onClick={handleClearLocation}>清空</span>}
+                  <span onClick={handleClearLocation}>清空</span>
                 </div>
               </div>
             </div>

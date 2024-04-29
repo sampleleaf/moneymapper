@@ -34,10 +34,15 @@ Open Street Map
 .leaflet-container {
   height: 300px;
   width: 100%;
-  border: 6px ridge rgb(245,216,174);
+  border: 6px ridge rgb(174, 245, 227);
   border-radius: 4px;
 }
-
+/*====================
+React Switch
+====================*/
+.react-switch-bg > div:nth-child(2){
+  display: none;
+}
 /*====================
 React Calender
 ====================*/

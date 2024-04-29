@@ -12,64 +12,36 @@
     height: 20px;
 }
 
-.header{
-    width: 100%;
-    height: 50px;
-    display: grid;
-    align-items: center;
-    box-shadow: rgba(136, 165, 191, 0.48) 0 2px 8px -3px, rgba(255, 255, 255, 0.8) 0 2px 8px -3px;
-    position: relative;
-    top: 50px;
-}
-
 .icon{
     height: 16px;
 }
 
-.choose{
-    width: 50%;
-    height: 35px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 6px;
-    position: relative;
-    font-weight: bold;
+.space{
+    height: 50px;
 }
 
-.choose div{
-    cursor: pointer;
+.selectMap{
+    height: 50px;
     display: flex;
+    column-gap: 5px;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
 }
 
-.triggerPage{
-    position: absolute;
-    width: 25%;
-    height: 35px;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    transition: background-color 0.3s, transform 0.3s;
-    right: 50%;
+.autoButton{
+    padding: 2.5px 5px;
+    font-weight: bold;
+    transition: color 0.25s;
 }
 
-.vertical{
-    position: absolute;
-    width: 2px;
-    height: 35px;
-    background-color: black;
+.autoMapOn{
+    color: green;
 }
 
 .description{
     text-align: center;
     font-weight: bold;
-    color: green;
-    margin-top: 50px;
+    color: rgb(0, 0, 0);
 }
 
 .subTitle{
@@ -99,6 +71,9 @@
 @media screen and ( min-width : 768px ){
     .back{
         top: 77px
+    }
+    .space{
+        display: none;
     }
     .layout{
         display: grid;
