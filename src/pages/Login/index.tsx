@@ -16,7 +16,6 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
-
   const middles: any = [
     useRef(null),
     useRef(null),
@@ -26,7 +25,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     useRef(null),
   ];
 
-  const backToTop: any = useRef(null)
+  const backToTop: any = useRef(null);
 
   useGSAP(() => {
     middles.forEach((middle: any) => {
@@ -41,7 +40,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         x: 0,
         opacity: 1,
         duration: 0.7,
-        delay: 0.3
+        delay: 0.3,
       });
     });
 
@@ -152,82 +151,84 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         <i className="fa-solid fa-angles-down"></i>
       </a>
       <div className={login.container}>
-        <div className={login.title}>
-          <p>Money</p>
-          <p>Mapper</p>
-        </div>
-        <div className={login.slogan}>
-          <p>掌握每筆消費</p>
-          <p>洞察生活足跡</p>
-        </div>
-        <form className={login.form}>
-          <div className={login.styleInput}>
-            <input
-              id="email"
-              type="email"
-              placeholder="請輸入信箱"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <div>
-              <i className="fa-solid fa-envelope"></i>
-            </div>
+        <div className={login.paper}>
+          <div className={login.title}>
+            <p>Money</p>
+            <p>Mapper</p>
           </div>
-          <div className={login.styleInput}>
-            <input
-              id="password"
-              type="password"
-              placeholder="請輸入密碼"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <div>
-              <i className="fa-solid fa-lock"></i>
-            </div>
+          <div className={login.slogan}>
+            <p>掌握每筆消費</p>
+            <p>洞察生活足跡</p>
           </div>
-          {newUser ? (
+          <form className={login.form}>
             <div className={login.styleInput}>
               <input
-                id="username"
-                type="text"
-                placeholder="請輸入使用者名稱"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="請輸入信箱"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <div>
-                <i className="fa-solid fa-circle-user"></i>
+                <i className="fa-solid fa-envelope"></i>
               </div>
             </div>
-          ) : (
-            <div className={login.signIn}>
-              <button onClick={handleSignIn}>登入</button>
+            <div className={login.styleInput}>
+              <input
+                id="password"
+                type="password"
+                placeholder="請輸入密碼"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <div>
+                <i className="fa-solid fa-lock"></i>
+              </div>
             </div>
-          )}
-          {newUser ? (
-            <>
+            {newUser ? (
+              <div className={login.styleInput}>
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="請輸入使用者名稱"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+                <div>
+                  <i className="fa-solid fa-circle-user"></i>
+                </div>
+              </div>
+            ) : (
               <div className={login.signIn}>
-                <button onClick={handleNewUser}>返回登入</button>
+                <button onClick={handleSignIn}>登入</button>
               </div>
-              <div className={login.signUp}>
-                <button onClick={handleSignUp}>註冊</button>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className={login.seperate}>
-                <div></div>
-                <p>OR</p>
-                <div></div>
-              </div>
-              <div className={login.signUp}>
-                <button onClick={handleNewUser}>我是新使用者</button>
-              </div>
-            </>
-          )}
-        </form>
+            )}
+            {newUser ? (
+              <>
+                <div className={login.signIn}>
+                  <button onClick={handleNewUser}>返回登入</button>
+                </div>
+                <div className={login.signUp}>
+                  <button onClick={handleSignUp}>註冊</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={login.seperate}>
+                  <div></div>
+                  <p>OR</p>
+                  <div></div>
+                </div>
+                <div className={login.signUp}>
+                  <button onClick={handleNewUser}>我是新使用者</button>
+                </div>
+              </>
+            )}
+          </form>
+        </div>
       </div>
       <div id="next" className={login.gsap}>
         <div className={login.describe} ref={middles[0]}>
@@ -264,7 +265,9 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
       </div>
       <a className={login.backToTop} href="#" ref={backToTop}>
         <p>返回頂部</p>
-        <div><i className="fa-solid fa-angles-up"></i></div>  
+        <div>
+          <i className="fa-solid fa-angles-up"></i>
+        </div>
       </a>
     </>
   );

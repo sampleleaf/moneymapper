@@ -40,6 +40,14 @@
     justify-content: center;
 }
 
+.paper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .title, .slogan{
     display: grid;
 }
@@ -240,6 +248,7 @@
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
     transform: translateX(-30%);
     opacity: 0;
+    margin: 0 auto;
 }
 
 .picture img{
@@ -288,6 +297,46 @@
     }
 }
 
-.try{
-    height: 100vh;
+@media screen and ( min-width : 768px ){
+    .scrollDown{
+        bottom: 2.5%;
+    }
+    
+    .scrollDown p, .backToTop p{
+        font-size: 24px;
+    }
+    
+    .scrollDown svg, .backToTop svg{
+        font-size: 28px;
+    }
+    .paper{
+        width: 500px;
+        height: 650px;
+        border-radius: 32px;
+        background-color: rgba(255, 255, 255, 0.7);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    }
+    .form{
+        background-color: transparent;
+        box-shadow: none;
+    }
+    .styleInput input{
+        border-radius: 16px;
+        height: 50px;
+        font-size: 18px;
+        padding: 0 45px;
+    }
+    .styleInput div{
+        left: 10px;
+    }
+    .styleInput div, .styleInput svg{
+        width: 18px;
+        height: 18px;
+    }
+    .styleInput div::after{
+        left: 25px;
+    }
+    .seperate{
+        height: 50px;
+    }
 }
