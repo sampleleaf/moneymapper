@@ -12,6 +12,7 @@ a{
 body {
   overflow-y: scroll;
   overflow-x: hidden;
+  touch-action: pan-y; /*prevent mobile users scroll left and right*/
 }
 
 @media screen and ( max-width : 480px ) {

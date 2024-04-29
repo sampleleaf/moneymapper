@@ -5,7 +5,8 @@
     height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('@public/login-background.jpg');
+    /* background-image: url('@public/login-background.jpg'); */
+    /* background-image: url('/login-background.jpg'); */
     opacity: 0.2;
     pointer-events: none;
     z-index: -1;
@@ -13,8 +14,10 @@
 
 .container{
     width: 100%;
-    margin-top: 52px;
-    display: grid;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -47,7 +50,7 @@
 }
 
 .form{
-    width: 80vw;
+    width: 80%;
     padding: 15px 0;
     margin-top: 30px;
     display: grid;
@@ -175,4 +178,61 @@
 .signUp button{
     color: white;
     background-image: linear-gradient(to right, #22d3ee, #06b6d4 , #0891b2, #06b6d4 , #22d3ee);
+}
+
+.gsap{
+    display: grid;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+.gsap:not(:first-child){
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.seperateColor{
+    background-color: rgb(243, 244, 246);
+}
+
+.describe {
+    transform: translateX(-30%);
+    opacity: 0;
+    text-align: center;
+}
+
+.describe > div:nth-child(1){
+    font-size: 24px;
+    font-weight: bold;
+    margin: 16px 0;
+}
+
+.describe > div:nth-child(2){
+    width: 160px;
+    height: 1px;
+    background-color: rgb(180, 180, 180);
+    margin: 0 auto;
+}
+
+.describe > div:nth-child(3){
+    font-size: 20px;
+}
+
+.picture{
+    width: 220px;
+    height: 390px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+    transform: translateX(30%);
+    opacity: 0;
+}
+
+.picture img{
+    width: 220px;
+    height: 390px;
+    border-radius: 8px;
+}
+
+.try{
+    height: 100vh;
 }

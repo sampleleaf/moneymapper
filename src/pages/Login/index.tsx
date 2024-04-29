@@ -1,5 +1,5 @@
 import login from "@/css/Login.module.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { db } from "@/utils/firebase";
 import {
@@ -9,7 +9,38 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, collection, getDoc } from "firebase/firestore";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
+
+  const middles: any = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+
+  useGSAP(() => {
+    middles.forEach((middle: any) => {
+      gsap.to(middle.current, {
+        scrollTrigger: {
+          trigger: middle.current,
+          start: "top bottom",
+          end: "center center",
+          scrub: true,
+        },
+        x: 0,
+        opacity: 1,
+      });
+    });
+  });
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -35,20 +66,30 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           name: username,
         });
         setNewUser(!newUser);
-        toast.success(<span>註冊成功 <br /> 您可以登入了</span>, {
-          theme: "dark",
-          position: "top-center",
-        });
+        toast.success(
+          <span>
+            註冊成功 <br /> 您可以登入了
+          </span>,
+          {
+            theme: "dark",
+            position: "top-center",
+          }
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        toast.error(<span>註冊失敗 <br /> {errorCode}</span>, {
-          theme: "dark",
-          position: "top-center"
-        });
+        toast.error(
+          <span>
+            註冊失敗 <br /> {errorCode}
+          </span>,
+          {
+            theme: "dark",
+            position: "top-center",
+          }
+        );
       });
   };
 
@@ -73,16 +114,21 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        toast.error(<span>登入失敗 <br /> {errorCode}</span>, {
-          theme: "dark",
-          position: "top-center"
-        });
+        toast.error(
+          <span>
+            登入失敗 <br /> {errorCode}
+          </span>,
+          {
+            theme: "dark",
+            position: "top-center",
+          }
+        );
       });
   };
 
   return (
     <>
-      <div className={login.background}></div>
+      {/* <div className={login.background}></div> */}
       <div className={login.container}>
         <div className={login.title}>
           <p>Money</p>
@@ -161,6 +207,40 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           )}
         </form>
       </div>
+      <div className={login.gsap}>
+        <div className={login.describe} ref={middles[0]}>
+          <div>簡單明瞭的主頁</div>
+          <div></div>
+          <div>讓你輕鬆了解收支比</div>
+        </div>
+        <div className={login.picture} ref={middles[1]}>
+          <img src="loginhome.png" alt="loginhome" />
+        </div>
+      </div>
+      <div className={`${login.gsap} ${login.seperateColor}`}>
+        <div className={login.describe} ref={middles[2]}>
+          <div>簡單記帳</div>
+          <div></div>
+          <div>
+            <p>三步即可完成</p>
+            <p>點圖示、填金額、按提交</p>
+          </div>
+        </div>
+        <div className={login.picture} ref={middles[3]}>
+          <img src="logincreate.png" alt="logincreate" />
+        </div>
+      </div>
+      <div className={login.gsap}>
+        <div className={login.describe} ref={middles[4]}>
+          <div>清晰報表</div>
+          <div></div>
+          <div>讓你掌握收支狀況</div>
+        </div>
+        <div className={login.picture} ref={middles[5]}>
+          <img src="loginpay.png" alt="loginpay" />
+        </div>
+      </div>
+      {/* <div className={login.try}></div> */}
     </>
   );
 };
