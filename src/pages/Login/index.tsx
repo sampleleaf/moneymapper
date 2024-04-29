@@ -237,7 +237,8 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           <div>讓你輕鬆了解收支比</div>
         </div>
         <div className={login.picture} ref={middles[1]}>
-          <img src="loginhome.png" alt="loginhome" />
+          <img src="loginhome.png" alt="home" />
+          <img src="home.png" alt="home" />
         </div>
       </div>
       <div className={`${login.gsap} ${login.seperateColor}`}>
@@ -250,7 +251,8 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           </div>
         </div>
         <div className={login.picture} ref={middles[3]}>
-          <img src="logincreate.png" alt="logincreate" />
+          <img src="logincreate.png" alt="create" />
+          <img src="create.png" alt="create" />
         </div>
       </div>
       <div className={login.gsap}>
@@ -260,7 +262,8 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           <div>讓你掌握收支細節</div>
         </div>
         <div className={login.picture} ref={middles[5]}>
-          <img src="loginpay.png" alt="loginpay" />
+          <img src="loginpay.png" alt="pay" />
+          <img src="pay.png" alt="pay" />
         </div>
       </div>
       <a className={login.backToTop} href="#" ref={backToTop}>

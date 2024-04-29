@@ -219,7 +219,7 @@
 }
 
 .describe {
-    transform: translateX(-30%);
+    transform: translateX(-60px);
     opacity: 0;
     text-align: center;
 }
@@ -242,19 +242,17 @@
 }
 
 .picture{
-    width: 220px;
     height: 390px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
-    transform: translateX(-30%);
+    transform: translateX(-60px);
     opacity: 0;
     margin: 0 auto;
 }
 
 .picture img{
-    width: 220px;
-    height: 390px;
-    border-radius: 8px;
+    height: inherit;
+    border-radius: inherit;
 }
 
 .backToTop{
@@ -294,6 +292,22 @@
     .gsap{
         grid-template-columns: 50% 50%;
         align-items: center;
+        padding: 40px 50px;
+    }
+    .seperateColor .picture{
+        grid-area: 1 / 1 / 2 / 2;
+    }
+    .describe{
+        transform: translateX(-60px);
+    }
+    .picture{
+        transform: translateX(60px);
+    }
+    .seperateColor .describe{
+        transform: translateX(60px);
+    }
+    .seperateColor .picture{
+        transform: translateX(-60px);
     }
 }
 
@@ -338,5 +352,56 @@
     }
     .seperate{
         height: 50px;
+    }
+    .seperateColor{
+        background-color: rgb(213, 231, 247);
+    }
+}
+
+@media screen and ( max-width : 1067px ){
+    .picture img:nth-child(2){
+        display: none;
+    }
+}
+
+@media screen and ( min-width : 1068px ){
+    .gsap{
+        grid-template-columns: 30% 40% 30%;
+        padding: 40px 120px;
+    }
+    .describe{
+        transform: translateX(-100px);
+    }
+    .picture{
+        grid-area: 1 / 2 / 2 / 4;
+        transform: translateX(100px);
+    }
+    .seperateColor .describe{
+        transform: translateX(100px);
+    }
+    .seperateColor .picture{
+        grid-area: 1 / 1 / 2 / 3;
+        transform: translateX(-100px);
+    }
+    .picture img:first-child{
+        display: none;
+    }
+}
+
+@media screen and ( min-width : 1300px ) {
+    .describe{
+        justify-self: end;
+    }
+    .describe > div:nth-child(1){
+        font-size: 32px;
+    }
+    .describe > div:nth-child(3){
+        font-size: 24px;
+    }
+    .seperateColor .describe{
+        justify-self: start;
+    }
+    .picture{
+        height: 500px;
     }
 }
