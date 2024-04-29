@@ -297,6 +297,7 @@
     .mapSpace{
         width: calc(50% - 4px);
         height: calc(65% - 4px);
+        border-radius: 6px;
     }
     .previous{
         display: none;

@@ -34,6 +34,8 @@ Open Street Map
 .leaflet-container {
   height: 300px;
   width: 100%;
+  border: 6px ridge rgb(245,216,174);
+  border-radius: 4px;
 }
 
 /*====================
