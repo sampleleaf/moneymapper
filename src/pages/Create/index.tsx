@@ -140,18 +140,6 @@ const Create: React.FC = () => {
               <i className="fa-solid fa-xmark"></i>
             </div>
             <div className={create.selectMap}>
-              {/* <div
-                onClick={() => setAutoMap(true)}
-                style={autoMap ? { opacity: "1" } : {}}
-              >
-                自動偵測
-              </div>
-              <div
-                onClick={() => setAutoMap(false)}
-                style={autoMap ? {} : { opacity: "1" }}
-              >
-                手動選擇
-              </div> */}
               <div className={`${create.autoButton} ${autoMap ? create.autoMapOn : ""}`}>自動偵測</div>
               <Switch onChange={handleChange} checked={autoMap} />
             </div>
@@ -168,7 +156,7 @@ const Create: React.FC = () => {
             />
             <div className={create.mapResult}>
               {mapResult || mapError ? (
-                <p style={mapResult ? { backgroundColor: "SteelBlue" } : {}}>
+                <p style={mapResult ? { backgroundColor: "rgb(189,218,177)" } : {}}>
                   您的位置：
                   <b>
                     {mapResult}

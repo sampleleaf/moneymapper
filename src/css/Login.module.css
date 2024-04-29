@@ -171,14 +171,15 @@
     border-radius: 8px;
     font-size: 20px;
     font-weight: bold;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
     background-size: 200%;
     transition: background 0.3s;
     cursor: pointer;
 }
 
 .signIn button{
-    background-image: linear-gradient(to right, #d9f99d, #a3e635, #84cc16, #a3e635, #d9f99d);
+    background-image: linear-gradient(to right, #84cc16, #a3e635, #d9f99d, #a3e635, #84cc16);
+    box-shadow: 0 0 0 1px rgba(139, 209, 105, 0.2), 0 10px 15px -3px rgba(139, 209, 105, 0.5), 0 4px 6px -2px rgba(139, 209, 105, 0.1);
 }
 
 .signIn button:hover,.signUp button:hover{
@@ -204,7 +205,8 @@
 
 .signUp button{
     color: white;
-    background-image: linear-gradient(to right, #22d3ee, #06b6d4 , #0891b2, #06b6d4 , #22d3ee);
+    background-image: linear-gradient(to right, #0891b2, #06b6d4, #22d3ee, #06b6d4 , #0891b2);
+    box-shadow: 0 0 0 1px rgba(79, 209, 197, 0.2), 0 10px 15px -3px rgba(79, 209, 197, 0.5), 0 4px 6px -2px rgba(79, 209, 197, 0.1);
 }
 
 .gsap{
