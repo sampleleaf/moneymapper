@@ -26,18 +26,37 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     useRef(null),
   ];
 
+  const backToTop: any = useRef(null)
+
   useGSAP(() => {
     middles.forEach((middle: any) => {
       gsap.to(middle.current, {
         scrollTrigger: {
           trigger: middle.current,
           start: "top bottom",
-          end: "center center",
-          scrub: true,
+          toggleActions: "restart resume resume reset",
+          // end: "bottom bottom",
+          // scrub: true,
         },
         x: 0,
         opacity: 1,
+        duration: 1,
+        delay: 0.3
       });
+    });
+
+    gsap.to(backToTop.current, {
+      scrollTrigger: {
+        trigger: backToTop.current,
+        start: "top bottom",
+        toggleActions: "restart resume resume reset",
+        // end: "bottom bottom",
+        // scrub: true,
+      },
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      delay: 0.3
     });
   });
 
@@ -128,7 +147,11 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
 
   return (
     <>
-      {/* <div className={login.background}></div> */}
+      <div className={login.background}></div>
+      <a className={login.scrollDown} href="#next">
+        <p>查看簡介</p>
+        <i className="fa-solid fa-angles-down"></i>
+      </a>
       <div className={login.container}>
         <div className={login.title}>
           <p>Money</p>
@@ -207,7 +230,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           )}
         </form>
       </div>
-      <div className={login.gsap}>
+      <div id="next" className={login.gsap}>
         <div className={login.describe} ref={middles[0]}>
           <div>簡單明瞭的主頁</div>
           <div></div>
@@ -234,13 +257,16 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         <div className={login.describe} ref={middles[4]}>
           <div>清晰報表</div>
           <div></div>
-          <div>讓你掌握收支狀況</div>
+          <div>讓你掌握收支細節</div>
         </div>
         <div className={login.picture} ref={middles[5]}>
           <img src="loginpay.png" alt="loginpay" />
         </div>
       </div>
-      {/* <div className={login.try}></div> */}
+      <a className={login.backToTop} href="#" ref={backToTop}>
+        <p>返回頂部</p>
+        <div><i className="fa-solid fa-angles-up"></i></div>  
+      </a>
     </>
   );
 };
