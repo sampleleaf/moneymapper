@@ -33,14 +33,14 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
       gsap.to(middle.current, {
         scrollTrigger: {
           trigger: middle.current,
-          start: "top bottom",
-          toggleActions: "restart resume resume reset",
+          start: "center bottom",
+          toggleActions: "restart resume resume reverse",
           // end: "bottom bottom",
           // scrub: true,
         },
         x: 0,
         opacity: 1,
-        duration: 1,
+        duration: 0.7,
         delay: 0.3
       });
     });
@@ -56,7 +56,6 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
       y: 0,
       opacity: 1,
       duration: 1,
-      delay: 0.3
     });
   });
 
