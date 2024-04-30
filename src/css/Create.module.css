@@ -94,7 +94,7 @@
     background-position: 100%;
 }
 
-.back{
+/* .back{
     position: absolute;
     height: 20px;
     top: 77px;
@@ -106,7 +106,7 @@
 .back svg{
     width: 20px;
     height: 20px;
-}
+} */
 
 .iconCard{
     margin: 10px;
@@ -263,9 +263,9 @@
         display: grid;
         grid-template-columns: calc(100% - 370px) 370px;
     }
-    .back{
+    /* .back{
         left: 25px;
-    }
+    } */
     .displayLargeScreen{
         background-color: white;
         border-radius: 8px;

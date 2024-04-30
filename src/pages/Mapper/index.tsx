@@ -74,9 +74,9 @@ const Mapper = () => {
 
   return (
     <>
-      <Link to=".." className={mapper.back}>
+      {/* <Link to=".." className={mapper.back}>
         <i className="fa-solid fa-house"></i>
-      </Link>
+      </Link> */}
       <div className={home.filtergridArea}>
         <div className={home.header}>
           <div className={home.dropdownTitle} onClick={handleDropDown}>

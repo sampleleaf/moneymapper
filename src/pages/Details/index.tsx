@@ -42,9 +42,9 @@ const Details: React.FC<{
 
   return (
     <div className={details.layout}>
-      <Link to=".." className={details.back}>
+      {/* <Link to=".." className={details.back}>
         <i className="fa-solid fa-house"></i>
-      </Link>
+      </Link> */}
       <div className={details.navbarLayout}>
         <div
           className={details.triggerLink}
