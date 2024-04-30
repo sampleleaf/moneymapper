@@ -4,7 +4,15 @@ import Map from "@/components/Map";
 import Budget from "@/components/Budget";
 import Calendar from "react-calendar";
 import { db } from "@/utils/firebase";
-import { doc, updateDoc, arrayUnion, arrayRemove, getDoc, deleteField } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  getDoc,
+  deleteField,
+  setDoc,
+} from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Switch from "react-switch";
@@ -34,26 +42,30 @@ const Edit: React.FC<{
   const [payItem, setPayItem] = useState<string>(item.item);
   const [incomeItem, setIncomeItem] = useState<string>(item.item);
   const [itemNote, setItemNote] = useState<string>(item.note);
-  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
+  const [payPage, setPayPage] = useState<boolean>(
+    item.price < 0 ? true : false
+  );
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [mapError, setMapError] = useState<string | undefined>("");
 
-  const [value, onChange] = useState<Value>(new Date(`${years}-0${months}-${day}`)); //1704408076738
-  const [calendarWindow, setCalendarWindow] = useState<boolean>(false)
+  const [value, onChange] = useState<Value>(
+    new Date(`${years}-0${months}-${day}`)
+  ); //1704408076738
+  const [calendarWindow, setCalendarWindow] = useState<boolean>(false);
 
   const handleYesterday = () => {
-    const newDate = new Date(value as Date)
-    newDate.setDate(newDate.getDate() - 1)
-    onChange(newDate)
-  }
+    const newDate = new Date(value as Date);
+    newDate.setDate(newDate.getDate() - 1);
+    onChange(newDate);
+  };
 
   const handleTommorrow = () => {
-    const newDate = new Date(value as Date)
-    newDate.setDate(newDate.getDate() + 1)
-    onChange(newDate)
-  }
+    const newDate = new Date(value as Date);
+    newDate.setDate(newDate.getDate() + 1);
+    onChange(newDate);
+  };
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -93,7 +105,7 @@ const Edit: React.FC<{
     const yearString = years.toString();
     const monthString = months.toString();
     if (response !== null && value) {
-      console.log(value)
+      console.log(value);
       const data = JSON.parse(response);
       const docRef = doc(db, "users", data.id, yearString, monthString);
       await updateDoc(docRef, {
@@ -112,18 +124,34 @@ const Edit: React.FC<{
       const editMonth = ((value as Date).getMonth() + 1).toString();
       const editDate = (value as Date).getDate();
       const editRef = doc(db, "users", data.id, editYear, editMonth);
-      await updateDoc(editRef, {
-        [editDate]: arrayUnion({
-          id: item.id,
-          item: payItem || item.item,
-          note: itemNote,
-          price:
-            parseInt(price) == 0
-              ? 0
-              : -parseInt(price) || -Math.abs(item.price),
-          location: location,
-        }),
-      });
+      const editSnap = await getDoc(editRef);
+      if (editSnap.exists()) {
+        await updateDoc(editRef, {
+          [editDate]: arrayUnion({
+            id: item.id,
+            item: payItem || item.item,
+            note: itemNote,
+            price:
+              parseInt(price) == 0
+                ? 0
+                : -parseInt(price) || -Math.abs(item.price),
+            location: location,
+          }),
+        });
+      } else {
+        await setDoc(editRef, {
+          [editDate]: arrayUnion({
+            id: item.id,
+            item: payItem || item.item,
+            note: itemNote,
+            price:
+              parseInt(price) == 0
+                ? 0
+                : -parseInt(price) || -Math.abs(item.price),
+            location: location,
+          }),
+        });
+      }
       toast.success("編輯成功 !", {
         theme: "dark",
         position: "top-center",
@@ -141,7 +169,7 @@ const Edit: React.FC<{
       price: number;
       item: string;
       note: string;
-    },
+    }
   ) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
@@ -166,16 +194,34 @@ const Edit: React.FC<{
       const editMonth = ((value as Date).getMonth() + 1).toString();
       const editDate = (value as Date).getDate();
       const editRef = doc(db, "users", data.id, editYear, editMonth);
-      await updateDoc(editRef, {
-        [editDate]: arrayUnion({
-          id: item.id,
-          item: incomeItem || item.item,
-          note: itemNote,
-          price:
-            parseInt(price) == 0 ? 0 : parseInt(price) || Math.abs(item.price),
-          location: location,
-        }),
-      });
+      const editSnap = await getDoc(editRef);
+      if (editSnap.exists()) {
+        await updateDoc(editRef, {
+          [editDate]: arrayUnion({
+            id: item.id,
+            item: incomeItem || item.item,
+            note: itemNote,
+            price:
+              parseInt(price) == 0
+                ? 0
+                : parseInt(price) || Math.abs(item.price),
+            location: location,
+          }),
+        });
+      } else {
+        await setDoc(editRef, {
+          [editDate]: arrayUnion({
+            id: item.id,
+            item: incomeItem || item.item,
+            note: itemNote,
+            price:
+              parseInt(price) == 0
+                ? 0
+                : parseInt(price) || Math.abs(item.price),
+            location: location,
+          }),
+        });
+      }
       toast.success("編輯成功 !", {
         theme: "dark",
         position: "top-center",
@@ -194,11 +240,22 @@ const Edit: React.FC<{
     <div onClick={handleCloseEdit} className={edit.background}>
       <div className={edit.container} onClick={(e) => e.stopPropagation()}>
         {calendarWindow && (
-          <div className={edit.mapSpace} onClick={() => setCalendarWindow(false)}>
-            <div className={edit.calendarFrame} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={edit.mapSpace}
+            onClick={() => setCalendarWindow(false)}
+          >
+            <div
+              className={edit.calendarFrame}
+              onClick={(e) => e.stopPropagation()}
+            >
               <Calendar onChange={onChange} value={value} />
               <div className={edit.calendarHint}>點選日期會自動儲存</div>
-              <div className={edit.calendarBack} onClick={() => setCalendarWindow(false)}>OK</div>
+              <div
+                className={edit.calendarBack}
+                onClick={() => setCalendarWindow(false)}
+              >
+                OK
+              </div>
             </div>
           </div>
         )}
@@ -269,9 +326,16 @@ const Edit: React.FC<{
           <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div className={edit.calendarBar}>
-          <div onClick={handleYesterday}><i className="fa-solid fa-caret-left"></i></div>
-          <div onClick={() => setCalendarWindow(true)}>{(value as Date)?.getFullYear()}/{(value as Date)?.getMonth() + 1}/{(value as Date)?.getDate()}</div>
-          <div onClick={handleTommorrow}><i className="fa-solid fa-caret-right"></i></div>
+          <div onClick={handleYesterday}>
+            <i className="fa-solid fa-caret-left"></i>
+          </div>
+          <div onClick={() => setCalendarWindow(true)}>
+            {(value as Date)?.getFullYear()}/{(value as Date)?.getMonth() + 1}/
+            {(value as Date)?.getDate()}
+          </div>
+          <div onClick={handleTommorrow}>
+            <i className="fa-solid fa-caret-right"></i>
+          </div>
         </div>
         <Budget
           payPage={payPage}
