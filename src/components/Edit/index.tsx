@@ -2,11 +2,16 @@ import edit from "@/css/Edit.module.css";
 import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import Budget from "@/components/Budget";
+import Calendar from "react-calendar";
 import { db } from "@/utils/firebase";
 import { doc, updateDoc, arrayUnion, arrayRemove, getDoc, deleteField } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Switch from "react-switch";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Edit: React.FC<{
   item: {
@@ -29,14 +34,15 @@ const Edit: React.FC<{
   const [payItem, setPayItem] = useState<string>(item.item);
   const [incomeItem, setIncomeItem] = useState<string>(item.item);
   const [itemNote, setItemNote] = useState<string>(item.note);
-  const [payPage, setPayPage] = useState<boolean>(
-    item.price < 0 ? true : false
-  );
+  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [mapError, setMapError] = useState<string | undefined>("");
-  const [editDay, setEditDay] = useState<string | number>(day)
+
+  const [value, onChange] = useState<Value>(new Date(`${years}-0${months}-${day}`)); //1704408076738
+  const [calendarWindow, setCalendarWindow] = useState<boolean>(false)
+
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -69,14 +75,13 @@ const Edit: React.FC<{
       price: number;
       item: string;
       note: string;
-    },
-    editDay: string | number,
+    }
   ) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
     const yearString = years.toString();
     const monthString = months.toString();
-    if (response !== null) {
+    if (response !== null && value) {
       const data = JSON.parse(response);
       const docRef = doc(db, "users", data.id, yearString, monthString);
       await updateDoc(docRef, {
@@ -91,8 +96,12 @@ const Edit: React.FC<{
         });
       }
       //update new
-      await updateDoc(docRef, {
-        [editDay]: arrayUnion({
+      const editYear = (value as Date).getFullYear().toString();
+      const editMonth = ((value as Date).getMonth() + 1).toString();
+      const editDate = (value as Date).getDate();
+      const editRef = doc(db, "users", data.id, editYear, editMonth);
+      await updateDoc(editRef, {
+        [editDate]: arrayUnion({
           id: item.id,
           item: payItem || item.item,
           note: itemNote,
@@ -121,7 +130,6 @@ const Edit: React.FC<{
       item: string;
       note: string;
     },
-    editDay: string | number,
   ) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
@@ -142,8 +150,12 @@ const Edit: React.FC<{
         });
       }
       //update new
-      await updateDoc(docRef, {
-        [editDay]: arrayUnion({
+      const editYear = (value as Date).getFullYear().toString();
+      const editMonth = ((value as Date).getMonth() + 1).toString();
+      const editDate = (value as Date).getDate();
+      const editRef = doc(db, "users", data.id, editYear, editMonth);
+      await updateDoc(editRef, {
+        [editDate]: arrayUnion({
           id: item.id,
           item: incomeItem || item.item,
           note: itemNote,
@@ -169,6 +181,15 @@ const Edit: React.FC<{
   return (
     <div onClick={handleCloseEdit} className={edit.background}>
       <div className={edit.container} onClick={(e) => e.stopPropagation()}>
+        {calendarWindow && (
+          <div className={edit.mapSpace} onClick={() => setCalendarWindow(false)}>
+            <div className={edit.calendarFrame} onClick={(e) => e.stopPropagation()}>
+              <Calendar onChange={onChange} value={value} />
+              <div className={edit.calendarHint}>點選日期會自動儲存</div>
+              <div className={edit.calendarBack} onClick={() => setCalendarWindow(false)}>返回</div>
+            </div>
+          </div>
+        )}
         {mapWindow && (
           <div className={edit.mapSpace} onClick={handleCloseMapWindow}>
             <div className={edit.mapFrame} onClick={(e) => e.stopPropagation()}>
@@ -236,9 +257,9 @@ const Edit: React.FC<{
           <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div className={edit.calendarBar}>
-          <div onClick={() => setEditDay(day => parseInt(day as string) - 1)}><i className="fa-solid fa-caret-left"></i></div>
-          <div>{years}/{months}/{editDay}</div>
-          <div onClick={() => setEditDay(day => parseInt(day as string) + 1)}><i className="fa-solid fa-caret-right"></i></div>
+          <div><i className="fa-solid fa-caret-left"></i></div>
+          <div onClick={() => setCalendarWindow(true)}>{(value as Date)?.getFullYear()}/{(value as Date)?.getMonth() + 1}/{(value as Date)?.getDate()}</div>
+          <div><i className="fa-solid fa-caret-right"></i></div>
         </div>
         <Budget
           payPage={payPage}
@@ -249,8 +270,8 @@ const Edit: React.FC<{
         <form
           onSubmit={
             payPage
-              ? (e) => handlePaySubmit(e, item, editDay)
-              : (e) => handleIncomeSubmit(e, item, editDay)
+              ? (e) => handlePaySubmit(e, item)
+              : (e) => handleIncomeSubmit(e, item)
           }
         >
           <div className={edit.inputGroup}>
