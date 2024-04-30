@@ -43,6 +43,17 @@ const Edit: React.FC<{
   const [value, onChange] = useState<Value>(new Date(`${years}-0${months}-${day}`)); //1704408076738
   const [calendarWindow, setCalendarWindow] = useState<boolean>(false)
 
+  const handleYesterday = () => {
+    const newDate = new Date(value as Date)
+    newDate.setDate(newDate.getDate() - 1)
+    onChange(newDate)
+  }
+
+  const handleTommorrow = () => {
+    const newDate = new Date(value as Date)
+    newDate.setDate(newDate.getDate() + 1)
+    onChange(newDate)
+  }
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -82,6 +93,7 @@ const Edit: React.FC<{
     const yearString = years.toString();
     const monthString = months.toString();
     if (response !== null && value) {
+      console.log(value)
       const data = JSON.parse(response);
       const docRef = doc(db, "users", data.id, yearString, monthString);
       await updateDoc(docRef, {
@@ -186,7 +198,7 @@ const Edit: React.FC<{
             <div className={edit.calendarFrame} onClick={(e) => e.stopPropagation()}>
               <Calendar onChange={onChange} value={value} />
               <div className={edit.calendarHint}>點選日期會自動儲存</div>
-              <div className={edit.calendarBack} onClick={() => setCalendarWindow(false)}>返回</div>
+              <div className={edit.calendarBack} onClick={() => setCalendarWindow(false)}>OK</div>
             </div>
           </div>
         )}
@@ -257,9 +269,9 @@ const Edit: React.FC<{
           <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div className={edit.calendarBar}>
-          <div><i className="fa-solid fa-caret-left"></i></div>
+          <div onClick={handleYesterday}><i className="fa-solid fa-caret-left"></i></div>
           <div onClick={() => setCalendarWindow(true)}>{(value as Date)?.getFullYear()}/{(value as Date)?.getMonth() + 1}/{(value as Date)?.getDate()}</div>
-          <div><i className="fa-solid fa-caret-right"></i></div>
+          <div onClick={handleTommorrow}><i className="fa-solid fa-caret-right"></i></div>
         </div>
         <Budget
           payPage={payPage}
