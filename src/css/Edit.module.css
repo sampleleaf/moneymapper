@@ -46,67 +46,6 @@
     font-size: 20px;
 }
 
-.selectMap{
-    display: flex;
-    justify-content: space-around;
-}
-
-.selectMap div{
-    padding: 0 10px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 8px;
-    border: 2px solid black;
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-.selectMap div:hover{
-    opacity: 1;
-    background-color: rgb(252, 255, 86);
-}
-
-.hint{
-    text-align: center;
-    background-color: black;
-    border-radius: 4px;
-    color: white;
-    margin: 5px 0;
-    white-space: nowrap;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.mapResult p{
-    margin-top: 2px;
-    text-align: center;
-    font-size: 16px;
-    border: 2px dashed rgb(0, 150, 0);
-}
-
-.mapButton{
-    margin-top: 10px;
-    text-align: center;
-}
-
-.mapButton button{
-    border-radius: 8px;
-    font-size: 20px;
-    padding: 0 20px;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.mapButton img{
-    height: 30.5px;
-}
-
-.mapButton button:hover{
-    background-color: black;
-    color: white;
-    font-weight: bold;
-}
-
 .back{
     position: absolute;
     height: 20px;
@@ -244,7 +183,7 @@
     font-size: 24px;
     font-weight: bold;
     border: none;
-    background-image: linear-gradient(to right, #fc8181, #f56565, #e53e3e, #f56565, #fc8181);
+    background-image: linear-gradient(to right, #e53e3e, #f56565, #fc8181, #f56565, #e53e3e);
     background-size: 200%;
     transition: background 0.3s;
     color: white;

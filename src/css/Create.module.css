@@ -13,7 +13,7 @@
     height: 480px;
     margin: 0 auto;
     padding: 25px;
-    background-color: rgb(243, 247, 240);
+    background-color: white;
     border-radius: 8px;
     position: relative;
 }
@@ -256,6 +256,9 @@
 }
 
 @media screen and ( min-width : 768px ){
+    .mapFrame{
+        width: 50%;
+    }
     .gridContainer{
         display: grid;
         grid-template-columns: calc(100% - 370px) 370px;

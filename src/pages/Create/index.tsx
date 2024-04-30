@@ -174,7 +174,7 @@ const Create: React.FC = () => {
                 "請選擇陸地或國家領海"
               ) : mapResult ? (
                 <button onClick={handleLocation}>確定</button>
-              ) : "選完地區，會出現提交按鈕"}
+              ) : "選完地區，會出現確定按鈕"}
             </div>
           </div>
         </div>

@@ -1,10 +1,12 @@
 import edit from "@/css/Edit.module.css";
+import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import Budget from "@/components/Budget";
 import { db } from "@/utils/firebase";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Switch from "react-switch";
 
 const Edit: React.FC<{
   item: {
@@ -43,6 +45,10 @@ const Edit: React.FC<{
     setMapWindow(false);
   };
 
+  const handleChange = (nextChecked: boolean) => {
+    setAutoMap(nextChecked);
+  };
+
   const handleClearLocation = () => {
     setLocation("");
     setMapResult("");
@@ -79,7 +85,10 @@ const Edit: React.FC<{
           id: item.id,
           item: payItem || item.item,
           note: itemNote,
-          price: parseInt(price) == 0 ? 0 : -parseInt(price) || -Math.abs(item.price),
+          price:
+            parseInt(price) == 0
+              ? 0
+              : -parseInt(price) || -Math.abs(item.price),
           location: location,
         }),
       });
@@ -117,7 +126,8 @@ const Edit: React.FC<{
           id: item.id,
           item: incomeItem || item.item,
           note: itemNote,
-          price: parseInt(price) == 0 ? 0 : parseInt(price) || Math.abs(item.price),
+          price:
+            parseInt(price) == 0 ? 0 : parseInt(price) || Math.abs(item.price),
           location: location,
         }),
       });
@@ -144,24 +154,25 @@ const Edit: React.FC<{
               <div onClick={handleCloseMapWindow} className={edit.cross}>
                 <i className="fa-solid fa-xmark"></i>
               </div>
-              <div className={edit.selectMap}>
+              <div className={create.selectMap}>
                 <div
-                  onClick={() => setAutoMap(true)}
-                  style={autoMap ? { opacity: "1" } : {}}
+                  className={`${create.autoButton} ${
+                    autoMap ? create.autoMapOn : ""
+                  }`}
                 >
                   自動偵測
                 </div>
-                <div
-                  onClick={() => setAutoMap(false)}
-                  style={autoMap ? {} : { opacity: "1" }}
-                >
-                  手動選擇
-                </div>
+                <Switch onChange={handleChange} checked={autoMap} />
               </div>
               {autoMap ? (
-                <div className={edit.hint}>點選地圖會自動偵測您的位置</div>
+                <div className={create.hint}>
+                  點選地圖會
+                  <b style={{ color: "lightgreen" }}>自動偵測您的位置</b>
+                </div>
               ) : (
-                <div className={edit.hint}>點選地圖會顯示您選擇的位置</div>
+                <div className={create.hint}>
+                  點選地圖會<b style={{ color: "yellow" }}>顯示您選擇的位置</b>
+                </div>
               )}
               <Map
                 setMapResult={setMapResult}
@@ -169,9 +180,13 @@ const Edit: React.FC<{
                 setLoadingLocation={setLoadingLocation}
                 setMapError={setMapError}
               />
-              <div className={edit.mapResult}>
+              <div className={create.mapResult}>
                 {mapResult || mapError ? (
-                  <p>
+                  <p
+                    style={
+                      mapResult ? { backgroundColor: "rgb(189,218,177)" } : {}
+                    }
+                  >
                     您的位置：
                     <b>
                       {mapResult}
@@ -179,16 +194,18 @@ const Edit: React.FC<{
                     </b>
                   </p>
                 ) : (
-                  <p>您尚未選擇位置</p>
+                  <p>您尚未選擇地區</p>
                 )}
               </div>
-              <div className={edit.mapButton}>
+              <div className={create.mapButton}>
                 {loadingLocation ? (
                   <img src="loading.gif" alt="loading" />
                 ) : mapError ? (
                   "請選擇陸地或國家領海"
-                ) : (
+                ) : mapResult ? (
                   <button onClick={handleLocation}>確定</button>
+                ) : (
+                  "選完地區，會出現確定按鈕"
                 )}
               </div>
             </div>
@@ -221,9 +238,7 @@ const Edit: React.FC<{
                     : `${incomeItem}.png` || "薪水.png"
                 }
                 alt={
-                  payPage
-                    ? `${payItem}` || "早餐"
-                    : `${incomeItem}` || "薪水"
+                  payPage ? `${payItem}` || "早餐" : `${incomeItem}` || "薪水"
                 }
               />
             </div>
