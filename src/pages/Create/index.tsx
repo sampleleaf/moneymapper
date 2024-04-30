@@ -144,7 +144,7 @@ const Create: React.FC = () => {
               <Switch onChange={handleChange} checked={autoMap} />
             </div>
             {autoMap ? (
-              <div className={create.hint}>點選地圖會<b style={{color: "lightgreen"}}>自動偵測您的位置</b></div>
+              <div className={create.hint}>點選地圖會<b style={{color: "lightgreen"}}>偵測您目前的位置</b></div>
             ) : (
               <div className={create.hint}>點選地圖會<b style={{color: "yellow"}}>顯示您選擇的位置</b></div>
             )}

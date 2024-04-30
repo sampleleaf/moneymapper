@@ -42,9 +42,9 @@
     transition: color 0.25s;
 }
 
-.autoMapOn{
+/* .autoMapOn{
     color: green;
-}
+} */
 
 .hint{
     text-align: center;

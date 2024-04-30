@@ -46,7 +46,7 @@ const DayItem: React.FC<{
       })();
     }
     return () => setItemRemoved(false);
-  }, [itemRemoved]);
+  }, [itemRemoved, months, years]);
 
   const handleEdit = (id: string) => {
     setPopEdit(true);

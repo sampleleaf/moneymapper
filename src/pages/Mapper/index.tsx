@@ -39,7 +39,7 @@ const Mapper = () => {
           // console.log(allItems);
           /*item category*/
           const allItemsOfSameLocation = allItems.filter((item) => {
-            return item.location === mapResult;
+            return item.location === mapResult && item.price < 0;
           });
           // console.log(allItemsOfSameLocation);
           const itemCategories: { [key: string]: number[] } = {};
@@ -110,7 +110,11 @@ const Mapper = () => {
           </div>
           <div className={home.selectMonth}>
             {defaultMonth.map((month) => (
-              <div onClick={() => setMonths(month)} key={month} className={`${months === month ? home.highlightedMonth : ""}`}>
+              <div
+                onClick={() => setMonths(month)}
+                key={month}
+                className={`${months === month ? home.highlightedMonth : ""}`}
+              >
                 <p>{month}月</p>
               </div>
             ))}
@@ -119,14 +123,31 @@ const Mapper = () => {
       </div>
       <div className={mapper.space}></div>
       <div className={mapper.selectMap}>
-        <div className={`${mapper.autoButton} ${autoMap ? mapper.autoMapOn : ""}`}>自動偵測</div>
+        <div
+          className={`${mapper.autoButton} ${autoMap ? mapper.autoMapOn : ""}`}
+        >
+          自動偵測
+        </div>
         <Switch onChange={handleChange} checked={autoMap} />
       </div>
       <div className={mapper.layout}>
         <p className={mapper.description}>
-          點選地圖會顯示標記所在地區的平均消費
+          {autoMap ? (
+            <div>
+              點選地圖會顯示<b style={{ color: "orangered" }}>目前地區</b>
+              的平均支出
+            </div>
+          ) : (
+            <div>
+              點選地圖會顯示<b style={{ color: "orange" }}>所選地區</b>
+              的平均支出
+            </div>
+          )}
         </p>
-        <div className={mapper.mapGridArea} style={isDropdown ? { position: "relative", zIndex: 2 } : {}}>
+        <div
+          className={mapper.mapGridArea}
+          style={isDropdown ? { position: "relative", zIndex: 2 } : {}}
+        >
           <Map
             autoMap={autoMap}
             setLoadingLocation={setLoadingLocation}
@@ -146,44 +167,31 @@ const Mapper = () => {
                 {years}年{months}月
               </p>
               <div className={mapper.container}>
-                <div>
-                  <p>平均每次支出</p>
+                <div className={mapper.scope}>
+                  <div className={mapper.scopeTitle}>平均每次支出</div>
                   {priceOfCategories &&
                     categories.map(
                       (category) =>
                         priceOfCategories[category][0] < 0 && (
-                          <div key={category}>
-                            <b>{category}</b>$
-                            {priceOfCategories[category].reduce(
-                              (acc, cur) =>
-                                Math.round(
-                                  acc +
-                                    Math.abs(cur) /
-                                      priceOfCategories[category].length
-                                ),
-                              0
-                            )}
-                          </div>
-                        )
-                    )}
-                </div>
-                <div>
-                  <p>平均每次收入</p>
-                  {priceOfCategories &&
-                    categories.map(
-                      (category) =>
-                        priceOfCategories[category][0] > 0 && (
-                          <div key={category}>
-                            <b>{category}</b>$
-                            {priceOfCategories[category].reduce(
-                              (acc, cur) =>
-                                Math.round(
-                                  acc +
-                                    Math.abs(cur) /
-                                      priceOfCategories[category].length
-                                ),
-                              0
-                            )}
+                          <div key={category} className={mapper.category}>
+                            <div className={mapper.iconAndItem}>
+                              <img src={`${category}.png`} alt={`${category}`} />
+                              <b>
+                                {category}
+                                {/* {priceOfCategories[category].length}次 */}
+                              </b>
+                            </div>
+                            <p>
+                              {`$${priceOfCategories[category].reduce(
+                                (acc, cur) =>
+                                  Math.round(
+                                    acc +
+                                      Math.abs(cur) /
+                                        priceOfCategories[category].length
+                                  ),
+                                0
+                              )}`}
+                            </p>
                           </div>
                         )
                     )}
@@ -196,7 +204,7 @@ const Mapper = () => {
               <div className={mapper.remind}>
                 <p>{mapResult}</p>
                 <p>
-                  {years}年{months}月無記帳記錄
+                  {years}年{months}月無支出記錄
                 </p>
               </div>
             </div>

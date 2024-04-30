@@ -44,6 +44,10 @@
     color: rgb(0, 0, 0);
 }
 
+.mapGridArea{
+    padding: 10px;
+}
+
 .subTitle{
     text-align: center;
     font-size: 20px;
@@ -53,6 +57,50 @@
 .container{
     display: flex;
     justify-content: space-around;
+}
+
+.scope{
+    border-radius: 6px;
+    border: 2px solid rgb(0, 0, 0);
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    display: grid;
+    /* box-shadow: 5px 5px 15px -5px rgba(253,201,83,0.75); */
+}
+
+.scopeTitle{
+    background-color: rgb(253,201,83);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border-radius: 4px 4px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.category{
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.category:not(:first-child){
+    border-top: 2px solid rgb(0, 0, 0);
+}
+
+.iconAndItem{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.iconAndItem img{
+    width: 30px;
+    height: 30px;
 }
 
 .unSelected{
@@ -103,9 +151,13 @@
         margin: 0 10px 10px 10px;
         border-radius: 0 0 8px 8px;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+        background-color: rgba(255, 255, 255, 0.4);
     }
     .mapGridArea > div{
         border-radius: 0 0 8px 8px !important;
+    }
+    .scope{
+        margin: 0 30px 30px;
     }
     .unSelected, .listGridArea{
         grid-area: 4 / 1 / 5 / 2;

@@ -81,7 +81,7 @@ const Header: React.FC<{
               </Link>
               <Link to="mapper">
                 <i className="fa-solid fa-map-location-dot"></i>
-                地區收支
+                地區支出
               </Link>
             </div>
           </div>
