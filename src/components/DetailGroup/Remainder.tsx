@@ -113,7 +113,7 @@ const Remainder = () => {
             <li>
               <p>日結餘</p>
             </li>
-            {googleData.map((data) => (
+            {googleData.reverse().map((data) => (
               <li key={data[0]}>
                 <div className={detailGroup.item}>
                   <p>{data[0]}</p>
