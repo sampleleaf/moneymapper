@@ -326,8 +326,9 @@
         font-size: 28px;
     }
     .paper{
-        width: 500px;
-        height: 650px;
+        width: 450px;
+        height: 65vh;
+        max-height: 650px;
         border-radius: 32px;
         background-color: rgba(255, 255, 255, 0.7);
         box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
@@ -338,7 +339,8 @@
     }
     .styleInput input{
         border-radius: 16px;
-        height: 50px;
+        height: 5vh;
+        max-height: 50px;
         font-size: 18px;
         padding: 0 45px;
     }
@@ -352,8 +354,13 @@
     .styleInput div::after{
         left: 25px;
     }
+    .signIn, .signUp{
+        height: 4vh;
+        max-height: 40px;
+    }
     .seperate{
-        height: 50px;
+        height: 5vh;
+        max-height: 50px;
     }
     .seperateColor{
         background-color: rgb(213, 231, 247);
