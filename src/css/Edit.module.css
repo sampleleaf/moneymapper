@@ -29,7 +29,11 @@
     background-color: white;
     width: 85%;
     margin: 0 auto;
-    /* border-radius: 8px; */
+    border-radius: 8px;
+}
+
+.calendarFrame div:first-child{
+    border-radius: 8px 8px 0 0;
 }
 
 .calendarHint{
@@ -46,7 +50,7 @@
     font-weight: bold;
     background-image: linear-gradient(90deg, #047481, #0694a2, #16bdca, #0694a2, #047481);
     background-size: 200%;
-    box-shadow: 0 0 0 1px rgba(41, 179, 180, 0.2), 0 10px 15px -3px rgba(41, 179, 180, 0.5), 0 4px 6px -2px rgba(41, 179, 180, 0.1);
+    box-shadow: 0 0 0 1px rgba(41, 179, 180, 0.2), 3px 5px 8px -3px rgba(41, 179, 180, 0.5), 0 4px 6px -2px rgba(41, 179, 180, 0.1);
     margin: 10px auto;
     padding: 3px 0;
     border-radius: 8px;
@@ -275,7 +279,17 @@
         height: calc(65% - 4px);
         border-radius: 6px;
     }
+    .calendarFrame div:first-child{
+        margin: 0 auto;
+        box-shadow: none;
+    }
     .previous{
         display: none;
+    }
+}
+
+@media screen and ( min-width : 1068px ){
+    .calendarFrame{
+        width: 443px;
     }
 }
