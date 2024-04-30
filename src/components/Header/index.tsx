@@ -1,17 +1,19 @@
 import header from "@/css/Header.module.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header: React.FC<{
   setLogin: Function;
   setDetailsTranslateX: Function;
   setDetailsHighlighted: Function;
 }> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
+  const navigate = useNavigate();
   const [sidebar, setSidebar] = useState<boolean>(false);
 
   // const loginData = localStorage.getItem("loginData");
 
   const handleLogout = () => {
+    navigate("/");
     localStorage.removeItem("loginData");
     setLogin(localStorage.getItem("loginData"));
   };
@@ -63,7 +65,7 @@ const Header: React.FC<{
               Menu
             </h3>
             <div className={header.sidebarContainer}>
-              <Link to="/">
+              <Link to="/" onClick={() => setSidebar(!sidebar)}>
                 <i className="fa-solid fa-house"></i>
                 首頁
               </Link>
@@ -79,7 +81,7 @@ const Header: React.FC<{
                 <i className="fa-solid fa-chart-line"></i>
                 結餘
               </Link>
-              <Link to="mapper">
+              <Link to="mapper" onClick={() => setSidebar(!sidebar)}>
                 <i className="fa-solid fa-map-location-dot"></i>
                 地區支出
               </Link>

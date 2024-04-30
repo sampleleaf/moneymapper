@@ -127,7 +127,7 @@ const Mapper = () => {
         <Switch onChange={handleChange} checked={autoMap} />
       </div>
       <div className={mapper.layout}>
-        <p className={mapper.description}>
+        <div className={mapper.description}>
           {autoMap ? (
             <div>
               點選地圖會顯示<b style={{ color: "orangered" }}>目前地區</b>
@@ -139,7 +139,7 @@ const Mapper = () => {
               的平均支出
             </div>
           )}
-        </p>
+        </div>
         <div
           className={mapper.mapGridArea}
           style={isDropdown ? { position: "relative", zIndex: 2 } : {}}
