@@ -3,7 +3,7 @@ import create from "@/css/Create.module.css";
 import Map from "@/components/Map";
 import Budget from "@/components/Budget";
 import { db } from "@/utils/firebase";
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove, getDoc, deleteField } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Switch from "react-switch";
@@ -36,6 +36,7 @@ const Edit: React.FC<{
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [mapError, setMapError] = useState<string | undefined>("");
+  const [editDay, setEditDay] = useState<string | number>(day)
 
   const handleOpenMapWindow = () => {
     setMapWindow(true);
@@ -68,7 +69,8 @@ const Edit: React.FC<{
       price: number;
       item: string;
       note: string;
-    }
+    },
+    editDay: string | number,
   ) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
@@ -80,8 +82,17 @@ const Edit: React.FC<{
       await updateDoc(docRef, {
         [day]: arrayRemove(item),
       });
+      //if [day] is empty array, delete it
+      const docSnapshot = await getDoc(docRef);
+      const docData = docSnapshot.data();
+      if (docData && Array.isArray(docData[day]) && docData[day].length === 0) {
+        await updateDoc(docRef, {
+          [day]: deleteField(),
+        });
+      }
+      //update new
       await updateDoc(docRef, {
-        [day]: arrayUnion({
+        [editDay]: arrayUnion({
           id: item.id,
           item: payItem || item.item,
           note: itemNote,
@@ -109,7 +120,8 @@ const Edit: React.FC<{
       price: number;
       item: string;
       note: string;
-    }
+    },
+    editDay: string | number,
   ) => {
     e.preventDefault();
     const response = localStorage.getItem("loginData");
@@ -121,8 +133,17 @@ const Edit: React.FC<{
       await updateDoc(docRef, {
         [day]: arrayRemove(item),
       });
+      //if [day] is empty array, delete it
+      const docSnapshot = await getDoc(docRef);
+      const docData = docSnapshot.data();
+      if (docData && Array.isArray(docData[day]) && docData[day].length === 0) {
+        await updateDoc(docRef, {
+          [day]: deleteField(),
+        });
+      }
+      //update new
       await updateDoc(docRef, {
-        [day]: arrayUnion({
+        [editDay]: arrayUnion({
           id: item.id,
           item: incomeItem || item.item,
           note: itemNote,
@@ -214,6 +235,11 @@ const Edit: React.FC<{
         <div className={edit.previous} onClick={handleCloseEdit}>
           <i className="fa-solid fa-chevron-left"></i>
         </div>
+        <div className={edit.calendarBar}>
+          <div onClick={() => setEditDay(day => parseInt(day as string) - 1)}><i className="fa-solid fa-caret-left"></i></div>
+          <div>{years}/{months}/{editDay}</div>
+          <div onClick={() => setEditDay(day => parseInt(day as string) + 1)}><i className="fa-solid fa-caret-right"></i></div>
+        </div>
         <Budget
           payPage={payPage}
           setPayPage={setPayPage}
@@ -223,8 +249,8 @@ const Edit: React.FC<{
         <form
           onSubmit={
             payPage
-              ? (e) => handlePaySubmit(e, item)
-              : (e) => handleIncomeSubmit(e, item)
+              ? (e) => handlePaySubmit(e, item, editDay)
+              : (e) => handleIncomeSubmit(e, item, editDay)
           }
         >
           <div className={edit.inputGroup}>
