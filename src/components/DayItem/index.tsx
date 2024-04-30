@@ -87,6 +87,9 @@ const DayItem: React.FC<{
       });
     }
   };
+
+  const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0)
+
   return (
     <>
       {items && (
@@ -97,8 +100,8 @@ const DayItem: React.FC<{
                 {years}年{months}月{day}日
               </p>
             </div>
-            <p>
-              ${items.reduce((acc, cur) => acc + cur.price, 0)}
+            <p style={remainder < 0 ? {color: "rgb(255,179,0)"} : {color: "rgb(71,184,224)"}}>
+              ${remainder}
             </p>
           </div>
           <div className={dayItem.line}></div>

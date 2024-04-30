@@ -1,7 +1,6 @@
 import Map from "@/components/Map";
 import home from "@/css/Home.module.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Switch from "react-switch";
@@ -74,9 +73,6 @@ const Mapper = () => {
 
   return (
     <>
-      {/* <Link to=".." className={mapper.back}>
-        <i className="fa-solid fa-house"></i>
-      </Link> */}
       <div className={home.filtergridArea}>
         <div className={home.header}>
           <div className={home.dropdownTitle} onClick={handleDropDown}>
