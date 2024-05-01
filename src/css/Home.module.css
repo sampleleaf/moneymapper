@@ -428,9 +428,12 @@
     }
     .chartGridArea{
         grid-area: 1 / 2 / 2 / 3;
+        margin: 20px 0;
     }
     .itemsByDayThisMonth{
         grid-area: 2 / 2 / 3 / 3;
+        margin-left: 0;
+        margin-right: 0;
     }
     .addItem{
         left: 50%;

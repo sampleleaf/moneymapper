@@ -203,9 +203,12 @@
 @media screen and ( min-width : 1068px) {
     .chartGridArea{
         grid-area: 2 / 2 / 3 / 3;
+        margin: 20px 0;
     }
     .list{
         grid-area: 3 / 2 / 4 / 3;
+        margin-left: 0;
+        margin-right: 0;
     }
     .noteBackground > div{
         width: 40%;

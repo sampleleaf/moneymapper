@@ -61,7 +61,8 @@
         grid-template-columns: 30% 40% 30%;
     }
     .navbarLayout{
-        width: calc(40% - 20px);
+        margin: 20px 0;
+        width: calc(40%);
         justify-self: center;
     }
 }

@@ -181,8 +181,8 @@
 
 @media screen and ( min-width : 1068px ){
     .selectMap{
-        width: calc(40% - 20px);
-        margin: 20px auto 10px;
+        width: calc(40%);
+        margin: 20px auto 0;
     }
     .layout{
         grid-template-columns: 30% 40% 30%;
@@ -192,11 +192,17 @@
     }
     .description{
         grid-area: 2 / 2 / 3 / 3;
+        margin-left: 0;
+        margin-right: 0;
     }
     .mapGridArea{
         grid-area: 3 / 2 / 4 / 3;
+        margin-left: 0;
+        margin-right: 0;
     }
     .unSelected, .listGridArea{
         grid-area: 4 / 2 / 5 / 3;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
