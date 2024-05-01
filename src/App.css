@@ -301,7 +301,7 @@ React Calender
 
 @media screen and ( min-width : 768px ){
   .react-calendar{
-    margin: 10px;
+    margin: 20px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
   }

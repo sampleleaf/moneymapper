@@ -172,8 +172,7 @@
 
 @media screen and ( min-width : 768px) {
     .chartGridArea{
-        margin: 10px;
-        margin-top: 20px;
+        margin: 20px;
         border-radius: 8px;
         background-color: rgb(255, 255, 255);
         box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
@@ -182,7 +181,8 @@
         margin: 5px 0;
     }
     .list{
-        margin: 10px;
+        margin: 20px;
+        margin-top: 0;
         grid-area: 3 / 1 / 4 / 2;
         border: none;
         background-color: white;
