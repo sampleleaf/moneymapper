@@ -336,3 +336,13 @@
         grid-area: 2 / 2 / 3 / 4;
     }
 }
+
+@media screen and ( min-width : 1440px ){
+    .gridContainer{
+        width: 1423px;
+        margin: 0 auto;
+    }
+    .mapFrame{
+        width: 711.5px;
+    }
+}

@@ -439,3 +439,14 @@
         left: 50%;
     }
 }
+
+@media screen and ( min-width : 1440px ){
+    .container{
+        width: 1423px;
+        margin: 0 auto;
+    }
+    .filtergridArea{
+        left: calc(50% + 284.6px);
+        width: 426.9px;
+    }
+}

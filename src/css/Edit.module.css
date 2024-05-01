@@ -298,3 +298,15 @@
         width: 443px;
     }
 }
+
+@media screen and ( min-width : 1440px ){
+    .container{
+        width: 711.5px;
+    }
+    .mapSpace{
+        width: 707.5px;
+    }
+    .mapFrame{
+        width: 550px;
+    }
+}

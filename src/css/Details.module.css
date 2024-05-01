@@ -62,7 +62,17 @@
     }
     .navbarLayout{
         margin: 20px 0;
-        width: calc(40%);
+        width: 40%;
         justify-self: center;
+    }
+}
+
+@media screen and ( min-width : 1440px ){
+    .layout{
+        width: 1423px;
+        margin: 0 auto;
+    }
+    .navbarLayout{
+        width: calc(1423px * 0.4);
     }
 }

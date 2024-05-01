@@ -206,3 +206,13 @@
         margin-right: 0;
     }
 }
+
+@media screen and ( min-width : 1440px ) {
+    .selectMap{
+        width: calc(1423px * 0.4);
+    }
+    .layout{
+        width: 1423px;
+        margin: 0 auto;
+    }
+}
