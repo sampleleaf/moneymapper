@@ -83,7 +83,7 @@ const Header: React.FC<{
               </Link>
               <Link to="mapper" onClick={() => setSidebar(!sidebar)}>
                 <i className="fa-solid fa-map-location-dot"></i>
-                地區支出
+                地區收支
               </Link>
             </div>
           </div>

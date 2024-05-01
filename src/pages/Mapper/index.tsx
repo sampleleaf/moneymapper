@@ -14,8 +14,12 @@ const Mapper = () => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [priceOfCategories, setPriceOfCategories] = useState<{
+  const [payCategories, setPayCategories] = useState<string[]>([]);
+  const [priceOfPayCategories, setPriceOfPayCategories] = useState<{
+    [key: string]: number[];
+  }>({});
+  const [incomeCategories, setIncomeCategories] = useState<string[]>([]);
+  const [priceOfIncomeCategories, setPriceOfIncomeCategories] = useState<{
     [key: string]: number[];
   }>({});
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -36,27 +40,40 @@ const Mapper = () => {
             allItems.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
           // console.log(allItems);
-          /*item category*/
-          const allItemsOfSameLocation = allItems.filter((item) => {
+          //pay category
+          const payItemsOfSameLocation = allItems.filter((item) => {
             return item.location === mapResult && item.price < 0;
           });
-          // console.log(allItemsOfSameLocation);
-          const itemCategories: { [key: string]: number[] } = {};
-          allItemsOfSameLocation.forEach((item) => {
-            if (item.item in itemCategories) {
-              itemCategories[item.item].push(item.price);
+          const payItemCategories: { [key: string]: number[] } = {};
+          payItemsOfSameLocation.forEach((item) => {
+            if (item.item in payItemCategories) {
+              payItemCategories[item.item].push(item.price);
             } else {
-              itemCategories[item.item] = [item.price];
+              payItemCategories[item.item] = [item.price];
             }
           });
-          // console.log(itemCategories);
-          // console.log(Object.keys(itemCategories));
-          setPriceOfCategories(itemCategories);
-          setCategories(Object.keys(itemCategories));
+          setPriceOfPayCategories(payItemCategories);
+          setPayCategories(Object.keys(payItemCategories));
+          // income category
+          const incomeItemsOfSameLocation = allItems.filter((item) => {
+            return item.location === mapResult && item.price > 0;
+          });
+          const incomeItemCategories: { [key: string]: number[] } = {};
+          incomeItemsOfSameLocation.forEach((item) => {
+            if (item.item in incomeItemCategories) {
+              incomeItemCategories[item.item].push(item.price);
+            } else {
+              incomeItemCategories[item.item] = [item.price];
+            }
+          });
+          setPriceOfIncomeCategories(incomeItemCategories);
+          setIncomeCategories(Object.keys(incomeItemCategories));
         } else {
           // docSnap.data() will be undefined in this case
-          setCategories([]);
-          setPriceOfCategories({});
+          setPayCategories([]);
+          setPriceOfPayCategories({});
+          setIncomeCategories([]);
+          setPriceOfIncomeCategories({});
           console.log("No such document!");
         }
       })();
@@ -131,12 +148,12 @@ const Mapper = () => {
           {autoMap ? (
             <div>
               點選地圖會顯示<b style={{ color: "orangered" }}>目前地區</b>
-              的平均支出
+              的平均收支
             </div>
           ) : (
             <div>
               點選地圖會顯示<b style={{ color: "orange" }}>所選地區</b>
-              的平均支出
+              的平均收支
             </div>
           )}
         </div>
@@ -156,42 +173,68 @@ const Mapper = () => {
             <img src="loading.gif" alt="loading" />
           </div>
         ) : mapResult ? (
-          Object.keys(categories).length > 0 ? (
+          (Object.keys(payCategories).length ||
+            Object.keys(incomeCategories).length) > 0 ? (
             <div className={mapper.listGridArea}>
               <p className={mapper.subTitle}>
                 {mapResult}
                 {years}年{months}月
               </p>
               <div className={mapper.container}>
-                <div className={mapper.scope}>
-                  <div className={mapper.scopeTitle}>平均每次支出</div>
-                  {priceOfCategories &&
-                    categories.map(
-                      (category) =>
-                        priceOfCategories[category][0] < 0 && (
-                          <div key={category} className={mapper.category}>
-                            <div className={mapper.iconAndItem}>
-                              <img src={`${category}.png`} alt={`${category}`} />
-                              <b>
-                                {category}
-                                {/* {priceOfCategories[category].length}次 */}
-                              </b>
-                            </div>
-                            <p>
-                              {`$${priceOfCategories[category].reduce(
-                                (acc, cur) =>
-                                  Math.round(
-                                    acc +
-                                      Math.abs(cur) /
-                                        priceOfCategories[category].length
-                                  ),
-                                0
-                              )}`}
-                            </p>
-                          </div>
-                        )
-                    )}
-                </div>
+                {Object.keys(payCategories).length > 0 && (
+                  <div className={mapper.scope}>
+                    <div className={mapper.scopeTitle} style={{backgroundColor: "rgb(253,201,83)"}}>平均每次支出</div>
+                    {payCategories.map((category) => (
+                      <div key={category} className={mapper.category}>
+                        <div className={mapper.iconAndItem}>
+                          <img src={`${category}.png`} alt={`${category}`} />
+                          <b>
+                            {category}
+                            {/* {priceOfPayCategories[category].length}次 */}
+                          </b>
+                        </div>
+                        <p>
+                          {`$${priceOfPayCategories[category].reduce(
+                            (acc, cur) =>
+                              Math.round(
+                                acc +
+                                  Math.abs(cur) /
+                                    priceOfPayCategories[category].length
+                              ),
+                            0
+                          )}`}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {Object.keys(incomeCategories).length > 0 && (
+                  <div className={mapper.scope}>
+                    <div className={mapper.scopeTitle} style={{backgroundColor: "rgb(158,225,255)"}}>平均每次收入</div>
+                    {incomeCategories.map((category) => (
+                      <div key={category} className={mapper.category}>
+                        <div className={mapper.iconAndItem}>
+                          <img src={`${category}.png`} alt={`${category}`} />
+                          <b>
+                            {category}
+                            {/* {priceOfIncomeCategories[category].length}次 */}
+                          </b>
+                        </div>
+                        <p>
+                          {`$${priceOfIncomeCategories[category].reduce(
+                            (acc, cur) =>
+                              Math.round(
+                                acc +
+                                  Math.abs(cur) /
+                                    priceOfIncomeCategories[category].length
+                              ),
+                            0
+                          )}`}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ) : (
