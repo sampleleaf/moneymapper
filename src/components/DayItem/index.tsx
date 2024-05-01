@@ -23,8 +23,30 @@ const DayItem: React.FC<{
   setPopEdit: Function;
   remindDelete: boolean;
   setRemindDelete: Function;
-}> = ({ day, months, years, itemRemoved, setItemRemoved, popId, setPopId, popEdit, setPopEdit, remindDelete, setRemindDelete }) => {
-  const [items, setItems] = useState<{ id: string; item: string; src: string; note: string; price: number; location: string | undefined }[]>([]);
+}> = ({
+  day,
+  months,
+  years,
+  itemRemoved,
+  setItemRemoved,
+  popId,
+  setPopId,
+  popEdit,
+  setPopEdit,
+  remindDelete,
+  setRemindDelete,
+}) => {
+  const [items, setItems] = useState<
+    {
+      id: string;
+      item: string;
+      src: string;
+      note: string;
+      price: number;
+      location: string | undefined;
+    }[]
+  >([]);
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -54,13 +76,18 @@ const DayItem: React.FC<{
   };
 
   const handleDeleteRemind = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation()
-    setRemindDelete(true)
-    setPopId(id)
-  }
+    e.stopPropagation();
+    setRemindDelete(true);
+    setPopId(id);
+  };
 
-  const handleItemRemove = async (e: React.MouseEvent ,item: object, day: string) => {
-    e.stopPropagation()
+  const handleItemRemove = async (
+    e: React.MouseEvent,
+    item: object,
+    day: string
+  ) => {
+    e.stopPropagation();
+    setIsSending(true)
     const response = localStorage.getItem("loginData");
     if (response !== null) {
       const data = JSON.parse(response);
@@ -79,16 +106,17 @@ const DayItem: React.FC<{
           [day]: deleteField(),
         });
       }
+      setIsSending(false)
       setItemRemoved(true);
       setRemindDelete(false);
       toast.success("成功刪除 !", {
         theme: "dark",
-        position: "top-center"
+        position: "top-center",
       });
     }
   };
 
-  const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0)
+  const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0);
 
   return (
     <>
@@ -100,7 +128,13 @@ const DayItem: React.FC<{
                 {years}年{months}月{day}日
               </p>
             </div>
-            <p style={remainder < 0 ? {color: "rgb(255,179,0)"} : {color: "rgb(71,184,224)"}}>
+            <p
+              style={
+                remainder < 0
+                  ? { color: "rgb(255,179,0)" }
+                  : { color: "rgb(71,184,224)" }
+              }
+            >
               ${remainder}
             </p>
           </div>
@@ -109,24 +143,56 @@ const DayItem: React.FC<{
             {items.map((item) => (
               <div key={item.id}>
                 {popEdit && popId === item.id && (
-                  <Edit item={item} setPopEdit={setPopEdit} setItemRemoved={setItemRemoved} setPopId={setPopId} years={years} months={months} day={day} />
+                  <Edit
+                    item={item}
+                    setPopEdit={setPopEdit}
+                    setItemRemoved={setItemRemoved}
+                    setPopId={setPopId}
+                    years={years}
+                    months={months}
+                    day={day}
+                  />
                 )}
                 {remindDelete && popId === item.id && (
-                  <div onClick={() => setRemindDelete(false)} className={dayItem.background}>
-                    <div onClick={e => e.stopPropagation()} className={dayItem.remindWindow}>
+                  <div
+                    onClick={() => setRemindDelete(false)}
+                    className={dayItem.background}
+                  >
+                    <div
+                      onClick={(e) => e.stopPropagation()}
+                      className={dayItem.remindWindow}
+                    >
                       <p>系統通知</p>
-                      <p>請問您確定要刪除此筆<b>{item.item}</b>記錄</p>
+                      <p>
+                        請問您確定要刪除此筆<b>{item.item}</b>記錄
+                      </p>
                       <div className={dayItem.deleteChoice}>
-                        <p onClick={() => setRemindDelete(false)}>取消</p>
-                        <p onClick={(e) => handleItemRemove(e, item, day)}>確認刪除</p>
+                        {isSending ? (
+                          <p className={dayItem.sending}>
+                            <img src="loading.gif" alt="sending" />
+                          </p>
+                        ) : (
+                          <>
+                            <p onClick={() => setRemindDelete(false)}>取消</p>
+                            <p onClick={(e) => handleItemRemove(e, item, day)}>
+                              確認刪除
+                            </p>
+                          </>
+                        )}
                       </div>
-                    </div>       
+                    </div>
                   </div>
                 )}
-                <div onClick={() => handleEdit(item.id)} className={dayItem.items}>
+                <div
+                  onClick={() => handleEdit(item.id)}
+                  className={dayItem.items}
+                >
                   <div className={dayItem.item}>
                     <img src={`${item.item}.png`} alt={item.src} />
-                    <p /*style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}*/>{item.note || item.item}</p>
+                    <p /*style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}*/
+                    >
+                      {item.note || item.item}
+                    </p>
                   </div>
                   <p>${item.price}</p>
                   <div

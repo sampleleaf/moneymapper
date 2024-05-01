@@ -96,7 +96,15 @@
 
 .deleteChoice p{
     font-weight: bold;
-    padding: 5px 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteChoice img{
+    width: 30px;
+    height: 30px;
 }
 
 .deleteChoice p:nth-child(2){
@@ -114,6 +122,10 @@
     background-color: black;
     left: 0;
     top: 0;
+}
+
+.sending{
+    grid-area: 1 / 1 / 2 / 3;
 }
 
 @media screen and ( min-width : 768px ){

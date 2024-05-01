@@ -49,11 +49,11 @@ const Edit: React.FC<{
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [mapError, setMapError] = useState<string | undefined>("");
-
   const [value, onChange] = useState<Value>(
     new Date(`${years}-0${months}-${day}`)
   ); //1704408076738
   const [calendarWindow, setCalendarWindow] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false)
 
   const handleYesterday = () => {
     const newDate = new Date(value as Date);
@@ -65,14 +65,6 @@ const Edit: React.FC<{
     const newDate = new Date(value as Date);
     newDate.setDate(newDate.getDate() + 1);
     onChange(newDate);
-  };
-
-  const handleOpenMapWindow = () => {
-    setMapWindow(true);
-  };
-
-  const handleCloseMapWindow = () => {
-    setMapWindow(false);
   };
 
   const handleChange = (nextChecked: boolean) => {
@@ -101,6 +93,7 @@ const Edit: React.FC<{
     }
   ) => {
     e.preventDefault();
+    setIsSending(true)
     const response = localStorage.getItem("loginData");
     const yearString = years.toString();
     const monthString = months.toString();
@@ -152,6 +145,7 @@ const Edit: React.FC<{
           }),
         });
       }
+      setIsSending(false)
       toast.success("編輯成功 !", {
         theme: "dark",
         position: "top-center",
@@ -172,6 +166,7 @@ const Edit: React.FC<{
     }
   ) => {
     e.preventDefault();
+    setIsSending(true)
     const response = localStorage.getItem("loginData");
     const yearString = years.toString();
     const monthString = months.toString();
@@ -222,6 +217,7 @@ const Edit: React.FC<{
           }),
         });
       }
+      setIsSending(false)
       toast.success("編輯成功 !", {
         theme: "dark",
         position: "top-center",
@@ -260,9 +256,9 @@ const Edit: React.FC<{
           </div>
         )}
         {mapWindow && (
-          <div className={edit.mapSpace} onClick={handleCloseMapWindow}>
+          <div className={edit.mapSpace} onClick={() => setMapWindow(false)}>
             <div className={edit.mapFrame} onClick={(e) => e.stopPropagation()}>
-              <div onClick={handleCloseMapWindow} className={edit.cross}>
+              <div onClick={() => setMapWindow(false)} className={edit.cross}>
                 <i className="fa-solid fa-xmark"></i>
               </div>
               <div className={create.selectMap}>
@@ -408,7 +404,7 @@ const Edit: React.FC<{
               <p>　</p>
               <div className={edit.styleInput}>
                 <input
-                  onClick={handleOpenMapWindow}
+                  onClick={() => setMapWindow(true)}
                   id="location"
                   type="text"
                   value={location}
@@ -424,7 +420,7 @@ const Edit: React.FC<{
             </div>
           </div>
           <div className={edit.submit}>
-            <button type="submit">更新</button>
+            {isSending ? <img src="loading.gif" alt="sending" /> : <button type="submit">更新</button>}
           </div>
         </form>
       </div>

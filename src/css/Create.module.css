@@ -235,6 +235,11 @@
     outline: none;
 }
 
+.submit img{
+    width: 30px;
+    height: 30px;
+}
+
 @media screen and ( max-width : 767px ){
     .displayLargeScreen{
         display: none;

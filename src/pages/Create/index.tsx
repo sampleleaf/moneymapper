@@ -29,14 +29,7 @@ const Create: React.FC = () => {
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [mapError, setMapError] = useState<string | undefined>("");
-
-  const handleOpenMapWindow = () => {
-    setMapWindow(true);
-  };
-
-  const handleCloseMapWindow = () => {
-    setMapWindow(false);
-  };
+  const [isSending, setIsSending] = useState<boolean>(false)
 
   const handleChange = (nextChecked: boolean) => {
     setAutoMap(nextChecked);
@@ -55,6 +48,7 @@ const Create: React.FC = () => {
 
   const handlePaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSending(true)
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
@@ -84,6 +78,7 @@ const Create: React.FC = () => {
           }),
         });
       }
+      setIsSending(false)
       toast.success("新增成功 !", {
         theme: "dark",
         position: "top-center",
@@ -94,6 +89,7 @@ const Create: React.FC = () => {
 
   const handleIncomeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSending(true)
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
@@ -123,6 +119,7 @@ const Create: React.FC = () => {
           }),
         });
       }
+      setIsSending(false)
       toast.success("新增成功 !", {
         theme: "dark",
         position: "top-center",
@@ -134,9 +131,9 @@ const Create: React.FC = () => {
   return (
     <>
       {mapWindow && (
-        <div className={create.mapSpace} onClick={handleCloseMapWindow}>
+        <div className={create.mapSpace} onClick={() => setMapWindow(false)}>
           <div className={create.mapFrame} onClick={(e) => e.stopPropagation()}>
-            <div onClick={handleCloseMapWindow} className={create.cross}>
+            <div onClick={() => setMapWindow(false)} className={create.cross}>
               <i className="fa-solid fa-xmark"></i>
             </div>
             <div className={create.selectMap}>
@@ -253,7 +250,7 @@ const Create: React.FC = () => {
                 <p>　</p>
                 <div className={create.styleInput}>
                   <input
-                    onClick={handleOpenMapWindow}
+                    onClick={() => setMapWindow(true)}
                     id="location"
                     type="text"
                     value={location}
@@ -270,7 +267,7 @@ const Create: React.FC = () => {
               </div>
             </div>
             <div className={create.submit}>
-              <button type="submit">提交</button>
+              {isSending ? <img src="loading.gif" alt="sending" /> : <button type="submit">提交</button>}
             </div>
           </form>
         </div>

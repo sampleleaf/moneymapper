@@ -52,7 +52,8 @@
     border: 2px solid rgb(0, 0, 0);
     width: calc(100% - 20px);
     margin: 0 10px;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     /* box-shadow: 5px 5px 15px -5px rgba(253,201,83,0.75); */
 }
 

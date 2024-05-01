@@ -242,6 +242,11 @@
     outline: none;
 }
 
+.submit img{
+    width: 30px;
+    height: 30px;
+}
+
 .previous{
     position: absolute;
     height: 20px;
