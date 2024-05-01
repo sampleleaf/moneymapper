@@ -10,7 +10,7 @@ const Header: React.FC<{
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState<boolean>(false);
 
-  // const loginData = localStorage.getItem("loginData");
+  const loginData = localStorage.getItem("loginData");
 
   const handleLogout = () => {
     navigate("/");
@@ -61,8 +61,8 @@ const Header: React.FC<{
               <i className="fa-solid fa-xmark"></i>
             </div>
             <h3 className={header.username}>
-              {/* Hello, {loginData && JSON.parse(loginData).name} */}
-              Menu
+              Welcome, {loginData && JSON.parse(loginData).name}
+              {/* Menu */}
             </h3>
             <div className={header.sidebarContainer}>
               <Link to="/" onClick={() => setSidebar(!sidebar)}>
@@ -97,9 +97,9 @@ const Header: React.FC<{
           <div className={header.title}>MoneyMapper</div>
         </Link>
         <div className={header.iconContainer}>
-          <Link to="/mapper">
+          {/* <Link to="/mapper">
             <i className="fa-solid fa-map-location-dot"></i>
-          </Link>
+          </Link> */}
           <p onClick={handleLogout} className={header.logout}>
             登出
           </p>

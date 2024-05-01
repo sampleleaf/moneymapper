@@ -156,7 +156,9 @@
 
 .logout{
     color: rgb(255, 255, 255);
-    background-color: rgb(79, 91, 255);
+    background-image: linear-gradient(to right, #6c2bd9, #7e3af2, #9061f9, #7e3af2, #6c2bd9);
+    background-size: 200%;
+    transition: background 0.3s;
     font-weight: bold;
     padding: 2px 4px;
     border-radius: 4px;
@@ -165,7 +167,7 @@
 }
 
 .logout:hover{
-    background-color: rgb(87, 87, 87);
+    background-position: 100%;
 }
 
 .space{
