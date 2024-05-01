@@ -74,7 +74,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You are here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'orange' }} />}
+          {geoResult && <GeoJSON data={geoResult} style={{ color: 'lightcoral' }} />}
         </Marker>
       </>
     );
@@ -131,7 +131,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You select here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'orange' }} />}
+          {geoResult && <GeoJSON data={geoResult} style={{ color: 'lightcoral' }} />}
         </Marker>
       </>
     );
