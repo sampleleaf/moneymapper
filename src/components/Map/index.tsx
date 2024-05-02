@@ -33,8 +33,11 @@ const Map: React.FC<{
       },
       async locationfound(e) {
         setPosition(e.latlng as any);
-        map.flyTo(e.latlng, map.getZoom());
-        console.log(e.latlng);
+        // map.flyTo(e.latlng, map.getZoom());
+        // console.log(e.latlng);
+        const center: [number, number] = [e.latlng.lat, e.latlng.lng]
+        const zoomLevel = 9
+        map.setView(center, zoomLevel)
         try {
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`
@@ -74,7 +77,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You are here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'lightcoral' }} />}
+          {geoResult && <GeoJSON data={geoResult} style={{ color: 'blue' }} />}
         </Marker>
       </>
     );
@@ -92,7 +95,10 @@ const Map: React.FC<{
     const map = useMapEvent("click", async (e) => {
       setLoadingLocation(true);
       setPosition(e.latlng as any);
-      map.flyTo(e.latlng, map.getZoom());
+      // map.flyTo(e.latlng, map.getZoom());
+      const center: [number, number] = [e.latlng.lat, e.latlng.lng]
+      const zoomLevel = 9
+      map.setView(center, zoomLevel)
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`
@@ -131,7 +137,7 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You select here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult} style={{ color: 'lightcoral' }} />}
+          {geoResult && <GeoJSON data={geoResult} style={{ color: 'blue' }} />}
         </Marker>
       </>
     );
