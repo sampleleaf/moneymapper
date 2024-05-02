@@ -59,8 +59,8 @@ const Remainder = () => {
             ]);
             // console.log(docSnap.data()[Object.keys(docSnap.data())[i]])
           }
-          // console.log(googleArray);
-          setGoogleData(googleArray);
+          console.log(googleArray);
+          setGoogleData(googleArray.reverse());
         } else {
           // docSnap.data() will be undefined in this case
           setGoogleData([]);
