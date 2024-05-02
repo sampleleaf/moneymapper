@@ -1,5 +1,5 @@
 import details from "@/css/Details.module.css";
-import home from "@/css/Home.module.css";
+import YearMonth from "@/components/YearMonth";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 
@@ -18,12 +18,6 @@ const Details: React.FC<{
 }) => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
-  const [isDropdown, setIsDropdown] = useState<boolean>(false);
-  const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-  const handleDropDown = () => {
-    setIsDropdown(!isDropdown);
-  };
 
   const handleDetailPay = () => {
     setDetailsTranslateX("translateX(-102.5%)");
@@ -42,6 +36,7 @@ const Details: React.FC<{
 
   return (
     <div className={details.layout}>
+      <YearMonth years={years} setYears={setYears} months={months} setMonths={setMonths} />
       <div className={details.navbarLayout}>
         <div
           className={details.triggerLink}
@@ -60,47 +55,6 @@ const Details: React.FC<{
           <Link onClick={handleDetailRemainder} to="remainder">
             結餘
           </Link>
-        </div>
-      </div>
-      <div className={details.space}></div>
-      <div className={home.filtergridArea}>
-        <div className={home.header}>
-          <div className={home.dropdownTitle} onClick={handleDropDown}>
-            <div>
-              {years}年{months}月
-            </div>
-            <div
-              className={home.dropdown}
-              style={isDropdown ? { transform: "rotate(180deg)" } : {}}
-            >
-              <i className="fa-solid fa-caret-up"></i>
-            </div>
-          </div>
-        </div>
-        <div
-          onClick={handleDropDown}
-          className={isDropdown ? home.dropdownLayout : ""}
-        ></div>
-        <div
-          className={home.dropdownList}
-          style={isDropdown ? { transform: "translateY(50px)" } : {}}
-        >
-          <div className={home.selectYear}>
-            <div onClick={() => setYears((prev) => prev - 1)}>
-              <i className="fa-solid fa-caret-left"></i>
-            </div>
-            <p>{years}</p>
-            <div onClick={() => setYears((prev) => prev + 1)}>
-              <i className="fa-solid fa-caret-right"></i>
-            </div>
-          </div>
-          <div className={home.selectMonth}>
-            {defaultMonth.map((month) => (
-              <div onClick={() => setMonths(month)} key={month} className={`${months === month ? home.highlightedMonth : ""}`}>
-                <p>{month}月</p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
       <div className={details.space}></div>

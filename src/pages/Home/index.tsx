@@ -1,5 +1,6 @@
 import home from "@/css/Home.module.css";
 import DayItem from "@/components/DayItem";
+import YearMonth from "@/components/YearMonth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
@@ -10,7 +11,6 @@ const Home: React.FC = () => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [days, setDays] = useState<string[]>([]);
-  const [isDropdown, setIsDropdown] = useState<boolean>(false);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<
     { price: number; item: string; id: string }[]
   >([]);
@@ -18,7 +18,6 @@ const Home: React.FC = () => {
   const [popEdit, setPopEdit] = useState<boolean>(false);
   const [remindDelete, setRemindDelete] = useState<boolean>(false);
   const [popId, setPopId] = useState<string>("");
-  const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -49,10 +48,6 @@ const Home: React.FC = () => {
       })();
     }
   }, [months, years, itemRemoved]);
-
-  const handleDropDown = () => {
-    setIsDropdown(!isDropdown);
-  };
 
   const monthPay =
     allItemsOfMonth &&
@@ -100,60 +95,7 @@ const Home: React.FC = () => {
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>
-        <div className={home.filtergridArea}>
-          <div
-            className={home.header}
-            style={
-              popEdit ? { zIndex: "-1" } : remindDelete ? { zIndex: "-1" } : {}
-            }
-          >
-            <div className={home.dropdownTitle} onClick={handleDropDown}>
-              <div>
-                {years}年{months}月
-              </div>
-              <div
-                className={home.dropdown}
-                style={isDropdown ? { transform: "rotate(180deg)" } : {}}
-              >
-                <i className="fa-solid fa-caret-up"></i>
-              </div>
-            </div>
-          </div>
-          <div className={home.space}></div>
-          <div
-            onClick={handleDropDown}
-            className={isDropdown ? home.dropdownLayout : home.noLayout}
-          ></div>
-          <div
-            className={home.dropdownList}
-            style={
-              isDropdown
-                ? { transform: "translateY(0)" }
-                : popEdit
-                ? { zIndex: "-2" }
-                : remindDelete
-                ? { zIndex: "-2" }
-                : {}
-            }
-          >
-            <div className={home.selectYear}>
-              <div onClick={() => setYears((prev) => prev - 1)}>
-                <i className="fa-solid fa-caret-left"></i>
-              </div>
-              <p>{years}</p>
-              <div onClick={() => setYears((prev) => prev + 1)}>
-                <i className="fa-solid fa-caret-right"></i>
-              </div>
-            </div>
-            <div className={home.selectMonth}>
-              {defaultMonth.map((month) => (
-                <div onClick={() => setMonths(month)} key={month} className={`${months === month ? home.highlightedMonth : ""}`}>
-                  <p>{month}月</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <YearMonth years={years} setYears={setYears} months={months} setMonths={setMonths} />
         <div className={home.chartGridArea}>
           <div className={home.analyze}>
             <div>

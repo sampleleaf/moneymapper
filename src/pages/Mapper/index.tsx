@@ -1,5 +1,5 @@
 import Map from "@/components/Map";
-import home from "@/css/Home.module.css";
+import YearMonth from "@/components/YearMonth";
 import { useState, useEffect } from "react";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -13,7 +13,6 @@ const Mapper = () => {
   const [mapError, setMapError] = useState<string | undefined>("");
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
-  const [isDropdown, setIsDropdown] = useState<boolean>(false);
   const [payCategories, setPayCategories] = useState<string[]>([]);
   const [priceOfPayCategories, setPriceOfPayCategories] = useState<{
     [key: string]: number[];
@@ -22,7 +21,6 @@ const Mapper = () => {
   const [priceOfIncomeCategories, setPriceOfIncomeCategories] = useState<{
     [key: string]: number[];
   }>({});
-  const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -80,61 +78,13 @@ const Mapper = () => {
     }
   }, [years, months, mapResult]);
 
-  const handleDropDown = () => {
-    setIsDropdown(!isDropdown);
-  };
-
   const handleChange = (nextChecked: boolean) => {
     setAutoMap(nextChecked);
   };
 
   return (
     <>
-      <div className={home.filtergridArea}>
-        <div className={home.header}>
-          <div className={home.dropdownTitle} onClick={handleDropDown}>
-            <div>
-              {years}年{months}月
-            </div>
-            <div
-              className={home.dropdown}
-              style={isDropdown ? { transform: "rotate(180deg)" } : {}}
-            >
-              <i className="fa-solid fa-caret-up"></i>
-            </div>
-          </div>
-        </div>
-        <div
-          onClick={handleDropDown}
-          className={isDropdown ? home.dropdownLayout : ""}
-        ></div>
-        <div
-          className={home.dropdownList}
-          style={isDropdown ? { transform: "translateY(0)" } : {}}
-        >
-          <div className={home.selectYear}>
-            <div onClick={() => setYears((prev) => prev - 1)}>
-              <i className="fa-solid fa-caret-left"></i>
-            </div>
-            <p>{years}</p>
-            <div onClick={() => setYears((prev) => prev + 1)}>
-              <i className="fa-solid fa-caret-right"></i>
-            </div>
-          </div>
-          <div className={home.selectMonth}>
-            {defaultMonth.map((month) => (
-              <div
-                onClick={() => setMonths(month)}
-                key={month}
-                className={`${months === month ? home.highlightedMonth : ""}`}
-              >
-                <p>{month}月</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className={mapper.space}></div>
+      <YearMonth years={years} setYears={setYears} months={months} setMonths={setMonths} />
       <div className={mapper.selectMap}>
         <div
           className={`${mapper.autoButton} ${autoMap ? mapper.autoMapOn : ""}`}
@@ -159,7 +109,6 @@ const Mapper = () => {
         </div>
         <div
           className={mapper.mapGridArea}
-          style={isDropdown ? { position: "relative", zIndex: 2 } : {}}
         >
           <Map
             autoMap={autoMap}

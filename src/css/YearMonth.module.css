@@ -1,0 +1,274 @@
+.header{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(240, 240, 240);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+    /* background-image: linear-gradient(180deg, rgb(236, 238, 255), rgb(251,241,232)); */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1001;
+}
+
+.dropdownTitle{
+    display: flex;
+    cursor: pointer;
+}
+
+.dropdown{
+    width: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    transition: transform 0.3s;
+}
+
+.space{
+    height: 50px;
+}
+
+.dropdownLayout{
+    position: fixed;
+    z-index: 3;
+    top: 102px;
+    width: 100%;
+    height: calc(100vh - 102px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dropdownList{
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    background-color: white;
+    /* background-image: linear-gradient(180deg, rgb(253,240,232), rgb(244,218,224)); */
+    z-index: 3;
+    top: 102px;
+    display: grid;
+    transition: transform 0.3s;
+    transform: translateY(-150px);
+}
+
+.selectYear{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+}
+
+.selectYear div{
+    cursor: pointer;
+}
+
+.selectMonth{
+    display: grid;
+    grid-template-columns: repeat(4, 20%);
+    justify-content: center;
+    row-gap: 5px;
+    column-gap: 5px;
+    padding: 10px;
+}
+
+.selectMonth div{
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.highlightedMonth:nth-child(1), .selectMonth div:nth-child(1):hover{
+    border: 1px solid rgb(72, 152, 187);
+    background-color: rgba(72, 152, 187, 0.3);
+}
+
+.highlightedMonth:nth-child(2), .selectMonth div:nth-child(2):hover{
+    border: 1px solid rgb(104, 185, 197);
+    background-color: rgba(104, 185, 197, 0.3);
+}
+
+.highlightedMonth:nth-child(3), .selectMonth div:nth-child(3):hover{
+    border: 1px solid rgb(94, 198, 173);
+    background-color: rgba(94, 198, 173, 0.3);
+}
+
+.highlightedMonth:nth-child(4), .selectMonth div:nth-child(4):hover{
+    border: 1px solid rgb(80, 195, 93);
+    background-color: rgba(80, 195, 93, 0.3);
+}
+
+.highlightedMonth:nth-child(5), .selectMonth div:nth-child(5):hover{
+    border: 1px solid rgb(131,198,93);
+    background-color: rgba(131,198,93, 0.3);
+}
+
+.highlightedMonth:nth-child(6), .selectMonth div:nth-child(6):hover{
+    border: 1px solid rgb(217,120,208);
+    background-color: rgba(217,120,208, 0.3);
+}
+
+.highlightedMonth:nth-child(7), .selectMonth div:nth-child(7):hover{
+    border: 1px solid rgb(221,133,181);
+    background-color: rgba(221,133,181, 0.3);
+}
+
+.highlightedMonth:nth-child(8), .selectMonth div:nth-child(8):hover{
+    border: 1px solid rgb(216,88,125);
+    background-color: rgba(216,88,125, 0.3);
+}
+
+.highlightedMonth:nth-child(9), .selectMonth div:nth-child(9):hover{
+    border: 1px solid rgb(218,76,77);
+    background-color: rgba(218,76,77, 0.3);
+}
+
+.highlightedMonth:nth-child(10), .selectMonth div:nth-child(10):hover{
+    border: 1px solid rgb(225,153,108);
+    background-color: rgba(225,153,108, 0.3);
+}
+
+.highlightedMonth:nth-child(11), .selectMonth div:nth-child(11):hover{
+    border: 1px solid rgb(228,163,75);
+    background-color: rgba(228,163,75, 0.3);
+}
+
+.highlightedMonth:nth-child(12), .selectMonth div:nth-child(12):hover{
+    border: 1px solid rgb(79,125,187);
+    background-color: rgba(79,125,187, 0.3);
+}
+/* .selectMonth div:hover{
+    background-color: rgb(236, 238, 255);
+    color: rgb(83, 100, 255);
+    border: 1px solid rgb(83, 100, 255);
+} */
+
+@media screen and ( min-width : 768px ){
+    .filtergridArea{
+        width: 30%;
+        position: fixed;
+        /* background-image: linear-gradient(180deg, rgb(236, 238, 255), rgb(251, 241, 232), rgb(253, 240, 232), rgb(244, 218, 224)); */
+        top: 52px;
+        right: 0;
+        height: calc(100vh - 52px);
+    }
+    .header{
+        width: 60%;
+        position: static;
+        background-image: none;
+        background-color: transparent;
+        border-bottom: 1px solid rgb(167, 167, 167);
+        box-shadow: none;
+        font-size: 24px;
+        margin: 20px auto 0;
+        justify-content: flex-start;
+    }
+    .dropdownTitle{
+        padding: 5px 10px;
+        cursor: auto;
+    }
+    .space{
+        display: none;
+    }
+    .dropdownLayout{
+        display: none;
+    }
+    .noLayout{
+        display: none;
+    }
+    .dropdown{
+        display: none;
+    }
+    .dropdownList{
+        position: static;
+        background-color: transparent;
+        transition: none;
+        transform: translateY(0);
+        width: 60%;
+        margin: 0 auto;
+    }
+    .selectYear{
+        font-size: 20px;
+        justify-content: space-between;
+        width: 100%;
+        margin: 5px auto;
+        padding: 5px 10px;
+    }
+    .selectMonth{
+        grid-template-columns: 100%;
+        justify-content: flex-start;
+        column-gap: 0;
+        padding: 0;
+        row-gap: 10px;
+    }
+    .selectMonth div{
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        position: relative;
+    }
+    .selectMonth div p::after{
+        position: absolute;
+        left: 40%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .selectMonth div:nth-child(1) p::after{
+        content: "January";
+        /* color: rgb(72,152,187); */
+    }
+    .selectMonth div:nth-child(2) p::after{
+        content: "February";
+        /* color: rgb(104,185,197); */
+    }
+    .selectMonth div:nth-child(3) p::after{
+        content: "March";
+        /* color: rgb(94,198,173); */
+    }
+    .selectMonth div:nth-child(4) p::after{
+        content: "April";
+        /* color: rgb(80,195,94); */
+    }
+    .selectMonth div:nth-child(5) p::after{
+        content: "May";
+        /* color: rgb(131,198,93); */
+    }
+    .selectMonth div:nth-child(6) p::after{
+        content: "June";
+        /* color: rgb(217,120,208); */
+    }
+    .selectMonth div:nth-child(7) p::after{
+        content: "July";
+        /* color: rgb(221,133,181); */
+    }
+    .selectMonth div:nth-child(8) p::after{
+        content: "August";
+        /* color: rgb(216,88,125); */
+    }
+    .selectMonth div:nth-child(9) p::after{
+        content: "September";
+        /* color: rgb(218,76,77); */
+    }
+    .selectMonth div:nth-child(10) p::after{
+        content: "October";
+        /* color: rgb(225,153,108); */
+    }
+    .selectMonth div:nth-child(11) p::after{
+        content: "November";
+        /* color: rgb(228,163,75); */
+    }
+    .selectMonth div:nth-child(12) p::after{
+        content: "December";
+        /* color: rgb(79,125,187); */
+    }
+}
+
+@media screen and ( min-width : 1440px ){
+    .filtergridArea{
+        left: calc(50% + 284.6px);
+        width: 426.9px;
+    }
+}
