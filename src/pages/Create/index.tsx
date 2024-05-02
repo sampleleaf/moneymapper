@@ -213,7 +213,9 @@ const Create: React.FC = () => {
                   <div>
                     <i className="fa-solid fa-map-location-dot"></i>
                   </div>
-                  <span onClick={handleClearLocation}>清空</span>
+                  {location && (
+                    <span onClick={handleClearLocation}>清空</span>
+                  )}
                 </div>
               </div>
             </div>

@@ -342,6 +342,7 @@ const Edit: React.FC<{
                   value={location}
                   placeholder="點擊記錄地區"
                   autoComplete="off"
+                  readOnly
                   onChange={() => setLocation}
                 />
                 <div>

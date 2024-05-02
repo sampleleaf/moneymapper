@@ -192,7 +192,7 @@ const Mapper = () => {
               <div className={mapper.remind}>
                 <p>{mapResult}</p>
                 <p>
-                  {years}年{months}月無支出記錄
+                  {years}年{months}月無收支記錄
                 </p>
               </div>
             </div>
