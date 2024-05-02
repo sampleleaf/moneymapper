@@ -1,6 +1,5 @@
 import edit from "@/css/Edit.module.css";
-import create from "@/css/Create.module.css";
-import Map from "@/components/Map";
+import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 import Calendar from "react-calendar";
 import { db } from "@/utils/firebase";
@@ -15,7 +14,6 @@ import {
 } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Switch from "react-switch";
 
 type ValuePiece = Date | null;
 
@@ -42,18 +40,13 @@ const Edit: React.FC<{
   const [payItem, setPayItem] = useState<string>(item.item);
   const [incomeItem, setIncomeItem] = useState<string>(item.item);
   const [itemNote, setItemNote] = useState<string>(item.note);
-  const [payPage, setPayPage] = useState<boolean>(
-    item.price < 0 ? true : false
-  );
-  const [autoMap, setAutoMap] = useState<boolean>(true);
-  const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
+  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
-  const [mapError, setMapError] = useState<string | undefined>("");
   const [value, onChange] = useState<Value>(
     new Date(`${years}-0${months}-${day}`)
-  ); //1704408076738
+  );
   const [calendarWindow, setCalendarWindow] = useState<boolean>(false);
-  const [isSending, setIsSending] = useState<boolean>(false)
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   const handleYesterday = () => {
     const newDate = new Date(value as Date);
@@ -67,19 +60,9 @@ const Edit: React.FC<{
     onChange(newDate);
   };
 
-  const handleChange = (nextChecked: boolean) => {
-    setAutoMap(nextChecked);
-  };
-
   const handleClearLocation = () => {
     setLocation("");
     setMapResult("");
-  };
-
-  const handleLocation = () => {
-    // setMapResult(location)
-    setLocation(mapResult);
-    setMapWindow(false);
   };
 
   const handlePaySubmit = async (
@@ -93,7 +76,7 @@ const Edit: React.FC<{
     }
   ) => {
     e.preventDefault();
-    setIsSending(true)
+    setIsSending(true);
     const response = localStorage.getItem("loginData");
     const yearString = years.toString();
     const monthString = months.toString();
@@ -145,7 +128,7 @@ const Edit: React.FC<{
           }),
         });
       }
-      setIsSending(false)
+      setIsSending(false);
       toast.success("編輯成功 !", {
         theme: "dark",
         position: "top-center",
@@ -166,7 +149,7 @@ const Edit: React.FC<{
     }
   ) => {
     e.preventDefault();
-    setIsSending(true)
+    setIsSending(true);
     const response = localStorage.getItem("loginData");
     const yearString = years.toString();
     const monthString = months.toString();
@@ -217,7 +200,7 @@ const Edit: React.FC<{
           }),
         });
       }
-      setIsSending(false)
+      setIsSending(false);
       toast.success("編輯成功 !", {
         theme: "dark",
         position: "top-center",
@@ -258,63 +241,12 @@ const Edit: React.FC<{
         {mapWindow && (
           <div className={edit.mapSpace} onClick={() => setMapWindow(false)}>
             <div className={edit.mapFrame} onClick={(e) => e.stopPropagation()}>
-              <div onClick={() => setMapWindow(false)} className={edit.cross}>
-                <i className="fa-solid fa-xmark"></i>
-              </div>
-              <div className={create.selectMap}>
-                <div
-                  className={`${create.autoButton} ${
-                    autoMap ? create.autoMapOn : ""
-                  }`}
-                >
-                  自動偵測
-                </div>
-                <Switch onChange={handleChange} checked={autoMap} />
-              </div>
-              {autoMap ? (
-                <div className={create.hint}>
-                  點選地圖會
-                  <b style={{ color: "lightgreen" }}>偵測您目前的位置</b>
-                </div>
-              ) : (
-                <div className={create.hint}>
-                  點選地圖會<b style={{ color: "yellow" }}>顯示您選擇的位置</b>
-                </div>
-              )}
-              <Map
+              <MapFrame
+                setLocation={setLocation}
+                setMapWindow={setMapWindow}
+                mapResult={mapResult}
                 setMapResult={setMapResult}
-                autoMap={autoMap}
-                setLoadingLocation={setLoadingLocation}
-                setMapError={setMapError}
               />
-              <div className={create.mapResult}>
-                {mapResult || mapError ? (
-                  <p
-                    style={
-                      mapResult ? { backgroundColor: "rgb(189,218,177)" } : {}
-                    }
-                  >
-                    您的位置：
-                    <b>
-                      {mapResult}
-                      {mapError}
-                    </b>
-                  </p>
-                ) : (
-                  <p>您尚未選擇地區</p>
-                )}
-              </div>
-              <div className={create.mapButton}>
-                {loadingLocation ? (
-                  <img src="loading.gif" alt="loading" />
-                ) : mapError ? (
-                  "請選擇陸地或國家領海"
-                ) : mapResult ? (
-                  <button onClick={handleLocation}>確定</button>
-                ) : (
-                  "選完地區，會出現確定按鈕"
-                )}
-              </div>
             </div>
           </div>
         )}
@@ -420,7 +352,11 @@ const Edit: React.FC<{
             </div>
           </div>
           <div className={edit.submit}>
-            {isSending ? <img src="loading.gif" alt="sending" /> : <button type="submit">更新</button>}
+            {isSending ? (
+              <img src="loading.gif" alt="sending" />
+            ) : (
+              <button type="submit">更新</button>
+            )}
           </div>
         </form>
       </div>

@@ -274,14 +274,14 @@
     }
     .container{
         width: 50%;
-        height: 520px;
+        height: 550px;
         border: 2px solid rgb(170, 170, 170);
         position: relative;
         border-radius: 8px;
     }
     .mapSpace{
         width: calc(50% - 4px);
-        height: calc(520px - 4px);
+        height: calc(550px - 4px);
         border-radius: 6px;
     }
     .calendarFrame div:first-child{

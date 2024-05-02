@@ -1,14 +1,12 @@
 import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
 import create from "@/css/Create.module.css";
-import Map from "@/components/Map";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Switch from "react-switch";
+import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 
 type ValuePiece = Date | null;
@@ -25,30 +23,17 @@ const Create: React.FC = () => {
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [itemNote, setItemNote] = useState<string>("");
   const [payPage, setPayPage] = useState<boolean>(true);
-  const [autoMap, setAutoMap] = useState<boolean>(true);
-  const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
-  const [mapError, setMapError] = useState<string | undefined>("");
-  const [isSending, setIsSending] = useState<boolean>(false)
-
-  const handleChange = (nextChecked: boolean) => {
-    setAutoMap(nextChecked);
-  };
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   const handleClearLocation = () => {
     setLocation("");
     setMapResult("");
   };
 
-  const handleLocation = () => {
-    // setMapResult(location)
-    setLocation(mapResult);
-    setMapWindow(false);
-  };
-
   const handlePaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSending(true)
+    setIsSending(true);
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
@@ -78,7 +63,7 @@ const Create: React.FC = () => {
           }),
         });
       }
-      setIsSending(false)
+      setIsSending(false);
       toast.success("新增成功 !", {
         theme: "dark",
         position: "top-center",
@@ -89,7 +74,7 @@ const Create: React.FC = () => {
 
   const handleIncomeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSending(true)
+    setIsSending(true);
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
@@ -119,7 +104,7 @@ const Create: React.FC = () => {
           }),
         });
       }
-      setIsSending(false)
+      setIsSending(false);
       toast.success("新增成功 !", {
         theme: "dark",
         position: "top-center",
@@ -133,46 +118,12 @@ const Create: React.FC = () => {
       {mapWindow && (
         <div className={create.mapSpace} onClick={() => setMapWindow(false)}>
           <div className={create.mapFrame} onClick={(e) => e.stopPropagation()}>
-            <div onClick={() => setMapWindow(false)} className={create.cross}>
-              <i className="fa-solid fa-xmark"></i>
-            </div>
-            <div className={create.selectMap}>
-              <div className={`${create.autoButton} ${autoMap ? create.autoMapOn : ""}`}>自動偵測</div>
-              <Switch onChange={handleChange} checked={autoMap} />
-            </div>
-            {autoMap ? (
-              <div className={create.hint}>點選地圖會<b style={{color: "lightgreen"}}>偵測您目前的位置</b></div>
-            ) : (
-              <div className={create.hint}>點選地圖會<b style={{color: "yellow"}}>顯示您選擇的位置</b></div>
-            )}
-            <Map
+            <MapFrame
+              setLocation={setLocation}
+              setMapWindow={setMapWindow}
+              mapResult={mapResult}
               setMapResult={setMapResult}
-              autoMap={autoMap}
-              setLoadingLocation={setLoadingLocation}
-              setMapError={setMapError}
             />
-            <div className={create.mapResult}>
-              {mapResult || mapError ? (
-                <p style={mapResult ? { backgroundColor: "rgb(189,218,177)" } : {}}>
-                  您的位置：
-                  <b>
-                    {mapResult}
-                    {mapError}
-                  </b>
-                </p>
-              ) : (
-                <p>您尚未選擇地區</p>
-              )}
-            </div>
-            <div className={create.mapButton}>
-              {loadingLocation ? (
-                <img src="loading.gif" alt="loading" />
-              ) : mapError ? (
-                "請選擇陸地或國家領海"
-              ) : mapResult ? (
-                <button onClick={handleLocation}>確定</button>
-              ) : "選完地區，會出現確定按鈕"}
-            </div>
           </div>
         </div>
       )}
@@ -267,7 +218,11 @@ const Create: React.FC = () => {
               </div>
             </div>
             <div className={create.submit}>
-              {isSending ? <img src="loading.gif" alt="sending" /> : <button type="submit">提交</button>}
+              {isSending ? (
+                <img src="loading.gif" alt="sending" />
+              ) : (
+                <button type="submit">提交</button>
+              )}
             </div>
           </form>
         </div>
