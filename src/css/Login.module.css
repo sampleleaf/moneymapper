@@ -150,13 +150,13 @@
 
 .styleInput:focus-within input{
     outline: none;
-    /* border: 1px solid rgb(0, 189, 82); */
+    box-shadow: rgba(236, 138, 255, 0.28) 0px 0px 0px 1px, rgba(236, 138, 255, 0.11) 0px 0px 1px 0px, rgba(236, 138, 255, 0.11) 0px 0px 0px 4px;
 }
 
-/* .styleInput:focus-within div, .styleInput:focus-within div::after{
-    color: rgb(72, 212, 121);
-    border-color: rgb(72, 212, 121);
-} */
+.styleInput:focus-within div, .styleInput:focus-within div::after{
+    color: rgb(236, 138, 255);
+    border-color: rgb(236, 138, 255);
+}
 
 .signIn, .signUp{
     justify-self: center;

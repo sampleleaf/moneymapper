@@ -202,12 +202,12 @@
 
 .styleInput:focus-within input{
     outline: none;
-    border: 1px solid rgb(189, 130, 0);
+    box-shadow: rgba(236, 138, 255, 0.28) 0px 0px 0px 1px, rgba(236, 138, 255, 0.11) 0px 0px 1px 0px, rgba(236, 138, 255, 0.11) 0px 0px 0px 4px;
 }
 
 .styleInput:focus-within div, .styleInput:focus-within div::after{
-    color: rgb(240, 165, 0);
-    border-color: rgb(240, 165, 0);
+    color: rgb(236, 138, 255);
+    border-color: rgb(236, 138, 255);
 }
 
 .submit{

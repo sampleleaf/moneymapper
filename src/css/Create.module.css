@@ -77,7 +77,7 @@
     top: 50%;
     left: 7px;
     transform: translateY(-50%);
-    transition: color 0.2s;
+    transition: all 0.2s;
 }
 
 .styleInput div, .styleInput svg{
@@ -93,7 +93,7 @@
     transform: translateY(-50%);
     border-right: 1px solid rgb(170, 170, 170);
     height: 24px;
-    transition: border 0.2s;
+    /* transition: border 0.2s; */
 }
 
 .styleInput span{
@@ -119,12 +119,15 @@
 
 .styleInput:focus-within input{
     outline: none;
-    border: 1px solid #1a56db;
+    box-shadow: rgba(236, 138, 255, 0.28) 0px 0px 0px 1px, rgba(236, 138, 255, 0.11) 0px 0px 1px 0px, rgba(236, 138, 255, 0.11) 0px 0px 0px 4px;
+    /* border: 1px solid #1a56db; */
 }
 
 .styleInput:focus-within div, .styleInput:focus-within div::after{
-    color: #3f83f8;
-    border-color: #3f83f8;
+    /* color: #3f83f8;
+    border-color: #3f83f8; */
+    color: rgb(236, 138, 255);
+    border-color: rgb(236, 138, 255);
 }
 
 .submit{
