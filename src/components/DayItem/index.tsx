@@ -185,7 +185,7 @@ const DayItem: React.FC<{
                 )}
                 <div
                   onClick={() => handleEdit(item.id)}
-                  className={dayItem.items}
+                  className={`${dayItem.items} ${item.price > 0 && dayItem.incomeItems}`}
                 >
                   <div className={dayItem.item}>
                     <img src={`${item.item}.png`} alt={item.src} />
