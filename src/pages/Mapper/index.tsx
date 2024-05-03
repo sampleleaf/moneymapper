@@ -1,6 +1,7 @@
 import Map from "@/components/Map";
 import YearMonth from "@/components/YearMonth";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Switch from "react-switch";
@@ -213,6 +214,7 @@ const Mapper: React.FC<{
                   {years}年{months}月無收支記錄
                 </p>
               </div>
+              <Link className={mapper.addItem} to="/create">記一筆</Link>
             </div>
           )
         ) : (

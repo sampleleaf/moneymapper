@@ -178,6 +178,13 @@
     color: red;
 }
 
+.addItem{
+    color: black;
+    text-decoration: underline;
+    display: block;
+    margin: 10px 0;
+}
+
 @media screen and ( min-width : 768px) {
     .chartGridArea{
         margin: 20px;

@@ -1,6 +1,6 @@
 import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import detailGroup from "@/css/DetailGroup.module.css";
@@ -135,6 +135,7 @@ const Remainder = () => {
                 {years}年{months}月無記帳記錄
               </p>
             </div>
+            <Link className={detailGroup.addItem} to="/create">記一筆</Link>
           </div>
         </>
       )}
