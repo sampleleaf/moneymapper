@@ -75,10 +75,6 @@
     border-top: 2px solid black;
 }
 
-.list div{
-    font-weight: bold;
-}
-
 .noteBackground{
     position: fixed;
     top: 0;
