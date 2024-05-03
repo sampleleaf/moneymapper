@@ -7,11 +7,16 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 
-const Home: React.FC = () => {
-  const [years, setYears] = useState<number>(new Date().getFullYear());
-  const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
+const Home: React.FC<{
+  years: number;
+  setYears: Function;
+  months: number;
+  setMonths: Function;
+}> = ({ years, setYears, months, setMonths }) => {
   const [days, setDays] = useState<string[]>([]);
-  const [allItemsOfMonth, setAllItemsOfMonth] = useState<{ price: number; item: string; id: string }[]>([]);
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<
+    { price: number; item: string; id: string }[]
+  >([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const [popEdit, setPopEdit] = useState<boolean>(false);
   const [remindDelete, setRemindDelete] = useState<boolean>(false);
@@ -93,7 +98,12 @@ const Home: React.FC = () => {
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>
-        <YearMonth years={years} setYears={setYears} months={months} setMonths={setMonths} />
+        <YearMonth
+          years={years}
+          setYears={setYears}
+          months={months}
+          setMonths={setMonths}
+        />
         <div className={home.chartGridArea}>
           <div className={home.analyze}>
             <div>

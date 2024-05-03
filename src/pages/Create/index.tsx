@@ -13,9 +13,10 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Create: React.FC = () => {
+const Create: React.FC<{years: number; months: number}> = ({years, months}) => {
   const navigate = useNavigate();
-  const [value, onChange] = useState<Value>(new Date());
+  const date = new Date().getDate();
+  const [value, onChange] = useState<Value>(new Date(`${years}-${months}-${date}`));
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");

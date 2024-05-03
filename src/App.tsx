@@ -21,6 +21,8 @@ const App: React.FC = () => {
 
   const [detailsTranslateX, setDetailsTranslateX] = useState("")
   const [detailsHighlighted, setDetailsHighlighted] = useState("")
+  const [years, setYears] = useState<number>(new Date().getFullYear());
+  const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
 
   return (
     <>
@@ -28,8 +30,8 @@ const App: React.FC = () => {
         <>
           <Header setLogin={setLogin} setDetailsTranslateX={setDetailsTranslateX} setDetailsHighlighted={setDetailsHighlighted} />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="create" element={<Create />} />
+            <Route path="/" element={<Home years={years} setYears={setYears} months={months} setMonths={setMonths} />} />
+            <Route path="create" element={<Create years={years} months={months} />} />
             <Route path="details" element={<Details detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
               <Route path="pay" element={<Pay />} />
               <Route path="income" element={<Income />} />
