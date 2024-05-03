@@ -126,7 +126,7 @@ const Remainder = () => {
       ) : (
         <>
           <div className={detailGroup.emptyLineChart}>
-            <img src="../111.png" alt="emptylinechart" />
+            <img src="../emptylinechart.png" alt="emptylinechart" />
           </div>
           <div className={detailGroup.unSelected}>
             <img src="../write.png" alt="write" />
