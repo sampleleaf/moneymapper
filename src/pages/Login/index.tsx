@@ -1,5 +1,5 @@
 import login from "@/css/Login.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, RefObject } from "react";
 import { toast } from "react-toastify";
 import { db } from "@/utils/firebase";
 import {
@@ -16,7 +16,7 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
-  const middles: any = [
+  const middles: RefObject<HTMLDivElement>[] = [
     useRef(null),
     useRef(null),
     useRef(null),
@@ -25,10 +25,10 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     useRef(null),
   ];
 
-  const backToTop: any = useRef(null);
+  const backToTop: RefObject<HTMLAnchorElement> = useRef(null);
 
   useGSAP(() => {
-    middles.forEach((middle: any) => {
+    middles.forEach((middle) => {
       gsap.to(middle.current, {
         scrollTrigger: {
           trigger: middle.current,
