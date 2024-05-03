@@ -32,12 +32,12 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home years={years} setYears={setYears} months={months} setMonths={setMonths} />} />
             <Route path="create" element={<Create years={years} months={months} />} />
-            <Route path="details" element={<Details detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
+            <Route path="details" element={<Details years={years} setYears={setYears} months={months} setMonths={setMonths} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
               <Route path="pay" element={<Pay />} />
               <Route path="income" element={<Income />} />
               <Route path="remainder" element={<Remainder />} />
             </Route>
-            <Route path="mapper" element={<Mapper />} />
+            <Route path="mapper" element={<Mapper years={years} setYears={setYears} months={months} setMonths={setMonths} />} />
           </Routes>
           <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>

@@ -6,13 +6,16 @@ import { doc, getDoc } from "firebase/firestore";
 import Switch from "react-switch";
 import mapper from "@/css/Mapper.module.css";
 
-const Mapper = () => {
+const Mapper: React.FC<{
+  years: number;
+  setYears: Function;
+  months: number;
+  setMonths: Function;
+}> = ({ years, setYears, months, setMonths }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [mapError, setMapError] = useState<string | undefined>("");
-  const [years, setYears] = useState<number>(new Date().getFullYear());
-  const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [payCategories, setPayCategories] = useState<string[]>([]);
   const [priceOfPayCategories, setPriceOfPayCategories] = useState<{
     [key: string]: number[];
@@ -84,7 +87,12 @@ const Mapper = () => {
 
   return (
     <>
-      <YearMonth years={years} setYears={setYears} months={months} setMonths={setMonths} />
+      <YearMonth
+        years={years}
+        setYears={setYears}
+        months={months}
+        setMonths={setMonths}
+      />
       <div className={mapper.selectMap}>
         <div
           className={`${mapper.autoButton} ${autoMap ? mapper.autoMapOn : ""}`}
@@ -107,9 +115,7 @@ const Mapper = () => {
             </div>
           )}
         </div>
-        <div
-          className={mapper.mapGridArea}
-        >
+        <div className={mapper.mapGridArea}>
           <Map
             autoMap={autoMap}
             setLoadingLocation={setLoadingLocation}
@@ -132,7 +138,12 @@ const Mapper = () => {
               <div className={mapper.container}>
                 {Object.keys(payCategories).length > 0 && (
                   <div className={mapper.scope}>
-                    <div className={mapper.scopeTitle} style={{backgroundColor: "rgb(253,201,83)"}}>平均每次支出</div>
+                    <div
+                      className={mapper.scopeTitle}
+                      style={{ backgroundColor: "rgb(253,201,83)" }}
+                    >
+                      平均每次支出
+                    </div>
                     {payCategories.map((category) => (
                       <div key={category} className={mapper.category}>
                         <div className={mapper.iconAndItem}>
@@ -159,7 +170,12 @@ const Mapper = () => {
                 )}
                 {Object.keys(incomeCategories).length > 0 && (
                   <div className={mapper.scope}>
-                    <div className={mapper.scopeTitle} style={{backgroundColor: "rgb(158,225,255)"}}>平均每次收入</div>
+                    <div
+                      className={mapper.scopeTitle}
+                      style={{ backgroundColor: "rgb(158,225,255)" }}
+                    >
+                      平均每次收入
+                    </div>
                     {incomeCategories.map((category) => (
                       <div key={category} className={mapper.category}>
                         <div className={mapper.iconAndItem}>

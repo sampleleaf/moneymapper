@@ -1,23 +1,28 @@
 import details from "@/css/Details.module.css";
 import YearMonth from "@/components/YearMonth";
 import { Link, Outlet } from "react-router-dom";
-import { useState } from "react";
 
 type ContextType = { years: number; months: number };
 
 const Details: React.FC<{
+  years: number;
+  setYears: Function;
+  months: number;
+  setMonths: Function;
   detailsTranslateX: string;
   setDetailsTranslateX: Function;
   detailsHighlighted: string;
   setDetailsHighlighted: Function;
 }> = ({
+  years,
+  setYears,
+  months,
+  setMonths,
   detailsTranslateX,
   setDetailsTranslateX,
   detailsHighlighted,
   setDetailsHighlighted,
 }) => {
-  const [years, setYears] = useState<number>(new Date().getFullYear());
-  const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
 
   const handleDetailPay = () => {
     setDetailsTranslateX("translateX(-102.5%)");
