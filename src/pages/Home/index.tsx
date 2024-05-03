@@ -11,9 +11,7 @@ const Home: React.FC = () => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [days, setDays] = useState<string[]>([]);
-  const [allItemsOfMonth, setAllItemsOfMonth] = useState<
-    { price: number; item: string; id: string }[]
-  >([]);
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<{ price: number; item: string; id: string }[]>([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const [popEdit, setPopEdit] = useState<boolean>(false);
   const [remindDelete, setRemindDelete] = useState<boolean>(false);

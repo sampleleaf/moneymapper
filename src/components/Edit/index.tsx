@@ -19,14 +19,16 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
+interface Item {
+  id: string;
+  item: string;
+  note: string;
+  price: number;
+  location: string | undefined;
+}
+
 const Edit: React.FC<{
-  item: {
-    id: string;
-    location: string | undefined;
-    price: number;
-    item: string;
-    note: string;
-  };
+  item: Item;
   setPopEdit: Function;
   setItemRemoved: Function;
   setPopId: Function;
