@@ -117,7 +117,7 @@
         display: none;
     }
     .selectMap{
-        width: calc(70% - 40px);
+        width: calc(100% - 40px);
         margin: 20px;
         margin-bottom: 0;
         background-color: white;
@@ -180,14 +180,12 @@
 }
 
 @media screen and ( min-width : 1068px ){
-    .selectMap{
-        width: calc(40%);
-        margin: 20px auto 0;
-    }
     .layout{
-        grid-template-columns: 30% 40% 30%;
+        grid-template-columns: 315px calc(70% - 315px) 30%;
     }
-    .header{
+    .selectMap{
+        width: 100%;
+        margin: 20px 0 0;
         grid-area: 1 / 2 / 2 / 3;
     }
     .description{
@@ -209,7 +207,7 @@
 
 @media screen and ( min-width : 1440px ) {
     .selectMap{
-        width: calc(1423px * 0.4);
+        width: calc(1423px * 0.7 - 315px);
     }
     .layout{
         width: 1423px;

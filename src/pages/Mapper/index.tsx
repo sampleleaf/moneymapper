@@ -93,15 +93,17 @@ const Mapper: React.FC<{
         months={months}
         setMonths={setMonths}
       />
-      <div className={mapper.selectMap}>
-        <div
-          className={`${mapper.autoButton} ${autoMap ? mapper.autoMapOn : ""}`}
-        >
-          自動偵測
-        </div>
-        <Switch onChange={handleChange} checked={autoMap} />
-      </div>
       <div className={mapper.layout}>
+        <div className={mapper.selectMap}>
+          <div
+            className={`${mapper.autoButton} ${
+              autoMap ? mapper.autoMapOn : ""
+            }`}
+          >
+            自動偵測
+          </div>
+          <Switch onChange={handleChange} checked={autoMap} />
+        </div>
         <div className={mapper.description}>
           {autoMap ? (
             <div>

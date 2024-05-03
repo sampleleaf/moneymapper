@@ -159,7 +159,7 @@
 
 @media screen and ( min-width : 1068px ){
     .container{
-        grid-template-columns: 30% 40% 30%;
+        grid-template-columns: 315px calc(70% - 315px) 30%;
     }
     .chartGridArea{
         grid-area: 1 / 2 / 2 / 3;
@@ -171,7 +171,7 @@
         margin-right: 0;
     }
     .addItem{
-        left: 50%;
+        left: calc(35% + 315px / 2);
     }
 }
 

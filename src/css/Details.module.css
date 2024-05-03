@@ -58,12 +58,11 @@
 
 @media screen and ( min-width : 1068px) {
     .layout{
-        grid-template-columns: 30% 40% 30%;
+        grid-template-columns: 315px calc(70% - 315px) 30%;
     }
     .navbarLayout{
-        margin: 20px 0;
-        width: 40%;
-        justify-self: center;
+        margin-left: 315px;
+        width: calc(70% - 315px);
     }
 }
 
@@ -73,6 +72,6 @@
         margin: 0 auto;
     }
     .navbarLayout{
-        width: calc(1423px * 0.4);
+        width: calc(1423px * 0.7 - 315px);
     }
 }
