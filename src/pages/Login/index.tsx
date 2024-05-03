@@ -68,7 +68,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     setNewUser(!newUser);
   };
 
-  const handleSignUp = (e: React.MouseEvent) => {
+  const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -110,7 +110,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
       });
   };
 
-  const handleSignIn = (e: React.MouseEvent) => {
+  const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
@@ -160,7 +160,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             <p>掌握每筆消費</p>
             <p>洞察生活足跡</p>
           </div>
-          <form className={login.form}>
+          <form className={login.form} onSubmit={newUser ? handleSignUp : handleSignIn} >
             <div className={login.styleInput}>
               <input
                 id="email"
@@ -203,7 +203,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               </div>
             ) : (
               <div className={login.signIn}>
-                <button onClick={handleSignIn}>登入</button>
+                <button>登入</button>
               </div>
             )}
             {newUser ? (
@@ -212,7 +212,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                   <button onClick={handleNewUser}>返回登入</button>
                 </div>
                 <div className={login.signUp}>
-                  <button onClick={handleSignUp}>註冊</button>
+                  <button>註冊</button>
                 </div>
               </>
             ) : (
