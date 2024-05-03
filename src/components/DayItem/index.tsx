@@ -131,7 +131,7 @@ const DayItem: React.FC<{
             <p
               style={
                 remainder < 0
-                  ? { color: "rgb(255,179,0)" }
+                  ? { color: "rgb(254,116,113)" }
                   : { color: "rgb(71,184,224)" }
               }
             >

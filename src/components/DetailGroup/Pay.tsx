@@ -123,7 +123,7 @@ const Pay = () => {
             <li key={data[0]} onClick={() => handlePopDetail(data[0])}>
               {isPop && popItem === data[0] && (
                 <div className={detailGroup.noteBackground} onClick={(e) => handleCloseDetail(e)}>
-                  <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(253,201,83)"}}>
+                  <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(254,116,113)"}}>
                     <div className={detailGroup.cross} onClick={(e) => handleCloseDetail(e)}><i className="fa-solid fa-xmark"></i></div>
                     <img src={`../${popItem}.png`} alt={`${popItem}`} />
                     <p>{popItem}</p>

@@ -140,7 +140,7 @@ const Mapper: React.FC<{
                   <div className={mapper.scope}>
                     <div
                       className={mapper.scopeTitle}
-                      style={{ backgroundColor: "rgb(253,201,83)" }}
+                      style={{ backgroundColor: "rgb(255, 193, 190)" }}
                     >
                       平均每次支出
                     </div>

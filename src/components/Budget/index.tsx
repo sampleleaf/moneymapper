@@ -17,7 +17,7 @@ const Budget: React.FC<{
           className={budget.triggerPage}
           style={
             payPage
-              ? { backgroundColor: "rgb(253,201,83)" }
+              ? { backgroundColor: "rgb(255, 193, 190)" }
               : { transform: "translateX(100%)", backgroundColor: "rgb(158,225,255)" }
           }
         ></div>

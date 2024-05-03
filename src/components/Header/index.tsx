@@ -24,7 +24,7 @@ const Header: React.FC<{
 
   const handleDetailPay = () => {
     setDetailsTranslateX("translateX(-102.5%)");
-    setDetailsHighlighted("rgb(253,201,83)");
+    setDetailsHighlighted("rgb(255, 193, 190)");
     setSidebar(!sidebar);
   };
 
@@ -36,7 +36,7 @@ const Header: React.FC<{
 
   const handleDetailRemainder = () => {
     setDetailsTranslateX("translateX(102.5%)");
-    setDetailsHighlighted("lightCoral");
+    setDetailsHighlighted("rgb(218, 173, 235)");
     setSidebar(!sidebar);
   };
 

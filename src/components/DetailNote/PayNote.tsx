@@ -69,11 +69,11 @@ const PayNote: React.FC<{
                 <div className={detailNote.percentGroup}>
                   <div className={detailNote.percent}>
                     <p>{item.note || item.item}</p>
-                    <p style={{color: "rgb(253,201,83)"}}>{Math.abs(item.price / (total as number) * 100).toFixed(2)}%</p>
+                    <p style={{color: "rgb(254,116,113)"}}>{Math.abs(item.price / (total as number) * 100).toFixed(2)}%</p>
                   </div>
                   <div className={detailNote.percentBarContainer}>
                     <div className={detailNote.percentBar}></div>
-                    <div className={detailNote.displayPercent} style={{width: `${Math.abs(item.price / (total as number) * 100).toFixed(2)}%`, backgroundColor: "rgb(253,201,83)"}}></div>
+                    <div className={detailNote.displayPercent} style={{width: `${Math.abs(item.price / (total as number) * 100).toFixed(2)}%`, backgroundColor: "rgb(254,116,113)"}}></div>
                   </div>
                 </div>
                 <p>${Math.abs(item.price)}</p>

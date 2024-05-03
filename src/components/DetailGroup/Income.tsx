@@ -81,6 +81,10 @@ const Income = () => {
     is3D: false,
     legend: "bottom",
     chartArea: { top: "10%", width: "80%", height: "80%" },
+    slices: {
+      1: { color: "rgb(71,184,224)" },
+      2: { color: "rgb(253,201,83)" },
+    },
   };
 
   const handlePopDetail = (item: string | number) => {

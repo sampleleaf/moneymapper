@@ -87,7 +87,7 @@ const Home: React.FC<{
     legend: "none",
     slices: {
       0: { color: "rgb(71,184,224)" },
-      1: { color: "rgb(253,201,83)" },
+      1: { color: "rgb(254,116,113)" },
     },
     chartArea: { top: "5%", width: "90%", height: "90%" },
   };

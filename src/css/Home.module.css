@@ -49,7 +49,7 @@
 }
 
 .analyze div:nth-child(1) p:first-child::after{
-    background-color: rgb(253,201,83);
+    background-color: rgb(254,116,113);
 }
 
 .analyze div:nth-child(2) p:first-child::after{

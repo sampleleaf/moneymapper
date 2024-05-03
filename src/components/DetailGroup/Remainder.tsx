@@ -77,9 +77,9 @@ const Remainder = () => {
     curveType: "function",
     legend: { position: "bottom" },
     series: {
-      0: { color: "rgb(71,184,224)" },
-      1: { color: "rgb(253,201,83)" },
-      2: { color: "rgb(254,116,113)" },
+      0: { color: "rgb(71, 184, 224)" },
+      1: { color: "rgb(254, 116, 113)" },
+      2: { color: "rgb(211, 132, 240)" },
     },
 
     tooltip: { trigger: "focus" },
