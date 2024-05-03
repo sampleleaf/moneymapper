@@ -155,6 +155,18 @@
     height: 30px;
 }
 
+.emptyLineChart{
+    height: 273px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptyLineChart img{
+    width: 273px;
+    height: 273px;
+}
+
 .unSelected{
     border: none !important;
     padding: 0 !important;
@@ -196,6 +208,14 @@
     .noteBackground > div{
         width: 50%;
     }
+    .emptyLineChart{
+        height: 283px;
+        grid-area: 2 / 1 / 3 / 2;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+        border-radius: 8px;
+        margin: 20px;
+    }
     .unSelected{
         grid-area: 3 / 1 / 4 / 2;
     }
@@ -213,6 +233,10 @@
     }
     .noteBackground > div{
         width: 40%;
+    }
+    .emptyLineChart{
+        grid-area: 2 / 2 / 3 / 3;
+        margin: 20px 0;
     }
     .unSelected{
         grid-area: 3 / 2 / 4 / 3;

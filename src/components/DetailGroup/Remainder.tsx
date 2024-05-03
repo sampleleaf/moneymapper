@@ -124,14 +124,19 @@ const Remainder = () => {
           </ul>
         </>
       ) : (
-        <div className={detailGroup.unSelected}>
-          <img src="../write.png" alt="write" />
-          <div className={detailGroup.remind}>
-            <p>
-              {years}年{months}月無記帳記錄
-            </p>
+        <>
+          <div className={detailGroup.emptyLineChart}>
+            <img src="../111.png" alt="emptylinechart" />
           </div>
-        </div>
+          <div className={detailGroup.unSelected}>
+            <img src="../write.png" alt="write" />
+            <div className={detailGroup.remind}>
+              <p>
+                {years}年{months}月無記帳記錄
+              </p>
+            </div>
+          </div>
+        </>
       )}
     </>
   );

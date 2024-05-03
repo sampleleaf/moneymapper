@@ -45,7 +45,7 @@ const Edit: React.FC<{
   const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [value, onChange] = useState<Value>(
-    new Date(`${years}-0${months}-${day}`)
+    new Date(`${years}-${months}-${day}`)
   );
   const [calendarWindow, setCalendarWindow] = useState<boolean>(false);
   const [isSending, setIsSending] = useState<boolean>(false);

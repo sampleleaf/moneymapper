@@ -42,7 +42,6 @@
 .sidebarContainer{
     display: grid;
     row-gap: 5px;
-    font-weight: bold;
 }
 
 .sidebarContainer a{
@@ -159,7 +158,6 @@
     background-image: linear-gradient(to right, #6c2bd9, #7e3af2, #9061f9, #7e3af2, #6c2bd9);
     background-size: 200%;
     transition: background 0.3s;
-    font-weight: bold;
     padding: 2px 4px;
     border-radius: 4px;
     cursor: pointer;
