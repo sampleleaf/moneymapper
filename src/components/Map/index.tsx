@@ -10,6 +10,7 @@ import {
   GeoJSON
 } from "react-leaflet";
 import { geo } from "@/taiwanGeo";
+import { LatLng } from "leaflet";
 
 const Map: React.FC<{
   setMapResult: Function;
@@ -18,7 +19,7 @@ const Map: React.FC<{
   setMapError: Function
 }> = memo(({ setMapResult, autoMap, setLoadingLocation, setMapError }) => {
   const LocationMarker = () => {
-    const [position, setPosition] = useState(null);
+    const [position, setPosition] = useState<LatLng | null>(null);
     const [geoResult, setGeoResult] = useState<any>(null)
 
     useEffect(() => {
@@ -32,9 +33,9 @@ const Map: React.FC<{
         map.locate();
       },
       async locationfound(e) {
-        setPosition(e.latlng as any);
+        setPosition(e.latlng);
         // map.flyTo(e.latlng, map.getZoom());
-        // console.log(e.latlng);
+        console.log(e.latlng);
         const center: [number, number] = [e.latlng.lat, e.latlng.lng]
         const zoomLevel = 9
         map.setView(center, zoomLevel)
@@ -84,7 +85,7 @@ const Map: React.FC<{
   };
 
   const ManualLocation = () => {
-    const [position, setPosition] = useState(null);
+    const [position, setPosition] = useState<LatLng | null>(null);
     const [geoResult, setGeoResult] = useState<any>(null)
 
     useEffect(() => {
@@ -94,7 +95,7 @@ const Map: React.FC<{
 
     const map = useMapEvent("click", async (e) => {
       setLoadingLocation(true);
-      setPosition(e.latlng as any);
+      setPosition(e.latlng);
       // map.flyTo(e.latlng, map.getZoom());
       const center: [number, number] = [e.latlng.lat, e.latlng.lng]
       const zoomLevel = 9
