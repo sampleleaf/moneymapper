@@ -75,6 +75,22 @@
     border-top: 2px solid black;
 }
 
+.list li:last-child{
+    border-radius: 0 0 6px 6px;
+}
+
+.payHover, .incomeHover{
+    cursor: pointer;
+}
+
+.payHover:hover{
+    background-color: rgb(255, 219, 218); 
+}
+
+.incomeHover:hover{
+    background-color: rgb(188, 237, 255);
+}
+
 .noteBackground{
     position: fixed;
     top: 0;

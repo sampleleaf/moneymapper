@@ -124,7 +124,7 @@ const Income = () => {
             <p>項目收入</p>
           </li>
           {googleData.map((data) => (
-            <li key={data[0]} onClick={() => handlePopDetail(data[0])}>
+            <li key={data[0]} onClick={() => handlePopDetail(data[0])} className={detailGroup.incomeHover}>
               {isPop && popItem === data[0] && (
                 <div className={detailGroup.noteBackground} onClick={(e) => handleCloseDetail(e)}>
                   <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(158,225,255)"}}>
