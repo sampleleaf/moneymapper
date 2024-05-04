@@ -8,15 +8,22 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Create: React.FC<{years: number; months: number}> = ({years, months}) => {
+const Create: React.FC<{ years: number; months: number }> = ({
+  years,
+  months,
+}) => {
   const navigate = useNavigate();
   const date = new Date().getDate();
-  const [value, onChange] = useState<Value>(new Date(`${years}-${months}-${date}`));
+  const [value, onChange] = useState<Value>(
+    new Date(`${years}-${months}-${date}`)
+  );
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");
@@ -26,6 +33,22 @@ const Create: React.FC<{years: number; months: number}> = ({years, months}) => {
   const [payPage, setPayPage] = useState<boolean>(true);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [isSending, setIsSending] = useState<boolean>(false);
+
+  const driverObj = driver({
+    showProgress: true, // Because everyone loves progress bars!
+    steps: [
+      {
+        element: "#budget",
+        popover: {
+          title: "Abracadabra!",
+          description: "Watch as I reveal the secrets of this element.",
+          side: "top",
+          align: "center",
+        },
+      },
+      // More magical steps...
+    ],
+  });
 
   const handleClearLocation = () => {
     setLocation("");
@@ -130,15 +153,15 @@ const Create: React.FC<{years: number; months: number}> = ({years, months}) => {
       )}
       <div className={create.gridContainer}>
         <Calendar onChange={onChange} value={value} />
-        <div className={create.displayLargeScreen}>
-          <Budget
-            payPage={payPage}
-            setPayPage={setPayPage}
-            setPayItem={setPayItem}
-            setIncomeItem={setIncomeItem}
-          />
-        </div>
-        <div className={create.iconCard}>
+        <div className={create.budgetContainer}  id="budget">
+          <div className={create.displayLargeScreen}>
+            <Budget
+              payPage={payPage}
+              setPayPage={setPayPage}
+              setPayItem={setPayItem}
+              setIncomeItem={setIncomeItem}
+            />
+          </div>
           <div className={create.displaySmallScreen}>
             <Budget
               payPage={payPage}
@@ -147,88 +170,86 @@ const Create: React.FC<{years: number; months: number}> = ({years, months}) => {
               setIncomeItem={setIncomeItem}
             />
           </div>
-          <form onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
-            <div className={create.inputGroup}>
-              <div className={create.inputItem}>
-                <p>項目</p>
-                <p>：</p>
-                <img
-                  src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
-                  alt={payPage ? payItem : incomeItem}
-                />
-              </div>
-              <div className={create.inputFormat}>
-                <label htmlFor="price">金額</label>
-                <p>＊</p>
-                <div className={create.styleInput}>
-                  <input
-                    id="price"
-                    type="text"
-                    pattern="[0-9]*"
-                    title="請輸入數字"
-                    placeholder="請輸入金額"
-                    autoComplete="off"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required
-                  />
-                  <div>
-                    <i className="fa-solid fa-file-invoice-dollar"></i>
-                  </div>
-                  {price && <span onClick={() => setPrice("")}>清空</span>}
-                </div>
-              </div>
-              <div className={create.inputFormat}>
-                <label htmlFor="price">備註</label>
-                <p>　</p>
-                <div className={create.styleInput}>
-                  <input
-                    type="text"
-                    placeholder="可輸入備註"
-                    autoComplete="off"
-                    value={itemNote}
-                    onChange={(e) => setItemNote(e.target.value)}
-                  />
-                  <div>
-                    <i className="fa-solid fa-file-pen"></i>
-                  </div>
-                  {itemNote && (
-                    <span onClick={() => setItemNote("")}>清空</span>
-                  )}
-                </div>
-              </div>
-              <div className={create.inputFormat}>
-                <label htmlFor="price">地區</label>
-                <p>　</p>
-                <div className={create.styleInput}>
-                  <input
-                    onClick={() => setMapWindow(true)}
-                    id="location"
-                    type="text"
-                    value={location}
-                    placeholder="點擊記錄地區"
-                    autoComplete="off"
-                    readOnly
-                    onChange={() => setLocation}
-                  />
-                  <div>
-                    <i className="fa-solid fa-map-location-dot"></i>
-                  </div>
-                  {location && (
-                    <span onClick={handleClearLocation}>清空</span>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className={create.submit}>
-              {isSending ? (
-                <img src="loading.gif" alt="sending" />
-              ) : (
-                <button type="submit">提交</button>
-              )}
-            </div>
-          </form>
         </div>
+        <form className={create.formCard} onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
+          <div className={create.inputGroup}>
+            <div className={create.inputItem}>
+              <p>項目</p>
+              <p>：</p>
+              <img
+                src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
+                alt={payPage ? payItem : incomeItem}
+              />
+            </div>
+            <div className={create.inputFormat}>
+              <label htmlFor="price" onClick={() => driverObj.drive()}>
+                金額
+              </label>
+              <p>＊</p>
+              <div className={create.styleInput}>
+                <input
+                  id="price"
+                  type="text"
+                  pattern="[0-9]*"
+                  title="請輸入數字"
+                  placeholder="請輸入金額"
+                  autoComplete="off"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
+                />
+                <div>
+                  <i className="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                {price && <span onClick={() => setPrice("")}>清空</span>}
+              </div>
+            </div>
+            <div className={create.inputFormat}>
+              <label htmlFor="price">備註</label>
+              <p>　</p>
+              <div className={create.styleInput}>
+                <input
+                  type="text"
+                  placeholder="可輸入備註"
+                  autoComplete="off"
+                  value={itemNote}
+                  onChange={(e) => setItemNote(e.target.value)}
+                />
+                <div>
+                  <i className="fa-solid fa-file-pen"></i>
+                </div>
+                {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
+              </div>
+            </div>
+            <div className={create.inputFormat}>
+              <label htmlFor="price">地區</label>
+              <p>　</p>
+              <div className={create.styleInput}>
+                <input
+                  onClick={() => setMapWindow(true)}
+                  id="location"
+                  type="text"
+                  value={location}
+                  placeholder="點擊記錄地區"
+                  autoComplete="off"
+                  readOnly
+                  onChange={() => setLocation}
+                />
+                <div>
+                  <i className="fa-solid fa-map-location-dot"></i>
+                </div>
+                {location && <span onClick={handleClearLocation}>清空</span>}
+              </div>
+            </div>
+          </div>
+          <div className={create.submit}>
+            {isSending ? (
+              <img src="loading.gif" alt="sending" />
+            ) : (
+              <button type="submit">提交</button>
+            )}
+          </div>
+        </form>
       </div>
     </>
   );
