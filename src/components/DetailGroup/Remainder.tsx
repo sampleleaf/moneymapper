@@ -60,7 +60,7 @@ const Remainder = () => {
             // console.log(docSnap.data()[Object.keys(docSnap.data())[i]])
           }
           console.log(googleArray);
-          setGoogleData(googleArray.reverse());
+          setGoogleData(googleArray);
         } else {
           // docSnap.data() will be undefined in this case
           setGoogleData([]);
@@ -113,7 +113,7 @@ const Remainder = () => {
             <li>
               <p>日結餘</p>
             </li>
-            {googleData.reverse().map((data) => (
+            {googleData.map((data) => (
               <li key={data[0]}>
                 <div className={detailGroup.item}>
                   <p>{data[0]}</p>

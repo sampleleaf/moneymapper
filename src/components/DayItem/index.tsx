@@ -117,6 +117,7 @@ const DayItem: React.FC<{
   };
 
   const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0);
+  const chineseDays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
 
   return (
     <>
@@ -125,7 +126,7 @@ const DayItem: React.FC<{
           <div className={dayItem.dateAndRemainder}>
             <div className={dayItem.date}>
               <p>
-                {years}年{months}月{day}日
+                {years}年{months}月{day}日 {`${chineseDays[new Date(`${years}-${months}-${day}`).getDay()]}`}
               </p>
             </div>
             <p

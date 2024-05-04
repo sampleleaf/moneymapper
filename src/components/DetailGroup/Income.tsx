@@ -127,12 +127,12 @@ const Income = () => {
             <li key={data[0]} onClick={() => handlePopDetail(data[0])} className={detailGroup.incomeHover}>
               {isPop && popItem === data[0] && (
                 <div className={detailGroup.noteBackground} onClick={(e) => handleCloseDetail(e)}>
-                  <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(158,225,255)"}}>
+                  <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(158,225,255)"}} onClick={(e) => e.stopPropagation()}>
                     <div className={detailGroup.cross} onClick={(e) => handleCloseDetail(e)}><i className="fa-solid fa-xmark"></i></div>
                     <img src={`../${popItem}.png`} alt={`${popItem}`} />
                     <p>{popItem}</p>
                   </div>
-                  <div className={detailGroup.noteDescribe}>支出明細</div>
+                  <div className={detailGroup.noteDescribe} onClick={(e) => e.stopPropagation()}>支出明細</div>
                   <div className={detailGroup.noteCard} onClick={(e) => e.stopPropagation()}>
                     {days.map((day) => (
                       <IncomeNote

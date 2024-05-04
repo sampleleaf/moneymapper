@@ -51,13 +51,15 @@ const IncomeNote: React.FC<{
       return acc + cur.price;
     }, 0);
 
+  const chineseDays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+
   return (
     <>
       <div className={detailNote.container}>
         {items && items?.length > 0 && (
           <div className={detailNote.dayRemainder}>
             <p>
-              {years}/{months}/{day}
+              {years}/{months}/{day} {`${chineseDays[new Date(`${years}-${months}-${day}`).getDay()]}`}
             </p>
             <p>${Math.abs(totalPriceOfItems as number)}</p>
           </div>
