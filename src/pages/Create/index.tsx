@@ -34,22 +34,6 @@ const Create: React.FC<{ years: number; months: number }> = ({
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [isSending, setIsSending] = useState<boolean>(false);
 
-  const driverObj = driver({
-    showProgress: true, // Because everyone loves progress bars!
-    steps: [
-      {
-        element: "#budget",
-        popover: {
-          title: "Abracadabra!",
-          description: "Watch as I reveal the secrets of this element.",
-          side: "top",
-          align: "center",
-        },
-      },
-      // More magical steps...
-    ],
-  });
-
   const handleClearLocation = () => {
     setLocation("");
     setMapResult("");
@@ -137,6 +121,76 @@ const Create: React.FC<{ years: number; months: number }> = ({
     }
   };
 
+  const driverObj = driver({
+    showProgress: true, // Because everyone loves progress bars!
+    steps: [
+      {
+        element: ".calendarDriver",
+        popover: {
+          title: "確認日期",
+          description: "可以點選來選擇日期",
+          side: "bottom",
+          align: "center",
+        },
+      },
+      {
+        element: "#budget",
+        popover: {
+          title: "選擇支出或收入",
+          description: "可以切換不同圖示，圖示可以點選",
+          side: "bottom",
+          align: "center",
+        },
+      },
+      {
+        element: "#itemResult",
+        popover: {
+          title: "確認項目",
+          description: "點選的圖示，會顯示在這邊",
+          side: "top",
+          align: "center",
+        },
+      },
+      {
+        element: "#price",
+        popover: {
+          title: "金額",
+          description: "必填欄位，只能輸入數字",
+          side: "top",
+          align: "center",
+        },
+      },
+      {
+        element: "#note",
+        popover: {
+          title: "備註",
+          description: "選填欄位，給喜歡詳細記錄的您",
+          side: "top",
+          align: "center",
+        },
+      },
+      {
+        element: "#location",
+        popover: {
+          title: "地區",
+          description: "選填欄位，想查看地區收支記得要填",
+          side: "top",
+          align: "center",
+        },
+      },
+      {
+        element: "#submit",
+        popover: {
+          title: "提交",
+          description: "確認填寫無誤的話，就送出吧!",
+          side: "top",
+          align: "center",
+        },
+      },
+      // More magical steps...
+    ],
+  });
+
   return (
     <>
       {mapWindow && (
@@ -151,9 +205,17 @@ const Create: React.FC<{ years: number; months: number }> = ({
           </div>
         </div>
       )}
+      <div className={create.manual} onClick={() => driverObj.drive()} >
+        <img src="manual.png" alt="manual" />
+        <p>新手教學</p>
+      </div>
       <div className={create.gridContainer}>
-        <Calendar onChange={onChange} value={value} />
-        <div className={create.budgetContainer}  id="budget">
+        <Calendar
+          onChange={onChange}
+          value={value}
+          className="calendarDriver"
+        />
+        <div className={create.budgetContainer} id="budget">
           <div className={create.displayLargeScreen}>
             <Budget
               payPage={payPage}
@@ -171,9 +233,12 @@ const Create: React.FC<{ years: number; months: number }> = ({
             />
           </div>
         </div>
-        <form className={create.formCard} onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}>
+        <form
+          className={create.formCard}
+          onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}
+        >
           <div className={create.inputGroup}>
-            <div className={create.inputItem}>
+            <div className={create.inputItem} id="itemResult">
               <p>項目</p>
               <p>：</p>
               <img
@@ -182,9 +247,7 @@ const Create: React.FC<{ years: number; months: number }> = ({
               />
             </div>
             <div className={create.inputFormat}>
-              <label htmlFor="price" onClick={() => driverObj.drive()}>
-                金額
-              </label>
+              <label htmlFor="price">金額</label>
               <p>＊</p>
               <div className={create.styleInput}>
                 <input
@@ -205,10 +268,11 @@ const Create: React.FC<{ years: number; months: number }> = ({
               </div>
             </div>
             <div className={create.inputFormat}>
-              <label htmlFor="price">備註</label>
+              <label htmlFor="note">備註</label>
               <p>　</p>
               <div className={create.styleInput}>
                 <input
+                  id="note"
                   type="text"
                   placeholder="可輸入備註"
                   autoComplete="off"
@@ -222,7 +286,7 @@ const Create: React.FC<{ years: number; months: number }> = ({
               </div>
             </div>
             <div className={create.inputFormat}>
-              <label htmlFor="price">地區</label>
+              <label htmlFor="location">地區</label>
               <p>　</p>
               <div className={create.styleInput}>
                 <input
@@ -246,7 +310,9 @@ const Create: React.FC<{ years: number; months: number }> = ({
             {isSending ? (
               <img src="loading.gif" alt="sending" />
             ) : (
-              <button type="submit">提交</button>
+              <button type="submit" id="submit">
+                提交
+              </button>
             )}
           </div>
         </form>

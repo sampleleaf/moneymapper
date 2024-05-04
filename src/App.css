@@ -28,7 +28,12 @@ body {
     background-color: rgb(240,244,247);
   }
 }
-
+/*====================
+Driver.js
+====================*/
+.driver-active, .driver-overlay{
+  pointer-events: auto !important;
+}
 /*====================
 Open Street Map
 ====================*/
