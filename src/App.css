@@ -17,15 +17,40 @@ body {
   touch-action: pan-y; /*prevent mobile users scroll left and right*/
 }
 
+.manualDriver{
+  height: 40px;
+  position: fixed;
+  top: 6px;
+  left: 40px;
+  z-index: 1009;
+  cursor: pointer;
+}
+
+.manualDriver img{
+  width: 40px;
+  height: 40px;
+}
+
 @media screen and ( max-width : 480px ) {
   .Toastify__toast-container{
     width: 100% !important;
   }
 }
 
+@media screen and ( max-width : 767px ){
+  .manualDriver p{
+      display: none;
+  }
+}
+
 @media screen and ( min-width : 768px ) {
   body{
     background-color: rgb(240,244,247);
+  }
+  .manualDriver{
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
   }
 }
 /*====================

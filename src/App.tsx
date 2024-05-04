@@ -13,6 +13,7 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import "driver.js/dist/driver.css";
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<string | null>(

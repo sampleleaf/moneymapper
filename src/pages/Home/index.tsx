@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
+import { driver } from "driver.js";
 
 const Home: React.FC<{
   years: number;
@@ -92,9 +93,38 @@ const Home: React.FC<{
     chartArea: { top: "5%", width: "90%", height: "90%" },
   };
 
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        element: "#add",
+        popover: {
+          title: "記一筆新帳",
+          description: "跳轉到記帳頁面",
+          side: "top",
+          align: "center",
+        },
+      },
+      {
+        element: "#item",
+        popover: {
+          title: "編輯和刪除",
+          description: "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目",
+          side: "top",
+          align: "center",
+        },
+      },
+      // More steps...
+    ],
+  });
+
   return (
     <>
-      <Link className={home.addItem} to="/create">
+      <div className="manualDriver" onClick={() => driverObj.drive()}>
+        <img src="manual.png" alt="manual" />
+        <p>新手教學</p>
+      </div>
+      <Link className={home.addItem} to="/create" id="add">
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>
@@ -132,7 +162,7 @@ const Home: React.FC<{
             </div>
           </div>
         </div>
-        <div className={home.itemsByDayThisMonth}>
+        <div className={home.itemsByDayThisMonth} id="item">
           {Object.keys(days).length > 0 ? (
             days.map((day) => (
               <DayItem

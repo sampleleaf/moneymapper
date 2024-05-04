@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
 
 type ValuePiece = Date | null;
 
@@ -122,7 +121,7 @@ const Create: React.FC<{ years: number; months: number }> = ({
   };
 
   const driverObj = driver({
-    showProgress: true, // Because everyone loves progress bars!
+    showProgress: true,
     steps: [
       {
         element: ".calendarDriver",
@@ -187,7 +186,7 @@ const Create: React.FC<{ years: number; months: number }> = ({
           align: "center",
         },
       },
-      // More magical steps...
+      // More steps...
     ],
   });
 
@@ -205,7 +204,7 @@ const Create: React.FC<{ years: number; months: number }> = ({
           </div>
         </div>
       )}
-      <div className={create.manual} onClick={() => driverObj.drive()} >
+      <div className="manualDriver" onClick={() => driverObj.drive()} >
         <img src="manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
