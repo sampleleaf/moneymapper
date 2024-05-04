@@ -5,6 +5,7 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import detailGroup from "@/css/DetailGroup.module.css";
 import IncomeNote from "@/components/DetailNote/IncomeNote";
+import { driver } from "driver.js";
 
 type ContextType = { years: number; months: number };
 
@@ -93,13 +94,36 @@ const Income = () => {
   };
 
   const handleCloseDetail = (e: React.MouseEvent) => {
-    e.stopPropagation()
+    e.stopPropagation();
     setPopItem("");
     setIsPop(false);
-  }
+  };
+
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        element: "#list",
+        popover: {
+          title: googleData.length > 0 ? "收入項目明細" : "教學",
+          description:
+            googleData.length > 0
+              ? "點選項目可以看到項目明細"
+              : "先記一筆收入才有後續教學喔!",
+          side: "top",
+          align: "center",
+        },
+      },
+      // More steps...
+    ],
+  });
 
   return (
     <>
+      <div className="manualDriver" onClick={() => driverObj.drive()}>
+        <img src="../manual.png" alt="manual" />
+        <p>新手教學</p>
+      </div>
       <div className={detailGroup.chartGridArea}>
         <div className={detailGroup.googleChart}>
           <Chart
@@ -119,21 +143,45 @@ const Income = () => {
         </div>
       </div>
       {googleData.length > 0 ? (
-        <ul className={detailGroup.list}>
+        <ul className={detailGroup.list} id="list">
           <li>
-            <p>項目收入</p>
+            <p>收入項目</p>
           </li>
           {googleData.map((data) => (
-            <li key={data[0]} onClick={() => handlePopDetail(data[0])} className={detailGroup.incomeHover}>
+            <li
+              key={data[0]}
+              onClick={() => handlePopDetail(data[0])}
+              className={detailGroup.incomeHover}
+            >
               {isPop && popItem === data[0] && (
-                <div className={detailGroup.noteBackground} onClick={(e) => handleCloseDetail(e)}>
-                  <div className={detailGroup.noteTitle} style={{backgroundColor: "rgb(158,225,255)"}} onClick={(e) => e.stopPropagation()}>
-                    <div className={detailGroup.cross} onClick={(e) => handleCloseDetail(e)}><i className="fa-solid fa-xmark"></i></div>
+                <div
+                  className={detailGroup.noteBackground}
+                  onClick={(e) => handleCloseDetail(e)}
+                >
+                  <div
+                    className={detailGroup.noteTitle}
+                    style={{ backgroundColor: "rgb(158,225,255)" }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div
+                      className={detailGroup.cross}
+                      onClick={(e) => handleCloseDetail(e)}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </div>
                     <img src={`../${popItem}.png`} alt={`${popItem}`} />
                     <p>{popItem}</p>
                   </div>
-                  <div className={detailGroup.noteDescribe} onClick={(e) => e.stopPropagation()}>支出明細</div>
-                  <div className={detailGroup.noteCard} onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className={detailGroup.noteDescribe}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    支出明細
+                  </div>
+                  <div
+                    className={detailGroup.noteCard}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {days.map((day) => (
                       <IncomeNote
                         key={day}
@@ -163,7 +211,9 @@ const Income = () => {
               {years}年{months}月無收入記錄
             </p>
           </div>
-          <Link className={detailGroup.addItem} to="/create">記一筆</Link>
+          <Link className={detailGroup.addItem} to="/create">
+            記一筆
+          </Link>
         </div>
       )}
     </>

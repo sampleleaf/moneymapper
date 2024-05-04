@@ -108,8 +108,8 @@ const Home: React.FC<{
       {
         element: "#item",
         popover: {
-          title: "編輯和刪除",
-          description: "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目",
+          title: Object.keys(days).length > 0 ? "編輯和刪除" : "教學",
+          description: Object.keys(days).length > 0 ? "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目" : "先記一筆帳才有後續教學喔!",
           side: "top",
           align: "center",
         },
