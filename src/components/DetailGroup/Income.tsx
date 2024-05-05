@@ -15,6 +15,8 @@ const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");
   const [days, setDays] = useState<string[]>([]);
+  const [isReverse, setIsReverse] = useState<boolean>(false);
+  const [reverseDays, setReverseDays] = useState<string[]>([]);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -27,7 +29,9 @@ const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           // console.log(Object.keys(docSnap.data()));
-          setDays(Object.keys(docSnap.data()).reverse());
+          const reversedArray = [...Object.keys(docSnap.data())].reverse();
+          setDays(Object.keys(docSnap.data()));
+          setReverseDays(reversedArray)
           const dayLength = Object.keys(docSnap.data()).length;
           const items = [];
           for (let i = 0; i < dayLength; i++) {
@@ -176,13 +180,14 @@ const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
                     className={detailGroup.noteDescribe}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    收入明細
+                    <p>收入明細</p>
+                    <img src="../reverse.png" alt="reverse" onClick={() => setIsReverse(!isReverse)} />
                   </div>
                   <div
                     className={detailGroup.noteCard}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {days.map((day) => (
+                    {(isReverse ? reverseDays : days).map((day) => (
                       <IncomeNote
                         key={day}
                         popItem={popItem}

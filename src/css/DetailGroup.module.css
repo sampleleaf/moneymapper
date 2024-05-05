@@ -155,9 +155,16 @@
     background-color: white;
     height: 40px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     font-weight: bold;
     padding: 0 10px;
+}
+
+.noteDescribe img{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }
 
 .noteCard{
