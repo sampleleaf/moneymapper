@@ -12,7 +12,7 @@ a{
 }
 
 body {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   overflow-x: hidden;
   touch-action: pan-y; /*prevent mobile users scroll left and right*/
 }
@@ -37,7 +37,7 @@ body {
   }
 }
 
-@media screen and ( max-width : 767px ){
+@media screen and ( max-width : 767px ) {
   .manualDriver p{
       display: none;
   }
@@ -51,6 +51,13 @@ body {
     display: flex;
     align-items: center;
     padding-right: 8px;
+  }
+}
+
+@media screen and ( min-width : 1440px ) {
+  .manualDriver{
+    left: 50%;
+    transform: translateX(-671.5px);
   }
 }
 /*====================

@@ -206,4 +206,9 @@
         left: 50%;
         transform: translate(-50%);
     }
+    .logout{
+        position: fixed;
+        right: 50%;
+        transform: translateX(671.5px);
+    }
 }
