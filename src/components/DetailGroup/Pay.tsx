@@ -101,7 +101,7 @@ const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
       {
         element: "#list",
         popover: {
-          title: googleData.length > 0 ? "支出項目明細" : "教學",
+          title: googleData.length > 0 ? "支出明細" : "教學",
           description:
             googleData.length > 0
               ? "點選項目可以看到項目明細"
