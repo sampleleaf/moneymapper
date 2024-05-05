@@ -22,6 +22,8 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popDate, setPopDate] = useState<string | number>("");
+  const [isReverse, setIsReverse] = useState<boolean>(false);
+  const [reverseData, setReverseData] = useState<(string | number)[][]>([]);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -64,7 +66,9 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
             // console.log(docSnap.data()[Object.keys(docSnap.data())[i]])
           }
           // console.log(googleArray);
+          const reversedArray = [...googleArray].reverse();
           setGoogleData(googleArray);
+          setReverseData(reversedArray)
         } else {
           // docSnap.data() will be undefined in this case
           setGoogleData([]);
@@ -147,10 +151,11 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
             </div>
           </div>
           <ul className={detailGroup.list} id="list">
-            <li>
+            <li className={detailGroup.reverse}>
               <p>日結餘</p>
+              <img src="../reverse.png" alt="reverse" onClick={() => setIsReverse(!isReverse)} />
             </li>
-            {googleData.map((data) => (
+            {(isReverse ? reverseData : googleData).map((data) => (
               <li
                 key={data[0]}
                 onClick={() => handlePopDetail(data[0])}
