@@ -176,7 +176,7 @@ const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
                     className={detailGroup.noteDescribe}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    支出明細
+                    收入明細
                   </div>
                   <div
                     className={detailGroup.noteCard}
