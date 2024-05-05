@@ -24,6 +24,7 @@ const App: React.FC = () => {
   const [detailsHighlighted, setDetailsHighlighted] = useState("")
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
+  const [payPage, setPayPage] = useState<boolean>(true);
 
   return (
     <>
@@ -31,14 +32,14 @@ const App: React.FC = () => {
         <>
           <Header setLogin={setLogin} setDetailsTranslateX={setDetailsTranslateX} setDetailsHighlighted={setDetailsHighlighted} />
           <Routes>
-            <Route path="/" element={<Home years={years} setYears={setYears} months={months} setMonths={setMonths} />} />
-            <Route path="create" element={<Create years={years} months={months} />} />
+            <Route path="/" element={<Home years={years} setYears={setYears} months={months} setMonths={setMonths} setPayPage={setPayPage} />} />
+            <Route path="create" element={<Create years={years} months={months} payPage={payPage} setPayPage={setPayPage} />} />
             <Route path="details" element={<Details years={years} setYears={setYears} months={months} setMonths={setMonths} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
-              <Route path="pay" element={<Pay />} />
-              <Route path="income" element={<Income />} />
-              <Route path="remainder" element={<Remainder />} />
+              <Route path="pay" element={<Pay setPayPage={setPayPage} />} />
+              <Route path="income" element={<Income setPayPage={setPayPage} />} />
+              <Route path="remainder" element={<Remainder setPayPage={setPayPage} />} />
             </Route>
-            <Route path="mapper" element={<Mapper years={years} setYears={setYears} months={months} setMonths={setMonths} />} />
+            <Route path="mapper" element={<Mapper years={years} setYears={setYears} months={months} setMonths={setMonths} setPayPage={setPayPage} />} />
           </Routes>
           <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>

@@ -14,9 +14,11 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Create: React.FC<{ years: number; months: number }> = ({
+const Create: React.FC<{ years: number; months: number; payPage: boolean; setPayPage: Function }> = ({
   years,
   months,
+  payPage,
+  setPayPage
 }) => {
   const navigate = useNavigate();
   const date = new Date().getDate();
@@ -29,7 +31,6 @@ const Create: React.FC<{ years: number; months: number }> = ({
   const [payItem, setPayItem] = useState<string>("早餐");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [itemNote, setItemNote] = useState<string>("");
-  const [payPage, setPayPage] = useState<boolean>(true);
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [isSending, setIsSending] = useState<boolean>(false);
 

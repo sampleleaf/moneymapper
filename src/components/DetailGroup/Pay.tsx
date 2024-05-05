@@ -9,7 +9,7 @@ import { driver } from "driver.js";
 
 type ContextType = { years: number; months: number };
 
-const Pay = () => {
+const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
@@ -207,7 +207,11 @@ const Pay = () => {
               {years}年{months}月無支出記錄
             </p>
           </div>
-          <Link className={detailGroup.addItem} to="/create">
+          <Link
+            onClick={() => setPayPage(true)}
+            className={detailGroup.addItem}
+            to="/create"
+          >
             記一筆
           </Link>
         </div>

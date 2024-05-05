@@ -15,7 +15,7 @@ interface Item {
   location: string;
 }
 
-const Remainder = () => {
+const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
 
@@ -135,7 +135,13 @@ const Remainder = () => {
                 {years}年{months}月無記帳記錄
               </p>
             </div>
-            <Link className={detailGroup.addItem} to="/create">記一筆</Link>
+            <Link
+              onClick={() => setPayPage(true)}
+              className={detailGroup.addItem}
+              to="/create"
+            >
+              記一筆
+            </Link>
           </div>
         </>
       )}

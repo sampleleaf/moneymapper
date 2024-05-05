@@ -12,7 +12,8 @@ const Mapper: React.FC<{
   setYears: Function;
   months: number;
   setMonths: Function;
-}> = ({ years, setYears, months, setMonths }) => {
+  setPayPage: Function;
+}> = ({ years, setYears, months, setMonths, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
@@ -214,7 +215,13 @@ const Mapper: React.FC<{
                   {years}年{months}月無收支記錄
                 </p>
               </div>
-              <Link className={mapper.addItem} to="/create">記一筆</Link>
+              <Link
+                onClick={() => setPayPage(true)}
+                className={mapper.addItem}
+                to="/create"
+              >
+                記一筆
+              </Link>
             </div>
           )
         ) : (

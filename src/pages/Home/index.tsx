@@ -13,7 +13,8 @@ const Home: React.FC<{
   setYears: Function;
   months: number;
   setMonths: Function;
-}> = ({ years, setYears, months, setMonths }) => {
+  setPayPage: Function;
+}> = ({ years, setYears, months, setMonths, setPayPage }) => {
   const [days, setDays] = useState<string[]>([]);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<
     { price: number; item: string; id: string }[]
@@ -124,7 +125,7 @@ const Home: React.FC<{
         <img src="manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
-      <Link className={home.addItem} to="/create" id="add">
+      <Link onClick={() => setPayPage(true)} className={home.addItem} to="/create" id="add">
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>
