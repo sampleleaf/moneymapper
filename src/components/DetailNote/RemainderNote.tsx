@@ -34,8 +34,7 @@ const RemainderNote: React.FC<{
         if (docSnap.exists()) {
           //   console.log("Document data:", docSnap.data());
           const itemsOfDay: Item[] = docSnap.data()[day];
-
-          console.log(itemsOfDay);
+          // console.log(itemsOfDay);
           setItems(itemsOfDay);
         } else {
           // docSnap.data() will be undefined in this case

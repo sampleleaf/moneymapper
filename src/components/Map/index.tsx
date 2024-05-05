@@ -42,7 +42,7 @@ const Map: React.FC<{
       async locationfound(e) {
         setPosition(e.latlng);
         // map.flyTo(e.latlng, map.getZoom());
-        console.log(e.latlng);
+        // console.log(e.latlng);
         const center: [number, number] = [e.latlng.lat, e.latlng.lng];
         const zoomLevel = 9;
         map.setView(center, zoomLevel);
@@ -106,7 +106,7 @@ const Map: React.FC<{
     >(null);
 
     useEffect(() => {
-      console.log(geoResult);
+      // console.log(geoResult);
       setGeoResult(null);
     }, [position]);
 
@@ -134,7 +134,7 @@ const Map: React.FC<{
         // } else {
         //     console.error('無法找到指定縣市的邊界數據');
         // }
-        console.log(dataAdress);
+        // console.log(dataAdress);
         setMapError("");
         setMapResult(
           data.address.city ||

@@ -63,7 +63,7 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
             ]);
             // console.log(docSnap.data()[Object.keys(docSnap.data())[i]])
           }
-          console.log(googleArray);
+          // console.log(googleArray);
           setGoogleData(googleArray);
         } else {
           // docSnap.data() will be undefined in this case
