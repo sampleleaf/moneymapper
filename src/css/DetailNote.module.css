@@ -41,6 +41,11 @@
     column-gap: 10px;
 }
 
+.percent img{
+    width: 30px;
+    height: 30px;
+}
+
 .percentBarContainer{
     position: relative;
 }

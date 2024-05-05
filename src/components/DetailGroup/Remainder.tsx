@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useOutletContext, Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import RemainderNote from "../DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
 
 type ContextType = { years: number; months: number };
@@ -18,6 +19,8 @@ interface Item {
 const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
+  const [isPop, setIsPop] = useState<boolean>(false);
+  const [popDate, setPopDate] = useState<string | number>("");
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -70,6 +73,17 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
     }
   }, [years, months]);
 
+  const handlePopDetail = (date: string | number) => {
+    setPopDate(date);
+    setIsPop(true);
+  };
+
+  const handleCloseDetail = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPopDate("");
+    setIsPop(false);
+  };
+
   const googleChartData = [["日期", "收入", "支出", "結餘"], ...googleData];
 
   const googleChartOptions = {
@@ -114,7 +128,47 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
               <p>日結餘</p>
             </li>
             {googleData.map((data) => (
-              <li key={data[0]}>
+              <li
+                key={data[0]}
+                onClick={() => handlePopDetail(data[0])}
+                className={detailGroup.remainderHover}
+              >
+                {isPop && popDate === data[0] && (
+                  <div
+                    className={detailGroup.noteBackground}
+                    onClick={(e) => handleCloseDetail(e)}
+                  >
+                    <div
+                      className={detailGroup.noteTitle}
+                      style={{ backgroundColor: "rgb(218, 173, 235)" }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div
+                        className={detailGroup.cross}
+                        onClick={(e) => handleCloseDetail(e)}
+                      >
+                        <i className="fa-solid fa-xmark"></i>
+                      </div>
+                      <p>{data[0]}</p>
+                    </div>
+                    <div
+                      className={detailGroup.noteDescribe}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      結餘詳情
+                    </div>
+                    <div
+                      className={detailGroup.noteCard}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <RemainderNote
+                        years={years}
+                        months={months}
+                        date={data[0]}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className={detailGroup.item}>
                   <p>{data[0]}</p>
                 </div>

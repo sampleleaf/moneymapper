@@ -79,7 +79,7 @@
     border-radius: 0 0 6px 6px;
 }
 
-.payHover, .incomeHover{
+.payHover, .incomeHover, .remainderHover{
     cursor: pointer;
 }
 
@@ -89,6 +89,10 @@
 
 .incomeHover:hover{
     background-color: rgb(188, 237, 255);
+}
+
+.remainderHover:hover{
+    background-color: rgb(246, 233, 250);
 }
 
 .noteBackground{
