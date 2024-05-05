@@ -5,6 +5,7 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import RemainderNote from "../DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
+import { driver } from "driver.js";
 
 type ContextType = { years: number; months: number };
 
@@ -95,7 +96,6 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
       1: { color: "rgb(254, 116, 113)" },
       2: { color: "rgb(211, 132, 240)" },
     },
-
     tooltip: { trigger: "focus" },
     focusTarget: "category",
     pointSize: "5",
@@ -106,8 +106,31 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
     },
   };
 
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        element: "#list",
+        popover: {
+          title: googleData.length > 0 ? "結餘詳情" : "教學",
+          description:
+            googleData.length > 0
+              ? "點選項目可以看到當日明細"
+              : "先記一筆帳才有後續教學喔!",
+          side: "top",
+          align: "center",
+        },
+      },
+      // More steps...
+    ],
+  });
+
   return (
     <>
+      <div className="manualDriver" onClick={() => driverObj.drive()}>
+        <img src="../manual.png" alt="manual" />
+        <p>新手教學</p>
+      </div>
       {googleData.length > 0 ? (
         <>
           <div className={detailGroup.chartGridArea}>
@@ -123,7 +146,7 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
               />
             </div>
           </div>
-          <ul className={detailGroup.list}>
+          <ul className={detailGroup.list} id="list">
             <li>
               <p>日結餘</p>
             </li>
