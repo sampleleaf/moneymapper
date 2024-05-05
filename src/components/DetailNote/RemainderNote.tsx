@@ -76,7 +76,15 @@ const RemainderNote: React.FC<{
                     <p>{item.note || item.item}</p>
                   </div>
                 </div>
-                <p>{item.price}</p>
+                <p
+                  style={
+                    item.price < 0
+                      ? { color: "rgb(254,116,113)" }
+                      : { color: "rgb(71,184,224)" }
+                  }
+                >
+                  ${item.price}
+                </p>
               </div>
             ))}
         </div>
