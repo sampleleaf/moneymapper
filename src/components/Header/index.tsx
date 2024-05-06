@@ -9,6 +9,7 @@ const Header: React.FC<{
 }> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState<boolean>(false);
+  const [popLogout, setPopLogout] = useState<boolean>(false);
 
   const loginData = localStorage.getItem("loginData");
 
@@ -42,6 +43,24 @@ const Header: React.FC<{
 
   return (
     <>
+      {popLogout && (
+        <div
+          className={header.logoutBackground}
+          onClick={() => setPopLogout(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={header.remindWindow}
+          >
+            <p>系統通知</p>
+            <p>確定要登出嗎</p>
+            <div className={header.deleteChoice}>
+              <p onClick={() => setPopLogout(false)}>取消</p>
+              <p onClick={handleLogout}>確定</p>
+            </div>
+          </div>
+        </div>
+      )}
       <div
         onClick={handleSidebar}
         className={header.sidebarBackground}
@@ -100,7 +119,7 @@ const Header: React.FC<{
           {/* <Link to="/mapper">
             <i className="fa-solid fa-map-location-dot"></i>
           </Link> */}
-          <p onClick={handleLogout} className={header.logout}>
+          <p onClick={() => setPopLogout(true)} className={header.logout}>
             登出
           </p>
         </div>
