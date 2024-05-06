@@ -72,7 +72,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSignUp(true)
+    setIsSignUp(true);
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -87,7 +87,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           driverStep: 0,
         });
         setNewUser(!newUser);
-        setIsSignUp(false)
+        setIsSignUp(false);
         toast.success(
           <span>
             註冊成功 <br /> 您可以登入了
@@ -103,7 +103,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        setIsSignUp(false)
+        setIsSignUp(false);
         toast.error(
           <span>
             註冊失敗 <br /> {errorCode}
@@ -118,7 +118,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSignIn(true)
+    setIsSignIn(true);
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -128,7 +128,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         if (docSnap.exists()) {
           // console.log("Document data:", docSnap.data());
           localStorage.setItem("loginData", JSON.stringify(docSnap.data()));
-          setIsSignIn(false)
+          setIsSignIn(false);
           setLogin(localStorage.getItem("loginData"));
         } else {
           console.log("No such document!");
@@ -139,7 +139,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        setIsSignIn(false)
+        setIsSignIn(false);
         toast.error(
           <span>
             登入失敗 <br /> {errorCode}
@@ -155,10 +155,12 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   return (
     <>
       <div className={login.background}></div>
-      <a className={login.scrollDown} href="#next">
-        <p>查看簡介</p>
-        <i className="fa-solid fa-angles-down"></i>
-      </a>
+      <div className={login.fakeBackground}>
+        <a className={login.scrollDown} href="#next">
+          <p>查看簡介</p>
+          <i className="fa-solid fa-angles-down"></i>
+        </a>
+      </div>
       <div className={login.container}>
         <div className={login.paper}>
           <div className={login.title}>
@@ -169,7 +171,10 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             <p>掌握每筆消費</p>
             <p>洞察生活足跡</p>
           </div>
-          <form className={login.form} onSubmit={newUser ? handleSignUp : handleSignIn} >
+          <form
+            className={login.form}
+            onSubmit={newUser ? handleSignUp : handleSignIn}
+          >
             <div className={login.styleInput}>
               <input
                 id="email"
@@ -212,7 +217,16 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               </div>
             ) : (
               <div className={login.signIn}>
-                {isSignIn ? <button type="button"><div>登入中...<img src="loading.gif" alt="loading" /></div></button> : <button>登入</button>}
+                {isSignIn ? (
+                  <button type="button">
+                    <div>
+                      登入中...
+                      <img src="loading.gif" alt="loading" />
+                    </div>
+                  </button>
+                ) : (
+                  <button>登入</button>
+                )}
               </div>
             )}
             {newUser ? (
@@ -221,7 +235,16 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                   <button onClick={handleNewUser}>返回登入</button>
                 </div>
                 <div className={login.signUp}>
-                  {isSignUp ? <button type="button"><div>註冊中...<img src="loading.gif" alt="loading" /></div></button> : <button>註冊</button>}
+                  {isSignUp ? (
+                    <button type="button">
+                      <div>
+                        註冊中...
+                        <img src="loading.gif" alt="loading" />
+                      </div>
+                    </button>
+                  ) : (
+                    <button>註冊</button>
+                  )}
                 </div>
               </>
             ) : (
