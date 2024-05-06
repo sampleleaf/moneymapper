@@ -159,7 +159,14 @@
 
 @media screen and ( min-width : 1068px ){
     .background{
-        transform: translate(calc(-30% - 22px));
+        transform: translate(calc(-315px));
         z-index: 9;
+    }
+}
+
+@media screen and ( min-width : 1440px ){
+    .background{
+        left: 0;
+        transform: translate(0);
     }
 }

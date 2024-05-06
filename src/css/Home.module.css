@@ -180,4 +180,8 @@
         width: 1423px;
         margin: 0 auto;
     }
+    .addItem{
+        left: 50%;
+        transform: translateX(-76px);
+    }
 }
