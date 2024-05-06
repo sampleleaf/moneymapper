@@ -54,10 +54,19 @@ body {
   }
 }
 
+@media screen and ( min-width : 1068px ) {
+  .manualDriver{
+    left: 65px;
+    top: 700px;
+    background-color: white;
+    border-radius: 5px 10px 5px 10px;
+  }
+}
+
 @media screen and ( min-width : 1440px ) {
   .manualDriver{
     left: 50%;
-    transform: translateX(-671.5px);
+    transform: translateX(-646.5px);
   }
 }
 /*====================
