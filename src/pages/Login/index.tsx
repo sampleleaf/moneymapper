@@ -16,6 +16,16 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [newUser, setNewUser] = useState<boolean>(false);
+  const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const [isSignIn, setIsSignIn] = useState<boolean>(false);
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
   const middles: RefObject<HTMLDivElement>[] = [
     useRef(null),
     useRef(null),
@@ -58,20 +68,15 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     });
   });
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [newUser, setNewUser] = useState<boolean>(false);
-  const [isSignUp, setIsSignUp] = useState<boolean>(false);
-  const [isSignIn, setIsSignIn] = useState<boolean>(false);
-
   const handleNewUser = (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsSubmit(false)
     setNewUser(!newUser);
   };
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmit(true)
     setIsSignUp(true);
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -152,6 +157,11 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
       });
   };
 
+  const validateEmail = (input: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(regex.test(input));
+  };
+
   return (
     <>
       <div className={login.background}></div>
@@ -175,20 +185,23 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             className={login.form}
             onSubmit={newUser ? handleSignUp : handleSignIn}
           >
-            <div className={login.styleInput}>
+            <div className={`${login.styleInput} ${!newUser && login.focusInput} ${newUser && isSubmit ? (!isValidEmail ? login.wrongInput : login.correctInput) : ""}`}>
+              <label htmlFor="email">信箱</label>
               <input
                 id="email"
                 type="email"
                 placeholder="請輸入信箱"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {setEmail(e.target.value); validateEmail(e.target.value)}}
                 required
               />
               <div>
                 <i className="fa-solid fa-envelope"></i>
               </div>
+              {newUser && isSubmit && !isValidEmail && <p className={login.warning}>請輸入正確格式的email</p>}
             </div>
-            <div className={login.styleInput}>
+            <div className={`${login.styleInput} ${!newUser && login.focusInput} ${newUser && isSubmit ? (password.length < 6 ? login.wrongInput : login.correctInput) : ""}`}>
+              <label htmlFor="password">密碼</label>
               <input
                 id="password"
                 type="password"
@@ -200,9 +213,11 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               <div>
                 <i className="fa-solid fa-lock"></i>
               </div>
+              {newUser && isSubmit && password.length < 6 && <p className={login.warning}>密碼至少6碼</p>}
             </div>
             {newUser ? (
-              <div className={login.styleInput}>
+              <div className={`${login.styleInput} ${isSubmit ? (username.length < 1 ? login.wrongInput : login.correctInput) : ""}`}>
+                <label htmlFor="email">使用者名稱</label>
                 <input
                   id="username"
                   type="text"

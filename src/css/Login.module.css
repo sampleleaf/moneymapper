@@ -50,50 +50,50 @@
 }
 
 .paper{
-    width: 100%;
+    width: 90%;
+    height: 430px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    overflow: auto;
 }
 
 .title, .slogan{
-    display: grid;
+    display: flex;
 }
 
 .title p{
-    font-size: 36px;
+    font-size: 30px;
     font-family: "Lilita One", sans-serif;
 }
 
 .slogan p{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 900;
 }
 
-.title p, .slogan p{
-    width: 150px;
-    margin: 0 auto;
-    text-align: center;
+.slogan p:nth-child(1)::after{
+    content: "，";
 }
 
 .title p:nth-child(1), .slogan p:nth-child(1){  
-    transform: translateX(-20%);
+    text-align: end;
 }
 
 .title p:nth-child(2), .slogan p:nth-child(2){
-    transform: translateX(20%);
+    text-align: start;
 }
 
 .form{
     width: 80%;
-    padding: 15px 0;
     margin-top: 10px;
     display: grid;
-    row-gap: 15px;
+    row-gap: 20px;
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.7);
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 .styleInput{
@@ -104,7 +104,7 @@
 
 .styleInput input{
     width: 100%;
-    height: 40px;
+    height: 30px;
     border: 1px solid rgb(170, 170, 170);
     border-radius: 3px;
     padding: 0 39px 0 33.5px;
@@ -114,9 +114,8 @@
 
 .styleInput div{
     position: absolute;
-    top: 50%;
+    top: 31px;
     left: 7px;
-    transform: translateY(-50%);
     transition: color 0.2s;
 }
 
@@ -136,41 +135,57 @@
     transition: border 0.2s;
 }
 
-.styleInput span{
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    height: 21px;
-    position: absolute;
-    top: 50%;
-    right: 4px;
-    transform: translateY(-50%);
-    border: none;
-    border-radius: 3px;
-    padding: 2px;
-    cursor: pointer;
-    background-color: rgb(99, 99, 99);
-    color: white;
-}
-
-.styleInput span:hover{
-    background-color: black;
-}
-
 .styleInput:focus-within input{
     outline: none;
+}
+
+.focusInput:focus-within input{
     box-shadow: rgba(236, 138, 255, 0.28) 0px 0px 0px 1px, rgba(236, 138, 255, 0.11) 0px 0px 1px 0px, rgba(236, 138, 255, 0.11) 0px 0px 0px 4px;
 }
 
-.styleInput:focus-within div, .styleInput:focus-within div::after{
+.focusInput:focus-within div, .focusInput:focus-within div::after{
     color: rgb(236, 138, 255);
     border-color: rgb(236, 138, 255);
+}
+
+.wrongInput input{
+    outline: none;
+    box-shadow: rgba(255, 0, 0, 0.28) 0px 0px 0px 1px, rgba(255, 0, 0, 0.11) 0px 0px 1px 0px, rgba(255, 0, 0, 0.11) 0px 0px 0px 4px;
+}
+
+.wrongInput div, .wrongInput div::after{
+    color: rgb(255, 0, 0);
+    border-color: rgb(255, 0, 0);
+}
+
+.correctInput input{
+    outline: none;
+    box-shadow: rgba(46, 207, 46, 0.28) 0px 0px 0px 1px, rgba(46, 207, 46, 0.11) 0px 0px 1px 0px, rgba(46, 207, 46, 0.11) 0px 0px 0px 4px;
+}
+
+.correctInput div, .correctInput div::after{
+    color: rgb(46, 207, 46);
+    border-color: rgb(46, 207, 46);
+}
+
+.styleInput p{
+    position: absolute;
+    top: 54px;
+    font-size: 13px;
+    display: flex;
+    column-gap: 3px;
+    align-items: center;
+}
+
+.warning{
+    color: red;
+    right: 0;
 }
 
 .signIn, .signUp{
     justify-self: center;
     width: 90%;
-    height: 40px;
+    height: 36px;;
 }
 
 .signIn button, .signUp button{
@@ -208,7 +223,7 @@
 
 .seperate{
     width: 90%;
-    height: 40px;
+    height: 20px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: calc(50% - 15px) 30px calc(50% - 15px);
@@ -333,52 +348,31 @@
     }
     .paper{
         width: 450px;
-        /* height: 65vh;
-        max-height: 570px; */
         height: 570px;
-        border-radius: 32px;
-        background-color: rgba(255, 255, 255, 0.7);
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-        overflow: auto;
     }
-    .title, .slogan{
-        display: flex;
-    }
-    
     .title p{
-        font-size: 40px;
+        font-size: 44px;
     }
-    
-    .title p, .slogan p{
-        width: auto;
-    }
-    
-    .title p:nth-child(1), .slogan p:nth-child(1){  
-        transform: translateX(0);
-        text-align: end;
-    }
-    
-    .title p:nth-child(2), .slogan p:nth-child(2){
-        transform: translateX(0);
-        text-align: start;
-    }
-    .slogan p:nth-child(1)::after{
-        content: "，";
+    .slogan p{
+        font-size: 22px;
     }
     .form{
         background-color: transparent;
         box-shadow: none;
         padding-bottom: 0;
     }
+    .styleInput label{
+        margin-left: 3px;
+        font-size: 16px;
+    }
     .styleInput input{
-        border-radius: 16px;
-        /* height: 5vh;
-        max-height: 50px; */
+        border-radius: 8px;
         height: 50px;
         font-size: 18px;
         padding: 0 45px;
     }
     .styleInput div{
+        top: 40px;
         left: 10px;
     }
     .styleInput div, .styleInput svg{
@@ -387,6 +381,9 @@
     }
     .styleInput div::after{
         left: 25px;
+    }
+    .warning{
+        right: 5px;
     }
     .signIn, .signUp{
         /* height: 4vh;
