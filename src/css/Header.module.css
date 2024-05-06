@@ -181,7 +181,7 @@
 
 @media screen and ( min-width : 1068px ){
     .sidebarBackground{
-        z-index: 9;
+        z-index: 8;
         background-color: rgba(0, 0, 0, 0) !important;
         pointer-events: none !important;
     }
