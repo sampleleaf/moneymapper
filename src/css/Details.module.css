@@ -1,7 +1,7 @@
 .triggerLink{
     position: absolute;
     width: 62.5px;
-    height: 33px;
+    height: 36px;
     transition: transform 0.3s, background-color 0.3s;
 }
 
