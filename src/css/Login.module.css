@@ -324,7 +324,7 @@
     }
 }
 
-@media screen and ( min-width : 768px ){
+@media screen and ( min-width : 500px ){
     .scrollDown{
         bottom: 2.5%;
     }
@@ -339,14 +339,39 @@
     .paper{
         width: 450px;
         height: 65vh;
-        max-height: 650px;
+        max-height: 570px;
         border-radius: 32px;
         background-color: rgba(255, 255, 255, 0.7);
         box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     }
+    .title, .slogan{
+        display: flex;
+    }
+    
+    .title p{
+        font-size: 40px;
+    }
+    
+    .title p, .slogan p{
+        width: auto;
+    }
+    
+    .title p:nth-child(1), .slogan p:nth-child(1){  
+        transform: translateX(0);
+        text-align: end;
+    }
+    
+    .title p:nth-child(2), .slogan p:nth-child(2){
+        transform: translateX(0);
+        text-align: start;
+    }
+    .slogan p:nth-child(1)::after{
+        content: "，";
+    }
     .form{
         background-color: transparent;
         box-shadow: none;
+        padding-bottom: 0;
     }
     .styleInput input{
         border-radius: 16px;
