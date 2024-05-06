@@ -186,6 +186,17 @@
     background-position: 100%;
 }
 
+.signIn div, .signUp div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signIn img, .signUp img{
+    width: 30px;
+    height: 30px;
+}
+
 .seperate{
     width: 90%;
     height: 40px;

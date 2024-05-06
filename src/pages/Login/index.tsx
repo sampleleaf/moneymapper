@@ -62,6 +62,8 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [newUser, setNewUser] = useState<boolean>(false);
+  const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const [isSignIn, setIsSignIn] = useState<boolean>(false);
 
   const handleNewUser = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -70,6 +72,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSignUp(true)
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -84,6 +87,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           driverStep: 0,
         });
         setNewUser(!newUser);
+        setIsSignUp(false)
         toast.success(
           <span>
             註冊成功 <br /> 您可以登入了
@@ -99,6 +103,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
+        setIsSignUp(false)
         toast.error(
           <span>
             註冊失敗 <br /> {errorCode}
@@ -113,6 +118,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSignIn(true)
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -122,6 +128,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         if (docSnap.exists()) {
           // console.log("Document data:", docSnap.data());
           localStorage.setItem("loginData", JSON.stringify(docSnap.data()));
+          setIsSignIn(false)
           setLogin(localStorage.getItem("loginData"));
         } else {
           console.log("No such document!");
@@ -132,6 +139,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
+        setIsSignIn(false)
         toast.error(
           <span>
             登入失敗 <br /> {errorCode}
@@ -204,7 +212,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               </div>
             ) : (
               <div className={login.signIn}>
-                <button>登入</button>
+                {isSignIn ? <button type="button"><div>登入中...<img src="loading.gif" alt="loading" /></div></button> : <button>登入</button>}
               </div>
             )}
             {newUser ? (
@@ -213,7 +221,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                   <button onClick={handleNewUser}>返回登入</button>
                 </div>
                 <div className={login.signUp}>
-                  <button>註冊</button>
+                  {isSignUp ? <button type="button"><div>註冊中...<img src="loading.gif" alt="loading" /></div></button> : <button>註冊</button>}
                 </div>
               </>
             ) : (
