@@ -4,7 +4,7 @@ import YearMonth from "@/components/YearMonth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 import { driver } from "driver.js";
 
@@ -53,6 +53,59 @@ const Home: React.FC<{
       })();
     }
   }, [months, years, itemRemoved]);
+
+  useEffect(() => {
+    const response = localStorage.getItem("loginData");
+    (async () => {
+      if (response !== null) {
+        const data = JSON.parse(response);
+        console.log(data);
+        if (data.driverStep === 0) {
+          driver({
+            steps: [
+              {
+                element: "#add",
+                popover: {
+                  title: "記一筆新帳",
+                  description: "跳轉到記帳頁面",
+                  side: "top",
+                  align: "center",
+                },
+              },
+              // More steps...
+            ],
+          }).drive();
+          data.driverStep = 1;
+          localStorage.setItem("loginData", JSON.stringify(data));
+          const docRef = doc(db, "users", data.id);
+          await updateDoc(docRef, {
+            driverStep: 1,
+          });
+        } else if (data.driverStep === 3) {
+          driver({
+            steps: [
+              {
+                element: "#item",
+                popover: {
+                  title: "編輯和刪除",
+                  description: "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目",
+                  side: "top",
+                  align: "center",
+                },
+              },
+              // More steps...
+            ],
+          }).drive();
+          data.driverStep = 4;
+          localStorage.setItem("loginData", JSON.stringify(data));
+          const docRef = doc(db, "users", data.id);
+          await updateDoc(docRef, {
+            driverStep: 4,
+          });
+        }
+      }
+    })();
+  }, []);
 
   const monthPay =
     allItemsOfMonth &&
@@ -110,7 +163,10 @@ const Home: React.FC<{
         element: "#item",
         popover: {
           title: Object.keys(days).length > 0 ? "編輯和刪除" : "教學",
-          description: Object.keys(days).length > 0 ? "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目" : "先記一筆帳才有後續教學喔!",
+          description:
+            Object.keys(days).length > 0
+              ? "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目"
+              : "先記一筆帳才有後續教學喔!",
           side: "top",
           align: "center",
         },
@@ -125,7 +181,12 @@ const Home: React.FC<{
         <img src="manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
-      <Link onClick={() => setPayPage(true)} className={home.addItem} to="/create" id="add">
+      <Link
+        onClick={() => setPayPage(true)}
+        className={home.addItem}
+        to="/create"
+        id="add"
+      >
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>

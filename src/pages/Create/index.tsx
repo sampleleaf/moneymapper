@@ -3,7 +3,7 @@ import create from "@/css/Create.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
@@ -33,6 +33,25 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
   const [itemNote, setItemNote] = useState<string>("");
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [isSending, setIsSending] = useState<boolean>(false);
+
+  useEffect(() => {
+    const response = localStorage.getItem("loginData");
+    (async () => {
+      if(response !== null){
+        const data = JSON.parse(response);
+        console.log(data)
+        if(data.driverStep === 1){
+          driverObj.drive()
+          data.driverStep = 2
+          localStorage.setItem("loginData", JSON.stringify(data))
+          const docRef = doc(db, "users", data.id)
+          await updateDoc(docRef, {
+            driverStep: 2
+          })
+        }
+      }
+    })()
+  }, [])
 
   const handleClearLocation = () => {
     setLocation("");
@@ -76,6 +95,14 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
         theme: "dark",
         position: "top-center",
       });
+      if(data.driverStep === 2){
+        data.driverStep = 3
+        localStorage.setItem("loginData", JSON.stringify(data))
+        const docRef = doc(db, "users", data.id)
+        await updateDoc(docRef, {
+          driverStep: 3
+        })
+      }
       navigate("/");
     }
   };
@@ -117,6 +144,14 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
         theme: "dark",
         position: "top-center",
       });
+      if(data.driverStep === 2){
+        data.driverStep = 3
+        localStorage.setItem("loginData", JSON.stringify(data))
+        const docRef = doc(db, "users", data.id)
+        await updateDoc(docRef, {
+          driverStep: 3
+        })
+      }
       navigate("/");
     }
   };

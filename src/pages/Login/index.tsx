@@ -81,6 +81,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
           email: user.email,
           id: user.uid,
           name: username,
+          driverStep: 0,
         });
         setNewUser(!newUser);
         toast.success(
