@@ -1,77 +1,20 @@
 import { Chart } from "react-google-charts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useOutletContext, Link } from "react-router-dom";
-import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import detailGroup from "@/css/DetailGroup.module.css";
 import IncomeNote from "@/components/DetailNote/IncomeNote";
 import { driver } from "driver.js";
+import useDetailGroupData from "@/utils/hook/useDetailGroupData";
 
 type ContextType = { years: number; months: number };
 
 const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const { years, months } = useOutletContext<ContextType>();
-  const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");
-  const [days, setDays] = useState<string[]>([]);
   const [isReverse, setIsReverse] = useState<boolean>(false);
-  const [reverseDays, setReverseDays] = useState<string[]>([]);
 
-  useEffect(() => {
-    const response = localStorage.getItem("loginData");
-    if (response !== null) {
-      const data = JSON.parse(response);
-      (async () => {
-        const yearString = years.toString();
-        const monthString = months.toString();
-        const docRef = doc(db, "users", data.id, yearString, monthString);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          // console.log(Object.keys(docSnap.data()));
-          const reversedArray = [...Object.keys(docSnap.data())].reverse();
-          setDays(Object.keys(docSnap.data()));
-          setReverseDays(reversedArray)
-          const dayLength = Object.keys(docSnap.data()).length;
-          const items = [];
-          for (let i = 0; i < dayLength; i++) {
-            items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
-          }
-          // console.log(items)
-          /*item category*/
-          const itemTotals: { [key: string]: number } = {};
-          items.forEach((item) => {
-            const itemName = item.item;
-            const price = item.price;
-            if (price > 0) {
-              if (itemName in itemTotals) {
-                itemTotals[itemName] += Math.abs(price);
-              } else {
-                itemTotals[itemName] = Math.abs(price);
-              }
-            }
-          });
-          /*refactor for google charts*/
-          const itemLength = Object.keys(itemTotals).length;
-          const googleChartArray = [];
-          for (let i = 0; i < itemLength; i++) {
-            googleChartArray.push([
-              Object.keys(itemTotals)[i],
-              itemTotals[Object.keys(itemTotals)[i]],
-            ]);
-          }
-          // console.log(itemTotals);
-          // console.log(Object.keys(itemTotals))
-          // console.log(googleChartArray);
-          setGoogleData(googleChartArray);
-        } else {
-          // docSnap.data() will be undefined in this case
-          setGoogleData([]);
-          console.log("No such document!");
-        }
-      })();
-    }
-  }, [years, months]);
+  const { googleData, days, reverseDays } = useDetailGroupData(years, months, true)
 
   const totalPay =
     googleData &&
