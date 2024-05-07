@@ -39,8 +39,8 @@ const Edit: React.FC<{
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>(item.location);
-  const [payItem, setPayItem] = useState<string>(item.item);
-  const [incomeItem, setIncomeItem] = useState<string>(item.item);
+  const [payItem, setPayItem] = useState<string>(item.price < 0 ? item.item : "早餐");
+  const [incomeItem, setIncomeItem] = useState<string>(item.price > 0 ? item.item : "薪水");
   const [itemNote, setItemNote] = useState<string>(item.note);
   const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
@@ -67,23 +67,13 @@ const Edit: React.FC<{
     setMapResult("");
   };
 
-  const handlePaySubmit = async (
-    e: React.FormEvent,
-    item: {
-      id: string;
-      location: string | undefined;
-      price: number;
-      item: string;
-      note: string;
-    }
-  ) => {
+  const handleSubmit = async (e: React.FormEvent, item: Item, isPositive: boolean) => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
     const yearString = years.toString();
     const monthString = months.toString();
     if (response !== null && value) {
-      console.log(value);
       const data = JSON.parse(response);
       const docRef = doc(db, "users", data.id, yearString, monthString);
       await updateDoc(docRef, {
@@ -107,12 +97,12 @@ const Edit: React.FC<{
         await updateDoc(editRef, {
           [editDate]: arrayUnion({
             id: item.id,
-            item: payItem || item.item,
+            item: isPositive ? incomeItem : payItem,
             note: itemNote,
             price:
               parseInt(price) == 0
                 ? 0
-                : -parseInt(price) || -Math.abs(item.price),
+                : isPositive ? parseInt(price) : -parseInt(price),
             location: location,
           }),
         });
@@ -120,12 +110,12 @@ const Edit: React.FC<{
         await setDoc(editRef, {
           [editDate]: arrayUnion({
             id: item.id,
-            item: payItem || item.item,
+            item: isPositive ? incomeItem : payItem,
             note: itemNote,
             price:
               parseInt(price) == 0
                 ? 0
-                : -parseInt(price) || -Math.abs(item.price),
+                : isPositive ? parseInt(price) : -parseInt(price),
             location: location,
           }),
         });
@@ -138,78 +128,14 @@ const Edit: React.FC<{
       setPopEdit(false);
     }
     setItemRemoved(true);
+  }
+
+  const handlePaySubmit = (e: React.FormEvent, item: Item) => {
+    handleSubmit(e, item, false)
   };
 
-  const handleIncomeSubmit = async (
-    e: React.FormEvent,
-    item: {
-      id: string;
-      location: string | undefined;
-      price: number;
-      item: string;
-      note: string;
-    }
-  ) => {
-    e.preventDefault();
-    setIsSending(true);
-    const response = localStorage.getItem("loginData");
-    const yearString = years.toString();
-    const monthString = months.toString();
-    if (response !== null) {
-      const data = JSON.parse(response);
-      const docRef = doc(db, "users", data.id, yearString, monthString);
-      await updateDoc(docRef, {
-        [day]: arrayRemove(item),
-      });
-      //if [day] is empty array, delete it
-      const docSnapshot = await getDoc(docRef);
-      const docData = docSnapshot.data();
-      if (docData && Array.isArray(docData[day]) && docData[day].length === 0) {
-        await updateDoc(docRef, {
-          [day]: deleteField(),
-        });
-      }
-      //update new
-      const editYear = (value as Date).getFullYear().toString();
-      const editMonth = ((value as Date).getMonth() + 1).toString();
-      const editDate = (value as Date).getDate();
-      const editRef = doc(db, "users", data.id, editYear, editMonth);
-      const editSnap = await getDoc(editRef);
-      if (editSnap.exists()) {
-        await updateDoc(editRef, {
-          [editDate]: arrayUnion({
-            id: item.id,
-            item: incomeItem || item.item,
-            note: itemNote,
-            price:
-              parseInt(price) == 0
-                ? 0
-                : parseInt(price) || Math.abs(item.price),
-            location: location,
-          }),
-        });
-      } else {
-        await setDoc(editRef, {
-          [editDate]: arrayUnion({
-            id: item.id,
-            item: incomeItem || item.item,
-            note: itemNote,
-            price:
-              parseInt(price) == 0
-                ? 0
-                : parseInt(price) || Math.abs(item.price),
-            location: location,
-          }),
-        });
-      }
-      setIsSending(false);
-      toast.success("編輯成功 !", {
-        theme: "dark",
-        position: "top-center",
-      });
-      setPopEdit(false);
-    }
-    setItemRemoved(true);
+  const handleIncomeSubmit = (e: React.FormEvent, item: Item) => {
+    handleSubmit(e, item, true)
   };
 
   const handleCloseEdit = () => {
@@ -287,8 +213,8 @@ const Edit: React.FC<{
               <img
                 src={
                   payPage
-                    ? `${payItem}.png` || "早餐.png"
-                    : `${incomeItem}.png` || "薪水.png"
+                    ? `${payItem}.png`
+                    : `${incomeItem}.png`
                 }
                 alt={
                   payPage ? `${payItem}` || "早餐" : `${incomeItem}` || "薪水"
