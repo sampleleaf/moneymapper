@@ -33,6 +33,8 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     useRef(null),
     useRef(null),
     useRef(null),
+    useRef(null),
+    useRef(null),
   ];
 
   const backToTop: RefObject<HTMLAnchorElement> = useRef(null);
@@ -311,6 +313,19 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
         <div className={login.picture} ref={middles[5]}>
           <img src="loginpay.png" alt="pay" />
           <img src="pay.png" alt="pay" />
+        </div>
+      </div>
+      <div className={`${login.gsap} ${login.seperateColor}`}>
+        <div className={login.describe} ref={middles[6]}>
+          <div>地區功能</div>
+          <div></div>
+          <div>
+            <p>了解不同地區的項目收支</p>
+          </div>
+        </div>
+        <div className={login.picture} ref={middles[7]}>
+          <img src="loginmap.png" alt="map" />
+          <img src="map.png" alt="map" />
         </div>
       </div>
       <a className={login.backToTop} href="#" ref={backToTop}>
