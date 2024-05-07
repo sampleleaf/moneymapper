@@ -58,7 +58,7 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
     setMapResult("");
   };
 
-  const handlePaySubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent, isPay: boolean) => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
@@ -69,13 +69,15 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
       const day = (value as Date).getDate();
       const specificUser = doc(db, "users", data.id, year, month);
       const docSnap = await getDoc(specificUser);
+      const operationItem = isPay ? payItem : incomeItem;
+      const operationPrice = isPay ? -parseInt(price) : parseInt(price);
       if (docSnap.exists()) {
         await updateDoc(specificUser, {
           [day]: arrayUnion({
             id: uuidv4(),
-            item: payItem,
+            item: operationItem,
             note: itemNote,
-            price: -parseInt(price),
+            price: operationPrice,
             location: location,
           }),
         });
@@ -83,9 +85,9 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
         await setDoc(specificUser, {
           [day]: arrayUnion({
             id: uuidv4(),
-            item: payItem,
+            item: operationItem,
             note: itemNote,
-            price: -parseInt(price),
+            price: operationPrice,
             location: location,
           }),
         });
@@ -106,54 +108,13 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
       navigate("/");
     }
   };
-
-  const handleIncomeSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSending(true);
-    const response = localStorage.getItem("loginData");
-    if (response !== null && value) {
-      const data = JSON.parse(response);
-      const year = (value as Date).getFullYear().toString();
-      const month = ((value as Date).getMonth() + 1).toString();
-      const day = (value as Date).getDate();
-      const specificUser = doc(db, "users", data.id, year, month);
-      const docSnap = await getDoc(specificUser);
-      if (docSnap.exists()) {
-        await updateDoc(specificUser, {
-          [day]: arrayUnion({
-            id: uuidv4(),
-            item: incomeItem,
-            note: itemNote,
-            price: parseInt(price),
-            location: location,
-          }),
-        });
-      } else {
-        await setDoc(specificUser, {
-          [day]: arrayUnion({
-            id: uuidv4(),
-            item: incomeItem,
-            note: itemNote,
-            price: parseInt(price),
-            location: location,
-          }),
-        });
-      }
-      setIsSending(false);
-      toast.success("新增成功 !", {
-        theme: "dark",
-        position: "top-center",
-      });
-      if(data.driverStep === 2){
-        data.driverStep = 3
-        localStorage.setItem("loginData", JSON.stringify(data))
-        const docRef = doc(db, "users", data.id)
-        await updateDoc(docRef, {
-          driverStep: 3
-        })
-      }
-      navigate("/");
-    }
+  
+  const handlePaySubmit = (e: React.FormEvent) => {
+    handleSubmit(e, true);
+  };
+  
+  const handleIncomeSubmit = (e: React.FormEvent) => {
+    handleSubmit(e, false);
   };
 
   const driverObj = driver({
