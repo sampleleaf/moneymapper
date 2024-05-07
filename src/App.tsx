@@ -9,7 +9,7 @@ import Pay from "@/components/DetailGroup/Pay";
 import Income from "@/components/DetailGroup/Income";
 import Remainder from "@/components/DetailGroup/Remainder";
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -35,6 +35,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home years={years} setYears={setYears} months={months} setMonths={setMonths} setPayPage={setPayPage} />} />
             <Route path="create" element={<Create years={years} months={months} payPage={payPage} setPayPage={setPayPage} />} />
             <Route path="details" element={<Details years={years} setYears={setYears} months={months} setMonths={setMonths} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
+              <Route index element={<Navigate replace={true} to="pay"/>} />
               <Route path="pay" element={<Pay setPayPage={setPayPage} />} />
               <Route path="income" element={<Income setPayPage={setPayPage} />} />
               <Route path="remainder" element={<Remainder setPayPage={setPayPage} />} />
