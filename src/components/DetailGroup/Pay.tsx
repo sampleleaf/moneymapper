@@ -12,7 +12,7 @@ const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");
-  const [isReverse, setIsReverse] = useState<boolean>(false);
+  const [isReverse, setIsReverse] = useState<boolean>(true);
 
   const { googleData, days, reverseDays } = useDetailGroupData(years, months, false)
 

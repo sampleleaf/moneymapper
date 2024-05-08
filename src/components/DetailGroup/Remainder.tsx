@@ -22,7 +22,7 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popDate, setPopDate] = useState<string | number>("");
-  const [isReverse, setIsReverse] = useState<boolean>(false);
+  const [isReverse, setIsReverse] = useState<boolean>(true);
   const [reverseData, setReverseData] = useState<(string | number)[][]>([]);
 
   useEffect(() => {
