@@ -1,8 +1,8 @@
 .dayRemainder{
     display: flex;
     justify-content: space-between;
-    background-color: rgb(240, 240, 240);
-    color: rgb(138, 138, 138);
+    /* background-color: rgb(240, 240, 240); */
+    color: rgb(123, 123, 123);
     font-weight: bold;
     height: 20px;
     display: flex;
@@ -33,6 +33,7 @@
 .percentGroup{
     display: grid;
     width: 75%;
+    row-gap: 3px;
 }
 
 .percent{
@@ -57,6 +58,6 @@
 }
 
 .percentBar{
-    background-color: rgb(180, 180, 180);
+    background-color: rgb(234, 234, 234);
     width: 100%;
 }

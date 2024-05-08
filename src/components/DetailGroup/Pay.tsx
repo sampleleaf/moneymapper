@@ -103,7 +103,7 @@ const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
                 >
                   <div
                     className={detailGroup.noteTitle}
-                    style={{ backgroundColor: "rgb(254,116,113)" }}
+                    style={{ backgroundColor: "rgb(254,156,153)" }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div

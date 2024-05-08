@@ -21,18 +21,16 @@ const IncomeNote: React.FC<{
 
   return (
     <>
-      <div className={detailNote.container}>
-        {items && items?.length > 0 && (
+      {items && items?.length > 0 && 
+        <div className={detailNote.container}>
           <div className={detailNote.dayRemainder}>
             <p>
               {years}/{months}/{day} {`${chineseDays[new Date(`${years}-${months}-${day}`).getDay()]}`}
             </p>
             <p>${Math.abs(totalPriceOfItems as number)}</p>
           </div>
-        )}
-        <div className={detailNote.dayItems}>
-          {items &&
-            items.map((item) => (
+          {items.map((item) => (
+            <div className={detailNote.dayItems}>
               <div key={item.id} className={detailNote.itemGroup}>
                 <div className={detailNote.percentGroup}>
                   <div className={detailNote.percent}>
@@ -46,9 +44,10 @@ const IncomeNote: React.FC<{
                 </div>
                 <p>${Math.abs(item.price)}</p>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
-      </div>
+      }
     </>
   );
 };

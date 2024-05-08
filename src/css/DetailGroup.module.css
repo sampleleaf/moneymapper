@@ -127,6 +127,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    column-gap: 3px;
 }
 
 .cross{
