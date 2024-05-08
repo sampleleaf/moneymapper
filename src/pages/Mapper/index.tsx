@@ -1,5 +1,6 @@
 import Map from "@/components/Map";
 import YearMonth from "@/components/YearMonth";
+import BookLoader from "@/components/BookLoader";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
@@ -166,7 +167,7 @@ const Mapper: React.FC<{
         </div>
         {loadingLocation ? (
           <div className={mapper.unSelected}>
-            <img src="loading.gif" alt="loading" />
+            <BookLoader />
           </div>
         ) : mapResult ? (
           (Object.keys(payCategories).length ||
