@@ -140,7 +140,7 @@ const Mapper: React.FC<{
               autoMap ? mapper.autoMapOn : ""
             }`}
           >
-            自動偵測
+            存取您的位置
           </div>
           <Switch onChange={handleChange} checked={autoMap} />
         </div>

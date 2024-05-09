@@ -33,7 +33,7 @@ const MapFrame: React.FC<{
         <div
           className={`${mapFrame.autoButton} ${autoMap ? mapFrame.autoMapOn : ""}`}
         >
-          自動偵測
+          存取您的位置
         </div>
         <Switch onChange={handleChange} checked={autoMap} />
       </div>
