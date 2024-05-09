@@ -2,6 +2,7 @@ import edit from "@/css/Edit.module.css";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 import Calendar from "react-calendar";
+import Loader from "../Loader";
 import { db } from "@/utils/firebase";
 import {
   doc,
@@ -282,7 +283,7 @@ const Edit: React.FC<{
           </div>
           <div className={edit.submit}>
             {isSending ? (
-              <img src="loading.gif" alt="sending" />
+              <Loader />
             ) : (
               <button type="submit">更新</button>
             )}

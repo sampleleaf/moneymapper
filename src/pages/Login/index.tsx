@@ -1,4 +1,5 @@
 import login from "@/css/Login.module.css";
+import Loader from "@/components/Loader";
 import { useState, useRef, RefObject } from "react";
 import { toast } from "react-toastify";
 import { db } from "@/utils/firebase";
@@ -238,7 +239,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                   <button type="button">
                     <div>
                       登入中...
-                      <img src="loading.gif" alt="loading" />
+                      <Loader />
                     </div>
                   </button>
                 ) : (
@@ -256,7 +257,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                     <button type="button">
                       <div>
                         註冊中...
-                        <img src="loading.gif" alt="loading" />
+                        <Loader />
                       </div>
                     </button>
                   ) : (

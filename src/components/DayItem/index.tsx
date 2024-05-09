@@ -1,6 +1,7 @@
 import dayItem from "@/css/DayItem.module.css";
 import { db } from "@/utils/firebase";
 import Edit from "@/components/Edit";
+import Loader from "../Loader";
 import {
   doc,
   getDoc,
@@ -170,7 +171,7 @@ const DayItem: React.FC<{
                       <div className={dayItem.deleteChoice}>
                         {isSending ? (
                           <p className={dayItem.sending}>
-                            <img src="loading.gif" alt="sending" />
+                            <Loader />
                           </p>
                         ) : (
                           <>

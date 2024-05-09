@@ -1,5 +1,6 @@
 import Calendar from "react-calendar";
 import create from "@/css/Create.module.css";
+import Loader from "@/components/Loader";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
@@ -304,7 +305,7 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
           </div>
           <div className={create.submit}>
             {isSending ? (
-              <img src="loading.gif" alt="sending" />
+              <Loader />
             ) : (
               <button type="submit" id="submit">
                 提交

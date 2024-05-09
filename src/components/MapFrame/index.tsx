@@ -2,6 +2,7 @@ import { useState } from "react";
 import Switch from "react-switch";
 import mapFrame from "@/css/MapFrame.module.css"
 import Map from "@/components/Map";
+import Loader from "../Loader";
 
 const MapFrame: React.FC<{
   setLocation: Function;
@@ -66,7 +67,7 @@ const MapFrame: React.FC<{
       </div>
       <div className={mapFrame.mapButton}>
         {loadingLocation ? (
-          <img src="loading.gif" alt="loading" />
+          <Loader />
         ) : mapError ? (
           "請選擇陸地或國家領海"
         ) : mapResult ? (
