@@ -34,14 +34,11 @@ const Home: React.FC<{
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // console.log(Object.keys(docSnap.data()));
           const dayLength = Object.keys(docSnap.data()).length;
           const items = [];
           for (let i = 0; i < dayLength; i++) {
             items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          // console.log(Object.keys(items).length);
-          // console.log(items);
           setAllItemsOfMonth(items);
           setDays(Object.keys(docSnap.data()).reverse());
         } else {
@@ -59,7 +56,6 @@ const Home: React.FC<{
     (async () => {
       if (response !== null) {
         const data = JSON.parse(response);
-        console.log(data);
         if (data.driverStep === 0) {
           driver({
             steps: [

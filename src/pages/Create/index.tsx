@@ -40,7 +40,6 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
     (async () => {
       if(response !== null){
         const data = JSON.parse(response);
-        console.log(data)
         if(data.driverStep === 1){
           driverObj.drive()
           data.driverStep = 2
