@@ -86,7 +86,8 @@
     width: 250px;
     padding-left: 20px;
     height: 100vh;
-    background-image: linear-gradient(30deg , rgb(60,132,255), rgb(128,227,255));
+    /* background-image: linear-gradient(30deg , rgb(60,132,255), rgb(128,227,255)); */
+    background-color: rgb(60,132,255);
     border-top-right-radius: 80px;
     transition: transform 0.3s;
     transform: translateX(-100%);
@@ -263,7 +264,7 @@
         transition: none;
         transform: none;
         pointer-events: auto;
-        background-color: transparent;
+        /* background-color: transparent; */
         border-top-right-radius: 0px;
     }
     .cross{
@@ -279,6 +280,15 @@
         width: 1423px;
         left: 50%;
         transform: translate(-50%);
+    }
+    .sidebarContainer a:hover{
+        right: -1px;
+    }
+    .sidebarContainer a:hover::after{
+        box-shadow: 1px 20px 0 0 rgb(240,244,247);
+    }
+    .sidebarContainer a:hover::before{
+        box-shadow: 1px -20px 0 0 rgb(240,244,247);
     }
     .logout{
         position: fixed;
