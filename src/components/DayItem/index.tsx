@@ -111,8 +111,7 @@ const DayItem: React.FC<{
       setItemRemoved(true);
       setRemindDelete(false);
       toast.success("成功刪除 !", {
-        theme: "dark",
-        position: "top-center",
+        position: "bottom-center",
       });
     }
   };
@@ -170,9 +169,9 @@ const DayItem: React.FC<{
                       </p>
                       <div className={dayItem.deleteChoice}>
                         {isSending ? (
-                          <p className={dayItem.sending}>
+                          <div className={dayItem.sending}>
                             <Loader />
-                          </p>
+                          </div>
                         ) : (
                           <>
                             <p onClick={() => setRemindDelete(false)}>取消</p>

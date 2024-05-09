@@ -144,7 +144,7 @@ const Map: React.FC<{
         setGeoResult(geo[dataAdress]);
         setLoadingLocation(false);
       } catch (error) {
-        toast.warn("請選擇陸地或國家領海 !", {
+        toast.warn("請選國家領地 !", {
           theme: "dark",
           position: "top-center",
         });

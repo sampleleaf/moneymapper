@@ -140,6 +140,7 @@
 
 .sending{
     grid-area: 1 / 1 / 2 / 3;
+    justify-self: center;
 }
 
 @media screen and ( min-width : 768px ){
