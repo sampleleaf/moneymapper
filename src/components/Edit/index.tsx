@@ -123,7 +123,7 @@ const Edit: React.FC<{
       }
       setIsSending(false);
       toast.success("編輯成功 !", {
-        position: "bottom-center",
+        position: "top-left",
       });
       setPopEdit(false);
     }

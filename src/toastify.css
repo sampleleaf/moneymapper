@@ -1,16 +1,16 @@
 .Toastify__toast {
-  /* border-radius: 30px !important; */
-  min-height: 30px !important;
+  border-radius: 30px !important;
+  min-height: 40px !important;
   padding: 0 8px !important;
   margin-bottom: 10px !important;
 }
 
-.Toastify__toast-container {
+/* .Toastify__toast-container {
   width: 185px !important;
-}
+} */
 
-.Toastify__toast-container--bottom-center{
-  bottom: 50px !important;
+.Toastify__toast-container--top-left{
+  top: 77.5px !important;
 }
 
 .Toastify__toast--success {
@@ -18,6 +18,21 @@
   background: #f0f9fa !important;
 }
 
+/* .Toastify__toast--success::before {
+  content : url('/file-circle-check-solid.svg');
+  position: absolute; 
+  z-index: 100000;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: green;
+} */
+
+.Toastify__progress-bar--success{
+  background: none !important;
+}
 .Toastify__close-button {
   align-self: center !important;
   display: flex;
@@ -30,13 +45,21 @@
 }
 
 @media screen and (min-width: 768px) {
-  .Toastify__toast-container--bottom-center {
+  .Toastify__toast-container--top-left {
     left: 35% !important;
+    transform: translateX(-50%) !important;
   }
 }
 
 @media screen and (min-width: 1068px) {
-  .Toastify__toast-container--bottom-center {
+  .Toastify__toast-container--top-left {
     left: calc(35% + 315px / 2) !important;
+  }
+}
+
+@media screen and (min-width: 1440px){
+  .Toastify__toast-container--top-left{
+    left: 50% !important;
+    transform: translateX(-216px) !important;
   }
 }
