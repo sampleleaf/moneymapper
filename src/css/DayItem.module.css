@@ -92,11 +92,12 @@
     height: 120px;
     background-color: white;
     border-radius: 8px;
-    display: grid;
-    justify-content: center;
     text-align: center;
-    align-items: center;
     padding: 10px;
+}
+
+.remindWindow > p{
+    margin-bottom: 5px;
 }
 
 .remindWindow > p:first-child{
@@ -118,11 +119,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.deleteChoice img{
-    width: 30px;
-    height: 30px;
 }
 
 .deleteChoice p:nth-child(2){
@@ -154,6 +150,26 @@
         border-radius: 5px;
         background-color: rgb(100, 100, 100);
         border: 1px solid rgb(200, 200, 200); 
+    }
+    .remindWindow{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 350px;
+        height: 200px;
+    }
+    .remindWindow > p{
+        margin-bottom: 0;
+    }
+    .remindWindow > p:first-child{
+        font-size: 24px;
+    }
+    .remindWindow > p:nth-child(2){
+        font-size: 20px;
+    }
+    .deleteChoice{
+        width: 70%;
     }
 }
 

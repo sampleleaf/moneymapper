@@ -45,11 +45,11 @@
     align-items: center;
     justify-content: center;
 }
-
+/* 
 .deleteChoice img{
     width: 30px;
     height: 30px;
-}
+} */
 
 .deleteChoice p:nth-child(2){
     background-color: #7e3af2;
@@ -248,11 +248,28 @@
     height: 52px;
 }
 
-/* @media screen and ( min-width : 768px ){
-    .sidebar{
-        width: 45%;
+@media screen and ( min-width : 768px ){
+    .remindWindow{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 350px;
+        height: 200px;
     }
-} */
+    .remindWindow > p{
+        margin-bottom: 0;
+    }
+    .remindWindow > p:first-child{
+        font-size: 24px;
+    }
+    .remindWindow > p:nth-child(2){
+        font-size: 20px;
+    }
+    .deleteChoice{
+        width: 70%;
+    }
+}
 
 @media screen and ( min-width : 1068px ){
     .sidebarBackground{

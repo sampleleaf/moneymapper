@@ -166,7 +166,7 @@ const DayItem: React.FC<{
                     >
                       <p>系統通知</p>
                       <p>
-                        請問您確定要刪除此筆<b>{item.item}</b>記錄
+                        確定要刪除此筆<b>{item.item}</b>記錄？
                       </p>
                       <div className={dayItem.deleteChoice}>
                         {isSending ? (
