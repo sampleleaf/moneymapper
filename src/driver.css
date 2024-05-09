@@ -1,0 +1,51 @@
+.manualDriver {
+  height: 40px;
+  position: fixed;
+  top: 6px;
+  left: 40px;
+  z-index: 1009;
+  cursor: pointer;
+}
+
+.manualDriver img {
+  width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 767px) {
+  .manualDriver p {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .manualDriver {
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+  }
+}
+
+@media screen and (min-width: 1068px) {
+  .manualDriver {
+    left: 65px;
+    top: 500px;
+    background-color: white;
+    border-radius: 5px 10px 5px 10px;
+    z-index: 8;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .manualDriver {
+    left: 50%;
+    transform: translateX(-646.5px);
+  }
+}
+/*====================
+  Driver.js
+  ====================*/
+.driver-active,
+.driver-overlay {
+  pointer-events: auto !important;
+}

@@ -1,0 +1,5 @@
+@media screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 100% !important;
+  }
+}
