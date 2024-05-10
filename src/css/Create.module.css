@@ -180,12 +180,13 @@
         display: none;
     }
     .styleInput > p{
-        /* display: none; */
         position: absolute;
-        top: 5.5px;
+        top: 3.5px;
         font-size: 12px;
         color: red;
-        right: 45px;
+        right: 40px;
+        background-color: white;
+        padding: 2px;
     }
 }
 

@@ -52,6 +52,7 @@ const Edit: React.FC<{
   const [isSending, setIsSending] = useState<boolean>(false);
   const [priceLimit, setPriceLimit] = useState<boolean>(false);
   const [priceHint, setPriceHint] = useState<string>("");
+  const [noteLimit, setNoteLimit] = useState<boolean>(false);
 
   const handleYesterday = () => {
     const newDate = new Date(value as Date);
@@ -165,6 +166,15 @@ const Edit: React.FC<{
     }
   };
 
+  const handleNote = (note: string) => {
+    if(note.length < 100){
+      setNoteLimit(false)
+      setItemNote(note)
+    }else{
+      setNoteLimit(true)
+    }
+  }
+
   return (
     <div onClick={handleCloseEdit} className={edit.background}>
       <div className={edit.container} onClick={(e) => e.stopPropagation()}>
@@ -274,12 +284,13 @@ const Edit: React.FC<{
                   placeholder="可輸入備註"
                   autoComplete="off"
                   value={itemNote}
-                  onChange={(e) => setItemNote(e.target.value)}
+                  onChange={(e) => handleNote(e.target.value)}
                 />
                 <div>
                   <i className="fa-solid fa-file-pen"></i>
                 </div>
                 {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
+                {noteLimit && <p>字數已達上限</p>}
               </div>
             </div>
             <div className={edit.inputFormat}>

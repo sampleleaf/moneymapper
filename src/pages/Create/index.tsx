@@ -311,7 +311,7 @@ const Create: React.FC<{
                   <i className="fa-solid fa-file-pen"></i>
                 </div>
                 {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
-                {noteLimit && <p>字數已達上限</p>}
+                {noteLimit && <p>字數達上限</p>}
               </div>
             </div>
             <div className={create.inputFormat}>
