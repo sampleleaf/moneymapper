@@ -124,6 +124,8 @@ const Create: React.FC<{
       setPriceHint("請輸入數字");
     } else if (!price) {
       setPrice("");
+      setPriceLimit(true);
+      setPriceHint("請填寫金額");
     } else if (!Number(price)) {
       setPriceLimit(true);
       setPriceHint("請輸入數字");

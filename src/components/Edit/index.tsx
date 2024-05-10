@@ -50,6 +50,8 @@ const Edit: React.FC<{
   );
   const [calendarWindow, setCalendarWindow] = useState<boolean>(false);
   const [isSending, setIsSending] = useState<boolean>(false);
+  const [priceLimit, setPriceLimit] = useState<boolean>(false);
+  const [priceHint, setPriceHint] = useState<string>("");
 
   const handleYesterday = () => {
     const newDate = new Date(value as Date);
@@ -143,6 +145,26 @@ const Edit: React.FC<{
     setPopEdit(false);
   };
 
+  const handlePrice = (price: string) => {
+    if (price[0] == "-" || price[0] == "+") {
+      setPriceLimit(true);
+      setPriceHint("請輸入數字");
+    } else if (!price) {
+      setPrice("");
+      setPriceLimit(true);
+      setPriceHint("請填寫金額");
+    } else if (!Number(price)) {
+      setPriceLimit(true);
+      setPriceHint("請輸入數字");
+    } else if (price.length < 10) {
+      setPrice(price);
+      setPriceLimit(false);
+    } else {
+      setPriceLimit(true);
+      setPriceHint("最多9位數");
+    }
+  };
+
   return (
     <div onClick={handleCloseEdit} className={edit.background}>
       <div className={edit.container} onClick={(e) => e.stopPropagation()}>
@@ -233,13 +255,14 @@ const Edit: React.FC<{
                   placeholder="請輸入金額"
                   autoComplete="off"
                   value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={(e) => handlePrice(e.target.value)}
                   required
                 />
                 <div>
                   <i className="fa-solid fa-file-invoice-dollar"></i>
                 </div>
                 {price && <span onClick={() => setPrice("")}>清空</span>}
+                {priceLimit && <p>{priceHint}</p>}
               </div>
             </div>
             <div className={edit.inputFormat}>
