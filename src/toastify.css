@@ -30,9 +30,9 @@
   color: green;
 } */
 
-/* .Toastify__progress-bar--success{
+.Toastify__progress-bar--success, .Toastify__progress-bar--warning, .Toastify__progress-bar--error{
   background: none !important;
-} */
+}
 
 .Toastify__toast--warning {
   border: 1px solid #E78326  !important;

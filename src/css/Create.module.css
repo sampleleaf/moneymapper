@@ -62,7 +62,7 @@
     white-space: nowrap;
 }
 
-.inputFormat p{
+.inputFormat > p{
     color: red;
 }
 
@@ -179,6 +179,14 @@
     .displayLargeScreen{
         display: none;
     }
+    .styleInput > p{
+        /* display: none; */
+        position: absolute;
+        top: 5.5px;
+        font-size: 12px;
+        color: red;
+        right: 45px;
+    }
 }
 
 @media screen and ( min-width : 768px ){
@@ -227,7 +235,7 @@
         height: 90px;
         border: none;
     }
-    .inputFormat label, .inputFormat p{
+    .inputFormat label, .inputFormat > p{
         margin-top: 20px;
     }
     .styleInput{
@@ -253,6 +261,11 @@
     }
     .styleInput span{
         right: 11px;
+    }
+    .styleInput > p{
+        position: absolute;
+        right: 3px;
+        color: red;
     }
     .submit{
         border: none;

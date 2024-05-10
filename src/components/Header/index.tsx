@@ -80,7 +80,8 @@ const Header: React.FC<{
               <i className="fa-solid fa-xmark"></i>
             </div>
             <h3 className={header.username}>
-              Welcome, {loginData && JSON.parse(loginData).name}
+              <p>Welcome,</p>
+              <p>{loginData && JSON.parse(loginData).name}</p>
               {/* Menu */}
             </h3>
             <div className={header.sidebarContainer}>

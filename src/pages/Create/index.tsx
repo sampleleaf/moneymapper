@@ -15,12 +15,12 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const Create: React.FC<{ years: number; months: number; payPage: boolean; setPayPage: Function }> = ({
-  years,
-  months,
-  payPage,
-  setPayPage
-}) => {
+const Create: React.FC<{
+  years: number;
+  months: number;
+  payPage: boolean;
+  setPayPage: Function;
+}> = ({ years, months, payPage, setPayPage }) => {
   const navigate = useNavigate();
   const date = new Date().getDate();
   const [value, onChange] = useState<Value>(
@@ -34,24 +34,26 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
   const [itemNote, setItemNote] = useState<string>("");
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [isSending, setIsSending] = useState<boolean>(false);
+  const [priceLimit, setPriceLimit] = useState<boolean>(false);
+  const [priceHint, setPriceHint] = useState<string>("");
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
     (async () => {
-      if(response !== null){
+      if (response !== null) {
         const data = JSON.parse(response);
-        if(data.driverStep === 1){
-          driverObj.drive()
-          data.driverStep = 2
-          localStorage.setItem("loginData", JSON.stringify(data))
-          const docRef = doc(db, "users", data.id)
+        if (data.driverStep === 1) {
+          driverObj.drive();
+          data.driverStep = 2;
+          localStorage.setItem("loginData", JSON.stringify(data));
+          const docRef = doc(db, "users", data.id);
           await updateDoc(docRef, {
-            driverStep: 2
-          })
+            driverStep: 2,
+          });
         }
       }
-    })()
-  }, [])
+    })();
+  }, []);
 
   const handleClearLocation = () => {
     setLocation("");
@@ -96,24 +98,42 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
       toast.success("新增成功 !", {
         position: "top-left",
       });
-      if(data.driverStep === 2){
-        data.driverStep = 3
-        localStorage.setItem("loginData", JSON.stringify(data))
-        const docRef = doc(db, "users", data.id)
+      if (data.driverStep === 2) {
+        data.driverStep = 3;
+        localStorage.setItem("loginData", JSON.stringify(data));
+        const docRef = doc(db, "users", data.id);
         await updateDoc(docRef, {
-          driverStep: 3
-        })
+          driverStep: 3,
+        });
       }
       navigate("/");
     }
   };
-  
+
   const handlePaySubmit = (e: React.FormEvent) => {
     handleSubmit(e, true);
   };
-  
+
   const handleIncomeSubmit = (e: React.FormEvent) => {
     handleSubmit(e, false);
+  };
+
+  const handlePrice = (price: string) => {
+    if (price[0] == "-" || price[0] == "+") {
+      setPriceLimit(true);
+      setPriceHint("請輸入數字");
+    } else if (!price) {
+      setPrice("");
+    } else if (!Number(price)) {
+      setPriceLimit(true);
+      setPriceHint("請輸入數字");
+    } else if (price.length < 10) {
+      setPrice(price);
+      setPriceLimit(false);
+    } else {
+      setPriceLimit(true);
+      setPriceHint("最多9位數");
+    }
   };
 
   const driverObj = driver({
@@ -200,7 +220,7 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
           </div>
         </div>
       )}
-      <div className="manualDriver" onClick={() => driverObj.drive()} >
+      <div className="manualDriver" onClick={() => driverObj.drive()}>
         <img src="manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
@@ -253,13 +273,14 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
                   placeholder="請輸入金額"
                   autoComplete="off"
                   value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={(e) => handlePrice(e.target.value)}
                   required
                 />
                 <div>
                   <i className="fa-solid fa-file-invoice-dollar"></i>
                 </div>
                 {price && <span onClick={() => setPrice("")}>清空</span>}
+                {priceLimit && <p>{priceHint}</p>}
               </div>
             </div>
             <div className={create.inputFormat}>
