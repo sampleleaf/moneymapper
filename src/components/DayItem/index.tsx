@@ -111,7 +111,7 @@ const DayItem: React.FC<{
       setItemRemoved(true);
       setRemindDelete(false);
       toast.success("成功刪除 !", {
-        position: "bottom-center",
+        position: "top-left",
       });
     }
   };

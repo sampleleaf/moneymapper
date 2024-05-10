@@ -145,7 +145,6 @@ const Map: React.FC<{
         setLoadingLocation(false);
       } catch (error) {
         toast.warn("請選國家領地 !", {
-          theme: "dark",
           position: "top-center",
         });
         setMapResult("");

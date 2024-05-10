@@ -101,7 +101,6 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             註冊成功 <br /> 您可以登入了
           </span>,
           {
-            theme: "dark",
             position: "top-center",
           }
         );
@@ -117,7 +116,6 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             註冊失敗 <br /> {errorCode}
           </span>,
           {
-            theme: "dark",
             position: "top-center",
           }
         );
@@ -153,7 +151,6 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             登入失敗 <br /> {errorCode}
           </span>,
           {
-            theme: "dark",
             position: "top-center",
           }
         );

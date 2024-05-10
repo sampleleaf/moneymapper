@@ -94,7 +94,7 @@ const Create: React.FC<{ years: number; months: number; payPage: boolean; setPay
       }
       setIsSending(false);
       toast.success("新增成功 !", {
-        position: "bottom-center",
+        position: "top-left",
       });
       if(data.driverStep === 2){
         data.driverStep = 3
