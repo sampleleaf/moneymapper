@@ -54,14 +54,21 @@
 
 .selectYear{
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(5, auto);
     justify-content: space-around;
     align-items: center;
     height: 40px;
+    padding: 0 15px;
 }
 
 .selectYear div{
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.tenYear svg{
+    font-size: 13px;
 }
 
 .selectMonth{
@@ -196,6 +203,9 @@
         width: 100%;
         margin: 5px auto;
         padding: 5px 10px;
+    }
+    .tenYear svg{
+        font-size: 16px;
     }
     .selectMonth{
         grid-template-columns: 100%;

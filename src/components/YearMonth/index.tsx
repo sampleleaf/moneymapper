@@ -1,4 +1,4 @@
-import yearMonth from "@/css/YearMonth.module.css"
+import yearMonth from "@/css/YearMonth.module.css";
 import { useState } from "react";
 
 const YearMonth: React.FC<{
@@ -13,7 +13,10 @@ const YearMonth: React.FC<{
   return (
     <div className={yearMonth.filtergridArea}>
       <div className={yearMonth.header}>
-        <div className={yearMonth.dropdownTitle} onClick={() => setIsDropdown(!isDropdown)}>
+        <div
+          className={yearMonth.dropdownTitle}
+          onClick={() => setIsDropdown(!isDropdown)}
+        >
           <div>
             {years}年{months}月
           </div>
@@ -35,6 +38,9 @@ const YearMonth: React.FC<{
         style={isDropdown ? { transform: "translateY(0)" } : {}}
       >
         <div className={yearMonth.selectYear}>
+          <div className={yearMonth.tenYear} onClick={() => setYears((prev: number) => prev - 10)}>
+            <i className="fa-solid fa-backward"></i>
+          </div>
           <div onClick={() => setYears((prev: number) => prev - 1)}>
             <i className="fa-solid fa-caret-left"></i>
           </div>
@@ -42,13 +48,18 @@ const YearMonth: React.FC<{
           <div onClick={() => setYears((prev: number) => prev + 1)}>
             <i className="fa-solid fa-caret-right"></i>
           </div>
+          <div className={yearMonth.tenYear} onClick={() => setYears((prev: number) => prev + 10)}>
+            <i className="fa-solid fa-forward"></i>
+          </div>
         </div>
         <div className={yearMonth.selectMonth}>
           {defaultMonth.map((month) => (
             <div
               onClick={() => setMonths(month)}
               key={month}
-              className={`${months === month ? yearMonth.highlightedMonth : ""}`}
+              className={`${
+                months === month ? yearMonth.highlightedMonth : ""
+              }`}
             >
               <p>{month}月</p>
             </div>
