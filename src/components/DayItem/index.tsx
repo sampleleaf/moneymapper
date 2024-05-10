@@ -190,12 +190,9 @@ const DayItem: React.FC<{
                 >
                   <div className={dayItem.item}>
                     <img src={`${item.item}.png`} alt={item.src} />
-                    <p /*style={item.price < 0 ? {backgroundColor: "rgb(253,201,83)"} : {backgroundColor : "rgb(71,184,224)"}}*/
-                    >
-                      {item.note || item.item}
-                    </p>
+                    <p>{item.note || item.item}</p>
                   </div>
-                  <p>${item.price}</p>
+                  <p className={dayItem.price}>${item.price}</p>
                   <div
                     // onClick={(e) => handleItemRemove(e, item, day)}
                     onClick={(e) => handleDeleteRemind(e, item.id)}

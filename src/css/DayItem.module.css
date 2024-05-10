@@ -46,7 +46,8 @@
 }
 
 .item{
-    display: flex;
+    display: grid;
+    grid-template-columns: 30px auto;
     column-gap: 8px;
     margin-right: auto;
     align-items: center;
@@ -58,7 +59,14 @@
 }
 
 .item p{
-    word-break: break-all;
+    /* word-break: break-all; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.price{
+    margin-left: 5px;
 }
 
 .trash{
