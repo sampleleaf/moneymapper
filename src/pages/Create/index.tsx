@@ -36,6 +36,7 @@ const Create: React.FC<{
   const [isSending, setIsSending] = useState<boolean>(false);
   const [priceLimit, setPriceLimit] = useState<boolean>(false);
   const [priceHint, setPriceHint] = useState<string>("");
+  const [noteLimit, setNoteLimit] = useState<boolean>(false);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -137,6 +138,15 @@ const Create: React.FC<{
       setPriceHint("最多9位數");
     }
   };
+
+  const handleNote = (note: string) => {
+    if(note.length < 100){
+      setNoteLimit(false)
+      setItemNote(note)
+    }else{
+      setNoteLimit(true)
+    }
+  }
 
   const driverObj = driver({
     showProgress: true,
@@ -295,12 +305,13 @@ const Create: React.FC<{
                   placeholder="可輸入備註"
                   autoComplete="off"
                   value={itemNote}
-                  onChange={(e) => setItemNote(e.target.value)}
+                  onChange={(e) => handleNote(e.target.value)}
                 />
                 <div>
                   <i className="fa-solid fa-file-pen"></i>
                 </div>
                 {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
+                {noteLimit && <p>字數已達上限</p>}
               </div>
             </div>
             <div className={create.inputFormat}>
