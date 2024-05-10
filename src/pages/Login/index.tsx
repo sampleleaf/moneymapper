@@ -26,6 +26,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [usernameLimit, setUsernameLimit] = useState<boolean>(false)
 
   const middles: RefObject<HTMLDivElement>[] = [
     useRef(null),
@@ -162,6 +163,15 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
     setIsValidEmail(regex.test(input));
   };
 
+  const handleUsername = (username: string) => {
+    if(username.length <= 20){
+      setUsernameLimit(false)
+      setUsername(username)
+    }else{
+      setUsernameLimit(true)
+    }
+  }
+
   return (
     <>
       <div className={login.background}></div>
@@ -223,12 +233,13 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
                   type="text"
                   placeholder="請輸入使用者名稱"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => handleUsername(e.target.value)}
                   required
                 />
                 <div>
                   <i className="fa-solid fa-circle-user"></i>
                 </div>
+                {usernameLimit && <p className={login.warning}>字數達上限</p>}
               </div>
             ) : (
               <div className={login.signIn}>

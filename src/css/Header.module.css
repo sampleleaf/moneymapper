@@ -110,8 +110,15 @@
 
 .username{
     font-size: 24px;
-    padding: 81px 10px;
+    padding: 95px 10px 43px;
     color: white;
+    position: relative;
+}
+
+.username p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .sidebarContainer{
