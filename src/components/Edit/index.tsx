@@ -40,10 +40,16 @@ const Edit: React.FC<{
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>(item.location);
-  const [payItem, setPayItem] = useState<string>(item.price < 0 ? item.item : "早餐");
-  const [incomeItem, setIncomeItem] = useState<string>(item.price > 0 ? item.item : "薪水");
+  const [payItem, setPayItem] = useState<string>(
+    item.price < 0 ? item.item : "早餐"
+  );
+  const [incomeItem, setIncomeItem] = useState<string>(
+    item.price > 0 ? item.item : "薪水"
+  );
   const [itemNote, setItemNote] = useState<string>(item.note);
-  const [payPage, setPayPage] = useState<boolean>(item.price < 0 ? true : false);
+  const [payPage, setPayPage] = useState<boolean>(
+    item.price < 0 ? true : false
+  );
   const [mapResult, setMapResult] = useState<string | undefined>("");
   const [value, onChange] = useState<Value>(
     new Date(`${years}-${months}-${day}`)
@@ -71,7 +77,11 @@ const Edit: React.FC<{
     setMapResult("");
   };
 
-  const handleSubmit = async (e: React.FormEvent, item: Item, isPositive: boolean) => {
+  const handleSubmit = async (
+    e: React.FormEvent,
+    item: Item,
+    isPositive: boolean
+  ) => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
@@ -106,7 +116,9 @@ const Edit: React.FC<{
             price:
               parseInt(price) == 0
                 ? 0
-                : isPositive ? parseInt(price) : -parseInt(price),
+                : isPositive
+                ? parseInt(price)
+                : -parseInt(price),
             location: location,
           }),
         });
@@ -119,7 +131,9 @@ const Edit: React.FC<{
             price:
               parseInt(price) == 0
                 ? 0
-                : isPositive ? parseInt(price) : -parseInt(price),
+                : isPositive
+                ? parseInt(price)
+                : -parseInt(price),
             location: location,
           }),
         });
@@ -131,14 +145,14 @@ const Edit: React.FC<{
       setPopEdit(false);
     }
     setItemRemoved(true);
-  }
+  };
 
   const handlePaySubmit = (e: React.FormEvent, item: Item) => {
-    handleSubmit(e, item, false)
+    handleSubmit(e, item, false);
   };
 
   const handleIncomeSubmit = (e: React.FormEvent, item: Item) => {
-    handleSubmit(e, item, true)
+    handleSubmit(e, item, true);
   };
 
   const handleCloseEdit = () => {
@@ -167,13 +181,13 @@ const Edit: React.FC<{
   };
 
   const handleNote = (note: string) => {
-    if(note.length < 100){
-      setNoteLimit(false)
-      setItemNote(note)
-    }else{
-      setNoteLimit(true)
+    if (note.length < 100) {
+      setNoteLimit(false);
+      setItemNote(note);
+    } else {
+      setNoteLimit(true);
     }
-  }
+  };
 
   return (
     <div onClick={handleCloseEdit} className={edit.background}>
@@ -243,11 +257,7 @@ const Edit: React.FC<{
               <p>項目</p>
               <p>：</p>
               <img
-                src={
-                  payPage
-                    ? `${payItem}.png`
-                    : `${incomeItem}.png`
-                }
+                src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
                 alt={
                   payPage ? `${payItem}` || "早餐" : `${incomeItem}` || "薪水"
                 }
@@ -271,7 +281,16 @@ const Edit: React.FC<{
                 <div>
                   <i className="fa-solid fa-file-invoice-dollar"></i>
                 </div>
-                {price && <span onClick={() => setPrice("")}>清空</span>}
+                {price && (
+                  <span
+                    onClick={() => {
+                      setPrice("");
+                      setPriceLimit(false);
+                    }}
+                  >
+                    清空
+                  </span>
+                )}
                 {priceLimit && <p>{priceHint}</p>}
               </div>
             </div>
@@ -289,7 +308,16 @@ const Edit: React.FC<{
                 <div>
                   <i className="fa-solid fa-file-pen"></i>
                 </div>
-                {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
+                {itemNote && (
+                  <span
+                    onClick={() => {
+                      setItemNote("");
+                      setNoteLimit(false);
+                    }}
+                  >
+                    清空
+                  </span>
+                )}
                 {noteLimit && <p>字數已達上限</p>}
               </div>
             </div>
@@ -315,11 +343,7 @@ const Edit: React.FC<{
             </div>
           </div>
           <div className={edit.submit}>
-            {isSending ? (
-              <Loader />
-            ) : (
-              <button type="submit">更新</button>
-            )}
+            {isSending ? <Loader /> : <button type="submit">更新</button>}
           </div>
         </form>
       </div>

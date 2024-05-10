@@ -140,13 +140,13 @@ const Create: React.FC<{
   };
 
   const handleNote = (note: string) => {
-    if(note.length < 100){
-      setNoteLimit(false)
-      setItemNote(note)
-    }else{
-      setNoteLimit(true)
+    if (note.length < 100) {
+      setNoteLimit(false);
+      setItemNote(note);
+    } else {
+      setNoteLimit(true);
     }
-  }
+  };
 
   const driverObj = driver({
     showProgress: true,
@@ -291,7 +291,16 @@ const Create: React.FC<{
                 <div>
                   <i className="fa-solid fa-file-invoice-dollar"></i>
                 </div>
-                {price && <span onClick={() => setPrice("")}>清空</span>}
+                {price && (
+                  <span
+                    onClick={() => {
+                      setPrice("");
+                      setPriceLimit(false);
+                    }}
+                  >
+                    清空
+                  </span>
+                )}
                 {priceLimit && <p>{priceHint}</p>}
               </div>
             </div>
@@ -310,7 +319,16 @@ const Create: React.FC<{
                 <div>
                   <i className="fa-solid fa-file-pen"></i>
                 </div>
-                {itemNote && <span onClick={() => setItemNote("")}>清空</span>}
+                {itemNote && (
+                  <span
+                    onClick={() => {
+                      setItemNote("");
+                      setNoteLimit(false);
+                    }}
+                  >
+                    清空
+                  </span>
+                )}
                 {noteLimit && <p>字數達上限</p>}
               </div>
             </div>
