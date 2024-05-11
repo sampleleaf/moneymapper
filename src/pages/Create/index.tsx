@@ -38,6 +38,14 @@ const Create: React.FC<{
   const [priceHint, setPriceHint] = useState<string>("");
   const [noteLimit, setNoteLimit] = useState<boolean>(false);
 
+  // const customDates: Date[] = [new Date(2024, 5, 11), new Date(2024, 3, 15)];
+
+  // const tileClassName: (args: { date: Date }) => string | string[] | undefined = ({ date }) => {
+  //   if (customDates.some(d => d.getDate() === date.getDate())) {
+  //     return 'dot';
+  //   }
+  // };
+
   useEffect(() => {
     const response = localStorage.getItem("loginData");
     (async () => {
@@ -241,6 +249,7 @@ const Create: React.FC<{
           onChange={onChange}
           value={value}
           className="calendarDriver"
+          // tileClassName={tileClassName}
         />
         <div className={create.budgetContainer} id="budget">
           <div className={create.displayLargeScreen}>

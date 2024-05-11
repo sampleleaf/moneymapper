@@ -239,6 +239,21 @@
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
 }
+/* 
+.dot{
+  position: relative;
+}
+
+.dot::after{
+  content: "✅";
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: red;
+} */
 
 @media screen and (min-width: 370px) and (max-width: 767px) {
   .react-calendar {
