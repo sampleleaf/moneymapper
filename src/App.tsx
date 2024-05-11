@@ -11,12 +11,20 @@ import Mapper from "./pages/Mapper";
 import Pay from "@/components/DetailGroup/Pay";
 import Income from "@/components/DetailGroup/Income";
 import Remainder from "@/components/DetailGroup/Remainder";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import "driver.js/dist/driver.css";
+import { DateContext } from "@/context/dateContext";
+
+interface DateContextType {
+  years: number;
+  setYears: React.Dispatch<React.SetStateAction<number>>;
+  months: number;
+  setMonths: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<string | null>(
@@ -25,9 +33,9 @@ const App: React.FC = () => {
 
   const [detailsTranslateX, setDetailsTranslateX] = useState("")
   const [detailsHighlighted, setDetailsHighlighted] = useState("")
-  const [years, setYears] = useState<number>(new Date().getFullYear());
-  const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [payPage, setPayPage] = useState<boolean>(true);
+
+  const {years, setYears, months, setMonths} = useContext(DateContext) as DateContextType
 
   return (
     <>

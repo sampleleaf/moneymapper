@@ -1,14 +1,18 @@
 import yearMonth from "@/css/YearMonth.module.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DateContext } from "@/context/dateContext";
 
-const YearMonth: React.FC<{
+interface DateContextType {
   years: number;
-  setYears: Function;
+  setYears: React.Dispatch<React.SetStateAction<number>>;
   months: number;
-  setMonths: Function;
-}> = ({ years, setYears, months, setMonths }) => {
+  setMonths: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const YearMonth: React.FC = () => {
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
   const defaultMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const {years, setYears, months, setMonths} = useContext(DateContext) as DateContextType
 
   return (
     <div className={yearMonth.filtergridArea}>

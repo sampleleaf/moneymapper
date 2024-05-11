@@ -127,12 +127,7 @@ const Mapper: React.FC<{
         <img src="../manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
-      <YearMonth
-        years={years}
-        setYears={setYears}
-        months={months}
-        setMonths={setMonths}
-      />
+      <YearMonth />
       <div className={mapper.layout}>
         <div className={mapper.selectMap} id="selectMap">
           <div

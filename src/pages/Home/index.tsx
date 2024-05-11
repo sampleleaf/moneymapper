@@ -186,12 +186,7 @@ const Home: React.FC<{
         <i className="fa-solid fa-plus"></i>
       </Link>
       <div className={home.container}>
-        <YearMonth
-          years={years}
-          setYears={setYears}
-          months={months}
-          setMonths={setMonths}
-        />
+        <YearMonth />
         <div className={home.chartGridArea}>
           <div className={home.analyze}>
             <div>

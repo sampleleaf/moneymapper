@@ -41,7 +41,7 @@ const Details: React.FC<{
 
   return (
     <div className={details.layout}>
-      <YearMonth years={years} setYears={setYears} months={months} setMonths={setMonths} />
+      <YearMonth />
       <div className={details.navbarLayout}>
         <div
           className={details.triggerLink}
