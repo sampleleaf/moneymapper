@@ -6,18 +6,14 @@ type ContextType = { years: number; months: number };
 
 const Details: React.FC<{
   years: number;
-  setYears: Function;
   months: number;
-  setMonths: Function;
   detailsTranslateX: string;
   setDetailsTranslateX: Function;
   detailsHighlighted: string;
   setDetailsHighlighted: Function;
 }> = ({
   years,
-  setYears,
   months,
-  setMonths,
   detailsTranslateX,
   setDetailsTranslateX,
   detailsHighlighted,

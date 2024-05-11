@@ -35,7 +35,7 @@ const App: React.FC = () => {
   const [detailsHighlighted, setDetailsHighlighted] = useState("")
   const [payPage, setPayPage] = useState<boolean>(true);
 
-  const {years, setYears, months, setMonths} = useContext(DateContext) as DateContextType
+  const {years, months} = useContext(DateContext) as DateContextType
 
   return (
     <>
@@ -43,15 +43,15 @@ const App: React.FC = () => {
         <>
           <Header setLogin={setLogin} setDetailsTranslateX={setDetailsTranslateX} setDetailsHighlighted={setDetailsHighlighted} />
           <Routes>
-            <Route path="/" element={<Home years={years} setYears={setYears} months={months} setMonths={setMonths} setPayPage={setPayPage} />} />
+            <Route path="/" element={<Home years={years} months={months} setPayPage={setPayPage} />} />
             <Route path="create" element={<Create years={years} months={months} payPage={payPage} setPayPage={setPayPage} />} />
-            <Route path="details" element={<Details years={years} setYears={setYears} months={months} setMonths={setMonths} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
+            <Route path="details" element={<Details years={years} months={months} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
               <Route index element={<Navigate replace={true} to="pay"/>} />
               <Route path="pay" element={<Pay setPayPage={setPayPage} />} />
               <Route path="income" element={<Income setPayPage={setPayPage} />} />
               <Route path="remainder" element={<Remainder setPayPage={setPayPage} />} />
             </Route>
-            <Route path="mapper" element={<Mapper years={years} setYears={setYears} months={months} setMonths={setMonths} setPayPage={setPayPage} />} />
+            <Route path="mapper" element={<Mapper years={years} months={months} setPayPage={setPayPage} />} />
           </Routes>
           <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>

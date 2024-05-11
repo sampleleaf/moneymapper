@@ -11,11 +11,9 @@ import { driver } from "driver.js";
 
 const Mapper: React.FC<{
   years: number;
-  setYears: Function;
   months: number;
-  setMonths: Function;
   setPayPage: Function;
-}> = ({ years, setYears, months, setMonths, setPayPage }) => {
+}> = ({ years, months, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
