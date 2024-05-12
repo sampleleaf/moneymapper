@@ -30,8 +30,8 @@ const IncomeNote: React.FC<{
             <p>${Math.abs(totalPriceOfItems as number)}</p>
           </div>
           {items.map((item) => (
-            <div className={detailNote.dayItems}>
-              <div key={item.id} className={detailNote.itemGroup}>
+            <div key={item.id} className={detailNote.dayItems}>
+              <div className={detailNote.itemGroup}>
                 <div className={detailNote.percentGroup}>
                   <div className={detailNote.percent}>
                     <p>{item.note || item.item}</p>
