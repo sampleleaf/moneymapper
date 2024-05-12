@@ -1,18 +1,28 @@
 import home from "@/css/Home.module.css";
 import DayItem from "@/components/DayItem";
 import YearMonth from "@/components/YearMonth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 import { driver } from "driver.js";
+import { DateContext } from "@/context/dateContext";
 
-const Home: React.FC<{
+interface DateContextType {
   years: number;
   months: number;
+  value: Value;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
+}
+
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+const Home: React.FC<{
   setPayPage: Function;
-}> = ({ years, months, setPayPage }) => {
+}> = ({ setPayPage }) => {
+  const { years, months, onChange } = useContext(DateContext) as DateContextType;
   const [days, setDays] = useState<string[]>([]);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<
     { price: number; item: string; id: string }[]
@@ -176,7 +186,7 @@ const Home: React.FC<{
         <p>新手教學</p>
       </div>
       <Link
-        onClick={() => setPayPage(true)}
+        onClick={() => {setPayPage(true); onChange(new Date(`${years}-${months}-${new Date().getDate()}`))}}
         className={home.addItem}
         to="/create"
         id="add"

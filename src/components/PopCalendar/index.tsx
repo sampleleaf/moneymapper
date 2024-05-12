@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 interface DateContextType {
   years: number;
-  setYears: React.Dispatch<React.SetStateAction<number>>;
   months: number;
-  setMonths: React.Dispatch<React.SetStateAction<number>>;
+  value: Value;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
 }
 
 type ValuePiece = Date | null;
@@ -27,9 +27,8 @@ interface Item {
 const date = new Date().getDate();
 
 const PopCalendar = () => {
-  const { years, months } = useContext(DateContext) as DateContextType;
+  const { years, months, value, onChange } = useContext(DateContext) as DateContextType;
   const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
-  const [value, onChange] = useState<Value>(new Date(`${years}-${months}-${date}`));
   const [dayItems, setDayItems] = useState<Item[] | null>(null)
 
   useEffect(() => {
