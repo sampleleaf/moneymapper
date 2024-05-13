@@ -7,6 +7,9 @@ import RemainderNote from "../DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
 import { driver } from "driver.js";
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 type ContextType = { years: number; months: number };
 
 interface Item {
@@ -17,7 +20,10 @@ interface Item {
   location: string;
 }
 
-const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
+const Remainder: React.FC<{
+  setPayPage: Function;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
+}> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
@@ -68,7 +74,7 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
           // console.log(googleArray);
           const reversedArray = [...googleArray].reverse();
           setGoogleData(googleArray);
-          setReverseData(reversedArray)
+          setReverseData(reversedArray);
         } else {
           // docSnap.data() will be undefined in this case
           setGoogleData([]);
@@ -153,7 +159,11 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
           <ul className={detailGroup.list} id="list">
             <li className={detailGroup.reverse}>
               <p>日結餘</p>
-              <img src="../reverse.png" alt="reverse" onClick={() => setIsReverse(!isReverse)} />
+              <img
+                src="../reverse.png"
+                alt="reverse"
+                onClick={() => setIsReverse(!isReverse)}
+              />
             </li>
             {(isReverse ? reverseData : googleData).map((data) => (
               <li
@@ -218,7 +228,12 @@ const Remainder: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
               </p>
             </div>
             <Link
-              onClick={() => setPayPage(true)}
+              onClick={() => {
+                setPayPage(true);
+                onChange(
+                  new Date(`${years}-${months}-${new Date().getDate()}`)
+                );
+              }}
               className={detailGroup.addItem}
               to="/create"
             >

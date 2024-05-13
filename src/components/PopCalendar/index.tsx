@@ -11,6 +11,7 @@ interface DateContextType {
   months: number;
   value: Value;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type ValuePiece = Date | null;
@@ -27,7 +28,7 @@ interface Item {
 const date = new Date().getDate();
 
 const PopCalendar = () => {
-  const { years, months, value, onChange } = useContext(DateContext) as DateContextType;
+  const { years, months, value, onChange, setPayPage } = useContext(DateContext) as DateContextType;
   const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
   const [dayItems, setDayItems] = useState<Item[] | null>(null)
 
@@ -155,7 +156,7 @@ const PopCalendar = () => {
         ))}
       </div>
       <Link
-        // onClick={() => setPayPage(true)}
+        onClick={() => setPayPage(true)}
         className={popCalendar.addItem}
         to="/create"
       >

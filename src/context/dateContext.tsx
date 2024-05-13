@@ -7,6 +7,8 @@ interface DateContextType {
   setMonths: React.Dispatch<React.SetStateAction<number>>;
   value: Value;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
+  payPage: boolean;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const DateContext = createContext<DateContextType | null>(null);
@@ -22,6 +24,7 @@ export const DateContextProvider = ({ children }: DateContextProviderProps) => {
   const [years, setYears] = useState<number>(new Date().getFullYear());
   const [months, setMonths] = useState<number>(new Date().getMonth() + 1);
   const [value, onChange] = useState<Value>(new Date(`${years}-${months}-${new Date().getDate()}`));
+  const [payPage, setPayPage] = useState<boolean>(true);
 
   const contextValue: DateContextType = {
     years,
@@ -29,7 +32,9 @@ export const DateContextProvider = ({ children }: DateContextProviderProps) => {
     months,
     setMonths,
     value,
-    onChange
+    onChange,
+    payPage,
+    setPayPage
   };
 
   return (

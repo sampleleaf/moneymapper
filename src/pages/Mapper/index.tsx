@@ -9,11 +9,15 @@ import Switch from "react-switch";
 import mapper from "@/css/Mapper.module.css";
 import { driver } from "driver.js";
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 const Mapper: React.FC<{
   years: number;
   months: number;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
   setPayPage: Function;
-}> = ({ years, months, setPayPage }) => {
+}> = ({ years, months, onChange, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string | undefined>("");
@@ -247,7 +251,7 @@ const Mapper: React.FC<{
                 </p>
               </div>
               <Link
-                onClick={() => setPayPage(true)}
+                onClick={() => {setPayPage(true); onChange(new Date(`${years}-${months}-${new Date().getDate()}`));}}
                 className={mapper.addItem}
                 to="/create"
               >

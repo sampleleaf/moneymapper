@@ -19,11 +19,16 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import "driver.js/dist/driver.css";
 import { DateContext } from "@/context/dateContext";
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 interface DateContextType {
   years: number;
-  setYears: React.Dispatch<React.SetStateAction<number>>;
   months: number;
-  setMonths: React.Dispatch<React.SetStateAction<number>>;
+  value: Value;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  payPage: boolean;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const App: React.FC = () => {
@@ -33,9 +38,8 @@ const App: React.FC = () => {
 
   const [detailsTranslateX, setDetailsTranslateX] = useState("")
   const [detailsHighlighted, setDetailsHighlighted] = useState("")
-  const [payPage, setPayPage] = useState<boolean>(true);
 
-  const {years, months} = useContext(DateContext) as DateContextType
+  const {years, months, value, onChange, payPage, setPayPage} = useContext(DateContext) as DateContextType
 
   return (
     <>
@@ -43,15 +47,15 @@ const App: React.FC = () => {
         <>
           <Header setLogin={setLogin} setDetailsTranslateX={setDetailsTranslateX} setDetailsHighlighted={setDetailsHighlighted} />
           <Routes>
-            <Route path="/" element={<Home setPayPage={setPayPage} />} />
-            <Route path="create" element={<Create payPage={payPage} setPayPage={setPayPage} />} />
+            <Route path="/" element={<Home years={years} months={months} onChange={onChange} setPayPage={setPayPage} />} />
+            <Route path="create" element={<Create value={value} onChange={onChange} payPage={payPage} setPayPage={setPayPage} />} />
             <Route path="details" element={<Details years={years} months={months} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
               <Route index element={<Navigate replace={true} to="pay"/>} />
-              <Route path="pay" element={<Pay setPayPage={setPayPage} />} />
-              <Route path="income" element={<Income setPayPage={setPayPage} />} />
-              <Route path="remainder" element={<Remainder setPayPage={setPayPage} />} />
+              <Route path="pay" element={<Pay setPayPage={setPayPage} onChange={onChange} />} />
+              <Route path="income" element={<Income setPayPage={setPayPage} onChange={onChange} />} />
+              <Route path="remainder" element={<Remainder setPayPage={setPayPage} onChange={onChange} />} />
             </Route>
-            <Route path="mapper" element={<Mapper years={years} months={months} setPayPage={setPayPage} />} />
+            <Route path="mapper" element={<Mapper years={years} months={months} onChange={onChange} setPayPage={setPayPage} />} />
           </Routes>
           <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>

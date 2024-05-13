@@ -4,28 +4,23 @@ import Loader from "@/components/Loader";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 import { driver } from "driver.js";
-import { DateContext } from "@/context/dateContext";
-
-interface DateContextType {
-  value: Value;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
-}
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC<{
+  value: Value;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
   payPage: boolean;
-  setPayPage: Function;
-}> = ({ payPage, setPayPage }) => {
-  const { value, onChange } = useContext(DateContext) as DateContextType;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ value, onChange, payPage, setPayPage }) => {
   const navigate = useNavigate();
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);

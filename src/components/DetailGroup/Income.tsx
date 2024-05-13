@@ -6,15 +6,25 @@ import IncomeNote from "@/components/DetailNote/IncomeNote";
 import { driver } from "driver.js";
 import useDetailGroupData from "@/utils/hook/useDetailGroupData";
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 type ContextType = { years: number; months: number };
 
-const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
+const Income: React.FC<{
+  setPayPage: Function;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
+}> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);
 
-  const { googleData, days, reverseDays } = useDetailGroupData(years, months, true)
+  const { googleData, days, reverseDays } = useDetailGroupData(
+    years,
+    months,
+    true
+  );
 
   const totalPay =
     googleData &&
@@ -124,7 +134,11 @@ const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <p>收入明細</p>
-                    <img src="../reverse.png" alt="reverse" onClick={() => setIsReverse(!isReverse)} />
+                    <img
+                      src="../reverse.png"
+                      alt="reverse"
+                      onClick={() => setIsReverse(!isReverse)}
+                    />
                   </div>
                   <div
                     className={detailGroup.noteCard}
@@ -160,7 +174,10 @@ const Income: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
             </p>
           </div>
           <Link
-            onClick={() => setPayPage(false)}
+            onClick={() => {
+              setPayPage(false);
+              onChange(new Date(`${years}-${months}-${new Date().getDate()}`));
+            }}
             className={detailGroup.addItem}
             to="/create"
           >

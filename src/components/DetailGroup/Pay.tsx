@@ -6,15 +6,25 @@ import PayNote from "@/components/DetailNote/PayNote";
 import { driver } from "driver.js";
 import useDetailGroupData from "@/utils/hook/useDetailGroupData";
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 type ContextType = { years: number; months: number };
 
-const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
+const Pay: React.FC<{
+  setPayPage: Function;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
+}> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);
 
-  const { googleData, days, reverseDays } = useDetailGroupData(years, months, false)
+  const { googleData, days, reverseDays } = useDetailGroupData(
+    years,
+    months,
+    false
+  );
 
   const totalPay =
     googleData &&
@@ -120,7 +130,11 @@ const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <p>支出明細</p>
-                    <img src="../reverse.png" alt="reverse" onClick={() => setIsReverse(!isReverse)} />
+                    <img
+                      src="../reverse.png"
+                      alt="reverse"
+                      onClick={() => setIsReverse(!isReverse)}
+                    />
                   </div>
                   <div
                     className={detailGroup.noteCard}
@@ -156,7 +170,10 @@ const Pay: React.FC<{ setPayPage: Function }> = ({ setPayPage }) => {
             </p>
           </div>
           <Link
-            onClick={() => setPayPage(true)}
+            onClick={() => {
+              setPayPage(true);
+              onChange(new Date(`${years}-${months}-${new Date().getDate()}`));
+            }}
             className={detailGroup.addItem}
             to="/create"
           >

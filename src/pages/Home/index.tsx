@@ -1,28 +1,19 @@
 import home from "@/css/Home.module.css";
 import DayItem from "@/components/DayItem";
 import YearMonth from "@/components/YearMonth";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 import { driver } from "driver.js";
-import { DateContext } from "@/context/dateContext";
-
-interface DateContextType {
-  years: number;
-  months: number;
-  value: Value;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
-}
-
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Home: React.FC<{
+  years: number;
+  months: number;
+  onChange: Function;
   setPayPage: Function;
-}> = ({ setPayPage }) => {
-  const { years, months, onChange } = useContext(DateContext) as DateContextType;
+}> = ({ years, months, onChange, setPayPage }) => {
   const [days, setDays] = useState<string[]>([]);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<
     { price: number; item: string; id: string }[]
@@ -92,7 +83,8 @@ const Home: React.FC<{
                 element: "#item",
                 popover: {
                   title: "編輯和刪除",
-                  description: "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目",
+                  description:
+                    "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目",
                   side: "top",
                   align: "center",
                 },
@@ -186,7 +178,10 @@ const Home: React.FC<{
         <p>新手教學</p>
       </div>
       <Link
-        onClick={() => {setPayPage(true); onChange(new Date(`${years}-${months}-${new Date().getDate()}`))}}
+        onClick={() => {
+          setPayPage(true);
+          onChange(new Date(`${years}-${months}-${new Date().getDate()}`));
+        }}
         className={home.addItem}
         to="/create"
         id="add"
