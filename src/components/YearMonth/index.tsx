@@ -24,7 +24,7 @@ const YearMonth: React.FC = () => {
           className={yearMonth.background}
           onClick={() => setIsPopCalender(false)} 
         >
-          <PopCalendar />
+          <PopCalendar setIsPopCalender={setIsPopCalender} />
         </div>
       )}
       <div className={yearMonth.filtergridArea}>

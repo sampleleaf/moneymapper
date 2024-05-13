@@ -7,6 +7,20 @@
     overflow-y: auto;
 }
 
+.previous{
+    position: absolute;
+    height: 20px;
+    top: 25px;
+    left: 15px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.previous svg{
+    width: 20px;
+    height: 20px;
+}
+
 .calculate{
     display: grid;
     width: calc(100% - 12px);
@@ -43,7 +57,7 @@
     color: rgb(211, 132, 240);
 }
 
-.overflow{
+.layout{
     margin: 0 6px;
 }
 
@@ -67,6 +81,20 @@
 .itemContainer img{
     width: 30px;
     height: 30px;
+}
+
+.unSelected{
+    border: none !important;
+    padding: 20px 0 !important;
+    text-align: center;
+}
+
+.unSelected img{
+    width: 120px;
+}
+
+.remind{
+    color: red;
 }
 
 .addItem{

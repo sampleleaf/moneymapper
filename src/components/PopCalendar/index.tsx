@@ -11,7 +11,7 @@ interface DateContextType {
   months: number;
   value: Value;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type ValuePiece = Date | null;
@@ -27,16 +27,20 @@ interface Item {
 
 const date = new Date().getDate();
 
-const PopCalendar = () => {
-  const { years, months, value, onChange, setPayPage } = useContext(DateContext) as DateContextType;
+const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
+  setIsPopCalender,
+}) => {
+  const { years, months, value, onChange, setPayPage } = useContext(
+    DateContext
+  ) as DateContextType;
   const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
-  const [dayItems, setDayItems] = useState<Item[] | null>(null)
+  const [dayItems, setDayItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
-    if(value){
-      handleCalendarChange(new Date(`${years}-${months}-${date}`))
+    if (value) {
+      handleCalendarChange(new Date(`${years}-${months}-${date}`));
     }
-  },[])
+  }, []);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -51,16 +55,19 @@ const PopCalendar = () => {
         if (docSnap.exists()) {
           // console.log(Object.keys(docSnap.data()))
           console.log(docSnap.data()[selectday]);
-          setDayItems(docSnap.data()[selectday])
+          setDayItems(docSnap.data()[selectday]);
         }
       })();
     }
-  }, [value])
+  }, [value]);
 
   const customDates: Date[] | null = calendarMark;
 
-  const tileClassName: (args: {date: Date;}) => string | string[] | undefined = ({ date }) => {
-    const customDateString = customDates && customDates.map((d) => d.toDateString());
+  const tileClassName: (args: {
+    date: Date;
+  }) => string | string[] | undefined = ({ date }) => {
+    const customDateString =
+      customDates && customDates.map((d) => d.toDateString());
     if (customDateString && customDateString.includes(date.toDateString())) {
       return "dot";
     }
@@ -82,54 +89,74 @@ const PopCalendar = () => {
           //mark calendar
           const days = Object.keys(docSnap.data());
           const forCustomDates = days.map(
-            (day) => new Date(newDate.getFullYear(), newDate.getMonth(), Number(day))
+            (day) =>
+              new Date(newDate.getFullYear(), newDate.getMonth(), Number(day))
           );
           console.log(forCustomDates);
           setCalendarMark(forCustomDates);
           //switch Calendar view
-          onChange(new Date(newDate.getFullYear(), newDate.getMonth(), Number(selectday)));
-          //display item of selectday
-          // console.log(docSnap.data()[selectday]);
-          // setDayItems(docSnap.data()[selectday])
+          onChange(
+            new Date(
+              newDate.getFullYear(),
+              newDate.getMonth(),
+              Number(selectday)
+            )
+          );
         } else {
           //switch Calendar view
-          onChange(new Date(newDate.getFullYear(), newDate.getMonth(), Number(selectday)));
-          //if selectday no items
-          // setDayItems(null)
+          onChange(
+            new Date(
+              newDate.getFullYear(),
+              newDate.getMonth(),
+              Number(selectday)
+            )
+          );
         }
       })();
     }
   };
 
-  const dayPay = dayItems ? dayItems.reduce((acc, cur) => {
-    if(cur.price < 0){
-      return acc + cur.price
-    }else{
-      return acc
-    }
-  }, 0) : 0
+  const dayPay = dayItems
+    ? dayItems.reduce((acc, cur) => {
+        if (cur.price < 0) {
+          return acc + cur.price;
+        } else {
+          return acc;
+        }
+      }, 0)
+    : 0;
 
-  const dayIncome = dayItems ? dayItems.reduce((acc, cur) => {
-    if(cur.price > 0){
-      return acc + cur.price
-    }else{
-      return acc
-    }
-  }, 0) : 0
+  const dayIncome = dayItems
+    ? dayItems.reduce((acc, cur) => {
+        if (cur.price > 0) {
+          return acc + cur.price;
+        } else {
+          return acc;
+        }
+      }, 0)
+    : 0;
 
-  const dayRemainder = dayPay + dayIncome
+  const dayRemainder = dayPay + dayIncome;
 
   return (
     <div
       className={popCalendar.calendarContainer}
       onClick={(e) => e.stopPropagation()}
     >
+      <div
+        className={popCalendar.previous}
+        onClick={() => setIsPopCalender(false)}
+      >
+        <i className="fa-solid fa-chevron-left"></i>
+      </div>
       <Calendar
         onChange={onChange}
         value={value}
         className="calendarDriver"
         tileClassName={tileClassName}
-        onActiveStartDateChange={({ activeStartDate }) => handleCalendarChange(activeStartDate)}
+        onActiveStartDateChange={({ activeStartDate }) =>
+          handleCalendarChange(activeStartDate)
+        }
       />
       <div className={popCalendar.calculate}>
         <div>
@@ -139,21 +166,34 @@ const PopCalendar = () => {
         <div>
           <p>收入：</p>
           <p>${dayIncome}</p>
-        </div><div>
+        </div>
+        <div>
           <p>結餘：</p>
           <p>${dayRemainder}</p>
         </div>
       </div>
-      <div className={popCalendar.overflow}>
-        {dayItems && dayItems.map(item => (
-          <div className={popCalendar.itemContainer} key={item.id}>
-            <div className={popCalendar.imageAndNote}>
-              <img src={`${item.item}.png`} alt={item.item} />
-              <p>{item.note || item.item}</p>
+      <div className={popCalendar.layout}>
+        {dayItems && dayItems.length > 0 ? (
+          dayItems.map((item) => (
+            <div className={popCalendar.itemContainer} key={item.id}>
+              <div className={popCalendar.imageAndNote}>
+                <img src={`${item.item}.png`} alt={item.item} />
+                <p>{item.note || item.item}</p>
+              </div>
+              <div>${item.price}</div>
             </div>
-            <div>${item.price}</div>
+          ))
+        ) : (
+          <div className={popCalendar.unSelected}>
+            <img src="write.png" alt="write" />
+            <div className={popCalendar.remind}>
+              <p>
+                {years}年{months - 1}月{(value as Date).getDate()}日無記帳記錄
+              </p>
+            </div>
+            <p>點選下方按鈕記帳</p>
           </div>
-        ))}
+        )}
       </div>
       <Link
         onClick={() => setPayPage(true)}
