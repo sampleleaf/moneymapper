@@ -227,6 +227,9 @@ const Edit: React.FC<{
         <div className={edit.previous} onClick={handleCloseEdit}>
           <i className="fa-solid fa-chevron-left"></i>
         </div>
+        <div className={edit.cross} onClick={handleCloseEdit}>
+        <i className="fa-solid fa-xmark"></i>
+      </div>
         <div className={edit.calendarBar}>
           <div onClick={handleYesterday}>
             <i className="fa-solid fa-caret-left"></i>
