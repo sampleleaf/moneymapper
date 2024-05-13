@@ -183,17 +183,18 @@
     display: flex;
     align-items: center;
     font-size: 14px;
-    height: 21px;
+    font-family: sans-serif;
     position: absolute;
     top: 50%;
     right: 4px;
     transform: translateY(-50%);
     border: none;
     border-radius: 3px;
-    padding: 2px;
+    padding: 1px 3px;
     cursor: pointer;
     background-color: rgb(99, 99, 99);
     color: white;
+    transition: background 0.2s;
 }
 
 .styleInput span:hover{
@@ -226,30 +227,31 @@
     align-items: center;
     height: 60px;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
 }
 
 .submit button{
-    width: 100px;
-    height: 40px;
-    font-size: 24px;
+    padding: 8px 30px;
+    font-size: 22px;
     font-weight: bold;
+    font-family: sans-serif;
     border: none;
-    background-image: linear-gradient(to right, #e53e3e, #f56565, #fc8181, #f56565, #e53e3e);
+    /* background-image: linear-gradient(to right, #e53e3e, #f56565, #fc8181, #f56565, #e53e3e); */
+    background-color: #f56565;
     background-size: 200%;
-    transition: background 0.3s;
+    transition: all 0.3s;
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2), 0 10px 15px -3px rgba(239, 68, 68, 0.5), 0 4px 6px -2px rgba(239, 68, 68, 0.1);
 }
 
 .submit button:hover{
-    background-position: 100%;
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2), 0 10px 15px -3px rgba(239, 68, 68, 0.5), 0 4px 6px -2px rgba(239, 68, 68, 0.1);
 }
 
-.submit button:focus {
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
-    outline: none;
+.submit button:active {
+    transform: translateY(0);
 }
 
 .submit img{
