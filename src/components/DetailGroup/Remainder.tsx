@@ -138,7 +138,7 @@ const Remainder: React.FC<{
   return (
     <>
       <div className="manualDriver" onClick={() => driverObj.drive()}>
-        <img src="../manual.png" alt="manual" />
+        <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
       {googleData.length > 0 ? (
@@ -160,7 +160,7 @@ const Remainder: React.FC<{
             <li className={detailGroup.reverse}>
               <p>日結餘</p>
               <img
-                src="../reverse.png"
+                src="../images/reverse.png"
                 alt="reverse"
                 onClick={() => setIsReverse(!isReverse)}
               />
@@ -218,10 +218,10 @@ const Remainder: React.FC<{
       ) : (
         <>
           <div className={detailGroup.emptyLineChart}>
-            <img src="../emptylinechart.png" alt="emptylinechart" />
+            <img src="../images/emptylinechart.png" alt="emptylinechart" />
           </div>
           <div className={detailGroup.unSelected}>
-            <img src="../write.png" alt="write" />
+            <img src="../images/write.png" alt="write" />
             <div className={detailGroup.remind}>
               <p>
                 {years}年{months}月無記帳記錄

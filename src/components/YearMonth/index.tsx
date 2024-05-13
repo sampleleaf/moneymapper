@@ -2,6 +2,7 @@ import yearMonth from "@/css/YearMonth.module.css";
 import PopCalendar from "../PopCalendar";
 import { useState, useContext } from "react";
 import { DateContext } from "@/context/dateContext";
+import images from "@/utils/images";
 
 interface DateContextType {
   years: number;
@@ -47,7 +48,7 @@ const YearMonth: React.FC = () => {
             className={yearMonth.calendar}
             onClick={() => setIsPopCalender(true)}
           >
-            <img src="calendar.png" alt="calendar" />
+            <img src={images.calendar} alt="calendar" />
           </div>
         </div>
         <div className={yearMonth.space}></div>

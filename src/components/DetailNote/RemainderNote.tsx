@@ -71,7 +71,7 @@ const RemainderNote: React.FC<{
               <div key={item.id} className={detailNote.itemGroup}>
                 <div className={detailNote.percentGroup}>
                   <div className={detailNote.percent}>
-                    <img src={`../${item.item}.png`} alt={item.item} />
+                    <img src={`../images/${item.item}.png`} alt={item.item} />
                     <p>{item.note || item.item}</p>
                   </div>
                 </div>

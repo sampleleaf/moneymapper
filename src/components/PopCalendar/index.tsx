@@ -5,6 +5,13 @@ import { DateContext } from "@/context/dateContext";
 import Calendar from "react-calendar";
 import popCalendar from "@/css/PopCalendar.module.css";
 import { Link } from "react-router-dom";
+import images from "@/utils/images";
+
+interface Images {
+  [key: string]: string;
+}
+
+const imagesObj = images as Images
 
 interface DateContextType {
   years: number;
@@ -183,7 +190,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
           dayItems.map((item) => (
             <div className={popCalendar.itemContainer} key={item.id}>
               <div className={popCalendar.imageAndNote}>
-                <img src={`${item.item}.png`} alt={item.item} />
+                <img src={imagesObj[item.item]} alt={item.item} />
                 <p>{item.note || item.item}</p>
               </div>
               <div>${item.price}</div>
@@ -191,7 +198,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
           ))
         ) : (
           <div className={popCalendar.unSelected}>
-            <img src="write.png" alt="write" />
+            <img src={imagesObj.write} alt="write" />
             <div className={popCalendar.remind}>
               <p>
                 {years}年{months - 1}月{(value as Date).getDate()}日無記帳記錄

@@ -229,7 +229,7 @@ const Create: React.FC<{
         </div>
       )}
       <div className="manualDriver" onClick={() => driverObj.drive()}>
-        <img src="manual.png" alt="manual" />
+        <img src="images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
       <div className={create.gridContainer}>
@@ -265,7 +265,7 @@ const Create: React.FC<{
               <p>項目</p>
               <p>：</p>
               <img
-                src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
+                src={payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`}
                 alt={payPage ? payItem : incomeItem}
               />
             </div>

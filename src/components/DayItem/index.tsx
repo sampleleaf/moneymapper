@@ -189,7 +189,7 @@ const DayItem: React.FC<{
                   className={`${dayItem.items} ${item.price > 0 && dayItem.incomeItems}`}
                 >
                   <div className={dayItem.item}>
-                    <img src={`${item.item}.png`} alt={item.src} />
+                    <img src={`images/${item.item}.png`} alt={item.src} />
                     <p>{item.note || item.item}</p>
                   </div>
                   <p className={dayItem.price}>${item.price}</p>

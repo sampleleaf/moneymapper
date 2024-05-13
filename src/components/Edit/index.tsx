@@ -257,7 +257,7 @@ const Edit: React.FC<{
               <p>項目</p>
               <p>：</p>
               <img
-                src={payPage ? `${payItem}.png` : `${incomeItem}.png`}
+                src={payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`}
                 alt={
                   payPage ? `${payItem}` || "早餐" : `${incomeItem}` || "薪水"
                 }

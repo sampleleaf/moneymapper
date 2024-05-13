@@ -74,7 +74,7 @@ const Pay: React.FC<{
   return (
     <>
       <div className="manualDriver" onClick={() => driverObj.drive()}>
-        <img src="../manual.png" alt="manual" />
+        <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
       <div className={detailGroup.chartGridArea}>
@@ -122,7 +122,7 @@ const Pay: React.FC<{
                     >
                       <i className="fa-solid fa-xmark"></i>
                     </div>
-                    <img src={`../${popItem}.png`} alt={`${popItem}`} />
+                    <img src={`../images/${popItem}.png`} alt={`${popItem}`} />
                     <p>{popItem}</p>
                   </div>
                   <div
@@ -131,7 +131,7 @@ const Pay: React.FC<{
                   >
                     <p>支出明細</p>
                     <img
-                      src="../reverse.png"
+                      src="../images/reverse.png"
                       alt="reverse"
                       onClick={() => setIsReverse(!isReverse)}
                     />
@@ -154,7 +154,7 @@ const Pay: React.FC<{
                 </div>
               )}
               <div className={detailGroup.item}>
-                <img src={`../${data[0]}.png`} alt={`${data[0]}`} />
+                <img src={`../images/${data[0]}.png`} alt={`${data[0]}`} />
                 <p>{data[0]}</p>
               </div>
               <p>${data[1]}</p>
@@ -163,7 +163,7 @@ const Pay: React.FC<{
         </ul>
       ) : (
         <div className={detailGroup.unSelected} id="unSelect">
-          <img src="../write.png" alt="write" />
+          <img src="../images/write.png" alt="write" />
           <div className={detailGroup.remind}>
             <p>
               {years}年{months}月無支出記錄

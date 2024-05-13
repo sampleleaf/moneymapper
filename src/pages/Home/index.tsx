@@ -174,7 +174,7 @@ const Home: React.FC<{
   return (
     <>
       <div className="manualDriver" onClick={() => driverObj.drive()}>
-        <img src="manual.png" alt="manual" />
+        <img src="images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
       <Link
@@ -238,7 +238,7 @@ const Home: React.FC<{
             ))
           ) : (
             <div className={home.unSelected}>
-              <img src="write.png" alt="write" />
+              <img src="images/write.png" alt="write" />
               <div className={home.remind}>
                 <p>
                   {years}年{months}月無記帳記錄

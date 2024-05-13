@@ -31,7 +31,7 @@ const Budget: React.FC<{
         <div className={budget.iconList}>
           {payItemArray.map(payItem => (
             <div key={payItem} onClick={() => setPayItem(payItem)}>
-              <img src={`${payItem}.png`} alt={payItem} />
+              <img src={`images/${payItem}.png`} alt={payItem} />
               <p>{payItem}</p>
             </div>
           ))}
@@ -40,7 +40,7 @@ const Budget: React.FC<{
         <div className={budget.iconList}>
             {incomeItemArray.map(incomeItem => (
             <div key={incomeItem} onClick={() => setIncomeItem(incomeItem)}>
-              <img src={`${incomeItem}.png`} alt={incomeItem} />
+              <img src={`images/${incomeItem}.png`} alt={incomeItem} />
               <p>{incomeItem}</p>
             </div>
           ))}

@@ -126,7 +126,7 @@ const Mapper: React.FC<{
   return (
     <>
       <div className="manualDriver" onClick={() => driverObj.drive()}>
-        <img src="../manual.png" alt="manual" />
+        <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
       <YearMonth />
@@ -186,7 +186,7 @@ const Mapper: React.FC<{
                     {payCategories.map((category) => (
                       <div key={category} className={mapper.category}>
                         <div className={mapper.iconAndItem}>
-                          <img src={`${category}.png`} alt={`${category}`} />
+                          <img src={`images/${category}.png`} alt={`${category}`} />
                           <b>
                             {category}
                             {/* {priceOfPayCategories[category].length}次 */}
@@ -218,7 +218,7 @@ const Mapper: React.FC<{
                     {incomeCategories.map((category) => (
                       <div key={category} className={mapper.category}>
                         <div className={mapper.iconAndItem}>
-                          <img src={`${category}.png`} alt={`${category}`} />
+                          <img src={`images/${category}.png`} alt={`${category}`} />
                           <b>
                             {category}
                             {/* {priceOfIncomeCategories[category].length}次 */}
@@ -243,7 +243,7 @@ const Mapper: React.FC<{
             </div>
           ) : (
             <div className={mapper.unSelected}>
-              <img src="write.png" alt="write" />
+              <img src="images/write.png" alt="write" />
               <div className={mapper.remind}>
                 <p>{mapResult}</p>
                 <p>
@@ -261,7 +261,7 @@ const Mapper: React.FC<{
           )
         ) : (
           <div className={mapper.unSelected}>
-            <img src="mapMarker.png" alt="mapMarker" />
+            <img src="images/mapMarker.png" alt="mapMarker" />
             <p className={mapper.remind}>
               {mapError ? "請選擇陸地或國家領海" : "您尚未選擇地點"}
             </p>
