@@ -1,6 +1,7 @@
 import header from "@/css/Header.module.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LogoutButton from "../LogoutButton";
 
 const Header: React.FC<{
   setLogin: Function;
@@ -116,13 +117,14 @@ const Header: React.FC<{
         <Link to="/">
           <div className={header.title}>MoneyMapper</div>
         </Link>
-        <div className={header.iconContainer}>
+        <div className={header.iconContainer} onClick={() => setPopLogout(true)}>
           {/* <Link to="/mapper">
             <i className="fa-solid fa-map-location-dot"></i>
           </Link> */}
-          <p onClick={() => setPopLogout(true)} className={header.logout}>
+          {/* <p onClick={() => setPopLogout(true)} className={header.logout}>
             登出
-          </p>
+          </p> */}
+          <LogoutButton />
         </div>
       </div>
       <div className={header.space}></div>

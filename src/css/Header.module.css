@@ -236,7 +236,7 @@
     color: rgb(4,170,109);
 }
 
-.logout{
+/* .logout{
     color: rgb(255, 255, 255);
     background-image: linear-gradient(to right, #6c2bd9, #7e3af2, #9061f9, #7e3af2, #6c2bd9);
     background-size: 200%;
@@ -249,7 +249,7 @@
 
 .logout:hover{
     background-position: 100%;
-}
+} */
 
 .space{
     height: 52px;
@@ -314,7 +314,12 @@
     .sidebarContainer a:hover::before{
         box-shadow: 1px -20px 0 0 rgb(240,244,247);
     }
-    .logout{
+    /* .logout{
+        position: fixed;
+        right: 50%;
+        transform: translateX(671.5px);
+    } */
+    .iconContainer{
         position: fixed;
         right: 50%;
         transform: translateX(671.5px);
