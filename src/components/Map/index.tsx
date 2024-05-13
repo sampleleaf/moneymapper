@@ -41,11 +41,11 @@ const Map: React.FC<{
       },
       async locationfound(e) {
         setPosition(e.latlng);
-        // map.flyTo(e.latlng, map.getZoom());
         // console.log(e.latlng);
         const center: [number, number] = [e.latlng.lat, e.latlng.lng];
         const zoomLevel = 9;
         map.setView(center, zoomLevel);
+        // map.flyTo(center, zoomLevel)
         try {
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`
@@ -113,10 +113,10 @@ const Map: React.FC<{
     const map = useMapEvent("click", async (e) => {
       setLoadingLocation(true);
       setPosition(e.latlng);
-      // map.flyTo(e.latlng, map.getZoom());
       const center: [number, number] = [e.latlng.lat, e.latlng.lng];
       const zoomLevel = 9;
       map.setView(center, zoomLevel);
+      // map.flyTo(center, zoomLevel);
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`
