@@ -150,6 +150,10 @@
         width: 20px;
         height: 20px;
     }
+    .layout{
+        overflow: auto;
+        height: 200px;
+    }
     .unSelected{
         padding: 5px 0 !important;
     }
