@@ -298,7 +298,16 @@
     }
 }
 
+@media screen and ( min-width : 1068px ) {
+    .calendar{
+        position: static;
+    }
+}
+
 @media screen and ( min-width : 1440px ){
+    .background{
+        left: 0;
+    }
     .filtergridArea{
         left: calc(50% + 284.6px);
         width: 426.9px;

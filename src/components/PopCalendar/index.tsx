@@ -149,6 +149,12 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
       >
         <i className="fa-solid fa-chevron-left"></i>
       </div>
+      <div
+        className={popCalendar.cross}
+        onClick={() => setIsPopCalender(false)}
+      >
+        <i className="fa-solid fa-xmark"></i>
+      </div>
       <Calendar
         onChange={onChange}
         value={value}

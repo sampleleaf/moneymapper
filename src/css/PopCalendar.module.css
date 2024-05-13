@@ -13,7 +13,6 @@
     top: 25px;
     left: 15px;
     cursor: pointer;
-    z-index: 5;
 }
 
 .previous svg{
@@ -116,4 +115,58 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: rgb(255, 255, 255);
+}
+
+@media screen and ( max-width : 767px ){
+    .cross{
+        display: none;
+    }
+}
+
+@media screen and ( min-width : 768px ){
+    .calendarContainer{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 410px;
+        height: 660px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 10px;
+        overflow-x: hidden;
+    }
+    .previous{
+        display: none;
+    }
+    .cross{
+        position: absolute;
+        height: 20px;
+        top: 8px;
+        right: 8px;
+        cursor: pointer;
+    }
+    
+    .cross svg{
+        width: 20px;
+        height: 20px;
+    }
+    .unSelected{
+        padding: 5px 0 !important;
+    }
+    
+    .unSelected img{
+        width: 100px;
+    }
+    .unSelected > p{
+        font-size: 16px;
+    }
+    .remind{
+        font-size: 16px;
+    }
+    .addItem{
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
