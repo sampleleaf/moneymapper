@@ -28,12 +28,12 @@
 
 .hint{
     text-align: center;
-    background-color: black;
+    /* background-color: black; */
     border-radius: 4px;
-    color: white;
+    /* color: white; */
     margin: 5px 0;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 

@@ -39,11 +39,11 @@ const MapFrame: React.FC<{
       </div>
       {autoMap ? (
         <div className={mapFrame.hint}>
-          點選地圖會<b style={{ color: "lightgreen" }}>偵測您目前的位置</b>
+          點選地圖會<b style={{ color: "#0079DB" }}>偵測您目前的位置</b>
         </div>
       ) : (
         <div className={mapFrame.hint}>
-          點選地圖會<b style={{ color: "yellow" }}>顯示您選擇的位置</b>
+          點選地圖會<b style={{ color: "#7581EB" }}>顯示您選擇的位置</b>
         </div>
       )}
       <Map
