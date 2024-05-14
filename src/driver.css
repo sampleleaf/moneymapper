@@ -31,7 +31,7 @@
     left: 65px;
     top: 500px;
     background-color: white;
-    border-radius: 5px 10px 5px 10px;
+    border-radius: 5px;
     z-index: 8;
   }
 }
