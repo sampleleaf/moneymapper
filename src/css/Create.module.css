@@ -169,7 +169,8 @@
 }
 
 .submit button:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2), 0 10px 10px -6px rgba(239, 68, 68, 0.5), 0 4px 3px -4px rgba(239, 68, 68, 0.1);
 }
 
 .submit img{
