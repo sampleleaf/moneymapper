@@ -7,11 +7,11 @@ import Loader from "../Loader";
 const MapFrame: React.FC<{
   setLocation: Function;
   setMapWindow: Function;
-  mapResult: string | undefined;
-  setMapResult: Function;
+  mapResult: string;
+  setMapResult: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ setLocation, setMapWindow, mapResult, setMapResult }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
-  const [mapError, setMapError] = useState<string | undefined>("");
+  const [mapError, setMapError] = useState<string>("");
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
 
   const handleChange = (nextChecked: boolean) => {

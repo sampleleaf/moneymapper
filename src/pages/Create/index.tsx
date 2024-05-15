@@ -28,7 +28,7 @@ const Create: React.FC<{
   const [payItem, setPayItem] = useState<string>("早餐");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [itemNote, setItemNote] = useState<string>("");
-  const [mapResult, setMapResult] = useState<string | undefined>("");
+  const [mapResult, setMapResult] = useState<string>("");
   const [isSending, setIsSending] = useState<boolean>(false);
   const [priceLimit, setPriceLimit] = useState<boolean>(false);
   const [priceHint, setPriceHint] = useState<string>("");

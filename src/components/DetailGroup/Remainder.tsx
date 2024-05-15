@@ -21,7 +21,7 @@ interface Item {
 }
 
 const Remainder: React.FC<{
-  setPayPage: Function;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
 }> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();

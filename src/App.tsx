@@ -28,7 +28,7 @@ interface DateContextType {
   value: Value;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
   payPage: boolean;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const App: React.FC = () => {
@@ -36,8 +36,8 @@ const App: React.FC = () => {
     localStorage.getItem("loginData")
   );
 
-  const [detailsTranslateX, setDetailsTranslateX] = useState("")
-  const [detailsHighlighted, setDetailsHighlighted] = useState("")
+  const [detailsTranslateX, setDetailsTranslateX] = useState<string>("")
+  const [detailsHighlighted, setDetailsHighlighted] = useState<string>("")
 
   const {years, months, value, onChange, payPage, setPayPage} = useContext(DateContext) as DateContextType
 

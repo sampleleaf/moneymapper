@@ -12,7 +12,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 type ContextType = { years: number; months: number };
 
 const Income: React.FC<{
-  setPayPage: Function;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
 }> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();
@@ -20,11 +20,7 @@ const Income: React.FC<{
   const [popItem, setPopItem] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);
 
-  const { googleData, days, reverseDays } = useDetailGroupData(
-    years,
-    months,
-    true
-  );
+  const { googleData, days, reverseDays } = useDetailGroupData(years, months, true);
 
   const totalPay =
     googleData &&

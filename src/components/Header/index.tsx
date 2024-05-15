@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoutButton from "../LogoutButton";
 
 const Header: React.FC<{
-  setLogin: Function;
-  setDetailsTranslateX: Function;
-  setDetailsHighlighted: Function;
+  setLogin: React.Dispatch<React.SetStateAction<string | null>>;
+  setDetailsTranslateX: React.Dispatch<React.SetStateAction<string>>;
+  setDetailsHighlighted: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState<boolean>(false);

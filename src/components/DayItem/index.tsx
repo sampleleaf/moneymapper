@@ -12,18 +12,26 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+interface Item {
+  id: string;
+  item: string;
+  note: string;
+  price: number;
+  location: string;
+}
+
 const DayItem: React.FC<{
   day: string;
   months: number;
   years: number;
   itemRemoved: boolean;
-  setItemRemoved: Function;
+  setItemRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   popId: string;
-  setPopId: Function;
+  setPopId: React.Dispatch<React.SetStateAction<string>>;
   popEdit: boolean;
-  setPopEdit: Function;
+  setPopEdit: React.Dispatch<React.SetStateAction<boolean>>;
   remindDelete: boolean;
-  setRemindDelete: Function;
+  setRemindDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({
   day,
   months,
@@ -37,16 +45,7 @@ const DayItem: React.FC<{
   remindDelete,
   setRemindDelete,
 }) => {
-  const [items, setItems] = useState<
-    {
-      id: string;
-      item: string;
-      src: string;
-      note: string;
-      price: number;
-      location: string | undefined;
-    }[]
-  >([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [isSending, setIsSending] = useState<boolean>(false);
 
   useEffect(() => {
@@ -95,7 +94,7 @@ const DayItem: React.FC<{
       const yearString = years.toString();
       const monthString = months.toString();
       const docRef = doc(db, "users", data.id, yearString, monthString);
-      console.log(item);
+      // console.log(item);
       await updateDoc(docRef, {
         [day]: arrayRemove(item),
       });
@@ -189,7 +188,7 @@ const DayItem: React.FC<{
                   className={`${dayItem.items} ${item.price > 0 && dayItem.incomeItems}`}
                 >
                   <div className={dayItem.item}>
-                    <img src={`images/${item.item}.png`} alt={item.src} />
+                    <img src={`images/${item.item}.png`} alt={item.item} />
                     <p>{item.note || item.item}</p>
                   </div>
                   <p className={dayItem.price}>${item.price}</p>

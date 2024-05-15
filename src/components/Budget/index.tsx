@@ -2,9 +2,9 @@ import budget from "@/css/Budget.module.css";
 
 const Budget: React.FC<{
   payPage: boolean;
-  setPayPage: Function;
-  setPayItem: Function;
-  setIncomeItem: Function;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
+  setPayItem: React.Dispatch<React.SetStateAction<string>>;
+  setIncomeItem: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ payPage, setPayPage, setPayItem, setIncomeItem }) => {
 
   const payItemArray = ["早餐", "午餐", "晚餐", "飲品", "點心", "交通", "購物", "娛樂", "房租", "醫療", "其他"]

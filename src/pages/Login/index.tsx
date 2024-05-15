@@ -16,8 +16,9 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
-
+const Login: React.FC<{
+  setLogin: React.Dispatch<React.SetStateAction<string | null>>;
+}> = ({ setLogin }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -26,7 +27,7 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [usernameLimit, setUsernameLimit] = useState<boolean>(false)
+  const [usernameLimit, setUsernameLimit] = useState<boolean>(false);
 
   const middles: RefObject<HTMLDivElement>[] = [
     useRef(null),
@@ -74,13 +75,13 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
 
   const handleNewUser = (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsSubmit(false)
+    setIsSubmit(false);
     setNewUser(!newUser);
   };
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmit(true)
+    setIsSubmit(true);
     setIsSignUp(true);
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -164,13 +165,13 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
   };
 
   const handleUsername = (username: string) => {
-    if(username.length <= 20){
-      setUsernameLimit(false)
-      setUsername(username)
-    }else{
-      setUsernameLimit(true)
+    if (username.length <= 20) {
+      setUsernameLimit(false);
+      setUsername(username);
+    } else {
+      setUsernameLimit(true);
     }
-  }
+  };
 
   return (
     <>
@@ -195,22 +196,43 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
             className={login.form}
             onSubmit={newUser ? handleSignUp : handleSignIn}
           >
-            <div className={`${login.styleInput} ${!newUser && login.focusInput} ${newUser && isSubmit ? (!isValidEmail ? login.wrongInput : login.correctInput) : ""}`}>
+            <div
+              className={`${login.styleInput} ${!newUser && login.focusInput} ${
+                newUser && isSubmit
+                  ? !isValidEmail
+                    ? login.wrongInput
+                    : login.correctInput
+                  : ""
+              }`}
+            >
               <label htmlFor="email">信箱</label>
               <input
                 id="email"
                 type="email"
                 placeholder="請輸入信箱"
                 value={email}
-                onChange={(e) => {setEmail(e.target.value); validateEmail(e.target.value)}}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  validateEmail(e.target.value);
+                }}
                 required
               />
               <div>
                 <i className="fa-solid fa-envelope"></i>
               </div>
-              {newUser && isSubmit && !isValidEmail && <p className={login.warning}>請輸入正確格式的email</p>}
+              {newUser && isSubmit && !isValidEmail && (
+                <p className={login.warning}>請輸入正確格式的email</p>
+              )}
             </div>
-            <div className={`${login.styleInput} ${!newUser && login.focusInput} ${newUser && isSubmit ? (password.length < 6 ? login.wrongInput : login.correctInput) : ""}`}>
+            <div
+              className={`${login.styleInput} ${!newUser && login.focusInput} ${
+                newUser && isSubmit
+                  ? password.length < 6
+                    ? login.wrongInput
+                    : login.correctInput
+                  : ""
+              }`}
+            >
               <label htmlFor="password">密碼</label>
               <input
                 id="password"
@@ -223,10 +245,20 @@ const Login: React.FC<{ setLogin: Function }> = ({ setLogin }) => {
               <div>
                 <i className="fa-solid fa-lock"></i>
               </div>
-              {newUser && isSubmit && password.length < 6 && <p className={login.warning}>密碼至少6碼</p>}
+              {newUser && isSubmit && password.length < 6 && (
+                <p className={login.warning}>密碼至少6碼</p>
+              )}
             </div>
             {newUser ? (
-              <div className={`${login.styleInput} ${isSubmit ? (username.length < 1 ? login.wrongInput : login.correctInput) : ""}`}>
+              <div
+                className={`${login.styleInput} ${
+                  isSubmit
+                    ? username.length < 1
+                      ? login.wrongInput
+                      : login.correctInput
+                    : ""
+                }`}
+              >
                 <label htmlFor="email">使用者名稱</label>
                 <input
                   id="username"

@@ -16,12 +16,12 @@ const Mapper: React.FC<{
   years: number;
   months: number;
   onChange: React.Dispatch<React.SetStateAction<Value>>;
-  setPayPage: Function;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ years, months, onChange, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
-  const [mapResult, setMapResult] = useState<string | undefined>("");
-  const [mapError, setMapError] = useState<string | undefined>("");
+  const [mapResult, setMapResult] = useState<string>("");
+  const [mapError, setMapError] = useState<string>("");
   const [payCategories, setPayCategories] = useState<string[]>([]);
   const [priceOfPayCategories, setPriceOfPayCategories] = useState<{
     [key: string]: number[];

@@ -18,10 +18,10 @@ interface TaiwanGeoType {
 }
 
 const Map: React.FC<{
-  setMapResult: Function;
+  setMapResult: React.Dispatch<React.SetStateAction<string>>;
   autoMap: boolean;
-  setLoadingLocation: Function;
-  setMapError: Function;
+  setLoadingLocation: React.Dispatch<React.SetStateAction<boolean>>;
+  setMapError: React.Dispatch<React.SetStateAction<string>>;
 }> = memo(({ setMapResult, autoMap, setLoadingLocation, setMapError }) => {
   const LocationMarker = () => {
     const [position, setPosition] = useState<LatLng | null>(null);

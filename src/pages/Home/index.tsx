@@ -8,11 +8,14 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 import { driver } from "driver.js";
 
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 const Home: React.FC<{
   years: number;
   months: number;
-  onChange: Function;
-  setPayPage: Function;
+  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ years, months, onChange, setPayPage }) => {
   const [days, setDays] = useState<string[]>([]);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<

@@ -8,9 +8,9 @@ const Details: React.FC<{
   years: number;
   months: number;
   detailsTranslateX: string;
-  setDetailsTranslateX: Function;
+  setDetailsTranslateX: React.Dispatch<React.SetStateAction<string>>;
   detailsHighlighted: string;
-  setDetailsHighlighted: Function;
+  setDetailsHighlighted: React.Dispatch<React.SetStateAction<string>>;
 }> = ({
   years,
   months,

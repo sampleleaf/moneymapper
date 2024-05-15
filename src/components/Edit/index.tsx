@@ -25,21 +25,21 @@ interface Item {
   item: string;
   note: string;
   price: number;
-  location: string | undefined;
+  location: string;
 }
 
 const Edit: React.FC<{
   item: Item;
-  setPopEdit: Function;
-  setItemRemoved: Function;
-  setPopId: Function;
+  setPopEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setItemRemoved: React.Dispatch<React.SetStateAction<boolean>>;
+  setPopId: React.Dispatch<React.SetStateAction<string>>;
   years: number;
   months: number;
   day: string;
 }> = ({ item, setPopEdit, setItemRemoved, setPopId, years, months, day }) => {
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
-  const [location, setLocation] = useState<string | undefined>(item.location);
+  const [location, setLocation] = useState<string>(item.location);
   const [payItem, setPayItem] = useState<string>(
     item.price < 0 ? item.item : "早餐"
   );
@@ -50,7 +50,7 @@ const Edit: React.FC<{
   const [payPage, setPayPage] = useState<boolean>(
     item.price < 0 ? true : false
   );
-  const [mapResult, setMapResult] = useState<string | undefined>("");
+  const [mapResult, setMapResult] = useState<string>("");
   const [value, onChange] = useState<Value>(
     new Date(`${years}-${months}-${day}`)
   );
