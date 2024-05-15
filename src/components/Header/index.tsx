@@ -83,7 +83,6 @@ const Header: React.FC<{
             <h3 className={header.username}>
               <p>Welcome,</p>
               <p>{loginData && JSON.parse(loginData).name}</p>
-              {/* Menu */}
             </h3>
             <div className={header.sidebarContainer}>
               <Link to="/" onClick={() => setSidebar(!sidebar)}>
@@ -118,12 +117,6 @@ const Header: React.FC<{
           <div className={header.title}>MoneyMapper</div>
         </Link>
         <div className={header.iconContainer} onClick={() => setPopLogout(true)}>
-          {/* <Link to="/mapper">
-            <i className="fa-solid fa-map-location-dot"></i>
-          </Link> */}
-          {/* <p onClick={() => setPopLogout(true)} className={header.logout}>
-            登出
-          </p> */}
           <LogoutButton />
         </div>
       </div>

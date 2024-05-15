@@ -46,7 +46,6 @@ const Mapper: React.FC<{
           for (let i = 0; i < dayLength; i++) {
             allItems.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
           }
-          // console.log(allItems);
           //pay category
           const payItemsOfSameLocation = allItems.filter((item) => {
             return item.location === mapResult && item.price < 0;
@@ -76,12 +75,11 @@ const Mapper: React.FC<{
           setPriceOfIncomeCategories(incomeItemCategories);
           setIncomeCategories(Object.keys(incomeItemCategories));
         } else {
-          // docSnap.data() will be undefined in this case
+          // if docSnap.data() not exists
           setPayCategories([]);
           setPriceOfPayCategories({});
           setIncomeCategories([]);
           setPriceOfIncomeCategories({});
-          console.log("No such document!");
         }
       })();
     }
@@ -98,7 +96,8 @@ const Mapper: React.FC<{
         element: "#selectMap",
         popover: {
           title: "切換偵測地區的方式",
-          description: "自動：點擊地圖會偵測您所在的地區<br>手動：點擊地圖會偵測您選擇的地區",
+          description:
+            "自動：點擊地圖會偵測您所在的地區<br>手動：點擊地圖會偵測您選擇的地區",
           side: "bottom",
           align: "center",
         },
@@ -186,11 +185,11 @@ const Mapper: React.FC<{
                     {payCategories.map((category) => (
                       <div key={category} className={mapper.category}>
                         <div className={mapper.iconAndItem}>
-                          <img src={`images/${category}.png`} alt={`${category}`} />
-                          <b>
-                            {category}
-                            {/* {priceOfPayCategories[category].length}次 */}
-                          </b>
+                          <img
+                            src={`images/${category}.png`}
+                            alt={`${category}`}
+                          />
+                          <b>{category}</b>
                         </div>
                         <p>
                           {`$${priceOfPayCategories[category].reduce(
@@ -218,11 +217,11 @@ const Mapper: React.FC<{
                     {incomeCategories.map((category) => (
                       <div key={category} className={mapper.category}>
                         <div className={mapper.iconAndItem}>
-                          <img src={`images/${category}.png`} alt={`${category}`} />
-                          <b>
-                            {category}
-                            {/* {priceOfIncomeCategories[category].length}次 */}
-                          </b>
+                          <img
+                            src={`images/${category}.png`}
+                            alt={`${category}`}
+                          />
+                          <b>{category}</b>
                         </div>
                         <p>
                           {`$${priceOfIncomeCategories[category].reduce(
@@ -251,7 +250,12 @@ const Mapper: React.FC<{
                 </p>
               </div>
               <Link
-                onClick={() => {setPayPage(true); onChange(new Date(`${years}-${months}-${new Date().getDate()}`));}}
+                onClick={() => {
+                  setPayPage(true);
+                  onChange(
+                    new Date(`${years}-${months}-${new Date().getDate()}`)
+                  );
+                }}
                 className={mapper.addItem}
                 to="/create"
               >

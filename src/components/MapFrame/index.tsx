@@ -19,7 +19,6 @@ const MapFrame: React.FC<{
   };
 
   const handleLocation = () => {
-    // setMapResult(location)
     setLocation(mapResult);
     setMapWindow(false);
   };

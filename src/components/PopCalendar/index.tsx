@@ -82,7 +82,6 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
   };
 
   const handleCalendarChange = (newDate: Date | null) => {
-    // When the month changes, set the date to the first day of that month
     const response = localStorage.getItem("loginData");
     if (response !== null && value && newDate) {
       const data = JSON.parse(response);
@@ -110,7 +109,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             )
           );
         } else {
-          //switch Calendar view
+          //even docSnap not exists, still switch Calendar view
           onChange(
             new Date(
               newDate.getFullYear(),

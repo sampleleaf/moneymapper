@@ -29,19 +29,12 @@ const useDetailNoteData = (
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          //   console.log("Document data:", docSnap.data());
           const allItemsOfDay: Item[] = docSnap.data()[day];
           const itemFilter = allItemsOfDay.filter(
-            (allItems) =>
-              allItems.item === popItem &&
-              ((!isPositive && allItems.price < 0) ||
-                (isPositive && allItems.price > 0))
+            (allItems) => allItems.item === popItem &&
+              ((!isPositive && allItems.price < 0) || (isPositive && allItems.price > 0)) //(pay || income)
           );
-          //   console.log(itemFilter);
           setItems(itemFilter);
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
         }
       })();
     }

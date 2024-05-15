@@ -17,17 +17,16 @@ const useDetailGroupData = (years: number, months: number, isPositive: boolean) 
             const docRef = doc(db, "users", data.id, yearString, monthString);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-              // console.log(Object.keys(docSnap.data()));
+              //days of array
               const reversedArray = [...Object.keys(docSnap.data())].reverse();
               setDays(Object.keys(docSnap.data()));
               setReverseDays(reversedArray)
+              //item category
               const dayLength = Object.keys(docSnap.data()).length;
               const items = [];
               for (let i = 0; i < dayLength; i++) {
                 items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
               }
-              // console.log(items);
-              /*item category*/
               const itemTotals: { [key: string]: number } = {};
               items.forEach((item) => {
                 const itemName = item.item;
@@ -40,7 +39,7 @@ const useDetailGroupData = (years: number, months: number, isPositive: boolean) 
                   }
                 }
               });
-              /*refactor for google charts*/
+              //refactor for google charts
               const itemLength = Object.keys(itemTotals).length;
               const googleChartArray = [];
               for (let i = 0; i < itemLength; i++) {
@@ -49,14 +48,10 @@ const useDetailGroupData = (years: number, months: number, isPositive: boolean) 
                   itemTotals[Object.keys(itemTotals)[i]],
                 ]);
               }
-              // console.log(itemTotals);
-              // console.log(Object.keys(itemTotals))
-              // console.log(googleChartArray);
               setGoogleData(googleChartArray);
             } else {
-              // docSnap.data() will be undefined in this case
+              // if docSnap.data() not exists
               setGoogleData([]);
-              console.log("No such document!");
             }
           })();
         }

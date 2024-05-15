@@ -30,7 +30,6 @@ const Map: React.FC<{
     >(null);
 
     useEffect(() => {
-      // console.log(geoResult)
       setGeoResult(null);
     }, [position]);
 
@@ -41,11 +40,9 @@ const Map: React.FC<{
       },
       async locationfound(e) {
         setPosition(e.latlng);
-        // console.log(e.latlng);
         const center: [number, number] = [e.latlng.lat, e.latlng.lng];
         const zoomLevel = 9;
         map.setView(center, zoomLevel);
-        // map.flyTo(center, zoomLevel)
         try {
           const response = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`
@@ -56,13 +53,6 @@ const Map: React.FC<{
           const data = await response.json();
           const dataAdress =
             data.address.city || data.address.county || data.address.country;
-          // const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${encodeURIComponent(dataAdress)}`);
-          // const geoData = await geoResponse.json();
-          // if (geoData.length > 0 && geoData[0].geojson) {
-          //     setGeoResult(geoData[0].geojson);
-          // } else {
-          //     console.error('無法找到指定縣市的邊界數據');
-          // }
           setMapError("");
           setMapResult(
             data.address.city ||
@@ -73,13 +63,11 @@ const Map: React.FC<{
           setLoadingLocation(false);
         } catch (error) {
           toast.error("偵測失敗，請改用手動選擇 !", {
-            theme: "dark",
             position: "top-center",
           });
           setMapResult("");
           setMapError("偵測失效(請手動選擇)");
           setLoadingLocation(false);
-          console.error("Error fetching location:", error);
         }
       },
     });
@@ -106,7 +94,6 @@ const Map: React.FC<{
     >(null);
 
     useEffect(() => {
-      // console.log(geoResult);
       setGeoResult(null);
     }, [position]);
 
@@ -116,7 +103,6 @@ const Map: React.FC<{
       const center: [number, number] = [e.latlng.lat, e.latlng.lng];
       const zoomLevel = 9;
       map.setView(center, zoomLevel);
-      // map.flyTo(center, zoomLevel);
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`
@@ -127,14 +113,6 @@ const Map: React.FC<{
         const data = await response.json();
         const dataAdress: string =
           data.address.city || data.address.county || data.address.country;
-        // const geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${encodeURIComponent(dataAdress)}`);
-        // const geoData = await geoResponse.json();
-        // if (geoData.length > 0 && geoData[0].geojson) {
-        //     setGeoResult(geoData[0].geojson);
-        // } else {
-        //     console.error('無法找到指定縣市的邊界數據');
-        // }
-        // console.log(dataAdress);
         setMapError("");
         setMapResult(
           data.address.city ||
@@ -150,7 +128,6 @@ const Map: React.FC<{
         setMapResult("");
         setMapError("海洋");
         setLoadingLocation(false);
-        console.error("Error fetching location:", error);
       }
     });
     return position === null ? null : (
@@ -169,7 +146,6 @@ const Map: React.FC<{
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
           zoom={7}
-          // scrollWheelZoom={false}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -181,7 +157,6 @@ const Map: React.FC<{
         <MapContainer
           center={[23.6408469, 121.0225183, 10]}
           zoom={7}
-          // scrollWheelZoom={false}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

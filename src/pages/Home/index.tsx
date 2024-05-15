@@ -44,10 +44,9 @@ const Home: React.FC<{
           setAllItemsOfMonth(items);
           setDays(Object.keys(docSnap.data()).reverse());
         } else {
-          // docSnap.data() will be undefined in this case
+          // if docSnap.data() not exists
           setAllItemsOfMonth([]);
           setDays([]);
-          console.log("No such document!");
         }
       })();
     }

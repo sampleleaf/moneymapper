@@ -49,8 +49,6 @@ const Login: React.FC<{
           trigger: middle.current,
           start: "center bottom",
           toggleActions: "restart resume resume reverse",
-          // end: "bottom bottom",
-          // scrub: true,
         },
         x: 0,
         opacity: 1,
@@ -64,8 +62,6 @@ const Login: React.FC<{
         trigger: backToTop.current,
         start: "top bottom",
         toggleActions: "restart resume resume reset",
-        // end: "bottom bottom",
-        // scrub: true,
       },
       y: 0,
       opacity: 1,
@@ -109,9 +105,6 @@ const Login: React.FC<{
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
         setIsSignUp(false);
         toast.error(
           <span>
@@ -134,7 +127,6 @@ const Login: React.FC<{
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // console.log("Document data:", docSnap.data());
           localStorage.setItem("loginData", JSON.stringify(docSnap.data()));
           setIsSignIn(false);
           setLogin(localStorage.getItem("loginData"));
@@ -144,9 +136,6 @@ const Login: React.FC<{
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
         setIsSignIn(false);
         toast.error(
           <span>

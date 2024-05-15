@@ -41,8 +41,6 @@ const Remainder: React.FC<{
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // console.log(docSnap.data());
-          // console.log(Object.keys(docSnap.data()));
           const dayLength = Object.keys(docSnap.data()).length;
           const googleArray = [];
           for (let i = 0; i < dayLength; i++) {
@@ -62,23 +60,19 @@ const Remainder: React.FC<{
               }
             }, 0);
             const remainOfDay = totalIncomeOfDay - totalPayOfDay;
-            // console.log(totalPayEachDay, totalIncomeEachDay)
             googleArray.push([
               `${months}月${Object.keys(docSnap.data())[i]}日`,
               totalIncomeOfDay,
               totalPayOfDay,
               remainOfDay,
             ]);
-            // console.log(docSnap.data()[Object.keys(docSnap.data())[i]])
           }
-          // console.log(googleArray);
           const reversedArray = [...googleArray].reverse();
           setGoogleData(googleArray);
           setReverseData(reversedArray);
         } else {
-          // docSnap.data() will be undefined in this case
+          // if docSnap.data() not exists
           setGoogleData([]);
-          console.log("No such document!");
         }
       })();
     }
@@ -98,7 +92,6 @@ const Remainder: React.FC<{
   const googleChartData = [["日期", "收入", "支出", "結餘"], ...googleData];
 
   const googleChartOptions = {
-    // title: "Company Performance",
     curveType: "function",
     legend: { position: "bottom" },
     series: {

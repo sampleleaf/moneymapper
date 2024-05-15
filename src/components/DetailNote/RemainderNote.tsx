@@ -32,13 +32,8 @@ const RemainderNote: React.FC<{
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          //   console.log("Document data:", docSnap.data());
           const itemsOfDay: Item[] = docSnap.data()[day];
-          // console.log(itemsOfDay);
           setItems(itemsOfDay);
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
         }
       })();
     }
