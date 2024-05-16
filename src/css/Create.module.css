@@ -18,6 +18,20 @@
     position: relative;
 }
 
+.back{
+    position: absolute;
+    height: 20px;
+    top: 77px;
+    left: 15px;
+    color: black;
+    z-index: 5;
+}
+
+.back svg{
+    width: 20px;
+    height: 20px;
+}
+
 .budgetContainer{
     margin: 10px;
     margin-bottom: 0;
@@ -197,6 +211,10 @@
     .mapFrame{
         width: 50%;
     }
+    .back{
+        top: 87px;
+        left: 35px;
+    }
     .gridContainer{
         display: grid;
         grid-template-columns: calc(100% - 390px) 390px;
@@ -280,6 +298,9 @@
 @media screen and ( min-width : 1068px ){
     .mapSpace{
         z-index: 9;
+    }
+    .back{
+        display: none;
     }
     .gridContainer{
         display: grid;

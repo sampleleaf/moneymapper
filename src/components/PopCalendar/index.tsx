@@ -60,8 +60,6 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          // console.log(Object.keys(docSnap.data()))
-          console.log(docSnap.data()[selectday]);
           setDayItems(docSnap.data()[selectday]);
         }
       })();
@@ -98,7 +96,6 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             (day) =>
               new Date(newDate.getFullYear(), newDate.getMonth(), Number(day))
           );
-          console.log(forCustomDates);
           setCalendarMark(forCustomDates);
           //switch Calendar view
           onChange(

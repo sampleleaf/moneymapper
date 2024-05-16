@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
@@ -233,6 +233,9 @@ const Create: React.FC<{
         <p>新手教學</p>
       </div>
       <div className={create.gridContainer}>
+        <Link to="/" className={create.back}>
+          <i className="fa-solid fa-chevron-left"></i>
+        </Link>
         <Calendar
           onChange={onChange}
           value={value}

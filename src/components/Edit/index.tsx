@@ -228,8 +228,8 @@ const Edit: React.FC<{
           <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div className={edit.cross} onClick={handleCloseEdit}>
-        <i className="fa-solid fa-xmark"></i>
-      </div>
+          <i className="fa-solid fa-xmark"></i>
+        </div>
         <div className={edit.calendarBar}>
           <div onClick={handleYesterday}>
             <i className="fa-solid fa-caret-left"></i>
@@ -260,7 +260,9 @@ const Edit: React.FC<{
               <p>項目</p>
               <p>：</p>
               <img
-                src={payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`}
+                src={
+                  payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`
+                }
                 alt={
                   payPage ? `${payItem}` || "早餐" : `${incomeItem}` || "薪水"
                 }
