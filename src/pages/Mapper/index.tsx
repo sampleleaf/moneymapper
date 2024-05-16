@@ -7,7 +7,7 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Switch from "react-switch";
 import mapper from "@/css/Mapper.module.css";
-import { driver } from "driver.js";
+import { mapperDriver } from "@/utils/driver";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -89,42 +89,9 @@ const Mapper: React.FC<{
     setAutoMap(nextChecked);
   };
 
-  const driverObj = driver({
-    showProgress: true,
-    steps: [
-      {
-        element: "#selectMap",
-        popover: {
-          title: "切換偵測地區的方式",
-          description:
-            "自動：點擊地圖會偵測您所在的地區<br>手動：點擊地圖會偵測您選擇的地區",
-          side: "bottom",
-          align: "center",
-        },
-      },
-      {
-        element: "#mapper",
-        popover: {
-          title: "點地圖",
-          description: "點完後就會顯示您的地區平均收支",
-          side: "top",
-          align: "center",
-        },
-      },
-      {
-        popover: {
-          title: "貼心提醒",
-          description: "記帳時有記錄地區才會顯示喔!",
-          align: "center",
-        },
-      },
-      // More steps...
-    ],
-  });
-
   return (
     <>
-      <div className="manualDriver" onClick={() => driverObj.drive()}>
+      <div className="manualDriver" onClick={() => mapperDriver()}>
         <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>

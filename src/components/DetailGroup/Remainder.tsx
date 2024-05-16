@@ -5,7 +5,7 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import RemainderNote from "../DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
-import { driver } from "driver.js";
+import { detailDriver } from "@/utils/driver";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -109,28 +109,14 @@ const Remainder: React.FC<{
     },
   };
 
-  const driverObj = driver({
-    showProgress: true,
-    steps: [
-      {
-        element: "#list",
-        popover: {
-          title: googleData.length > 0 ? "結餘詳情" : "教學",
-          description:
-            googleData.length > 0
-              ? "點選項目可以看到當日明細"
-              : "先記一筆帳才有後續教學喔!",
-          side: "top",
-          align: "center",
-        },
-      },
-      // More steps...
-    ],
-  });
-
   return (
     <>
-      <div className="manualDriver" onClick={() => driverObj.drive()}>
+      <div
+        className="manualDriver"
+        onClick={() =>
+          detailDriver(googleData, "結餘詳情", "當日", "帳").drive()
+        }
+      >
         <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>

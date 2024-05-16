@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useOutletContext, Link } from "react-router-dom";
 import detailGroup from "@/css/DetailGroup.module.css";
 import PayNote from "@/components/DetailNote/PayNote";
-import { driver } from "driver.js";
 import useDetailGroupData from "@/utils/hook/useDetailGroupData";
+import { detailDriver } from "@/utils/driver";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -20,7 +20,11 @@ const Pay: React.FC<{
   const [popItem, setPopItem] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);
 
-  const { googleData, days, reverseDays } = useDetailGroupData(years, months, false);
+  const { googleData, days, reverseDays } = useDetailGroupData(
+    years,
+    months,
+    false
+  );
 
   const totalPay =
     googleData &&
@@ -48,28 +52,14 @@ const Pay: React.FC<{
     setIsPop(false);
   };
 
-  const driverObj = driver({
-    showProgress: true,
-    steps: [
-      {
-        element: "#list",
-        popover: {
-          title: googleData.length > 0 ? "支出明細" : "教學",
-          description:
-            googleData.length > 0
-              ? "點選項目可以看到項目明細"
-              : "先記一筆支出才有後續教學喔!",
-          side: "top",
-          align: "center",
-        },
-      },
-      // More steps...
-    ],
-  });
-
   return (
     <>
-      <div className="manualDriver" onClick={() => driverObj.drive()}>
+      <div
+        className="manualDriver"
+        onClick={() =>
+          detailDriver(googleData, "支出明細", "支出", "支出").drive()
+        }
+      >
         <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>

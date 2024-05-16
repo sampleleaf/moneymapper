@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
-import { driver } from "driver.js";
+import { homeDriver, driverStep0, driverStep3 } from "@/utils/driver";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -57,46 +57,18 @@ const Home: React.FC<{
     (async () => {
       if (response !== null) {
         const data = JSON.parse(response);
+        const docRef = doc(db, "users", data.id);
         if (data.driverStep === 0) {
-          driver({
-            steps: [
-              {
-                element: "#add",
-                popover: {
-                  title: "記一筆新帳",
-                  description: "跳轉到記帳頁面",
-                  side: "top",
-                  align: "center",
-                },
-              },
-              // More steps...
-            ],
-          }).drive();
+          driverStep0();
           data.driverStep = 1;
           localStorage.setItem("loginData", JSON.stringify(data));
-          const docRef = doc(db, "users", data.id);
           await updateDoc(docRef, {
             driverStep: 1,
           });
         } else if (data.driverStep === 3) {
-          driver({
-            steps: [
-              {
-                element: "#item",
-                popover: {
-                  title: "編輯和刪除",
-                  description:
-                    "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目",
-                  side: "top",
-                  align: "center",
-                },
-              },
-              // More steps...
-            ],
-          }).drive();
+          driverStep3();
           data.driverStep = 4;
           localStorage.setItem("loginData", JSON.stringify(data));
-          const docRef = doc(db, "users", data.id);
           await updateDoc(docRef, {
             driverStep: 4,
           });
@@ -145,37 +117,9 @@ const Home: React.FC<{
     chartArea: { top: "5%", width: "90%", height: "90%" },
   };
 
-  const driverObj = driver({
-    showProgress: true,
-    steps: [
-      {
-        element: "#add",
-        popover: {
-          title: "記一筆新帳",
-          description: "跳轉到記帳頁面",
-          side: "top",
-          align: "center",
-        },
-      },
-      {
-        element: "#item",
-        popover: {
-          title: Object.keys(days).length > 0 ? "編輯和刪除" : "教學",
-          description:
-            Object.keys(days).length > 0
-              ? "點選項目就會彈出編輯視窗<br>點選垃圾桶可以刪出項目"
-              : "先記一筆帳才有後續教學喔!",
-          side: "top",
-          align: "center",
-        },
-      },
-      // More steps...
-    ],
-  });
-
   return (
     <>
-      <div className="manualDriver" onClick={() => driverObj.drive()}>
+      <div className="manualDriver" onClick={() => homeDriver(days).drive()}>
         <img src="images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>

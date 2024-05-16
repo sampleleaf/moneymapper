@@ -9,7 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
-import { driver } from "driver.js";
+import { createDriver } from "@/utils/driver";
 
 type ValuePiece = Date | null;
 
@@ -40,7 +40,7 @@ const Create: React.FC<{
       if (response !== null) {
         const data = JSON.parse(response);
         if (data.driverStep === 1) {
-          driverObj.drive();
+          createDriver()
           data.driverStep = 2;
           localStorage.setItem("loginData", JSON.stringify(data));
           const docRef = doc(db, "users", data.id);
@@ -116,7 +116,7 @@ const Create: React.FC<{
   };
 
   const handlePrice = (price: string) => {
-    if (price[0] == "-" || price[0] == "+") {
+    if (price[0] === "-" || price[0] === "+") {
       setPriceLimit(true);
       setPriceHint("請輸入數字");
     } else if (!price) {
@@ -144,76 +144,6 @@ const Create: React.FC<{
     }
   };
 
-  const driverObj = driver({
-    showProgress: true,
-    steps: [
-      {
-        element: ".calendarDriver",
-        popover: {
-          title: "確認日期",
-          description: "可以點選來選擇日期",
-          side: "bottom",
-          align: "center",
-        },
-      },
-      {
-        element: "#budget",
-        popover: {
-          title: "選擇支出或收入",
-          description: "可以切換不同圖示，圖示可以點選",
-          side: "bottom",
-          align: "center",
-        },
-      },
-      {
-        element: "#itemResult",
-        popover: {
-          title: "確認項目",
-          description: "點選的圖示，會顯示在這邊",
-          side: "top",
-          align: "center",
-        },
-      },
-      {
-        element: "#price",
-        popover: {
-          title: "金額",
-          description: "必填欄位，只能輸入數字",
-          side: "top",
-          align: "center",
-        },
-      },
-      {
-        element: "#note",
-        popover: {
-          title: "備註",
-          description: "選填欄位，給喜歡詳細記錄的您",
-          side: "top",
-          align: "center",
-        },
-      },
-      {
-        element: "#location",
-        popover: {
-          title: "地區",
-          description: "選填欄位，想查看地區收支記得要填",
-          side: "top",
-          align: "center",
-        },
-      },
-      {
-        element: "#submit",
-        popover: {
-          title: "提交",
-          description: "確認填寫無誤的話，就送出吧!",
-          side: "top",
-          align: "center",
-        },
-      },
-      // More steps...
-    ],
-  });
-
   return (
     <>
       {mapWindow && (
@@ -228,7 +158,7 @@ const Create: React.FC<{
           </div>
         </div>
       )}
-      <div className="manualDriver" onClick={() => driverObj.drive()}>
+      <div className="manualDriver" onClick={() => createDriver()}>
         <img src="images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
