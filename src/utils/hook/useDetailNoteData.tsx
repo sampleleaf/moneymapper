@@ -24,9 +24,7 @@ const useDetailNoteData = (
     if (response !== null && popItem) {
       const data = JSON.parse(response);
       (async () => {
-        const yearString = years.toString();
-        const monthString = months.toString();
-        const docRef = doc(db, "users", data.id, yearString, monthString);
+        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const allItemsOfDay: Item[] = docSnap.data()[day];

@@ -53,9 +53,7 @@ const DayItem: React.FC<{
     if (response !== null) {
       const data = JSON.parse(response);
       (async () => {
-        const yearString = years.toString();
-        const monthString = months.toString();
-        const docRef = doc(db, "users", data.id, yearString, monthString);
+        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setItems(docSnap.data()[day]);
@@ -86,10 +84,7 @@ const DayItem: React.FC<{
     const response = localStorage.getItem("loginData");
     if (response !== null) {
       const data = JSON.parse(response);
-      const yearString = years.toString();
-      const monthString = months.toString();
-      const docRef = doc(db, "users", data.id, yearString, monthString);
-      // console.log(item);
+      const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
       await updateDoc(docRef, {
         [day]: arrayRemove(item),
       });

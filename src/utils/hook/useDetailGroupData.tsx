@@ -12,9 +12,7 @@ const useDetailGroupData = (years: number, months: number, isPositive: boolean) 
         if (response !== null) {
           const data = JSON.parse(response);
           (async () => {
-            const yearString = years.toString();
-            const monthString = months.toString();
-            const docRef = doc(db, "users", data.id, yearString, monthString);
+            const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
               //days of array

@@ -85,11 +85,9 @@ const Edit: React.FC<{
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
-    const yearString = years.toString();
-    const monthString = months.toString();
     if (response !== null && value) {
       const data = JSON.parse(response);
-      const docRef = doc(db, "users", data.id, yearString, monthString);
+      const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
       await updateDoc(docRef, {
         [day]: arrayRemove(item),
       });
@@ -102,10 +100,10 @@ const Edit: React.FC<{
         });
       }
       //update new
-      const editYear = (value as Date).getFullYear().toString();
-      const editMonth = ((value as Date).getMonth() + 1).toString();
+      const editYear = (value as Date).getFullYear();
+      const editMonth = ((value as Date).getMonth() + 1);
       const editDate = (value as Date).getDate();
-      const editRef = doc(db, "users", data.id, editYear, editMonth);
+      const editRef = doc(db, "users", data.id, `${editYear}`, `${editMonth}`);
       const editSnap = await getDoc(editRef);
       if (editSnap.exists()) {
         await updateDoc(editRef, {
