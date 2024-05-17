@@ -31,7 +31,6 @@ const Home: React.FC<{
     if (response !== null && years) {
       const data = JSON.parse(response);
       (async () => {
-        console.log(years)
         const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
