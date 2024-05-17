@@ -63,8 +63,6 @@ const Edit: React.FC<{
 
   const handleSubmit = async (
     e: React.FormEvent,
-    item: Item,
-    isPositive: boolean
   ) => {
     e.preventDefault();
     setIsSending(true);
@@ -93,9 +91,9 @@ const Edit: React.FC<{
         await updateDoc(editRef, {
           [editDate]: arrayUnion({
             id: item.id,
-            item: isPositive ? incomeItem : payItem,
+            item: payPage ? payItem : incomeItem,
             note: itemNote,
-            price: isPositive ? parseInt(price) : -parseInt(price),
+            price: payPage ? -parseInt(price) : parseInt(price),
             location: location,
           }),
         });
@@ -103,9 +101,9 @@ const Edit: React.FC<{
         await setDoc(editRef, {
           [editDate]: arrayUnion({
             id: item.id,
-            item: isPositive ? incomeItem : payItem,
+            item: payPage ? payItem : incomeItem,
             note: itemNote,
-            price: isPositive ? parseInt(price) : -parseInt(price),
+            price: payPage ? -parseInt(price) : parseInt(price),
             location: location,
           }),
         });
@@ -117,14 +115,6 @@ const Edit: React.FC<{
       setPopEdit(false);
     }
     setItemRemoved(true);
-  };
-
-  const handlePaySubmit = (e: React.FormEvent, item: Item) => {
-    handleSubmit(e, item, false);
-  };
-
-  const handleIncomeSubmit = (e: React.FormEvent, item: Item) => {
-    handleSubmit(e, item, true);
   };
 
   const handleCloseEdit = () => {
@@ -221,11 +211,7 @@ const Edit: React.FC<{
           setIncomeItem={setIncomeItem}
         />
         <form
-          onSubmit={
-            payPage
-              ? (e) => handlePaySubmit(e, item)
-              : (e) => handleIncomeSubmit(e, item)
-          }
+          onSubmit={handleSubmit}
         >
           <div className={edit.inputGroup}>
             <div className={edit.inputItem}>
