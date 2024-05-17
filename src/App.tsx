@@ -11,19 +11,14 @@ import Mapper from "./pages/Mapper";
 import Pay from "@/components/DetailGroup/Pay";
 import Income from "@/components/DetailGroup/Income";
 import Remainder from "@/components/DetailGroup/Remainder";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import "driver.js/dist/driver.css";
-import { DateContext } from "@/context/dateContext";
 import { useDate } from "./utils/zustand";
-
-interface DateContextType {
-  payPage: boolean;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { useFinance } from "./utils/zustand";
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<string | null>(
@@ -34,7 +29,7 @@ const App: React.FC = () => {
   const [detailsHighlighted, setDetailsHighlighted] = useState<string>("")
 
   const {years, months, value, onChange} = useDate()
-  const {payPage, setPayPage} = useContext(DateContext) as DateContextType
+  const {payPage, setPayPage} = useFinance()
 
   return (
     <>

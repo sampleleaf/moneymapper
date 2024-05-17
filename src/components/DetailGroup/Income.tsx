@@ -12,7 +12,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 type ContextType = { years: number; months: number };
 
 const Income: React.FC<{
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
+  setPayPage: (boolean: boolean) => void;
   onChange: (value: Value) => void;
 }> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();

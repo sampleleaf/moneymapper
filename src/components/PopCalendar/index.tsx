@@ -1,22 +1,18 @@
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { useState, useContext, useEffect } from "react";
-import { DateContext } from "@/context/dateContext";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import popCalendar from "@/css/PopCalendar.module.css";
 import { Link } from "react-router-dom";
 import images from "@/utils/images";
 import { useDate } from "@/utils/zustand";
+import { useFinance } from "@/utils/zustand";
 
 interface Images {
   [key: string]: string;
 }
 
 const imagesObj = images as Images
-
-interface DateContextType {
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 interface Item {
   id: string;
@@ -29,7 +25,7 @@ interface Item {
 const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
   setIsPopCalender,
 }) => {
-  const { setPayPage } = useContext(DateContext) as DateContextType;
+  const { setPayPage } = useFinance()
   const { years, months, value, onChange} = useDate()
   const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
   const [dayItems, setDayItems] = useState<Item[] | null>(null);

@@ -15,7 +15,7 @@ const Home: React.FC<{
   years: number;
   months: number;
   onChange: (value: Value) => void;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
+  setPayPage: (boolean: boolean) => void;
 }> = ({ years, months, onChange, setPayPage }) => {
   const [days, setDays] = useState<string[]>([]);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<

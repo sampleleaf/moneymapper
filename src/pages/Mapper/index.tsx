@@ -16,7 +16,7 @@ const Mapper: React.FC<{
   years: number;
   months: number;
   onChange: (value: Value) => void;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
+  setPayPage: (boolean: boolean) => void;
 }> = ({ years, months, onChange, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);

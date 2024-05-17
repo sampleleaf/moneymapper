@@ -2,7 +2,7 @@ import budget from "@/css/Budget.module.css";
 
 const Budget: React.FC<{
   payPage: boolean;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
+  setPayPage: (boolean: boolean) => void;
   setPayItem: React.Dispatch<React.SetStateAction<string>>;
   setIncomeItem: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ payPage, setPayPage, setPayItem, setIncomeItem }) => {

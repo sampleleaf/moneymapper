@@ -11,9 +11,12 @@ interface DateType {
     setMonths : (month: number) => void;
     value: Value;
     onChange: (value: Value) => void;
-    // payPage: boolean;
-    // setPayPage: React.Dispatch<React.SetStateAction<boolean>>
   }
+
+interface FinanceType {
+    payPage: boolean;
+    setPayPage: (boolean: boolean) => void
+}
 
 export const useDate = create<DateType>((set) => ({
     years: new Date().getFullYear(),
@@ -23,4 +26,9 @@ export const useDate = create<DateType>((set) => ({
     setMonths: (month) => set({months : month}),
     value: new Date(),
     onChange: (value) => set({value})
+}))
+
+export const useFinance = create<FinanceType>((set) => ({
+    payPage: true,
+    setPayPage: (boolean) => set({payPage: boolean})
 }))
