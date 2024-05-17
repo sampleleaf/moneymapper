@@ -39,11 +39,11 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="create" element={<Create />} />
-            <Route path="details" element={<Details years={years} months={months} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
+            <Route path="details" element={<Details detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
               <Route index element={<Navigate replace={true} to="pay"/>} />
-              <Route path="pay" element={<Pay setPayPage={setPayPage} onChange={onChange} />} />
-              <Route path="income" element={<Income setPayPage={setPayPage} onChange={onChange} />} />
-              <Route path="remainder" element={<Remainder setPayPage={setPayPage} onChange={onChange} />} />
+              <Route path="pay" element={<Pay />} />
+              <Route path="income" element={<Income />} />
+              <Route path="remainder" element={<Remainder />} />
             </Route>
             <Route path="mapper" element={<Mapper years={years} months={months} onChange={onChange} setPayPage={setPayPage} />} />
           </Routes>

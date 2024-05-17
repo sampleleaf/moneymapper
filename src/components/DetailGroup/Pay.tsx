@@ -1,21 +1,17 @@
 import { Chart } from "react-google-charts";
 import { useState } from "react";
-import { useOutletContext, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import detailGroup from "@/css/DetailGroup.module.css";
 import PayNote from "@/components/DetailNote/PayNote";
 import useDetailGroupData from "@/utils/hook/useDetailGroupData";
 import { detailDriver } from "@/utils/driver";
+import { useDate } from "@/utils/zustand";
+import { useFinance } from "@/utils/zustand";
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+const Pay: React.FC = () => {
+  const {years, months, onChange} = useDate()
+  const {setPayPage} = useFinance()
 
-type ContextType = { years: number; months: number };
-
-const Pay: React.FC<{
-  setPayPage: (boolean: boolean) => void;
-  onChange: (value: Value) => void;
-}> = ({ setPayPage, onChange }) => {
-  const { years, months } = useOutletContext<ContextType>();
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);

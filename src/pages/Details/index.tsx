@@ -2,18 +2,12 @@ import details from "@/css/Details.module.css";
 import YearMonth from "@/components/YearMonth";
 import { Link, Outlet } from "react-router-dom";
 
-type ContextType = { years: number; months: number };
-
 const Details: React.FC<{
-  years: number;
-  months: number;
   detailsTranslateX: string;
   setDetailsTranslateX: React.Dispatch<React.SetStateAction<string>>;
   detailsHighlighted: string;
   setDetailsHighlighted: React.Dispatch<React.SetStateAction<string>>;
 }> = ({
-  years,
-  months,
   detailsTranslateX,
   setDetailsTranslateX,
   detailsHighlighted,
@@ -59,7 +53,7 @@ const Details: React.FC<{
         </div>
       </div>
       <div className={details.space}></div>
-      <Outlet context={{ years, months } satisfies ContextType} />
+      <Outlet />
     </div>
   );
 };

@@ -1,16 +1,13 @@
 import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
-import { useOutletContext, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import RemainderNote from "../DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
 import { detailDriver } from "@/utils/driver";
-
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-type ContextType = { years: number; months: number };
+import { useDate } from "@/utils/zustand";
+import { useFinance } from "@/utils/zustand";
 
 interface Item {
   id: string;
@@ -20,11 +17,10 @@ interface Item {
   location: string;
 }
 
-const Remainder: React.FC<{
-  setPayPage: (boolean: boolean) => void;
-  onChange: (value: Value) => void;
-}> = ({ setPayPage, onChange }) => {
-  const { years, months } = useOutletContext<ContextType>();
+const Remainder: React.FC = () => {
+  const {years, months, onChange} = useDate()
+  const {setPayPage} = useFinance()
+
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popDate, setPopDate] = useState<string | number>("");
