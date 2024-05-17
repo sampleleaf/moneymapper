@@ -12,11 +12,10 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Item } from "@/interfaces";
+import { useDate } from "@/utils/zustand";
 
 const DayItem: React.FC<{
   day: string;
-  months: number;
-  years: number;
   itemRemoved: boolean;
   setItemRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   popId: string;
@@ -27,8 +26,6 @@ const DayItem: React.FC<{
   setRemindDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({
   day,
-  months,
-  years,
   itemRemoved,
   setItemRemoved,
   popId,
@@ -38,6 +35,8 @@ const DayItem: React.FC<{
   remindDelete,
   setRemindDelete,
 }) => {
+  const {years, months} = useDate()
+
   const [items, setItems] = useState<Item[]>([]);
   const [isSending, setIsSending] = useState<boolean>(false);
 
@@ -131,8 +130,6 @@ const DayItem: React.FC<{
                     setPopEdit={setPopEdit}
                     setItemRemoved={setItemRemoved}
                     setPopId={setPopId}
-                    years={years}
-                    months={months}
                     day={day}
                   />
                 )}

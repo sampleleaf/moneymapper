@@ -165,8 +165,6 @@ const Home: React.FC = () => {
               <DayItem
                 key={day}
                 day={day}
-                months={months}
-                years={years}
                 itemRemoved={itemRemoved}
                 setItemRemoved={setItemRemoved}
                 popId={popId}

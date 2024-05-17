@@ -15,28 +15,18 @@ import {
 } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-interface Item {
-  id: string;
-  item: string;
-  note: string;
-  price: number;
-  location: string;
-}
+import { Item, Value } from "@/interfaces";
+import { useDate } from "@/utils/zustand";
 
 const Edit: React.FC<{
   item: Item;
   setPopEdit: React.Dispatch<React.SetStateAction<boolean>>;
   setItemRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   setPopId: React.Dispatch<React.SetStateAction<string>>;
-  years: number;
-  months: number;
   day: string;
-}> = ({ item, setPopEdit, setItemRemoved, setPopId, years, months, day }) => {
+}> = ({ item, setPopEdit, setItemRemoved, setPopId, day }) => {
+  const { years, months } = useDate();
+
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string>(item.location);
@@ -60,15 +50,9 @@ const Edit: React.FC<{
   const [priceHint, setPriceHint] = useState<string>("");
   const [noteLimit, setNoteLimit] = useState<boolean>(false);
 
-  const handleYesterday = () => {
+  const handleChangeDay = (day: number) => {
     const newDate = new Date(value as Date);
-    newDate.setDate(newDate.getDate() - 1);
-    onChange(newDate);
-  };
-
-  const handleTommorrow = () => {
-    const newDate = new Date(value as Date);
-    newDate.setDate(newDate.getDate() + 1);
+    newDate.setDate(newDate.getDate() + day);
     onChange(newDate);
   };
 
@@ -101,7 +85,7 @@ const Edit: React.FC<{
       }
       //update new
       const editYear = (value as Date).getFullYear();
-      const editMonth = ((value as Date).getMonth() + 1);
+      const editMonth = (value as Date).getMonth() + 1;
       const editDate = (value as Date).getDate();
       const editRef = doc(db, "users", data.id, `${editYear}`, `${editMonth}`);
       const editSnap = await getDoc(editRef);
@@ -229,14 +213,14 @@ const Edit: React.FC<{
           <i className="fa-solid fa-xmark"></i>
         </div>
         <div className={edit.calendarBar}>
-          <div onClick={handleYesterday}>
+          <div onClick={() => handleChangeDay(-1)}>
             <i className="fa-solid fa-caret-left"></i>
           </div>
           <div onClick={() => setCalendarWindow(true)}>
             {(value as Date)?.getFullYear()}/{(value as Date)?.getMonth() + 1}/
             {(value as Date)?.getDate()}
           </div>
-          <div onClick={handleTommorrow}>
+          <div onClick={() => handleChangeDay(1)}>
             <i className="fa-solid fa-caret-right"></i>
           </div>
         </div>
