@@ -23,18 +23,15 @@ const App: React.FC = () => {
     localStorage.getItem("loginData")
   );
 
-  const [detailsTranslateX, setDetailsTranslateX] = useState<string>("")
-  const [detailsHighlighted, setDetailsHighlighted] = useState<string>("")
-
   return (
     <>
       {login ? (
         <>
-          <Header setLogin={setLogin} setDetailsTranslateX={setDetailsTranslateX} setDetailsHighlighted={setDetailsHighlighted} />
+          <Header setLogin={setLogin} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="create" element={<Create />} />
-            <Route path="details" element={<Details detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
+            <Route path="details" element={<Details />} >
               <Route index element={<Navigate replace={true} to="pay"/>} />
               <Route path="pay" element={<Pay />} />
               <Route path="income" element={<Income />} />

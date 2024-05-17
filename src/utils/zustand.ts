@@ -15,7 +15,14 @@ interface DateType {
 
 interface FinanceType {
     payPage: boolean;
-    setPayPage: (boolean: boolean) => void
+    setPayPage: (boolean: boolean) => void;
+}
+
+interface DetailBarType {
+    detailsTranslateX: string;
+    setDetailsTranslateX: (translateX: string) => void;
+    detailsHighlighted: string;
+    setDetailsHighlighted: (color: string) => void
 }
 
 export const useDate = create<DateType>((set) => ({
@@ -31,4 +38,11 @@ export const useDate = create<DateType>((set) => ({
 export const useFinance = create<FinanceType>((set) => ({
     payPage: true,
     setPayPage: (boolean) => set({payPage: boolean})
+}))
+
+export const useDetailBar = create<DetailBarType>((set) => ({
+    detailsTranslateX: "",
+    setDetailsTranslateX: (translateX) => set({detailsTranslateX: translateX}),
+    detailsHighlighted: "",
+    setDetailsHighlighted: (color) => set({detailsHighlighted: color})
 }))

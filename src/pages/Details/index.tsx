@@ -1,33 +1,15 @@
 import details from "@/css/Details.module.css";
 import YearMonth from "@/components/YearMonth";
 import { Link, Outlet } from "react-router-dom";
+import { useDetailBar } from "@/utils/zustand";
 
-const Details: React.FC<{
-  detailsTranslateX: string;
-  setDetailsTranslateX: React.Dispatch<React.SetStateAction<string>>;
-  detailsHighlighted: string;
-  setDetailsHighlighted: React.Dispatch<React.SetStateAction<string>>;
-}> = ({
-  detailsTranslateX,
-  setDetailsTranslateX,
-  detailsHighlighted,
-  setDetailsHighlighted,
-}) => {
+const Details: React.FC = () => {
+  const {detailsTranslateX, setDetailsTranslateX, detailsHighlighted, setDetailsHighlighted} = useDetailBar()
 
-  const handleDetailPay = () => {
-    setDetailsTranslateX("translateX(-102.5%)");
-    setDetailsHighlighted("rgb(255, 193, 190)");
-  };
-
-  const handleDetailIncome = () => {
-    setDetailsTranslateX("translateX(0)");
-    setDetailsHighlighted("rgb(158, 225, 255)");
-  };
-
-  const handleDetailRemainder = () => {
-    setDetailsTranslateX("translateX(102.5%)");
-    setDetailsHighlighted("rgb(218, 173, 235)");
-  };
+  const handleDetailBar = (translateX: string, color: string) => {
+    setDetailsTranslateX(translateX)
+    setDetailsHighlighted(color)
+  }
 
   return (
     <div className={details.layout}>
@@ -41,13 +23,13 @@ const Details: React.FC<{
           }}
         ></div>
         <div className={details.navbarContainer}>
-          <Link onClick={handleDetailPay} to="pay">
+          <Link onClick={() => handleDetailBar("translateX(-102.5%)", "rgb(255, 193, 190)")} to="pay">
             支出
           </Link>
-          <Link onClick={handleDetailIncome} to="income">
+          <Link onClick={() => handleDetailBar("translateX(0)", "rgb(158, 225, 255)")} to="income">
             收入
           </Link>
-          <Link onClick={handleDetailRemainder} to="remainder">
+          <Link onClick={() => handleDetailBar("translateX(102.5%)", "rgb(218, 173, 235)")} to="remainder">
             結餘
           </Link>
         </div>

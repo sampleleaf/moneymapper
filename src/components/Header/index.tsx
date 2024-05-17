@@ -2,13 +2,14 @@ import header from "@/css/Header.module.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogoutButton from "../LogoutButton";
+import { useDetailBar } from "@/utils/zustand";
 
 const Header: React.FC<{
   setLogin: React.Dispatch<React.SetStateAction<string | null>>;
-  setDetailsTranslateX: React.Dispatch<React.SetStateAction<string>>;
-  setDetailsHighlighted: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ setLogin, setDetailsTranslateX, setDetailsHighlighted }) => {
+}> = ({ setLogin }) => {
   const navigate = useNavigate();
+  const { setDetailsTranslateX, setDetailsHighlighted } = useDetailBar();
+
   const [sidebar, setSidebar] = useState<boolean>(false);
   const [popLogout, setPopLogout] = useState<boolean>(false);
 
@@ -20,27 +21,10 @@ const Header: React.FC<{
     setLogin(localStorage.getItem("loginData"));
   };
 
-  const handleSidebar = () => {
-    setSidebar(!sidebar);
-  };
-
-  const handleDetailPay = () => {
-    setDetailsTranslateX("translateX(-102.5%)");
-    setDetailsHighlighted("rgb(255, 193, 190)");
-    setSidebar(!sidebar);
-  };
-
-  const handleDetailIncome = () => {
-    setDetailsTranslateX("translateX(0)");
-    setDetailsHighlighted("rgb(158,225,255)");
-    setSidebar(!sidebar);
-  };
-
-  const handleDetailRemainder = () => {
-    setDetailsTranslateX("translateX(102.5%)");
-    setDetailsHighlighted("rgb(218, 173, 235)");
-    setSidebar(!sidebar);
-  };
+  const handleDetailBar = (translateX: string, color: string) => {
+    setDetailsTranslateX(translateX)
+    setDetailsHighlighted(color)
+  }
 
   return (
     <>
@@ -63,7 +47,7 @@ const Header: React.FC<{
         </div>
       )}
       <div
-        onClick={handleSidebar}
+        onClick={() => setSidebar(false)}
         className={header.sidebarBackground}
         style={
           sidebar
@@ -85,23 +69,23 @@ const Header: React.FC<{
               <p>{loginData && JSON.parse(loginData).name}</p>
             </h3>
             <div className={header.sidebarContainer}>
-              <Link to="/" onClick={() => setSidebar(!sidebar)}>
+              <Link to="/" onClick={() => setSidebar(false)}>
                 <i className="fa-solid fa-house"></i>
                 首頁
               </Link>
-              <Link onClick={handleDetailPay} to="details/pay">
+              <Link onClick={() => {handleDetailBar("translateX(-102.5%)", "rgb(255, 193, 190)"); setSidebar(false)}} to="details/pay">
                 <i className="fa-solid fa-hand-holding-dollar"></i>
                 支出
               </Link>
-              <Link onClick={handleDetailIncome} to="details/income">
+              <Link onClick={() => {handleDetailBar("translateX(0)", "rgb(158, 225, 255)"); setSidebar(false)}} to="details/income">
                 <i className="fa-solid fa-sack-dollar"></i>
                 收入
               </Link>
-              <Link onClick={handleDetailRemainder} to="details/remainder">
+              <Link onClick={() => {handleDetailBar("translateX(102.5%)", "rgb(218, 173, 235)"); setSidebar(false)}} to="details/remainder">
                 <i className="fa-solid fa-chart-line"></i>
                 結餘
               </Link>
-              <Link to="mapper" onClick={() => setSidebar(!sidebar)}>
+              <Link to="mapper" onClick={() => setSidebar(false)}>
                 <i className="fa-solid fa-map-location-dot"></i>
                 地區收支
               </Link>
@@ -110,13 +94,16 @@ const Header: React.FC<{
         </div>
       </div>
       <div className={header.container}>
-        <div onClick={handleSidebar} className={header.bar}>
+        <div onClick={() => setSidebar(!sidebar)} className={header.bar}>
           <i className="fa-solid fa-bars"></i>
         </div>
         <Link to="/">
           <div className={header.title}>MoneyMapper</div>
         </Link>
-        <div className={header.iconContainer} onClick={() => setPopLogout(true)}>
+        <div
+          className={header.iconContainer}
+          onClick={() => setPopLogout(true)}
+        >
           <LogoutButton />
         </div>
       </div>
