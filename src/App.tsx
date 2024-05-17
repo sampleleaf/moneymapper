@@ -18,15 +18,9 @@ import { Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import "driver.js/dist/driver.css";
 import { DateContext } from "@/context/dateContext";
-
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+import { useDate } from "./utils/zustand";
 
 interface DateContextType {
-  years: number;
-  months: number;
-  value: Value;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
   payPage: boolean;
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -39,7 +33,8 @@ const App: React.FC = () => {
   const [detailsTranslateX, setDetailsTranslateX] = useState<string>("")
   const [detailsHighlighted, setDetailsHighlighted] = useState<string>("")
 
-  const {years, months, value, onChange, payPage, setPayPage} = useContext(DateContext) as DateContextType
+  const {years, months, value, onChange} = useDate()
+  const {payPage, setPayPage} = useContext(DateContext) as DateContextType
 
   return (
     <>

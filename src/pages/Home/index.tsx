@@ -14,7 +14,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 const Home: React.FC<{
   years: number;
   months: number;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  onChange: (value: Value) => void;
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ years, months, onChange, setPayPage }) => {
   const [days, setDays] = useState<string[]>([]);
@@ -28,9 +28,10 @@ const Home: React.FC<{
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
-    if (response !== null) {
+    if (response !== null && years) {
       const data = JSON.parse(response);
       (async () => {
+        console.log(years)
         const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {

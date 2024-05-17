@@ -15,7 +15,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 const Mapper: React.FC<{
   years: number;
   months: number;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  onChange: (value: Value) => void;
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ years, months, onChange, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);

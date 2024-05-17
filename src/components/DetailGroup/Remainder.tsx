@@ -22,7 +22,7 @@ interface Item {
 
 const Remainder: React.FC<{
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  onChange: (value: Value) => void;
 }> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
@@ -36,9 +36,7 @@ const Remainder: React.FC<{
     if (response !== null) {
       const data = JSON.parse(response);
       (async () => {
-        const yearString = years.toString();
-        const monthString = months.toString();
-        const docRef = doc(db, "users", data.id, yearString, monthString);
+        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const dayLength = Object.keys(docSnap.data()).length;

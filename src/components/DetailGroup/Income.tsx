@@ -13,7 +13,7 @@ type ContextType = { years: number; months: number };
 
 const Income: React.FC<{
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  onChange: (value: Value) => void;
 }> = ({ setPayPage, onChange }) => {
   const { years, months } = useOutletContext<ContextType>();
   const [isPop, setIsPop] = useState<boolean>(false);

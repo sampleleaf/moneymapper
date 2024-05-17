@@ -17,7 +17,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const Create: React.FC<{
   value: Value;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
+  onChange: (value: Value) => void;
   payPage: boolean;
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ value, onChange, payPage, setPayPage }) => {

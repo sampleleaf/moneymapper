@@ -1,18 +1,11 @@
 import yearMonth from "@/css/YearMonth.module.css";
 import PopCalendar from "../PopCalendar";
-import { useState, useContext } from "react";
-import { DateContext } from "@/context/dateContext";
+import { useState } from "react";
 import images from "@/utils/images";
-
-interface DateContextType {
-  years: number;
-  setYears: React.Dispatch<React.SetStateAction<number>>;
-  months: number;
-  setMonths: React.Dispatch<React.SetStateAction<number>>;
-}
+import { useDate } from "@/utils/zustand";
 
 const YearMonth: React.FC = () => {
-  const { years, setYears, months, setMonths } = useContext(DateContext) as DateContextType;
+  const { years, setPlusYear, setMinusYear, months, setMonths} = useDate()
 
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
   const [isPopCalendar, setIsPopCalender] = useState<boolean>(false);
@@ -63,20 +56,20 @@ const YearMonth: React.FC = () => {
           <div className={yearMonth.selectYear}>
             <div
               className={yearMonth.tenYear}
-              onClick={() => setYears((prev: number) => prev - 10)}
+              onClick={() => setMinusYear(10)}
             >
               <i className="fa-solid fa-backward"></i>
             </div>
-            <div onClick={() => setYears((prev: number) => prev - 1)}>
+            <div onClick={() => setMinusYear(1)}>
               <i className="fa-solid fa-caret-left"></i>
             </div>
             <p>{years}</p>
-            <div onClick={() => setYears((prev: number) => prev + 1)}>
+            <div onClick={() => setPlusYear(1)}>
               <i className="fa-solid fa-caret-right"></i>
             </div>
             <div
               className={yearMonth.tenYear}
-              onClick={() => setYears((prev: number) => prev + 10)}
+              onClick={() => setPlusYear(10)}
             >
               <i className="fa-solid fa-forward"></i>
             </div>

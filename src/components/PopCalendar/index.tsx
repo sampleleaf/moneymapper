@@ -6,6 +6,7 @@ import Calendar from "react-calendar";
 import popCalendar from "@/css/PopCalendar.module.css";
 import { Link } from "react-router-dom";
 import images from "@/utils/images";
+import { useDate } from "@/utils/zustand";
 
 interface Images {
   [key: string]: string;
@@ -14,15 +15,8 @@ interface Images {
 const imagesObj = images as Images
 
 interface DateContextType {
-  years: number;
-  months: number;
-  value: Value;
-  onChange: React.Dispatch<React.SetStateAction<Value>>;
   setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface Item {
   id: string;
@@ -32,20 +26,17 @@ interface Item {
   location: string | undefined;
 }
 
-const date = new Date().getDate();
-
 const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
   setIsPopCalender,
 }) => {
-  const { years, months, value, onChange, setPayPage } = useContext(
-    DateContext
-  ) as DateContextType;
+  const { setPayPage } = useContext(DateContext) as DateContextType;
+  const { years, months, value, onChange} = useDate()
   const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
   const [dayItems, setDayItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
     if (value) {
-      handleCalendarChange(new Date(`${years}-${months}-${date}`));
+      handleCalendarChange(new Date(`${years}-${months}-${(value as Date).getDate()}`));
     }
   }, []);
 
@@ -84,8 +75,10 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
     if (response !== null && value && newDate) {
       const data = JSON.parse(response);
       (async () => {
+        //newDate return year month which we view on the Calendar
         const yearString = newDate.getFullYear().toString();
         const monthString = (newDate.getMonth() + 1).toString();
+        //default day of newDate is first day, so I pass the day by value 
         const selectday = (value as Date).getDate();
         const docRef = doc(db, "users", data.id, yearString, monthString);
         const docSnap = await getDoc(docRef);
@@ -97,7 +90,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
               new Date(newDate.getFullYear(), newDate.getMonth(), Number(day))
           );
           setCalendarMark(forCustomDates);
-          //switch Calendar view
+          //change value
           onChange(
             new Date(
               newDate.getFullYear(),
@@ -106,7 +99,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             )
           );
         } else {
-          //even docSnap not exists, still switch Calendar view
+          //even docSnap not exists, still change value
           onChange(
             new Date(
               newDate.getFullYear(),
@@ -164,7 +157,8 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
         className="calendarDriver"
         tileClassName={tileClassName}
         onActiveStartDateChange={({ activeStartDate }) =>
-          handleCalendarChange(activeStartDate)
+          //when calendar view change, trigger function below
+          handleCalendarChange(activeStartDate) 
         }
       />
       <div className={popCalendar.calculate}>
