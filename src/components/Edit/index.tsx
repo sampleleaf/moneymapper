@@ -95,12 +95,7 @@ const Edit: React.FC<{
             id: item.id,
             item: isPositive ? incomeItem : payItem,
             note: itemNote,
-            price:
-              parseInt(price) == 0
-                ? 0
-                : isPositive
-                ? parseInt(price)
-                : -parseInt(price),
+            price: isPositive ? parseInt(price) : -parseInt(price),
             location: location,
           }),
         });
@@ -110,12 +105,7 @@ const Edit: React.FC<{
             id: item.id,
             item: isPositive ? incomeItem : payItem,
             note: itemNote,
-            price:
-              parseInt(price) == 0
-                ? 0
-                : isPositive
-                ? parseInt(price)
-                : -parseInt(price),
+            price: isPositive ? parseInt(price) : -parseInt(price),
             location: location,
           }),
         });
