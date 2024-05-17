@@ -10,18 +10,15 @@ import { toast } from "react-toastify";
 import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 import { createDriver } from "@/utils/driver";
+import { useDate } from "@/utils/zustand";
+import { useFinance } from "@/utils/zustand";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-const Create: React.FC<{
-  value: Value;
-  onChange: (value: Value) => void;
-  payPage: boolean;
-  setPayPage: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ value, onChange, payPage, setPayPage }) => {
+const Create: React.FC = () => {
   const navigate = useNavigate();
+
+  const {value, onChange} = useDate()
+  const {payPage, setPayPage} = useFinance()
+
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string | undefined>("");

@@ -28,8 +28,8 @@ const App: React.FC = () => {
   const [detailsTranslateX, setDetailsTranslateX] = useState<string>("")
   const [detailsHighlighted, setDetailsHighlighted] = useState<string>("")
 
-  const {years, months, value, onChange} = useDate()
-  const {payPage, setPayPage} = useFinance()
+  const {years, months, onChange} = useDate()
+  const {setPayPage} = useFinance()
 
   return (
     <>
@@ -37,8 +37,8 @@ const App: React.FC = () => {
         <>
           <Header setLogin={setLogin} setDetailsTranslateX={setDetailsTranslateX} setDetailsHighlighted={setDetailsHighlighted} />
           <Routes>
-            <Route path="/" element={<Home years={years} months={months} onChange={onChange} setPayPage={setPayPage} />} />
-            <Route path="create" element={<Create value={value} onChange={onChange} payPage={payPage} setPayPage={setPayPage} />} />
+            <Route path="/" element={<Home />} />
+            <Route path="create" element={<Create />} />
             <Route path="details" element={<Details years={years} months={months} detailsTranslateX={detailsTranslateX} setDetailsTranslateX={setDetailsTranslateX} detailsHighlighted={detailsHighlighted} setDetailsHighlighted={setDetailsHighlighted} />} >
               <Route index element={<Navigate replace={true} to="pay"/>} />
               <Route path="pay" element={<Pay setPayPage={setPayPage} onChange={onChange} />} />

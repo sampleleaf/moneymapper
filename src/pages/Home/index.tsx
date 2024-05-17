@@ -7,16 +7,13 @@ import { db } from "@/utils/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 import { homeDriver, driverStep0, driverStep3 } from "@/utils/driver";
+import { useDate } from "@/utils/zustand";
+import { useFinance } from "@/utils/zustand";
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+const Home: React.FC = () => {
+  const {years, months, onChange} = useDate()
+  const {setPayPage} = useFinance()
 
-const Home: React.FC<{
-  years: number;
-  months: number;
-  onChange: (value: Value) => void;
-  setPayPage: (boolean: boolean) => void;
-}> = ({ years, months, onChange, setPayPage }) => {
   const [days, setDays] = useState<string[]>([]);
   const [allItemsOfMonth, setAllItemsOfMonth] = useState<
     { price: number; item: string; id: string }[]
