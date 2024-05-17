@@ -54,7 +54,7 @@ const Create: React.FC = () => {
     setMapResult("");
   };
 
-  const handleSubmit = async (e: React.FormEvent, isPay: boolean) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
@@ -65,8 +65,8 @@ const Create: React.FC = () => {
       const day = (value as Date).getDate();
       const specificUser = doc(db, "users", data.id, year, month);
       const docSnap = await getDoc(specificUser);
-      const operationItem = isPay ? payItem : incomeItem;
-      const operationPrice = isPay ? -parseInt(price) : parseInt(price);
+      const operationItem = payPage ? payItem : incomeItem;
+      const operationPrice = payPage ? -parseInt(price) : parseInt(price);
       if (docSnap.exists()) {
         await updateDoc(specificUser, {
           [day]: arrayUnion({
@@ -102,14 +102,6 @@ const Create: React.FC = () => {
       }
       navigate("/");
     }
-  };
-
-  const handlePaySubmit = (e: React.FormEvent) => {
-    handleSubmit(e, true);
-  };
-
-  const handleIncomeSubmit = (e: React.FormEvent) => {
-    handleSubmit(e, false);
   };
 
   const handlePrice = (price: string) => {
@@ -188,7 +180,7 @@ const Create: React.FC = () => {
         </div>
         <form
           className={create.formCard}
-          onSubmit={payPage ? handlePaySubmit : handleIncomeSubmit}
+          onSubmit={handleSubmit}
         >
           <div className={create.inputGroup}>
             <div className={create.inputItem} id="itemResult">
