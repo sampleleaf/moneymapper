@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import { db } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import detailNote from "@/css/DetailNote.module.css";
-
-interface Item {
-  id: string;
-  item: string;
-  note: string;
-  price: number;
-  location: string;
-}
+import { Item } from "@/interfaces";
 
 const RemainderNote: React.FC<{
   date: string | number;

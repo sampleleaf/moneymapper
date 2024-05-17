@@ -1,29 +1,5 @@
 import { create } from "zustand"
-
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-interface DateType {
-    years: number;
-    setPlusYear: (number: number) => void;
-    setMinusYear: (number: number) => void;
-    months: number;
-    setMonths : (month: number) => void;
-    value: Value;
-    onChange: (value: Value) => void;
-  }
-
-interface FinanceType {
-    payPage: boolean;
-    setPayPage: (boolean: boolean) => void;
-}
-
-interface DetailBarType {
-    detailsTranslateX: string;
-    setDetailsTranslateX: (translateX: string) => void;
-    detailsHighlighted: string;
-    setDetailsHighlighted: (color: string) => void
-}
+import { DateType, FinanceType, DetailBarType } from "@/interfaces";
 
 export const useDate = create<DateType>((set) => ({
     years: new Date().getFullYear(),

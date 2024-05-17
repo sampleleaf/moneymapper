@@ -11,11 +11,7 @@ import {
 } from "react-leaflet";
 import { geo } from "@/taiwanGeo";
 import { LatLng } from "leaflet";
-
-interface TaiwanGeoType {
-  type: string;
-  coordinates: number[][][] | number[][][][];
-}
+import { TaiwanGeoType } from "@/interfaces";
 
 const Map: React.FC<{
   setMapResult: React.Dispatch<React.SetStateAction<string>>;

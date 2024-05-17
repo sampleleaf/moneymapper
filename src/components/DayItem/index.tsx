@@ -11,14 +11,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
-interface Item {
-  id: string;
-  item: string;
-  note: string;
-  price: number;
-  location: string;
-}
+import { Item } from "@/interfaces";
 
 const DayItem: React.FC<{
   day: string;

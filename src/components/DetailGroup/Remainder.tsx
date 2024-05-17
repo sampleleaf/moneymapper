@@ -8,14 +8,7 @@ import detailGroup from "@/css/DetailGroup.module.css";
 import { detailDriver } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
-
-interface Item {
-  id: string;
-  item: string;
-  note: string;
-  price: number;
-  location: string;
-}
+import { Item } from "@/interfaces";
 
 const Remainder: React.FC = () => {
   const {years, months, onChange} = useDate()

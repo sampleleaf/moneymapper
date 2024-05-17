@@ -7,20 +7,9 @@ import { Link } from "react-router-dom";
 import images from "@/utils/images";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
-
-interface Images {
-  [key: string]: string;
-}
+import { Item, Images } from "@/interfaces";
 
 const imagesObj = images as Images
-
-interface Item {
-  id: string;
-  item: string;
-  note: string;
-  price: number;
-  location: string | undefined;
-}
 
 const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
   setIsPopCalender,
