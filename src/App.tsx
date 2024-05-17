@@ -17,8 +17,6 @@ import { ToastContainer } from 'react-toastify';
 import { Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import "driver.js/dist/driver.css";
-import { useDate } from "./utils/zustand";
-import { useFinance } from "./utils/zustand";
 
 const App: React.FC = () => {
   const [login, setLogin] = useState<string | null>(
@@ -27,9 +25,6 @@ const App: React.FC = () => {
 
   const [detailsTranslateX, setDetailsTranslateX] = useState<string>("")
   const [detailsHighlighted, setDetailsHighlighted] = useState<string>("")
-
-  const {years, months, onChange} = useDate()
-  const {setPayPage} = useFinance()
 
   return (
     <>
@@ -45,7 +40,7 @@ const App: React.FC = () => {
               <Route path="income" element={<Income />} />
               <Route path="remainder" element={<Remainder />} />
             </Route>
-            <Route path="mapper" element={<Mapper years={years} months={months} onChange={onChange} setPayPage={setPayPage} />} />
+            <Route path="mapper" element={<Mapper />} />
           </Routes>
           <ToastContainer autoClose={1000} pauseOnFocusLoss={false} transition={Zoom} draggablePercent={50} />
         </>

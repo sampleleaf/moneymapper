@@ -8,16 +8,13 @@ import { doc, getDoc } from "firebase/firestore";
 import Switch from "react-switch";
 import mapper from "@/css/Mapper.module.css";
 import { mapperDriver } from "@/utils/driver";
+import { useDate } from "@/utils/zustand";
+import { useFinance } from "@/utils/zustand";
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+const Mapper: React.FC = () => {
+  const {years, months, onChange} = useDate()
+  const {setPayPage} = useFinance()
 
-const Mapper: React.FC<{
-  years: number;
-  months: number;
-  onChange: (value: Value) => void;
-  setPayPage: (boolean: boolean) => void;
-}> = ({ years, months, onChange, setPayPage }) => {
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
   const [mapResult, setMapResult] = useState<string>("");
