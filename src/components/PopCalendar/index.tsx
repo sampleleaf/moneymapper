@@ -61,11 +61,12 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
       const data = JSON.parse(response);
       (async () => {
         //newDate return year month which we view on the Calendar
-        const yearString = newDate.getFullYear().toString();
-        const monthString = (newDate.getMonth() + 1).toString();
+        const year = newDate.getFullYear();
+        const month = (newDate.getMonth() + 1);
+        console.log(month)
         //default day of newDate is first day, so I pass the day by value 
         const selectday = (value as Date).getDate();
-        const docRef = doc(db, "users", data.id, yearString, monthString);
+        const docRef = doc(db, "users", data.id, `${year}`, `${month}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           //mark calendar
@@ -77,20 +78,12 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
           setCalendarMark(forCustomDates);
           //change value
           onChange(
-            new Date(
-              newDate.getFullYear(),
-              newDate.getMonth(),
-              Number(selectday)
-            )
+            new Date(`${year}-${month}-${Number(selectday)}`)
           );
         } else {
           //even docSnap not exists, still change value
           onChange(
-            new Date(
-              newDate.getFullYear(),
-              newDate.getMonth(),
-              Number(selectday)
-            )
+            new Date(`${year}-${month}-${Number(selectday)}`)
           );
         }
       })();
@@ -176,7 +169,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             <img src={imagesObj.write} alt="write" />
             <div className={popCalendar.remind}>
               <p>
-                {years}年{months - 1}月{(value as Date).getDate()}日無記帳記錄
+                {(value as Date).getFullYear()}年{(value as Date).getMonth() + 1}月{(value as Date).getDate()}日無記帳記錄
               </p>
             </div>
             <p>點選下方按鈕記帳</p>
