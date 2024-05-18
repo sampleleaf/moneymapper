@@ -1,18 +1,17 @@
 import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import RemainderNote from "../DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
 import { detailDriver } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
 import { Item } from "@/interfaces";
+import { getFireStore } from "@/utils/reviseFireStore";
 
 const Remainder: React.FC = () => {
-  const {years, months, onChange} = useDate()
-  const {setPayPage} = useFinance()
+  const { years, months, onChange } = useDate();
+  const { setPayPage } = useFinance();
 
   const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
@@ -25,42 +24,35 @@ const Remainder: React.FC = () => {
     if (response !== null) {
       const data = JSON.parse(response);
       (async () => {
-        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const dayLength = Object.keys(docSnap.data()).length;
-          const googleArray = [];
-          for (let i = 0; i < dayLength; i++) {
-            const items = docSnap.data()[Object.keys(docSnap.data())[i]];
-            const totalPayOfDay = items.reduce((acc: number, cur: Item) => {
+        const itemsOfMonth = await getFireStore("users", data.id, years, months);
+        const daysOfMonth = Object.keys(itemsOfMonth)
+        const dayLength = Object.keys(itemsOfMonth).length;
+        const googleArray = [];
+        for (let i = 0; i < dayLength; i++) {
+          const dayOfMonth = daysOfMonth[i]
+          const items = itemsOfMonth[dayOfMonth];
+          const { totalPayOfDay, totalIncomeOfDay } = items.reduce(
+            (acc: { [key: string]: number }, cur: Item) => {
               if (cur.price < 0) {
-                return acc + Math.abs(cur.price);
-              } else {
-                return acc;
+                acc.totalPayOfDay += Math.abs(cur.price);
+              } else if (cur.price > 0) {
+                acc.totalIncomeOfDay += cur.price;
               }
-            }, 0);
-            const totalIncomeOfDay = items.reduce((acc: number, cur: Item) => {
-              if (cur.price > 0) {
-                return acc + cur.price;
-              } else {
-                return acc;
-              }
-            }, 0);
-            const remainOfDay = totalIncomeOfDay - totalPayOfDay;
-            googleArray.push([
-              `${months}月${Object.keys(docSnap.data())[i]}日`,
-              totalIncomeOfDay,
-              totalPayOfDay,
-              remainOfDay,
-            ]);
-          }
-          const reversedArray = [...googleArray].reverse();
-          setGoogleData(googleArray);
-          setReverseData(reversedArray);
-        } else {
-          // if docSnap.data() not exists
-          setGoogleData([]);
+              return acc;
+            },
+            { totalPayOfDay: 0, totalIncomeOfDay: 0 }
+          );
+          const remainOfDay = totalIncomeOfDay - totalPayOfDay;
+          googleArray.push([
+            `${months}月${dayOfMonth}日`,
+            totalIncomeOfDay,
+            totalPayOfDay,
+            remainOfDay,
+          ]);
         }
+        const reversedArray = [...googleArray].reverse();
+        setGoogleData(googleArray);
+        setReverseData(reversedArray);
       })();
     }
   }, [years, months]);
