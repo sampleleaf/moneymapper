@@ -3,7 +3,7 @@ import create from "@/css/Create.module.css";
 import Loader from "@/components/Loader";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/utils/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,6 +12,7 @@ import Budget from "@/components/Budget";
 import { createDriver } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
+import { setFireStore } from "@/utils/reviseFireStore";
 
 const Create: React.FC = () => {
   const navigate = useNavigate();
@@ -49,45 +50,25 @@ const Create: React.FC = () => {
     })();
   }, []);
 
-  const handleClearLocation = () => {
-    setLocation("");
-    setMapResult("");
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
-      const year = (value as Date).getFullYear().toString();
-      const month = ((value as Date).getMonth() + 1).toString();
       const day = (value as Date).getDate();
-      const specificUser = doc(db, "users", data.id, year, month);
-      const docSnap = await getDoc(specificUser);
       const operationItem = payPage ? payItem : incomeItem;
       const operationPrice = payPage ? -parseInt(price) : parseInt(price);
-      if (docSnap.exists()) {
-        await updateDoc(specificUser, {
-          [day]: arrayUnion({
-            id: uuidv4(),
-            item: operationItem,
-            note: itemNote,
-            price: operationPrice,
-            location: location,
-          }),
-        });
-      } else {
-        await setDoc(specificUser, {
-          [day]: arrayUnion({
-            id: uuidv4(),
-            item: operationItem,
-            note: itemNote,
-            price: operationPrice,
-            location: location,
-          }),
-        });
+      const setData = {
+        [day]: arrayUnion({
+          id: uuidv4(),
+          item: operationItem,
+          note: itemNote,
+          price: operationPrice,
+          location: location,
+        }),
       }
+      await setFireStore("users", data.id, setData, value)
       setIsSending(false);
       toast.success("新增成功 !", {
         position: "top-left",
@@ -267,7 +248,7 @@ const Create: React.FC = () => {
                 <div>
                   <i className="fa-solid fa-map-location-dot"></i>
                 </div>
-                {location && <span onClick={handleClearLocation}>清空</span>}
+                {location && <span onClick={() => setLocation("")}>清空</span>}
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ export interface Images {
 
 //for zustand
 type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+export type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export interface DateType {
     years: number;

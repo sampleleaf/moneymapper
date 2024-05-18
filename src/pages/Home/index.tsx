@@ -4,20 +4,20 @@ import YearMonth from "@/components/YearMonth";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "@/utils/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { Chart } from "react-google-charts";
 import { homeDriver, driverStep0, driverStep3 } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
+import { getFireStore } from "@/utils/reviseFireStore";
+import { Item } from "@/interfaces";
 
 const Home: React.FC = () => {
-  const {years, months, onChange} = useDate()
-  const {setPayPage} = useFinance()
+  const { years, months, onChange } = useDate();
+  const { setPayPage } = useFinance();
 
   const [days, setDays] = useState<string[]>([]);
-  const [allItemsOfMonth, setAllItemsOfMonth] = useState<
-    { price: number; item: string; id: string }[]
-  >([]);
+  const [allItemsOfMonth, setAllItemsOfMonth] = useState<Item[]>([]);
   const [itemRemoved, setItemRemoved] = useState<boolean>(false);
   const [popEdit, setPopEdit] = useState<boolean>(false);
   const [remindDelete, setRemindDelete] = useState<boolean>(false);
@@ -28,21 +28,16 @@ const Home: React.FC = () => {
     if (response !== null && years) {
       const data = JSON.parse(response);
       (async () => {
-        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const dayLength = Object.keys(docSnap.data()).length;
-          const items = [];
-          for (let i = 0; i < dayLength; i++) {
-            items.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
-          }
-          setAllItemsOfMonth(items);
-          setDays(Object.keys(docSnap.data()).reverse());
-        } else {
-          // if docSnap.data() not exists
-          setAllItemsOfMonth([]);
-          setDays([]);
+        const itemsOfMonth = await getFireStore("users", data.id, `${years}`, `${months}`);
+        const daysOfMonth = Object.keys(itemsOfMonth);
+        const dayLength = daysOfMonth.length;
+        const allItems = [];
+        for (let i = 0; i < dayLength; i++) {
+          const dayOfMonth: string = daysOfMonth[i];
+          allItems.push(...itemsOfMonth[dayOfMonth]);
         }
+        setAllItemsOfMonth(allItems);
+        setDays(daysOfMonth.reverse());
       })();
     }
   }, [months, years, itemRemoved]);
@@ -72,28 +67,21 @@ const Home: React.FC = () => {
     })();
   }, []);
 
-  const monthPay =
+  const { monthPay, monthIncome } =
     allItemsOfMonth &&
-    allItemsOfMonth.reduce((acc, cur) => {
-      if (cur.price < 0) {
-        return acc + cur.price;
-      } else {
+    allItemsOfMonth.reduce(
+      (acc, cur) => {
+        if (cur.price < 0) {
+          acc.monthPay += cur.price;
+        } else if (cur.price > 0) {
+          acc.monthIncome += cur.price;
+        }
         return acc;
-      }
-    }, 0);
+      },
+      { monthPay: 0, monthIncome: 0 }
+    );
 
-  const monthIncome =
-    allItemsOfMonth &&
-    allItemsOfMonth.reduce((acc, cur) => {
-      if (cur.price > 0) {
-        return acc + cur.price;
-      } else {
-        return acc;
-      }
-    }, 0);
-
-  const monthRemainder =
-    allItemsOfMonth && allItemsOfMonth.reduce((acc, cur) => acc + cur.price, 0);
+  const monthRemainder = monthPay + monthIncome
 
   const googleChartData = [
     ["Major", "Degrees"],
