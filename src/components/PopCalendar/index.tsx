@@ -1,5 +1,3 @@
-import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import popCalendar from "@/css/PopCalendar.module.css";
@@ -8,20 +6,23 @@ import images from "@/utils/images";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
 import { Item, Images } from "@/interfaces";
+import { getFireStore } from "@/utils/reviseFireStore";
 
-const imagesObj = images as Images
+const imagesObj = images as Images;
 
 const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
   setIsPopCalender,
 }) => {
-  const { setPayPage } = useFinance()
-  const { years, months, value, onChange} = useDate()
+  const { setPayPage } = useFinance();
+  const { years, months, value, onChange } = useDate();
   const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
   const [dayItems, setDayItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
     if (value) {
-      handleCalendarChange(new Date(`${years}-${months}-${(value as Date).getDate()}`));
+      handleCalendarChange(
+        new Date(`${years}-${months}-${(value as Date).getDate()}`)
+      );
     }
   }, []);
 
@@ -30,14 +31,11 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
     if (response !== null && value) {
       const data = JSON.parse(response);
       (async () => {
-        const yearString = (value as Date).getFullYear().toString();
-        const monthString = ((value as Date).getMonth() + 1).toString();
+        const year = (value as Date).getFullYear();
+        const month = (value as Date).getMonth() + 1;
         const selectday = (value as Date).getDate();
-        const docRef = doc(db, "users", data.id, yearString, monthString);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setDayItems(docSnap.data()[selectday]);
-        }
+        const itemsOfMonth = await getFireStore("users", data.id, year, month);
+        setDayItems(itemsOfMonth[selectday]);
       })();
     }
   }, [value]);
@@ -55,60 +53,41 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
     return "";
   };
 
-  const handleCalendarChange = (newDate: Date | null) => {
+  const handleCalendarChange = (activeStartDate: Date | null) => {
     const response = localStorage.getItem("loginData");
-    if (response !== null && value && newDate) {
+    if (response !== null && value && activeStartDate) {
       const data = JSON.parse(response);
       (async () => {
-        //newDate return year month which we view on the Calendar
-        const year = newDate.getFullYear();
-        const month = (newDate.getMonth() + 1);
-        console.log(month)
-        //default day of newDate is first day, so I pass the day by value 
+        //activeStartDate return year month which we view on the Calendar
+        const year = activeStartDate.getFullYear();
+        const month = activeStartDate.getMonth() + 1;
+        //default day of activeStartDate is first day, so I pass the day by value
         const selectday = (value as Date).getDate();
-        const docRef = doc(db, "users", data.id, `${year}`, `${month}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          //mark calendar
-          const days = Object.keys(docSnap.data());
-          const forCustomDates = days.map(
-            (day) =>
-              new Date(newDate.getFullYear(), newDate.getMonth(), Number(day))
-          );
-          setCalendarMark(forCustomDates);
-          //change value
-          onChange(
-            new Date(`${year}-${month}-${Number(selectday)}`)
-          );
-        } else {
-          //even docSnap not exists, still change value
-          onChange(
-            new Date(`${year}-${month}-${Number(selectday)}`)
-          );
-        }
+        const itemsOfMonth = await getFireStore("users", data.id, year, month);
+        const daysOfMonth = Object.keys(itemsOfMonth);
+        const timeStampOfAccountedDays = daysOfMonth.map(
+          (day) => new Date(year, month - 1, Number(day))
+        );
+        setCalendarMark(timeStampOfAccountedDays);
+        //change value
+        onChange(new Date(`${year}-${month}-${Number(selectday)}`));
       })();
     }
   };
 
-  const dayPay = dayItems
-    ? dayItems.reduce((acc, cur) => {
-        if (cur.price < 0) {
-          return acc + cur.price;
-        } else {
+  const { dayPay, dayIncome } = dayItems
+    ? dayItems.reduce(
+        (acc, cur) => {
+          if (cur.price < 0) {
+            acc.dayPay += cur.price;
+          } else if (cur.price > 0) {
+            acc.dayIncome += cur.price;
+          }
           return acc;
-        }
-      }, 0)
-    : 0;
-
-  const dayIncome = dayItems
-    ? dayItems.reduce((acc, cur) => {
-        if (cur.price > 0) {
-          return acc + cur.price;
-        } else {
-          return acc;
-        }
-      }, 0)
-    : 0;
+        },
+        { dayPay: 0, dayIncome: 0 }
+      )
+    : { dayPay: 0, dayIncome: 0 };
 
   const dayRemainder = dayPay + dayIncome;
 
@@ -136,7 +115,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
         tileClassName={tileClassName}
         onActiveStartDateChange={({ activeStartDate }) =>
           //when calendar view change, trigger function below
-          handleCalendarChange(activeStartDate) 
+          handleCalendarChange(activeStartDate)
         }
       />
       <div className={popCalendar.calculate}>
@@ -169,7 +148,9 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             <img src={imagesObj.write} alt="write" />
             <div className={popCalendar.remind}>
               <p>
-                {(value as Date).getFullYear()}年{(value as Date).getMonth() + 1}月{(value as Date).getDate()}日無記帳記錄
+                {(value as Date).getFullYear()}年
+                {(value as Date).getMonth() + 1}月{(value as Date).getDate()}
+                日無記帳記錄
               </p>
             </div>
             <p>點選下方按鈕記帳</p>
