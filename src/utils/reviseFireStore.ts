@@ -27,10 +27,10 @@ export const setFireStore = async (
 export const getFireStore = async (
   collection: string,
   documentId: string,
-  years: string,
-  months: string
+  years: number,
+  months: number
 ) => {
-  const docRef = doc(db, collection, documentId, years, months);
+  const docRef = doc(db, collection, documentId, `${years}`, `${months}`);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return docSnap.data();

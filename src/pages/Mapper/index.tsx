@@ -3,17 +3,16 @@ import YearMonth from "@/components/YearMonth";
 import BookLoader from "@/components/BookLoader";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import Switch from "react-switch";
 import mapper from "@/css/Mapper.module.css";
 import { mapperDriver } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
+import { getFireStore } from "@/utils/reviseFireStore";
 
 const Mapper: React.FC = () => {
-  const {years, months, onChange} = useDate()
-  const {setPayPage} = useFinance()
+  const { years, months, onChange } = useDate();
+  const { setPayPage } = useFinance();
 
   const [autoMap, setAutoMap] = useState<boolean>(true);
   const [loadingLocation, setLoadingLocation] = useState<boolean>(false);
@@ -21,11 +20,11 @@ const Mapper: React.FC = () => {
   const [mapError, setMapError] = useState<string>("");
   const [payCategories, setPayCategories] = useState<string[]>([]);
   const [priceOfPayCategories, setPriceOfPayCategories] = useState<{
-    [key: string]: number[];
+    [category: string]: number[];
   }>({});
   const [incomeCategories, setIncomeCategories] = useState<string[]>([]);
   const [priceOfIncomeCategories, setPriceOfIncomeCategories] = useState<{
-    [key: string]: number[];
+    [category: string]: number[];
   }>({});
 
   useEffect(() => {
@@ -33,49 +32,36 @@ const Mapper: React.FC = () => {
     if (response !== null && mapResult) {
       const data = JSON.parse(response);
       (async () => {
-        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const dayLength = Object.keys(docSnap.data()).length;
-          const allItems = [];
-          for (let i = 0; i < dayLength; i++) {
-            allItems.push(...docSnap.data()[Object.keys(docSnap.data())[i]]);
-          }
-          //pay category
-          const payItemsOfSameLocation = allItems.filter((item) => {
-            return item.location === mapResult && item.price < 0;
-          });
-          const payItemCategories: { [key: string]: number[] } = {};
-          payItemsOfSameLocation.forEach((item) => {
-            if (item.item in payItemCategories) {
-              payItemCategories[item.item].push(item.price);
-            } else {
-              payItemCategories[item.item] = [item.price];
-            }
-          });
-          setPriceOfPayCategories(payItemCategories);
-          setPayCategories(Object.keys(payItemCategories));
-          // income category
-          const incomeItemsOfSameLocation = allItems.filter((item) => {
-            return item.location === mapResult && item.price > 0;
-          });
-          const incomeItemCategories: { [key: string]: number[] } = {};
-          incomeItemsOfSameLocation.forEach((item) => {
-            if (item.item in incomeItemCategories) {
-              incomeItemCategories[item.item].push(item.price);
-            } else {
-              incomeItemCategories[item.item] = [item.price];
-            }
-          });
-          setPriceOfIncomeCategories(incomeItemCategories);
-          setIncomeCategories(Object.keys(incomeItemCategories));
-        } else {
-          // if docSnap.data() not exists
-          setPayCategories([]);
-          setPriceOfPayCategories({});
-          setIncomeCategories([]);
-          setPriceOfIncomeCategories({});
+        const itemsOfMonth = await getFireStore("users", data.id, years, months);
+        const dayLength = Object.keys(itemsOfMonth).length;
+        const allItems = [];
+        for (let i = 0; i < dayLength; i++) {
+          const dayOfMonth: string = Object.keys(itemsOfMonth)[i]
+          allItems.push(...itemsOfMonth[dayOfMonth]);
         }
+        const eachPayOfCategories: { [category: string]: number[] } = {};
+        const eachIncomeOfCategories: { [category: string]: number[] } = {};
+        allItems.forEach((item) => {
+          if (item.location === mapResult) {
+            if (item.price < 0) {
+              if (item.item in eachPayOfCategories) {
+                eachPayOfCategories[item.item].push(item.price);
+              } else {
+                eachPayOfCategories[item.item] = [item.price];
+              }
+            } else if (item.price > 0) {
+              if (item.item in eachIncomeOfCategories) {
+                eachIncomeOfCategories[item.item].push(item.price);
+              } else {
+                eachIncomeOfCategories[item.item] = [item.price];
+              }
+            }
+          }
+        });
+        setPriceOfPayCategories(eachPayOfCategories);
+        setPayCategories(Object.keys(eachPayOfCategories));
+        setPriceOfIncomeCategories(eachIncomeOfCategories);
+        setIncomeCategories(Object.keys(eachIncomeOfCategories));
       })();
     }
   }, [years, months, mapResult]);
