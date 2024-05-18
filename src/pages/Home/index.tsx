@@ -28,7 +28,7 @@ const Home: React.FC = () => {
     if (response !== null && years) {
       const data = JSON.parse(response);
       (async () => {
-        const itemsOfMonth = await getFireStore("users", data.id, `${years}`, `${months}`);
+        const itemsOfMonth = await getFireStore("users", data.id, years, months);
         const daysOfMonth = Object.keys(itemsOfMonth);
         const dayLength = daysOfMonth.length;
         const allItems = [];

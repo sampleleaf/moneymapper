@@ -3,7 +3,6 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-  deleteDoc,
   FieldValue,
 } from "firebase/firestore";
 import { db } from "./firebase";
