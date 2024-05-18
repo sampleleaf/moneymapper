@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { db } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import detailNote from "@/css/DetailNote.module.css";
 import { Item } from "@/interfaces";
+import { getFireStore } from "@/utils/reviseFireStore";
 
 const RemainderNote: React.FC<{
   date: string | number;
@@ -20,26 +19,15 @@ const RemainderNote: React.FC<{
     if (response !== null && date) {
       const data = JSON.parse(response);
       (async () => {
-        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const itemsOfDay: Item[] = docSnap.data()[day];
-          setItems(itemsOfDay);
-        }
+        const itemsOfMonth = await getFireStore("users", data.id, years, months);
+        const allItemsOfDay: Item[] = itemsOfMonth[day];
+        setItems(allItemsOfDay);
       })();
     }
   }, []);
 
   const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0);
-  const chineseDays = [
-    "星期日",
-    "星期一",
-    "星期二",
-    "星期三",
-    "星期四",
-    "星期五",
-    "星期六",
-  ];
+  const chineseDays = ["日", "一", "二", "三", "四", "五", "六"];
 
   return (
     <>
@@ -47,7 +35,9 @@ const RemainderNote: React.FC<{
         <div className={detailNote.dayRemainder}>
           <p>
             {years}/{months}/{day}{" "}
-            {`${chineseDays[new Date(`${years}-${months}-${day}`).getDay()]}`}
+            {`星期${
+              chineseDays[new Date(`${years}-${months}-${day}`).getDay()]
+            }`}
           </p>
           <p>${remainder}</p>
         </div>
