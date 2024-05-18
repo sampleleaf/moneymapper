@@ -1,18 +1,12 @@
 import dayItem from "@/css/DayItem.module.css";
-import { db } from "@/utils/firebase";
 import Edit from "@/components/Edit";
 import Loader from "../Loader";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  arrayRemove,
-  deleteField,
-} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Item } from "@/interfaces";
 import { useDate } from "@/utils/zustand";
+import { arrayRemove, deleteField } from "firebase/firestore";
+import { getFireStore, updateFireStore } from "@/utils/reviseFireStore";
 
 const DayItem: React.FC<{
   day: string;
@@ -35,7 +29,7 @@ const DayItem: React.FC<{
   remindDelete,
   setRemindDelete,
 }) => {
-  const {years, months} = useDate()
+  const { years, months } = useDate();
 
   const [items, setItems] = useState<Item[]>([]);
   const [isSending, setIsSending] = useState<boolean>(false);
@@ -45,11 +39,13 @@ const DayItem: React.FC<{
     if (response !== null) {
       const data = JSON.parse(response);
       (async () => {
-        const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setItems(docSnap.data()[day]);
-        }
+        const itemsOfMonth = await getFireStore(
+          "users",
+          data.id,
+          years,
+          months
+        );
+        setItems(itemsOfMonth[day]);
       })();
     }
     return () => setItemRemoved(false);
@@ -66,29 +62,20 @@ const DayItem: React.FC<{
     setPopId(id);
   };
 
-  const handleItemRemove = async (
-    e: React.MouseEvent,
-    item: object,
-    day: string
-  ) => {
-    e.stopPropagation();
-    setIsSending(true)
+  const handleItemRemove = async (item: object) => {
+    setIsSending(true);
     const response = localStorage.getItem("loginData");
     if (response !== null) {
       const data = JSON.parse(response);
-      const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-      await updateDoc(docRef, {
-        [day]: arrayRemove(item),
-      });
+      const deleteItemOfDay = { [day]: arrayRemove(item) };
+      await updateFireStore("users", data.id, years, months, deleteItemOfDay);
       //if [day] is empty array, delete it
-      const docSnapshot = await getDoc(docRef);
-      const docData = docSnapshot.data();
-      if (docData && Array.isArray(docData[day]) && docData[day].length === 0) {
-        await updateDoc(docRef, {
-          [day]: deleteField(),
-        });
+      const itemsOfMonth = await getFireStore("users", data.id, years, months);
+      if (itemsOfMonth[day].length === 0) {
+        const deleteDay = { [day]: deleteField() };
+        await updateFireStore("users", data.id, years, months, deleteDay);
       }
-      setIsSending(false)
+      setIsSending(false);
       setItemRemoved(true);
       setRemindDelete(false);
       toast.success("成功刪除 !", {
@@ -98,7 +85,7 @@ const DayItem: React.FC<{
   };
 
   const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0);
-  const chineseDays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+  const chineseDays = ["日", "一", "二", "三", "四", "五", "六"];
 
   return (
     <>
@@ -107,7 +94,10 @@ const DayItem: React.FC<{
           <div className={dayItem.dateAndRemainder}>
             <div className={dayItem.date}>
               <p>
-                {years}年{months}月{day}日 {`${chineseDays[new Date(`${years}-${months}-${day}`).getDay()]}`}
+                {years}年{months}月{day}日{" "}
+                {`星期${
+                  chineseDays[new Date(`${years}-${months}-${day}`).getDay()]
+                }`}
               </p>
             </div>
             <p
@@ -154,7 +144,7 @@ const DayItem: React.FC<{
                         ) : (
                           <>
                             <p onClick={() => setRemindDelete(false)}>取消</p>
-                            <p onClick={(e) => handleItemRemove(e, item, day)}>
+                            <p onClick={() => handleItemRemove(item)}>
                               確認刪除
                             </p>
                           </>
@@ -165,7 +155,9 @@ const DayItem: React.FC<{
                 )}
                 <div
                   onClick={() => handleEdit(item.id)}
-                  className={`${dayItem.items} ${item.price > 0 && dayItem.incomeItems}`}
+                  className={`${dayItem.items} ${
+                    item.price > 0 && dayItem.incomeItems
+                  }`}
                 >
                   <div className={dayItem.item}>
                     <img src={`images/${item.item}.png`} alt={item.item} />
@@ -173,7 +165,6 @@ const DayItem: React.FC<{
                   </div>
                   <p className={dayItem.price}>${item.price}</p>
                   <div
-                    // onClick={(e) => handleItemRemove(e, item, day)}
                     onClick={(e) => handleDeleteRemind(e, item.id)}
                     className={dayItem.trash}
                   >
