@@ -15,7 +15,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
 }) => {
   const { setPayPage } = useFinance();
   const { years, months, value, onChange } = useDate();
-  const [calendarMark, setCalendarMark] = useState<Date[] | null>(null);
+  const [timeStampOfMonth, setTimeStampOfMonth] = useState<string[] | null>(null);
   const [dayItems, setDayItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
@@ -40,19 +40,6 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
     }
   }, [value]);
 
-  const customDates: Date[] | null = calendarMark;
-
-  const tileClassName: (args: {
-    date: Date;
-  }) => string | string[] | undefined = ({ date }) => {
-    const customDateString =
-      customDates && customDates.map((d) => d.toDateString());
-    if (customDateString && customDateString.includes(date.toDateString())) {
-      return "dot";
-    }
-    return "";
-  };
-
   const handleCalendarChange = (activeStartDate: Date | null) => {
     const response = localStorage.getItem("loginData");
     if (response !== null && value && activeStartDate) {
@@ -66,14 +53,20 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
         const itemsOfMonth = await getFireStore("users", data.id, year, month);
         const daysOfMonth = Object.keys(itemsOfMonth);
         const timeStampOfAccountedDays = daysOfMonth.map(
-          (day) => new Date(year, month - 1, Number(day))
+          (day) => new Date(year, month - 1, Number(day)).toDateString()
         );
-        setCalendarMark(timeStampOfAccountedDays);
+        setTimeStampOfMonth(timeStampOfAccountedDays);
         //change value
         onChange(new Date(`${year}-${month}-${Number(selectday)}`));
       })();
     }
   };
+
+  const tileClassName = ({ date }: { date: Date }) => {
+    if(timeStampOfMonth?.includes(date.toDateString())){
+      return "dot"
+    }
+  }
 
   const { dayPay, dayIncome } = dayItems
     ? dayItems.reduce(
@@ -149,8 +142,9 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             <div className={popCalendar.remind}>
               <p>
                 {(value as Date).getFullYear()}年
-                {(value as Date).getMonth() + 1}月{(value as Date).getDate()}
-                日無記帳記錄
+                {(value as Date).getMonth() + 1}月
+                {(value as Date).getDate()}日
+                無記帳記錄
               </p>
             </div>
             <p>點選下方按鈕記帳</p>

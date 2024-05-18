@@ -19,8 +19,8 @@ export const setFireStore = async (
     const month = ((date as Date).getMonth() + 1).toString();
     const docRef = doc(db, collection, documentId, year, month);
     await setDoc(docRef, data, { merge: true });
-  } catch (e) {
-    // console.error("Error adding document: ", e);
+  } catch (error) {
+    // console.error("Error adding document: ", error);
   }
 };
 
@@ -51,7 +51,7 @@ export const updateFireStore = async (
     const docRef = doc(db, collection, documentId, `${years}`, `${months}`);
     await updateDoc(docRef, data);
   } catch (error) {
-    console.error("updateFireStore", error);
-    throw error;
+    // console.error("updateFireStore", error);
+    // throw error;
   }
 };
