@@ -3,20 +3,16 @@ import MapFrame from "@/components/MapFrame";
 import Budget from "@/components/Budget";
 import Calendar from "react-calendar";
 import Loader from "../Loader";
-import { db } from "@/utils/firebase";
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  getDoc,
-  deleteField,
-  setDoc,
-} from "firebase/firestore";
+import { arrayUnion, arrayRemove, deleteField } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Item, Value } from "@/interfaces";
 import { useDate } from "@/utils/zustand";
+import {
+  setFireStore,
+  getFireStore,
+  updateFireStore,
+} from "@/utils/reviseFireStore";
 
 const Edit: React.FC<{
   item: Item;
@@ -61,53 +57,32 @@ const Edit: React.FC<{
     setMapResult("");
   };
 
-  const handleSubmit = async (
-    e: React.FormEvent,
-  ) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
     if (response !== null && value) {
       const data = JSON.parse(response);
-      const docRef = doc(db, "users", data.id, `${years}`, `${months}`);
-      await updateDoc(docRef, {
-        [day]: arrayRemove(item),
-      });
+      const deleteItemOfDay = { [day]: arrayRemove(item) };
+      await updateFireStore("users", data.id, years, months, deleteItemOfDay);
       //if [day] is empty array, delete it
-      const docSnapshot = await getDoc(docRef);
-      const docData = docSnapshot.data();
-      if (docData && Array.isArray(docData[day]) && docData[day].length === 0) {
-        await updateDoc(docRef, {
-          [day]: deleteField(),
-        });
+      const itemsOfMonth = await getFireStore("users", data.id, years, months);
+      if (itemsOfMonth[day].length === 0) {
+        const deleteDay = { [day]: deleteField() };
+        await updateFireStore("users", data.id, years, months, deleteDay);
       }
       //update new
-      const editYear = (value as Date).getFullYear();
-      const editMonth = (value as Date).getMonth() + 1;
       const editDate = (value as Date).getDate();
-      const editRef = doc(db, "users", data.id, `${editYear}`, `${editMonth}`);
-      const editSnap = await getDoc(editRef);
-      if (editSnap.exists()) {
-        await updateDoc(editRef, {
-          [editDate]: arrayUnion({
-            id: item.id,
-            item: payPage ? payItem : incomeItem,
-            note: itemNote,
-            price: payPage ? -parseInt(price) : parseInt(price),
-            location: location,
-          }),
-        });
-      } else {
-        await setDoc(editRef, {
-          [editDate]: arrayUnion({
-            id: item.id,
-            item: payPage ? payItem : incomeItem,
-            note: itemNote,
-            price: payPage ? -parseInt(price) : parseInt(price),
-            location: location,
-          }),
-        });
-      }
+      const editData = {
+        [editDate]: arrayUnion({
+          id: item.id,
+          item: payPage ? payItem : incomeItem,
+          note: itemNote,
+          price: payPage ? -parseInt(price) : parseInt(price),
+          location: location,
+        }),
+      };
+      await setFireStore("users", data.id, editData, value);
       setIsSending(false);
       toast.success("編輯成功 !", {
         position: "top-left",
@@ -210,9 +185,7 @@ const Edit: React.FC<{
           setPayItem={setPayItem}
           setIncomeItem={setIncomeItem}
         />
-        <form
-          onSubmit={handleSubmit}
-        >
+        <form onSubmit={handleSubmit}>
           <div className={edit.inputGroup}>
             <div className={edit.inputItem}>
               <p>項目</p>
