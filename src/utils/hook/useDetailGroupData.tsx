@@ -6,7 +6,7 @@ const useDetailGroupData = (
   months: number,
   isPositive: boolean
 ) => {
-  const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
+  const [chartData, setChartData] = useState<(string | number)[][]>([]);
   const [days, setDays] = useState<string[]>([]);
   const [reverseDays, setReverseDays] = useState<string[]>([]);
 
@@ -52,12 +52,12 @@ const useDetailGroupData = (
             totalPriceOfItems[categoryOfItem],
           ]);
         }
-        setGoogleData(googleChartArray);
+        setChartData(googleChartArray);
       })();
     }
   }, [years, months, isPositive]);
 
-  return { googleData, days, reverseDays };
+  return { chartData, days, reverseDays };
 };
 
 export default useDetailGroupData;

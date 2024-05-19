@@ -13,7 +13,7 @@ const Remainder: React.FC = () => {
   const { years, months, onChange } = useDate();
   const { setPayPage } = useFinance();
 
-  const [googleData, setGoogleData] = useState<(string | number)[][]>([]);
+  const [chartData, setChartData] = useState<(string | number)[][]>([]);
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popDate, setPopDate] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);
@@ -41,7 +41,7 @@ const Remainder: React.FC = () => {
           ]);
         }
         const reversedArray = [...googleArray].reverse();
-        setGoogleData(googleArray);
+        setChartData(googleArray);
         setReverseData(reversedArray);
       })();
     }
@@ -58,7 +58,7 @@ const Remainder: React.FC = () => {
     setIsPop(false);
   };
 
-  const googleChartData = [["日期", "收入", "支出", "結餘"], ...googleData];
+  const googleChartData = [["日期", "收入", "支出", "結餘"], ...chartData];
 
   const googleChartOptions = {
     curveType: "function",
@@ -83,13 +83,13 @@ const Remainder: React.FC = () => {
       <div
         className="manualDriver"
         onClick={() =>
-          detailDriver(googleData, "結餘詳情", "當日", "帳").drive()
+          detailDriver(chartData, "結餘詳情", "當日", "帳").drive()
         }
       >
         <img src="../images/manual.png" alt="manual" />
         <p>新手教學</p>
       </div>
-      {googleData.length > 0 ? (
+      {chartData.length > 0 ? (
         <>
           <div className={detailGroup.chartGridArea}>
             <div
@@ -113,7 +113,7 @@ const Remainder: React.FC = () => {
                 onClick={() => setIsReverse(!isReverse)}
               />
             </li>
-            {(isReverse ? reverseData : googleData).map((data) => (
+            {(isReverse ? reverseData : chartData).map((data) => (
               <li
                 key={data[0]}
                 onClick={() => handlePopDetail(data[0])}

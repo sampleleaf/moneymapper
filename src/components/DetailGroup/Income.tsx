@@ -16,19 +16,19 @@ const Income: React.FC = () => {
   const [popItem, setPopItem] = useState<string | number>("");
   const [isReverse, setIsReverse] = useState<boolean>(true);
 
-  const { googleData, days, reverseDays } = useDetailGroupData(
+  const { chartData, days, reverseDays } = useDetailGroupData(
     years,
     months,
     true
   );
 
   const totalPay =
-    googleData &&
-    googleData.reduce((acc, cur) => {
+    chartData &&
+    chartData.reduce((acc, cur) => {
       return acc + Number(cur[1]);
     }, 0);
 
-  const googleChartData = [["Major", "Degrees"], ["empty", 0], ...googleData];
+  const googleChartData = [["Major", "Degrees"], ["empty", 0], ...chartData];
 
   const googleChartOptions = {
     pieHole: 0.5,
@@ -57,7 +57,7 @@ const Income: React.FC = () => {
       <div
         className="manualDriver"
         onClick={() =>
-          detailDriver(googleData, "收入明細", "收入", "收入").drive()
+          detailDriver(chartData, "收入明細", "收入", "收入").drive()
         }
       >
         <img src="../images/manual.png" alt="manual" />
@@ -72,7 +72,7 @@ const Income: React.FC = () => {
             data={googleChartData}
             options={googleChartOptions}
           />
-          {googleData.length < 1 && (
+          {chartData.length < 1 && (
             <div className={detailGroup.emptyDonut}></div>
           )}
           <div className={detailGroup.total}>
@@ -81,12 +81,12 @@ const Income: React.FC = () => {
           </div>
         </div>
       </div>
-      {googleData.length > 0 ? (
+      {chartData.length > 0 ? (
         <ul className={detailGroup.list} id="list">
           <li>
             <p>收入項目</p>
           </li>
-          {googleData.map((data) => (
+          {chartData.map((data) => (
             <li
               key={data[0]}
               onClick={() => handlePopDetail(data[0])}

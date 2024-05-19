@@ -175,7 +175,7 @@ export const mapperDriver = () =>
     ],
   }).drive();
 
-type DetailDriver = (googleData: (string | number)[][], title: string, item: string, content: string) => {
+type DetailDriver = (chartData: (string | number)[][], title: string, item: string, content: string) => {
   isActive: () => boolean;
   refresh: () => void;
   drive: (stepIndex?: number) => void;
@@ -184,16 +184,16 @@ type DetailDriver = (googleData: (string | number)[][], title: string, item: str
   destroy: () => void;
 };
 
-export const detailDriver: DetailDriver = (googleData, title, item, content) =>
+export const detailDriver: DetailDriver = (chartData, title, item, content) =>
   driver({
     showProgress: true,
     steps: [
       {
         element: "#list",
         popover: {
-          title: googleData.length > 0 ? `${title}` : "教學",
+          title: chartData.length > 0 ? `${title}` : "教學",
           description:
-            googleData.length > 0
+            chartData.length > 0
               ? `點選項目可以看到${item}明細`
               : `先記一筆${content}才有後續教學喔!`,
           side: "top",
