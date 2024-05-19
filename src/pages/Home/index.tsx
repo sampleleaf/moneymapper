@@ -11,6 +11,7 @@ import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
 import { getFireStore } from "@/utils/reviseFireStore";
 import { Item } from "@/interfaces";
+import { calculateMonthlyTotals } from "@/utils/calculateMonthlyTotals";
 
 const Home: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -67,19 +68,7 @@ const Home: React.FC = () => {
     })();
   }, []);
 
-  const { monthPay, monthIncome } =
-    allItemsOfMonth &&
-    allItemsOfMonth.reduce(
-      (acc, cur) => {
-        if (cur.price < 0) {
-          acc.monthPay += cur.price;
-        } else if (cur.price > 0) {
-          acc.monthIncome += cur.price;
-        }
-        return acc;
-      },
-      { monthPay: 0, monthIncome: 0 }
-    );
+  const { monthPay, monthIncome } = calculateMonthlyTotals(allItemsOfMonth)
 
   const monthRemainder = monthPay + monthIncome
 

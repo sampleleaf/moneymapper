@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["@types/jest"],
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
