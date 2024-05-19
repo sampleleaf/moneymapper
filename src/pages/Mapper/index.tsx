@@ -9,6 +9,7 @@ import { mapperDriver } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
 import { getFireStore } from "@/utils/reviseFireStore";
+import { checkPricePositiveAndMapResult } from "@/utils/checkPricePositiveAndMapResult";
 
 const Mapper: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -32,32 +33,20 @@ const Mapper: React.FC = () => {
     if (response !== null && mapResult) {
       const data = JSON.parse(response);
       (async () => {
-        const itemsOfMonth = await getFireStore("users", data.id, years, months);
+        const itemsOfMonth = await getFireStore(
+          "users",
+          data.id,
+          years,
+          months
+        );
         const dayLength = Object.keys(itemsOfMonth).length;
         const allItems = [];
         for (let i = 0; i < dayLength; i++) {
-          const dayOfMonth: string = Object.keys(itemsOfMonth)[i]
+          const dayOfMonth: string = Object.keys(itemsOfMonth)[i];
           allItems.push(...itemsOfMonth[dayOfMonth]);
         }
-        const eachPayOfCategories: { [category: string]: number[] } = {};
-        const eachIncomeOfCategories: { [category: string]: number[] } = {};
-        allItems.forEach((item) => {
-          if (item.location === mapResult) {
-            if (item.price < 0) {
-              if (item.item in eachPayOfCategories) {
-                eachPayOfCategories[item.item].push(item.price);
-              } else {
-                eachPayOfCategories[item.item] = [item.price];
-              }
-            } else if (item.price > 0) {
-              if (item.item in eachIncomeOfCategories) {
-                eachIncomeOfCategories[item.item].push(item.price);
-              } else {
-                eachIncomeOfCategories[item.item] = [item.price];
-              }
-            }
-          }
-        });
+        const { eachPayOfCategories, eachIncomeOfCategories } =
+          checkPricePositiveAndMapResult(allItems, mapResult);
         setPriceOfPayCategories(eachPayOfCategories);
         setPayCategories(Object.keys(eachPayOfCategories));
         setPriceOfIncomeCategories(eachIncomeOfCategories);
