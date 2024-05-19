@@ -28,9 +28,9 @@ const Create: React.FC = () => {
   const [itemNote, setItemNote] = useState<string>("");
   const [mapResult, setMapResult] = useState<string>("");
   const [isSending, setIsSending] = useState<boolean>(false);
-  const [priceLimit, setPriceLimit] = useState<boolean>(false);
+  const [isPriceValid, setIsPriceValid] = useState<boolean>(true);
   const [priceHint, setPriceHint] = useState<string>("");
-  const [noteLimit, setNoteLimit] = useState<boolean>(false);
+  const [isNoteValid, setIsNoteValid] = useState<boolean>(true);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
@@ -87,30 +87,30 @@ const Create: React.FC = () => {
 
   const handlePrice = (price: string) => {
     if (price[0] === "-" || price[0] === "+") {
-      setPriceLimit(true);
+      setIsPriceValid(false);
       setPriceHint("請輸入數字");
     } else if (!price) {
       setPrice("");
-      setPriceLimit(true);
+      setIsPriceValid(false);
       setPriceHint("請填寫金額");
     } else if (!Number(price)) {
-      setPriceLimit(true);
+      setIsPriceValid(false);
       setPriceHint("請輸入數字");
     } else if (price.length < 10) {
       setPrice(price);
-      setPriceLimit(false);
+      setIsPriceValid(true);
     } else {
-      setPriceLimit(true);
+      setIsPriceValid(false);
       setPriceHint("最多9位數");
     }
   };
 
   const handleNote = (note: string) => {
     if (note.length < 100) {
-      setNoteLimit(false);
+      setIsNoteValid(true);
       setItemNote(note);
     } else {
-      setNoteLimit(true);
+      setIsNoteValid(false);
     }
   };
 
@@ -194,13 +194,13 @@ const Create: React.FC = () => {
                   <span
                     onClick={() => {
                       setPrice("");
-                      setPriceLimit(false);
+                      setIsPriceValid(true);
                     }}
                   >
                     清空
                   </span>
                 )}
-                {priceLimit && <p>{priceHint}</p>}
+                {isPriceValid || <p>{priceHint}</p>}
               </div>
             </div>
             <div className={create.inputFormat}>
@@ -222,13 +222,13 @@ const Create: React.FC = () => {
                   <span
                     onClick={() => {
                       setItemNote("");
-                      setNoteLimit(false);
+                      setIsNoteValid(true);
                     }}
                   >
                     清空
                   </span>
                 )}
-                {noteLimit && <p>字數達上限</p>}
+                {isNoteValid || <p>字數達上限</p>}
               </div>
             </div>
             <div className={create.inputFormat}>
