@@ -1,13 +1,13 @@
-import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
+import { Chart } from "react-google-charts";
 import { Link } from "react-router-dom";
-import RemainderNote from "../DetailNote/RemainderNote";
+
+import RemainderNote from "@/components/DetailNote/RemainderNote";
 import detailGroup from "@/css/DetailGroup.module.css";
-import { detailDriver } from "@/utils/driver";
-import { useDate } from "@/utils/zustand";
-import { useFinance } from "@/utils/zustand";
-import { getFireStore } from "@/utils/reviseFireStore";
 import { calculateTotals } from "@/utils/calculateTotals";
+import { detailDriver } from "@/utils/driver";
+import { getFireStore } from "@/utils/reviseFireStore";
+import { useDate, useFinance } from "@/utils/zustand";
 
 const Remainder: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -25,13 +25,13 @@ const Remainder: React.FC = () => {
       const data = JSON.parse(response);
       (async () => {
         const itemsOfMonth = await getFireStore("users", data.id, years, months);
-        const daysOfMonth = Object.keys(itemsOfMonth)
+        const daysOfMonth = Object.keys(itemsOfMonth);
         const dayLength = Object.keys(itemsOfMonth).length;
         const googleArray = [];
         for (let i = 0; i < dayLength; i++) {
-          const dayOfMonth = daysOfMonth[i]
+          const dayOfMonth = daysOfMonth[i];
           const itemsOfDay = itemsOfMonth[dayOfMonth];
-          const { totalOfPay, totalOfIncome } = calculateTotals(itemsOfDay)
+          const { totalOfPay, totalOfIncome } = calculateTotals(itemsOfDay);
           const remainOfDay = totalOfPay + totalOfIncome;
           googleArray.push([
             `${months}月${dayOfMonth}日`,

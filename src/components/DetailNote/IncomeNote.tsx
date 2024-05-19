@@ -8,8 +8,7 @@ const IncomeNote: React.FC<{
   months: number;
   years: number;
 }> = ({ popItem, total, day, months, years }) => {
-
-  const items = useDetailNoteData(years, months, day, popItem as string, true)
+  const items = useDetailNoteData(years, months, day, popItem as string, true);
 
   const totalPriceOfItems =
     items &&
@@ -21,11 +20,14 @@ const IncomeNote: React.FC<{
 
   return (
     <>
-      {items && items?.length > 0 && 
+      {items && items?.length > 0 && (
         <div className={detailNote.container}>
           <div className={detailNote.dayRemainder}>
             <p>
-              {years}/{months}/{day} {`星期${chineseDays[new Date(`${years}-${months}-${day}`).getDay()]}`}
+              {years}/{months}/{day}{" "}
+              {`星期${
+                chineseDays[new Date(`${years}-${months}-${day}`).getDay()]
+              }`}
             </p>
             <p>${Math.abs(totalPriceOfItems as number)}</p>
           </div>
@@ -35,11 +37,24 @@ const IncomeNote: React.FC<{
                 <div className={detailNote.percentGroup}>
                   <div className={detailNote.percent}>
                     <p>{item.note || item.item}</p>
-                    <p style={{color: "rgb(158,225,255)"}}>{Math.abs(item.price / (total as number) * 100).toFixed(2)}%</p>
+                    <p style={{ color: "rgb(158,225,255)" }}>
+                      {Math.abs((item.price / (total as number)) * 100).toFixed(
+                        2
+                      )}
+                      %
+                    </p>
                   </div>
                   <div className={detailNote.percentBarContainer}>
                     <div className={detailNote.percentBar}></div>
-                    <div className={detailNote.displayPercent} style={{width: `${Math.abs(item.price / (total as number) * 100).toFixed(2)}%`, backgroundColor: "rgb(158,225,255)"}}></div>
+                    <div
+                      className={detailNote.displayPercent}
+                      style={{
+                        width: `${Math.abs(
+                          (item.price / (total as number)) * 100
+                        ).toFixed(2)}%`,
+                        backgroundColor: "rgb(158,225,255)",
+                      }}
+                    ></div>
                   </div>
                 </div>
                 <p>${Math.abs(item.price)}</p>
@@ -47,7 +62,7 @@ const IncomeNote: React.FC<{
             </div>
           ))}
         </div>
-      }
+      )}
     </>
   );
 };

@@ -1,28 +1,28 @@
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import create from "@/css/Create.module.css";
-import Loader from "@/components/Loader";
-import { v4 as uuidv4 } from "uuid";
-import { db } from "@/utils/firebase";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { setFireStore } from "@/utils/reviseFireStore";
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import MapFrame from "@/components/MapFrame";
+import { v4 as uuidv4 } from "uuid";
+
 import Budget from "@/components/Budget";
+import Loader from "@/components/Loader";
+import MapFrame from "@/components/MapFrame";
+import create from "@/css/Create.module.css";
 import { createDriver } from "@/utils/driver";
-import { useDate } from "@/utils/zustand";
-import { useFinance } from "@/utils/zustand";
+import { db } from "@/utils/firebase";
+import { setFireStore } from "@/utils/reviseFireStore";
+import { useDate, useFinance } from "@/utils/zustand";
 
 const Create: React.FC = () => {
   const navigate = useNavigate();
 
-  const {value, onChange} = useDate()
-  const {payPage, setPayPage} = useFinance()
+  const { value, onChange } = useDate();
+  const { payPage, setPayPage } = useFinance();
 
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
-  const [location, setLocation] = useState<string | undefined>("");
+  const [location, setLocation] = useState<string>("");
   const [payItem, setPayItem] = useState<string>("早餐");
   const [incomeItem, setIncomeItem] = useState<string>("薪水");
   const [itemNote, setItemNote] = useState<string>("");
@@ -38,7 +38,7 @@ const Create: React.FC = () => {
       if (response !== null) {
         const data = JSON.parse(response);
         if (data.driverStep === 1) {
-          createDriver()
+          createDriver();
           data.driverStep = 2;
           localStorage.setItem("loginData", JSON.stringify(data));
           const docRef = doc(db, "users", data.id);
@@ -67,8 +67,8 @@ const Create: React.FC = () => {
           price: operationPrice,
           location: location,
         }),
-      }
-      await setFireStore("users", data.id, setData, value)
+      };
+      await setFireStore("users", data.id, setData, value);
       setIsSending(false);
       toast.success("新增成功 !", {
         position: "top-left",
@@ -159,16 +159,15 @@ const Create: React.FC = () => {
             />
           </div>
         </div>
-        <form
-          className={create.formCard}
-          onSubmit={handleSubmit}
-        >
+        <form className={create.formCard} onSubmit={handleSubmit}>
           <div className={create.inputGroup}>
             <div className={create.inputItem} id="itemResult">
               <p>項目</p>
               <p>：</p>
               <img
-                src={payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`}
+                src={
+                  payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`
+                }
                 alt={payPage ? payItem : incomeItem}
               />
             </div>
@@ -205,7 +204,7 @@ const Create: React.FC = () => {
             </div>
             <div className={create.inputFormat}>
               <label htmlFor="note">備註</label>
-              <p>　</p>
+              <p>&emsp;</p>
               <div className={create.styleInput}>
                 <input
                   id="note"
@@ -233,7 +232,7 @@ const Create: React.FC = () => {
             </div>
             <div className={create.inputFormat}>
               <label htmlFor="location">地區</label>
-              <p>　</p>
+              <p>&emsp;</p>
               <div className={create.styleInput}>
                 <input
                   onClick={() => setMapWindow(true)}

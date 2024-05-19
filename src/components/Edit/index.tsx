@@ -1,18 +1,15 @@
-import edit from "@/css/Edit.module.css";
-import MapFrame from "@/components/MapFrame";
-import Budget from "@/components/Budget";
-import Calendar from "react-calendar";
-import Loader from "../Loader";
-import { arrayUnion, arrayRemove, deleteField } from "firebase/firestore";
+import { arrayRemove, arrayUnion, deleteField } from "firebase/firestore";
 import { useState } from "react";
+import Calendar from "react-calendar";
 import { toast } from "react-toastify";
+
+import Budget from "@/components/Budget";
+import Loader from "@/components/Loader";
+import MapFrame from "@/components/MapFrame";
+import edit from "@/css/Edit.module.css";
 import { Item, Value } from "@/interfaces";
+import { getFireStore, setFireStore, updateFireStore} from "@/utils/reviseFireStore";
 import { useDate } from "@/utils/zustand";
-import {
-  setFireStore,
-  getFireStore,
-  updateFireStore,
-} from "@/utils/reviseFireStore";
 
 const Edit: React.FC<{
   item: Item;
@@ -232,7 +229,7 @@ const Edit: React.FC<{
             </div>
             <div className={edit.inputFormat}>
               <label htmlFor="price">備註</label>
-              <p>　</p>
+              <p>&emsp;</p>
               <div className={edit.styleInput}>
                 <input
                   type="text"
@@ -259,7 +256,7 @@ const Edit: React.FC<{
             </div>
             <div className={edit.inputFormat}>
               <label htmlFor="price">地區</label>
-              <p>　</p>
+              <p>&emsp;</p>
               <div className={edit.styleInput}>
                 <input
                   onClick={() => setMapWindow(true)}

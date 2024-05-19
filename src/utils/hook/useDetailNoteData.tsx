@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+
 import { Item } from "@/interfaces";
-import { getFireStore } from "../reviseFireStore";
+import { getFireStore } from "@/utils/reviseFireStore";
 
 const useDetailNoteData = (
   years: number,
@@ -21,7 +22,7 @@ const useDetailNoteData = (
         const itemFilter = allItemsOfDay.filter(
           (allItems) =>
             allItems.item === popItem &&
-            ((!isPositive && allItems.price < 0) ||  //pay
+            ((!isPositive && allItems.price < 0) || //pay
               (isPositive && allItems.price > 0)) //income
         );
         setItems(itemFilter);

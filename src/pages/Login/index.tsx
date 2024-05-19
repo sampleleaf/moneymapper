@@ -1,17 +1,13 @@
-import login from "@/css/Login.module.css";
-import Loader from "@/components/Loader";
-import { useState, useRef, RefObject } from "react";
-import { toast } from "react-toastify";
-import { db } from "@/utils/firebase";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, setDoc, collection, getDoc } from "firebase/firestore";
-
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { RefObject, useRef, useState } from "react";
+import { toast } from "react-toastify";
+
+import Loader from "@/components/Loader";
+import login from "@/css/Login.module.css";
+import { db } from "@/utils/firebase";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);

@@ -1,7 +1,8 @@
-import header from "@/css/Header.module.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LogoutButton from "../LogoutButton";
+
+import LogoutButton from "@/components/LogoutButton";
+import header from "@/css/Header.module.css";
 import { useDetailBar } from "@/utils/zustand";
 
 const Header: React.FC<{
@@ -22,9 +23,9 @@ const Header: React.FC<{
   };
 
   const handleDetailBar = (translateX: string, color: string) => {
-    setDetailsTranslateX(translateX)
-    setDetailsHighlighted(color)
-  }
+    setDetailsTranslateX(translateX);
+    setDetailsHighlighted(color);
+  };
 
   return (
     <>
@@ -73,15 +74,33 @@ const Header: React.FC<{
                 <i className="fa-solid fa-house"></i>
                 首頁
               </Link>
-              <Link onClick={() => {handleDetailBar("translateX(-102.5%)", "rgb(255, 193, 190)"); setSidebar(false)}} to="details/pay">
+              <Link
+                onClick={() => {
+                  handleDetailBar("translateX(-102.5%)", "rgb(255, 193, 190)");
+                  setSidebar(false);
+                }}
+                to="details/pay"
+              >
                 <i className="fa-solid fa-hand-holding-dollar"></i>
                 支出
               </Link>
-              <Link onClick={() => {handleDetailBar("translateX(0)", "rgb(158, 225, 255)"); setSidebar(false)}} to="details/income">
+              <Link
+                onClick={() => {
+                  handleDetailBar("translateX(0)", "rgb(158, 225, 255)");
+                  setSidebar(false);
+                }}
+                to="details/income"
+              >
                 <i className="fa-solid fa-sack-dollar"></i>
                 收入
               </Link>
-              <Link onClick={() => {handleDetailBar("translateX(102.5%)", "rgb(218, 173, 235)"); setSidebar(false)}} to="details/remainder">
+              <Link
+                onClick={() => {
+                  handleDetailBar("translateX(102.5%)", "rgb(218, 173, 235)");
+                  setSidebar(false);
+                }}
+                to="details/remainder"
+              >
                 <i className="fa-solid fa-chart-line"></i>
                 結餘
               </Link>

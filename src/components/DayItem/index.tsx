@@ -1,12 +1,13 @@
-import dayItem from "@/css/DayItem.module.css";
-import Edit from "@/components/Edit";
-import Loader from "../Loader";
+import { arrayRemove, deleteField } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+
+import Edit from "@/components/Edit";
+import Loader from "@/components/Loader";
+import dayItem from "@/css/DayItem.module.css";
 import { Item } from "@/interfaces";
-import { useDate } from "@/utils/zustand";
-import { arrayRemove, deleteField } from "firebase/firestore";
 import { getFireStore, updateFireStore } from "@/utils/reviseFireStore";
+import { useDate } from "@/utils/zustand";
 
 const DayItem: React.FC<{
   day: string;
@@ -39,12 +40,7 @@ const DayItem: React.FC<{
     if (response !== null) {
       const data = JSON.parse(response);
       (async () => {
-        const itemsOfMonth = await getFireStore(
-          "users",
-          data.id,
-          years,
-          months
-        );
+        const itemsOfMonth = await getFireStore("users", data.id, years, months);
         setItems(itemsOfMonth[day]);
       })();
     }

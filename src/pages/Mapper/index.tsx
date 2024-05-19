@@ -1,15 +1,15 @@
-import Map from "@/components/Map";
-import YearMonth from "@/components/YearMonth";
-import BookLoader from "@/components/BookLoader";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Switch from "react-switch";
+
+import BookLoader from "@/components/BookLoader";
+import Map from "@/components/Map";
+import YearMonth from "@/components/YearMonth";
 import mapper from "@/css/Mapper.module.css";
-import { mapperDriver } from "@/utils/driver";
-import { useDate } from "@/utils/zustand";
-import { useFinance } from "@/utils/zustand";
-import { getFireStore } from "@/utils/reviseFireStore";
 import { checkPricePositiveAndMapResult } from "@/utils/checkPricePositiveAndMapResult";
+import { mapperDriver } from "@/utils/driver";
+import { getFireStore } from "@/utils/reviseFireStore";
+import { useDate, useFinance } from "@/utils/zustand";
 
 const Mapper: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -33,12 +33,7 @@ const Mapper: React.FC = () => {
     if (response !== null && mapResult) {
       const data = JSON.parse(response);
       (async () => {
-        const itemsOfMonth = await getFireStore(
-          "users",
-          data.id,
-          years,
-          months
-        );
+        const itemsOfMonth = await getFireStore("users", data.id, years, months);
         const dayLength = Object.keys(itemsOfMonth).length;
         const allItems = [];
         for (let i = 0; i < dayLength; i++) {

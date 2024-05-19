@@ -1,17 +1,17 @@
-import home from "@/css/Home.module.css";
+import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { Chart } from "react-google-charts";
+import { Link } from "react-router-dom";
+
 import DayItem from "@/components/DayItem";
 import YearMonth from "@/components/YearMonth";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { db } from "@/utils/firebase";
-import { doc, updateDoc } from "firebase/firestore";
-import { Chart } from "react-google-charts";
-import { homeDriver, driverStep0, driverStep3 } from "@/utils/driver";
-import { useDate } from "@/utils/zustand";
-import { useFinance } from "@/utils/zustand";
-import { getFireStore } from "@/utils/reviseFireStore";
+import home from "@/css/Home.module.css";
 import { Item } from "@/interfaces";
 import { calculateTotals } from "@/utils/calculateTotals";
+import { driverStep0, driverStep3, homeDriver } from "@/utils/driver";
+import { db } from "@/utils/firebase";
+import { getFireStore } from "@/utils/reviseFireStore";
+import { useDate, useFinance } from "@/utils/zustand";
 
 const Home: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -68,13 +68,13 @@ const Home: React.FC = () => {
     })();
   }, []);
 
-  const { totalOfPay, totalOfIncome } = calculateTotals(allItemsOfMonth)
+  const { totalOfPay, totalOfIncome } = calculateTotals(allItemsOfMonth);
 
-  const monthRemainder = totalOfPay + totalOfIncome
+  const monthRemainder = totalOfPay + totalOfIncome;
 
   const googleChartData = [
     ["Major", "Degrees"],
-    ["收入",totalOfIncome],
+    ["收入", totalOfIncome],
     ["支出", Math.abs(totalOfPay)],
   ];
 

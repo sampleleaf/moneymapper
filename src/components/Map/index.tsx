@@ -1,17 +1,18 @@
-import React, { useState, memo, useEffect } from "react";
-import { toast } from "react-toastify";
+import { LatLng } from "leaflet";
+import React, { memo, useEffect, useState } from "react";
 import {
+  GeoJSON,
   MapContainer,
   Marker,
   TileLayer,
+  Tooltip,
   useMapEvent,
   useMapEvents,
-  Tooltip,
-  GeoJSON,
 } from "react-leaflet";
-import { geo } from "@/taiwanGeo";
-import { LatLng } from "leaflet";
+import { toast } from "react-toastify";
+
 import { TaiwanGeoType } from "@/interfaces";
+import { geo } from "@/taiwanGeo";
 
 const Map: React.FC<{
   setMapResult: React.Dispatch<React.SetStateAction<string>>;
@@ -130,7 +131,12 @@ const Map: React.FC<{
       <>
         <Marker position={position}>
           <Tooltip>You select here</Tooltip>
-          {geoResult && <GeoJSON data={geoResult as GeoJSON.GeoJsonObject} style={{ color: "blue" }} />}
+          {geoResult && (
+            <GeoJSON
+              data={geoResult as GeoJSON.GeoJsonObject}
+              style={{ color: "blue" }}
+            />
+          )}
         </Marker>
       </>
     );
@@ -139,10 +145,7 @@ const Map: React.FC<{
   return (
     <>
       {autoMap ? (
-        <MapContainer
-          center={[23.6408469, 121.0225183, 10]}
-          zoom={7}
-        >
+        <MapContainer center={[23.6408469, 121.0225183, 10]} zoom={7}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -150,10 +153,7 @@ const Map: React.FC<{
           <LocationMarker />
         </MapContainer>
       ) : (
-        <MapContainer
-          center={[23.6408469, 121.0225183, 10]}
-          zoom={7}
-        >
+        <MapContainer center={[23.6408469, 121.0225183, 10]} zoom={7}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

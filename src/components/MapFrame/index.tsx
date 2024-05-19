@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Switch from "react-switch";
-import mapFrame from "@/css/MapFrame.module.css"
+
+import Loader from "@/components/Loader";
 import Map from "@/components/Map";
-import Loader from "../Loader";
+import mapFrame from "@/css/MapFrame.module.css";
 
 const MapFrame: React.FC<{
-  setLocation: Function;
-  setMapWindow: Function;
+  setLocation: React.Dispatch<React.SetStateAction<string>>;
+  setMapWindow: React.Dispatch<React.SetStateAction<boolean>>;
   mapResult: string;
   setMapResult: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ setLocation, setMapWindow, mapResult, setMapResult }) => {
@@ -30,7 +31,9 @@ const MapFrame: React.FC<{
       </div>
       <div className={mapFrame.selectMap}>
         <div
-          className={`${mapFrame.autoButton} ${autoMap ? mapFrame.autoMapOn : ""}`}
+          className={`${mapFrame.autoButton} ${
+            autoMap ? mapFrame.autoMapOn : ""
+          }`}
         >
           存取您的位置
         </div>

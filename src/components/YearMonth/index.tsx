@@ -1,11 +1,12 @@
-import yearMonth from "@/css/YearMonth.module.css";
-import PopCalendar from "../PopCalendar";
 import { useState } from "react";
+
+import PopCalendar from "@/components/PopCalendar";
+import yearMonth from "@/css/YearMonth.module.css";
 import images from "@/utils/images";
 import { useDate } from "@/utils/zustand";
 
 const YearMonth: React.FC = () => {
-  const { years, setPlusYear, setMinusYear, months, setMonths} = useDate()
+  const { years, setPlusYear, setMinusYear, months, setMonths } = useDate();
 
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
   const [isPopCalendar, setIsPopCalender] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const YearMonth: React.FC = () => {
       {isPopCalendar && (
         <div
           className={yearMonth.background}
-          onClick={() => setIsPopCalender(false)} 
+          onClick={() => setIsPopCalender(false)}
         >
           <PopCalendar setIsPopCalender={setIsPopCalender} />
         </div>
@@ -54,10 +55,7 @@ const YearMonth: React.FC = () => {
           style={isDropdown ? { transform: "translateY(0)" } : {}}
         >
           <div className={yearMonth.selectYear}>
-            <div
-              className={yearMonth.tenYear}
-              onClick={() => setMinusYear(10)}
-            >
+            <div className={yearMonth.tenYear} onClick={() => setMinusYear(10)}>
               <i className="fa-solid fa-backward"></i>
             </div>
             <div onClick={() => setMinusYear(1)}>
@@ -67,10 +65,7 @@ const YearMonth: React.FC = () => {
             <div onClick={() => setPlusYear(1)}>
               <i className="fa-solid fa-caret-right"></i>
             </div>
-            <div
-              className={yearMonth.tenYear}
-              onClick={() => setPlusYear(10)}
-            >
+            <div className={yearMonth.tenYear} onClick={() => setPlusYear(10)}>
               <i className="fa-solid fa-forward"></i>
             </div>
           </div>

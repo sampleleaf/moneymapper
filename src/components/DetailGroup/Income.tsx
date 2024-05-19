@@ -1,16 +1,16 @@
-import { Chart } from "react-google-charts";
 import { useState } from "react";
+import { Chart } from "react-google-charts";
 import { Link } from "react-router-dom";
-import detailGroup from "@/css/DetailGroup.module.css";
+
 import IncomeNote from "@/components/DetailNote/IncomeNote";
-import useDetailGroupData from "@/utils/hook/useDetailGroupData";
+import detailGroup from "@/css/DetailGroup.module.css";
 import { detailDriver } from "@/utils/driver";
-import { useDate } from "@/utils/zustand";
-import { useFinance } from "@/utils/zustand";
+import useDetailGroupData from "@/utils/hook/useDetailGroupData";
+import { useDate, useFinance } from "@/utils/zustand";
 
 const Income: React.FC = () => {
-  const {years, months, onChange} = useDate()
-  const {setPayPage} = useFinance()
+  const { years, months, onChange } = useDate();
+  const { setPayPage } = useFinance();
 
   const [isPop, setIsPop] = useState<boolean>(false);
   const [popItem, setPopItem] = useState<string | number>("");

@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import popCalendar from "@/css/PopCalendar.module.css";
 import { Link } from "react-router-dom";
-import images from "@/utils/images";
-import { useDate } from "@/utils/zustand";
-import { useFinance } from "@/utils/zustand";
-import { Item, Images } from "@/interfaces";
-import { getFireStore } from "@/utils/reviseFireStore";
+
+import popCalendar from "@/css/PopCalendar.module.css";
+import { Images, Item } from "@/interfaces";
 import { calculateTotals } from "@/utils/calculateTotals";
+import images from "@/utils/images";
+import { getFireStore } from "@/utils/reviseFireStore";
+import { useDate, useFinance } from "@/utils/zustand";
 
 const imagesObj = images as Images;
 
-const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
-  setIsPopCalender,
-}) => {
+const PopCalendar: React.FC<{
+  setIsPopCalender: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setIsPopCalender }) => {
   const { setPayPage } = useFinance();
   const { years, months, value, onChange } = useDate();
-  const [timeStampOfMonth, setTimeStampOfMonth] = useState<string[] | null>(null);
+  const [timeStampOfMonth, setTimeStampOfMonth] = useState<string[] | null>(
+    null
+  );
   const [dayItems, setDayItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
@@ -53,8 +55,8 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
         const selectday = (value as Date).getDate();
         const itemsOfMonth = await getFireStore("users", data.id, year, month);
         const daysOfMonth = Object.keys(itemsOfMonth);
-        const timeStampOfAccountedDays = daysOfMonth.map(
-          (day) => new Date(year, month - 1, Number(day)).toDateString()
+        const timeStampOfAccountedDays = daysOfMonth.map((day) =>
+          new Date(year, month - 1, Number(day)).toDateString()
         );
         setTimeStampOfMonth(timeStampOfAccountedDays);
         //change value
@@ -64,12 +66,12 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
   };
 
   const tileClassName = ({ date }: { date: Date }) => {
-    if(timeStampOfMonth?.includes(date.toDateString())){
-      return "dot"
+    if (timeStampOfMonth?.includes(date.toDateString())) {
+      return "dot";
     }
-  }
+  };
 
-  const { totalOfPay, totalOfIncome } = calculateTotals(dayItems)
+  const { totalOfPay, totalOfIncome } = calculateTotals(dayItems);
 
   const dayRemainder = totalOfPay + totalOfIncome;
 
@@ -131,8 +133,7 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
             <div className={popCalendar.remind}>
               <p>
                 {(value as Date).getFullYear()}年
-                {(value as Date).getMonth() + 1}月
-                {(value as Date).getDate()}日
+                {(value as Date).getMonth() + 1}月{(value as Date).getDate()}日
                 無記帳記錄
               </p>
             </div>

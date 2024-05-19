@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getFireStore } from "../reviseFireStore";
+
+import { getFireStore } from "@/utils/reviseFireStore";
 
 const useDetailGroupData = (
   years: number,
@@ -21,7 +22,7 @@ const useDetailGroupData = (
         const reverseDaysOfMonth = [...daysOfMonth].reverse();
         setDays(daysOfMonth);
         setReverseDays(reverseDaysOfMonth);
-        //know item and totalPrice, after ensure income or pay Item, 
+        //know item and totalPrice, after ensure income or pay Item,
         const dayLength = Object.keys(itemsOfMonth).length;
         const allItems = [];
         for (let i = 0; i < dayLength; i++) {
