@@ -11,7 +11,7 @@ import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
 import { getFireStore } from "@/utils/reviseFireStore";
 import { Item } from "@/interfaces";
-import { calculateMonthlyTotals } from "@/utils/calculateMonthlyTotals";
+import { calculateTotals } from "@/utils/calculateTotals";
 
 const Home: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -68,14 +68,14 @@ const Home: React.FC = () => {
     })();
   }, []);
 
-  const { monthPay, monthIncome } = calculateMonthlyTotals(allItemsOfMonth)
+  const { totalOfPay, totalOfIncome } = calculateTotals(allItemsOfMonth)
 
-  const monthRemainder = monthPay + monthIncome
+  const monthRemainder = totalOfPay + totalOfIncome
 
   const googleChartData = [
     ["Major", "Degrees"],
-    ["收入", monthIncome],
-    ["支出", Math.abs(monthPay)],
+    ["收入",totalOfIncome],
+    ["支出", Math.abs(totalOfPay)],
   ];
 
   const googleChartOptions = {
@@ -112,11 +112,11 @@ const Home: React.FC = () => {
           <div className={home.analyze}>
             <div>
               <p>月支出</p>
-              <p>${Math.abs(monthPay)}</p>
+              <p>${Math.abs(totalOfPay)}</p>
             </div>
             <div>
               <p>月收入</p>
-              <p>${monthIncome}</p>
+              <p>${totalOfIncome}</p>
             </div>
           </div>
           <div className={home.googleChart}>

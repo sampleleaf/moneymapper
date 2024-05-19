@@ -7,6 +7,7 @@ import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
 import { Item, Images } from "@/interfaces";
 import { getFireStore } from "@/utils/reviseFireStore";
+import { calculateTotals } from "@/utils/calculateTotals";
 
 const imagesObj = images as Images;
 
@@ -68,21 +69,9 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
     }
   }
 
-  const { dayPay, dayIncome } = dayItems
-    ? dayItems.reduce(
-        (acc, cur) => {
-          if (cur.price < 0) {
-            acc.dayPay += cur.price;
-          } else if (cur.price > 0) {
-            acc.dayIncome += cur.price;
-          }
-          return acc;
-        },
-        { dayPay: 0, dayIncome: 0 }
-      )
-    : { dayPay: 0, dayIncome: 0 };
+  const { totalOfPay, totalOfIncome } = calculateTotals(dayItems)
 
-  const dayRemainder = dayPay + dayIncome;
+  const dayRemainder = totalOfPay + totalOfIncome;
 
   return (
     <div
@@ -114,11 +103,11 @@ const PopCalendar: React.FC<{ setIsPopCalender: Function }> = ({
       <div className={popCalendar.calculate}>
         <div>
           <p>支出：</p>
-          <p>${Math.abs(dayPay)}</p>
+          <p>${Math.abs(totalOfPay)}</p>
         </div>
         <div>
           <p>收入：</p>
-          <p>${dayIncome}</p>
+          <p>${totalOfIncome}</p>
         </div>
         <div>
           <p>結餘：</p>

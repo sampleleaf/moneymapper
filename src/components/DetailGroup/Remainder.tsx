@@ -6,8 +6,8 @@ import detailGroup from "@/css/DetailGroup.module.css";
 import { detailDriver } from "@/utils/driver";
 import { useDate } from "@/utils/zustand";
 import { useFinance } from "@/utils/zustand";
-import { Item } from "@/interfaces";
 import { getFireStore } from "@/utils/reviseFireStore";
+import { calculateTotals } from "@/utils/calculateTotals";
 
 const Remainder: React.FC = () => {
   const { years, months, onChange } = useDate();
@@ -30,23 +30,13 @@ const Remainder: React.FC = () => {
         const googleArray = [];
         for (let i = 0; i < dayLength; i++) {
           const dayOfMonth = daysOfMonth[i]
-          const items = itemsOfMonth[dayOfMonth];
-          const { totalPayOfDay, totalIncomeOfDay } = items.reduce(
-            (acc: { [key: string]: number }, cur: Item) => {
-              if (cur.price < 0) {
-                acc.totalPayOfDay += Math.abs(cur.price);
-              } else if (cur.price > 0) {
-                acc.totalIncomeOfDay += cur.price;
-              }
-              return acc;
-            },
-            { totalPayOfDay: 0, totalIncomeOfDay: 0 }
-          );
-          const remainOfDay = totalIncomeOfDay - totalPayOfDay;
+          const itemsOfDay = itemsOfMonth[dayOfMonth];
+          const { totalOfPay, totalOfIncome } = calculateTotals(itemsOfDay)
+          const remainOfDay = totalOfPay + totalOfIncome;
           googleArray.push([
             `${months}月${dayOfMonth}日`,
-            totalIncomeOfDay,
-            totalPayOfDay,
+            totalOfIncome,
+            Math.abs(totalOfPay),
             remainOfDay,
           ]);
         }
