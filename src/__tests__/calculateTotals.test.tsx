@@ -3,10 +3,10 @@ import { calculateTotals } from "../utils/calculateTotals";
 describe("calculateTotals", () => {
   test("should correctly calculate totalOfPay and totalOfIncome", () => {
     const allItemsOfMonth = [
-      { price: -100, item: "早餐", note: "", location: "", id: "1" },
-      { price: 200, item: "薪水", note: "", location: "", id: "1" },
-      { price: -50, item: "早餐", note: "", location: "", id: "1" },
-      { price: 150, item: "薪水", note: "", location: "", id: "1" },
+      { price: -100, item: "早餐", imageKey: "breakfast", note: "", location: "", id: "1" },
+      { price: 200, item: "薪水", imageKey: "salary", note: "", location: "", id: "1" },
+      { price: -50, item: "早餐", imageKey: "breakfast", note: "", location: "", id: "1" },
+      { price: 150, item: "薪水", imageKey: "salary", note: "", location: "", id: "1" },
     ];
 
     const result = calculateTotals(allItemsOfMonth);
@@ -20,9 +20,9 @@ describe("calculateTotals", () => {
 
   test("should handle array with only positive prices", () => {
     const allItemsOfMonth = [
-      { price: 100, item: "薪水", note: "", location: "", id: "1" },
-      { price: 200, item: "薪水", note: "", location: "", id: "1" },
-      { price: 300, item: "薪水", note: "", location: "", id: "1" },
+      { price: 100, item: "薪水", imageKey: "salary", note: "", location: "", id: "1" },
+      { price: 200, item: "薪水", imageKey: "salary", note: "", location: "", id: "1" },
+      { price: 300, item: "薪水", imageKey: "salary", note: "", location: "", id: "1" },
     ];
 
     const result = calculateTotals(allItemsOfMonth);
@@ -31,9 +31,9 @@ describe("calculateTotals", () => {
 
   test("should handle array with only negative prices", () => {
     const allItemsOfMonth = [
-      { price: -100, item: "早餐", note: "", location: "", id: "1" },
-      { price: -200, item: "早餐", note: "", location: "", id: "1" },
-      { price: -300, item: "早餐", note: "", location: "", id: "1" },
+      { price: -100, item: "早餐", imageKey: "breakfast", note: "", location: "", id: "1" },
+      { price: -200, item: "早餐", imageKey: "breakfast", note: "", location: "", id: "1" },
+      { price: -300, item: "早餐", imageKey: "breakfast", note: "", location: "", id: "1" },
     ];
 
     const result = calculateTotals(allItemsOfMonth);
