@@ -23,11 +23,11 @@ const Edit: React.FC<{
   const [price, setPrice] = useState<string>(`${Math.abs(item.price)}`);
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string>(item.location);
-  const [payItem, setPayItem] = useState<string>(
-    item.price < 0 ? item.item : "早餐"
+  const [payItem, setPayItem] = useState<string[]>(
+    item.price < 0 ? [item.item, item.imageKey] : ["早餐", "breakfast"]
   );
-  const [incomeItem, setIncomeItem] = useState<string>(
-    item.price > 0 ? item.item : "薪水"
+  const [incomeItem, setIncomeItem] = useState<string[]>(
+    item.price > 0 ? [item.item, item.imageKey] : ["薪水", "salary"]
   );
   const [itemNote, setItemNote] = useState<string>(item.note);
   const [payPage, setPayPage] = useState<boolean>(
@@ -69,13 +69,16 @@ const Edit: React.FC<{
         await updateFireStore("users", data.id, years, months, deleteDay);
       }
       //update new
+      const operationItem = payPage ? payItem : incomeItem;
+      const operationPrice = payPage ? -parseInt(price) : parseInt(price);
       const editDate = (value as Date).getDate();
       const editData = {
         [editDate]: arrayUnion({
           id: item.id,
-          item: payPage ? payItem : incomeItem,
+          item: operationItem[0],
+          imageKey: operationItem[1],
           note: itemNote,
-          price: payPage ? -parseInt(price) : parseInt(price),
+          price: operationPrice,
           location: location,
         }),
       };
@@ -189,10 +192,10 @@ const Edit: React.FC<{
               <p>：</p>
               <img
                 src={
-                  payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`
+                  payPage ? `images/${payItem[0]}.png` : `images/${incomeItem[0]}.png`
                 }
                 alt={
-                  payPage ? `${payItem}` || "早餐" : `${incomeItem}` || "薪水"
+                  payPage ? `${payItem[0]}` || "早餐" : `${incomeItem[0]}` || "薪水"
                 }
               />
             </div>

@@ -121,7 +121,7 @@ const PopCalendar: React.FC<{
           dayItems.map((item) => (
             <div className={popCalendar.itemContainer} key={item.id}>
               <div className={popCalendar.imageAndNote}>
-                <img src={imagesObj[item.item]} alt={item.item} />
+                <img src={imagesObj[item.imageKey]} alt={item.item} />
                 <p>{item.note || item.item}</p>
               </div>
               <div>${item.price}</div>

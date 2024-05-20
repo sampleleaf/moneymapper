@@ -1,6 +1,7 @@
 export interface Item {
   id: string;
   item: string;
+  imageKey: string;
   note: string;
   price: number;
   location: string;

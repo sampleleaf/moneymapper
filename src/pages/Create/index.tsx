@@ -23,8 +23,8 @@ const Create: React.FC = () => {
   const [price, setPrice] = useState<string>("");
   const [mapWindow, setMapWindow] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("");
-  const [payItem, setPayItem] = useState<string>("早餐");
-  const [incomeItem, setIncomeItem] = useState<string>("薪水");
+  const [payItem, setPayItem] = useState<string[]>(["早餐", "breakfast"]);
+  const [incomeItem, setIncomeItem] = useState<string[]>(["薪水", "salary"]);
   const [itemNote, setItemNote] = useState<string>("");
   const [mapResult, setMapResult] = useState<string>("");
   const [isSending, setIsSending] = useState<boolean>(false);
@@ -62,7 +62,8 @@ const Create: React.FC = () => {
       const setData = {
         [day]: arrayUnion({
           id: uuidv4(),
-          item: operationItem,
+          item: operationItem[0],
+          imageKey: operationItem[1],
           note: itemNote,
           price: operationPrice,
           location: location,
@@ -166,9 +167,9 @@ const Create: React.FC = () => {
               <p>：</p>
               <img
                 src={
-                  payPage ? `images/${payItem}.png` : `images/${incomeItem}.png`
+                  payPage ? `images/${payItem[0]}.png` : `images/${incomeItem[0]}.png`
                 }
-                alt={payPage ? payItem : incomeItem}
+                alt={payPage ? payItem[0] : incomeItem[0]}
               />
             </div>
             <div className={create.inputFormat}>
