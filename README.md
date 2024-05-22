@@ -1,30 +1,72 @@
-# React + TypeScript + Vite
+<div align="center">
+  <a href="https://moneymapper.site/" style="margin-bottom:20px; display:block;">
+    <img src="./public/globeMoney.png" alt="Logo" width="200px">
+  </a>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![License](https://img.shields.io/badge/License-MIT-green)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <p align="center">
+    <a href="https://github.com/sampleleaf/moneymapper?tab=readme-ov-file#about-moneymapper">About</a>
+    |
+    <a href="https://github.com/sampleleaf/moneymapper?tab=readme-ov-file#demo">Demo</a>
+    |
+    <a href="https://github.com/sampleleaf/moneymapper?tab=readme-ov-file#contact">Contact</a>
+  </p>
+</div>
 
-## Expanding the ESLint configuration
+# MoneyMapper
+[MoneyMapper](https://moneymapper.site/) is a SPA website for tracking expenses and income. In addition to standard features, it offers a new feature to view income and expenses by region.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## About MoneyMapper
+- Managed date-related state in React with `Zustand`.
+- Utilized `Firebase Firestore` as the database to implement CRUD operations for accounting.
+- Developed the feature to mark selected regions using `Leaflet`, Nominatim, and GeoJSON.
+- Created the landing page using `GSAP`.
 
-- Configure the top-level `parserOptions` property like this:
+## Built with
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+![Static Badge](https://img.shields.io/badge/TypeScript-%23eeeeee?style=for-the-badge&logo=typescript&logoColor=%233178C6)
+![Static Badge](https://img.shields.io/badge/React-%23333333?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Static Badge](https://img.shields.io/badge/React_Router-%23CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
+![Static Badge](https://img.shields.io/badge/Firebase-%23ffca28?style=for-the-badge&logo=firebase&logoColor=%23111111)
+![Static Badge](https://img.shields.io/badge/GSAP-%2388CE02?style=for-the-badge&logo=greensock&logoColor=black)
+![Static Badge](https://img.shields.io/badge/Leaflet-%23111111?style=for-the-badge&logo=leaflet&logoColor=%23199900)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Base**
+- React / React Router
+- TypeScript
+- Firebase
+
+**Libraries**
+- Zustand
+- Leaflet
+- GSAP
+- react-google-charts
+- react-calendar
+- react-driver.js
+
+### Flow chart
+
+![flow chart](./public/flowchart.drawio.svg)
+
+### Demo
+- Homepage
+
+![homepage](./public/images/home.png)
+- Create page
+
+![create](./public/images/create.png)
+- Detail page
+
+![detail](./public/images/pay.png)
+- Mapper page
+
+![mapper](./public/images/map.png)
+### Contact
+  <a href="https://www.linkedin.com/in/an-sung-chang/" text-decoration="none">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+  <a href="mailto:c.a.s.winterleaf@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
