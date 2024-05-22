@@ -15,8 +15,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const Login: React.FC<{
   setLogin: React.Dispatch<React.SetStateAction<string | null>>;
 }> = ({ setLogin }) => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("test@gmail.com");
+  const [password, setPassword] = useState<string>("111111");
   const [username, setUsername] = useState<string>("");
   const [newUser, setNewUser] = useState<boolean>(false);
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
