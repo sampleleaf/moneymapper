@@ -51,18 +51,18 @@
 ![flow chart](./public/flowchart.drawio.svg)
 
 ### Demo
-- Homepage
+- How to account
 
-![homepage](./public/images/home.png)
-- Create page
+![How to account](./media/write.gif)
+- How to edit and delete
 
-![create](./public/images/create.png)
-- Detail page
+![How to edit and delete](./media/editanddelete.gif)
+- How to view details
 
-![detail](./public/images/pay.png)
-- Mapper page
+![How to view details](./media/details.gif)
+- How to view income and expenses by region
 
-![mapper](./public/images/map.png)
+![mapper](./media/mapper.gif)
 ### Contact
   <a href="https://www.linkedin.com/in/an-sung-chang/" text-decoration="none">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
