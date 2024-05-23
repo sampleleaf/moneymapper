@@ -312,7 +312,7 @@ const Login: React.FC<{
           <div>讓你輕鬆了解收支比</div>
         </div>
         <div className={login.picture} ref={middles[1]}>
-          <img src="images/loginhome.png" alt="home" />
+          <img src="images/mobilehome.png" alt="home" />
           <img src="images/home.png" alt="home" />
         </div>
       </div>
@@ -326,7 +326,7 @@ const Login: React.FC<{
           </div>
         </div>
         <div className={login.picture} ref={middles[3]}>
-          <img src="images/logincreate.png" alt="create" />
+          <img src="images/mobilecreate.png" alt="create" />
           <img src="images/create.png" alt="create" />
         </div>
       </div>
@@ -337,8 +337,8 @@ const Login: React.FC<{
           <div>讓你掌握收支細節</div>
         </div>
         <div className={login.picture} ref={middles[5]}>
-          <img src="images/loginpay.png" alt="pay" />
-          <img src="images/pay.png" alt="pay" />
+          <img src="images/mobiledetail.png" alt="pay" />
+          <img src="images/detail.png" alt="pay" />
         </div>
       </div>
       <div className={`${login.gsap} ${login.seperateColor}`}>
@@ -350,8 +350,8 @@ const Login: React.FC<{
           </div>
         </div>
         <div className={login.picture} ref={middles[7]}>
-          <img src="images/loginmap.png" alt="map" />
-          <img src="images/map.png" alt="map" />
+          <img src="images/mobilemapper.png" alt="map" />
+          <img src="images/mapper.png" alt="map" />
         </div>
       </div>
       <a className={login.backToTop} href="#" ref={backToTop}>
