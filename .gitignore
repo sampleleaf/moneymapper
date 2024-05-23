@@ -30,4 +30,6 @@ firebase.json
 
 #important
 .env
+.env.production
+.env.development
 
