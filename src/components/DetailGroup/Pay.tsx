@@ -9,7 +9,7 @@ import useDetailGroupData from "@/utils/hook/useDetailGroupData";
 import { useDate, useFinance } from "@/utils/zustand";
 
 const Pay: React.FC = () => {
-  const { years, months, onChange } = useDate();
+  const { years, months, setCalendarDate } = useDate();
   const { setPayPage } = useFinance();
 
   const [isPop, setIsPop] = useState<boolean>(false);
@@ -154,7 +154,7 @@ const Pay: React.FC = () => {
           <Link
             onClick={() => {
               setPayPage(true);
-              onChange(new Date(`${years}-${months}-${new Date().getDate()}`));
+              setCalendarDate(new Date(`${years}-${months}-${new Date().getDate()}`));
             }}
             className={detailGroup.addItem}
             to="/create"

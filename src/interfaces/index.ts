@@ -33,8 +33,8 @@ export interface DateType {
     setMinusYear: (number: number) => void;
     months: number;
     setMonths : (month: number) => void;
-    value: Value;
-    onChange: (value: Value) => void;
+    calendarDate: Value;
+    setCalendarDate: (value: Value) => void;
   }
 
 export interface FinanceType {

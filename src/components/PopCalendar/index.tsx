@@ -15,44 +15,44 @@ const PopCalendar: React.FC<{
   setIsPopCalender: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setIsPopCalender }) => {
   const { setPayPage } = useFinance();
-  const { years, months, value, onChange } = useDate();
+  const { years, months, calendarDate, setCalendarDate } = useDate();
   const [timeStampOfMonth, setTimeStampOfMonth] = useState<string[] | null>(
     null
   );
   const [dayItems, setDayItems] = useState<Item[] | null>(null);
 
   useEffect(() => {
-    if (value) {
+    if (calendarDate) {
       handleCalendarChange(
-        new Date(`${years}-${months}-${(value as Date).getDate()}`)
+        new Date(`${years}-${months}-${(calendarDate as Date).getDate()}`)
       );
     }
   }, []);
 
   useEffect(() => {
     const response = localStorage.getItem("loginData");
-    if (response !== null && value) {
+    if (response !== null && calendarDate) {
       const data = JSON.parse(response);
       (async () => {
-        const year = (value as Date).getFullYear();
-        const month = (value as Date).getMonth() + 1;
-        const selectday = (value as Date).getDate();
+        const year = (calendarDate as Date).getFullYear();
+        const month = (calendarDate as Date).getMonth() + 1;
+        const selectday = (calendarDate as Date).getDate();
         const itemsOfMonth = await getFireStore("users", data.id, year, month);
         setDayItems(itemsOfMonth[selectday]);
       })();
     }
-  }, [value]);
+  }, [calendarDate]);
 
   const handleCalendarChange = (activeStartDate: Date | null) => {
     const response = localStorage.getItem("loginData");
-    if (response !== null && value && activeStartDate) {
+    if (response !== null && calendarDate && activeStartDate) {
       const data = JSON.parse(response);
       (async () => {
         //activeStartDate return year month which we view on the Calendar
         const year = activeStartDate.getFullYear();
         const month = activeStartDate.getMonth() + 1;
         //default day of activeStartDate is first day, so I pass the day by value
-        const selectday = (value as Date).getDate();
+        const selectday = (calendarDate as Date).getDate();
         const itemsOfMonth = await getFireStore("users", data.id, year, month);
         const daysOfMonth = Object.keys(itemsOfMonth);
         const timeStampOfAccountedDays = daysOfMonth.map((day) =>
@@ -60,7 +60,7 @@ const PopCalendar: React.FC<{
         );
         setTimeStampOfMonth(timeStampOfAccountedDays);
         //change value
-        onChange(new Date(`${year}-${month}-${Number(selectday)}`));
+        setCalendarDate(new Date(`${year}-${month}-${Number(selectday)}`));
       })();
     }
   };
@@ -93,8 +93,8 @@ const PopCalendar: React.FC<{
         <i className="fa-solid fa-xmark"></i>
       </div>
       <Calendar
-        onChange={onChange}
-        value={value}
+        onChange={setCalendarDate}
+        value={calendarDate}
         className="calendarDriver"
         tileClassName={tileClassName}
         onActiveStartDateChange={({ activeStartDate }) =>
@@ -132,8 +132,8 @@ const PopCalendar: React.FC<{
             <img src={imagesObj.write} alt="write" />
             <div className={popCalendar.remind}>
               <p>
-                {(value as Date).getFullYear()}年
-                {(value as Date).getMonth() + 1}月{(value as Date).getDate()}日
+                {(calendarDate as Date).getFullYear()}年
+                {(calendarDate as Date).getMonth() + 1}月{(calendarDate as Date).getDate()}日
                 無記帳記錄
               </p>
             </div>

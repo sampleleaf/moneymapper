@@ -34,7 +34,7 @@ const Edit: React.FC<{
     item.price < 0 ? true : false
   );
   const [mapResult, setMapResult] = useState<string>("");
-  const [value, onChange] = useState<Value>(
+  const [calendarDate, setCalendarDate] = useState<Value>(
     new Date(`${years}-${months}-${day}`)
   );
   const [calendarWindow, setCalendarWindow] = useState<boolean>(false);
@@ -44,9 +44,9 @@ const Edit: React.FC<{
   const [noteLimit, setNoteLimit] = useState<boolean>(false);
 
   const handleChangeDay = (day: number) => {
-    const newDate = new Date(value as Date);
+    const newDate = new Date(calendarDate as Date);
     newDate.setDate(newDate.getDate() + day);
-    onChange(newDate);
+    setCalendarDate(newDate);
   };
 
   const handleClearLocation = () => {
@@ -58,7 +58,7 @@ const Edit: React.FC<{
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
-    if (response !== null && value) {
+    if (response !== null && calendarDate) {
       const data = JSON.parse(response);
       const deleteItemOfDay = { [day]: arrayRemove(item) };
       await updateFireStore("users", data.id, years, months, deleteItemOfDay);
@@ -71,7 +71,7 @@ const Edit: React.FC<{
       //update new
       const operationItem = payPage ? payItem : incomeItem;
       const operationPrice = payPage ? -parseInt(price) : parseInt(price);
-      const editDate = (value as Date).getDate();
+      const editDate = (calendarDate as Date).getDate();
       const editData = {
         [editDate]: arrayUnion({
           id: item.id,
@@ -82,7 +82,7 @@ const Edit: React.FC<{
           location: location,
         }),
       };
-      await setFireStore("users", data.id, editData, value);
+      await setFireStore("users", data.id, editData, calendarDate);
       setIsSending(false);
       toast.success("編輯成功 !", {
         position: "top-left",
@@ -138,7 +138,7 @@ const Edit: React.FC<{
               className={edit.calendarFrame}
               onClick={(e) => e.stopPropagation()}
             >
-              <Calendar onChange={onChange} value={value} />
+              <Calendar onChange={setCalendarDate} value={calendarDate} />
               <div className={edit.calendarHint}>點選日期會自動儲存</div>
               <div
                 className={edit.calendarBack}
@@ -172,8 +172,8 @@ const Edit: React.FC<{
             <i className="fa-solid fa-caret-left"></i>
           </div>
           <div onClick={() => setCalendarWindow(true)}>
-            {(value as Date)?.getFullYear()}/{(value as Date)?.getMonth() + 1}/
-            {(value as Date)?.getDate()}
+            {(calendarDate as Date)?.getFullYear()}/{(calendarDate as Date)?.getMonth() + 1}/
+            {(calendarDate as Date)?.getDate()}
           </div>
           <div onClick={() => handleChangeDay(1)}>
             <i className="fa-solid fa-caret-right"></i>

@@ -14,7 +14,7 @@ import { getFireStore } from "@/utils/reviseFireStore";
 import { useDate, useFinance } from "@/utils/zustand";
 
 const Home: React.FC = () => {
-  const { years, months, onChange } = useDate();
+  const { years, months, setCalendarDate } = useDate();
   const { setPayPage } = useFinance();
 
   const [days, setDays] = useState<string[]>([]);
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
       <Link
         onClick={() => {
           setPayPage(true);
-          onChange(new Date(`${years}-${months}-${new Date().getDate()}`));
+          setCalendarDate(new Date(`${years}-${months}-${new Date().getDate()}`));
         }}
         className={home.addItem}
         to="/create"

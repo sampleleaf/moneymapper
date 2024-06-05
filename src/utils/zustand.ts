@@ -7,8 +7,8 @@ export const useDate = create<DateType>((set) => ({
     setMinusYear: (number) => set((state) => ({years: state.years - number})),
     months: new Date().getMonth() + 1,
     setMonths: (month) => set({months : month}),
-    value: new Date(),
-    onChange: (value) => set({value})
+    calendarDate: new Date(),
+    setCalendarDate: (calendarDate) => set({calendarDate})
 }))
 
 export const useFinance = create<FinanceType>((set) => ({

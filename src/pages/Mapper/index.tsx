@@ -12,7 +12,7 @@ import { getFireStore } from "@/utils/reviseFireStore";
 import { useDate, useFinance } from "@/utils/zustand";
 
 const Mapper: React.FC = () => {
-  const { years, months, onChange } = useDate();
+  const { years, months, setCalendarDate } = useDate();
   const { setPayPage } = useFinance();
 
   const [autoMap, setAutoMap] = useState<boolean>(true);
@@ -184,7 +184,7 @@ const Mapper: React.FC = () => {
               <Link
                 onClick={() => {
                   setPayPage(true);
-                  onChange(
+                  setCalendarDate(
                     new Date(`${years}-${months}-${new Date().getDate()}`)
                   );
                 }}

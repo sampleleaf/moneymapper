@@ -17,7 +17,7 @@ import { useDate, useFinance } from "@/utils/zustand";
 const Create: React.FC = () => {
   const navigate = useNavigate();
 
-  const { value, onChange } = useDate();
+  const { calendarDate, setCalendarDate } = useDate();
   const { payPage, setPayPage } = useFinance();
 
   const [price, setPrice] = useState<string>("");
@@ -54,9 +54,9 @@ const Create: React.FC = () => {
     e.preventDefault();
     setIsSending(true);
     const response = localStorage.getItem("loginData");
-    if (response !== null && value) {
+    if (response !== null && calendarDate) {
       const data = JSON.parse(response);
-      const day = (value as Date).getDate();
+      const day = (calendarDate as Date).getDate();
       const operationItem = payPage ? payItem : incomeItem;
       const operationPrice = payPage ? -parseInt(price) : parseInt(price);
       const setData = {
@@ -69,7 +69,7 @@ const Create: React.FC = () => {
           location: location,
         }),
       };
-      await setFireStore("users", data.id, setData, value);
+      await setFireStore("users", data.id, setData, calendarDate);
       setIsSending(false);
       toast.success("新增成功 !", {
         position: "top-left",
@@ -138,8 +138,8 @@ const Create: React.FC = () => {
           <i className="fa-solid fa-chevron-left"></i>
         </Link>
         <Calendar
-          onChange={onChange}
-          value={value}
+          onChange={setCalendarDate}
+          value={calendarDate}
           className="calendarDriver"
         />
         <div className={create.budgetContainer} id="budget">
