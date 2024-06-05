@@ -6,6 +6,7 @@ import Edit from "@/components/Edit";
 import Loader from "@/components/Loader";
 import dayItem from "@/css/DayItem.module.css";
 import { Item } from "@/interfaces";
+import { chineseDays } from "@/utils/constant";
 import { getFireStore, updateFireStore } from "@/utils/reviseFireStore";
 import { useDate } from "@/utils/zustand";
 
@@ -81,7 +82,6 @@ const DayItem: React.FC<{
   };
 
   const remainder = items && items.reduce((acc, cur) => acc + cur.price, 0);
-  const chineseDays = ["日", "一", "二", "三", "四", "五", "六"];
 
   return (
     <>

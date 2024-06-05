@@ -1,4 +1,5 @@
 import detailNote from "@/css/DetailNote.module.css";
+import { chineseDays } from "@/utils/constant";
 import useDetailNoteData from "@/utils/hook/useDetailNoteData";
 
 const IncomeNote: React.FC<{
@@ -15,8 +16,6 @@ const IncomeNote: React.FC<{
     items.reduce((acc, cur) => {
       return acc + cur.price;
     }, 0);
-
-  const chineseDays = ["日", "一", "二", "三", "四", "五", "六"];
 
   return (
     <>
