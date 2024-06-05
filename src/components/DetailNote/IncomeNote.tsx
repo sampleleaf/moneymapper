@@ -9,13 +9,7 @@ const IncomeNote: React.FC<{
   months: number;
   years: number;
 }> = ({ popItem, total, day, months, years }) => {
-  const items = useDetailNoteData(years, months, day, popItem as string, true);
-
-  const totalPriceOfItems =
-    items &&
-    items.reduce((acc, cur) => {
-      return acc + cur.price;
-    }, 0);
+  const {items, totalPriceOfItems} = useDetailNoteData(years, months, day, popItem as string, false);
 
   return (
     <>

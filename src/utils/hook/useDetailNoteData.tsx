@@ -30,7 +30,13 @@ const useDetailNoteData = (
     }
   }, []);
 
-  return items;
+  const totalPriceOfItems =
+    items &&
+    items.reduce((acc, cur) => {
+      return acc + cur.price;
+    }, 0);
+
+  return {items, totalPriceOfItems};
 };
 
 export default useDetailNoteData;
