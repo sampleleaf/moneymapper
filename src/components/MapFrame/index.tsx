@@ -3,7 +3,8 @@ import Switch from "react-switch";
 
 import Loader from "@/components/Loader";
 import Map from "@/components/Map";
-import mapFrame from "@/css/MapFrame.module.css";
+
+import mapFrame from "./MapFrame.module.css";
 
 const MapFrame: React.FC<{
   setLocation: React.Dispatch<React.SetStateAction<string>>;

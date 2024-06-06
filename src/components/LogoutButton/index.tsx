@@ -1,4 +1,4 @@
-import logoutButton from "@/css/LogoutButton.module.css"
+import logoutButton from "./LogoutButton.module.css"
 
 const LogoutButton = () => {
   return (

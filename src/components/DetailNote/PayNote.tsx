@@ -1,6 +1,7 @@
-import detailNote from "@/css/DetailNote.module.css";
 import { chineseDays } from "@/utils/constant";
 import useDetailNoteData from "@/utils/hook/useDetailNoteData";
+
+import detailNote from "./DetailNote.module.css";
 
 const PayNote: React.FC<{
   popItem: string | number;

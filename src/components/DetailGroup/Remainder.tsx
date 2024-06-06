@@ -3,11 +3,12 @@ import { Chart } from "react-google-charts";
 import { Link } from "react-router-dom";
 
 import RemainderNote from "@/components/DetailNote/RemainderNote";
-import detailGroup from "@/css/DetailGroup.module.css";
 import { calculateTotals } from "@/utils/calculateTotals";
 import { detailDriver } from "@/utils/driver";
 import { getFireStore } from "@/utils/reviseFireStore";
 import { useDate, useFinance } from "@/utils/zustand";
+
+import detailGroup from "./DetailGroup.module.css";
 
 const Remainder: React.FC = () => {
   const { years, months, setCalendarDate } = useDate();

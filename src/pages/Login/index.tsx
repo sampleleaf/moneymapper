@@ -6,9 +6,10 @@ import { RefObject, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 import Loader from "@/components/Loader";
-import login from "@/css/Login.module.css";
 import { db } from "@/utils/firebase";
 import { useGSAP } from "@gsap/react";
+
+import login from "./Login.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 

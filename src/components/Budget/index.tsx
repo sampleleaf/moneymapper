@@ -1,5 +1,6 @@
-import budget from "@/css/Budget.module.css";
 import { payItemArray, incomeItemArray } from "@/utils/constant";
+
+import budget from "./Budget.module.css";
 
 const Budget: React.FC<{
   payPage: boolean;

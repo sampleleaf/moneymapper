@@ -3,10 +3,11 @@ import { Chart } from "react-google-charts";
 import { Link } from "react-router-dom";
 
 import IncomeNote from "@/components/DetailNote/IncomeNote";
-import detailGroup from "@/css/DetailGroup.module.css";
 import { detailDriver } from "@/utils/driver";
 import useDetailGroupData from "@/utils/hook/useDetailGroupData";
 import { useDate, useFinance } from "@/utils/zustand";
+
+import detailGroup from "./DetailGroup.module.css";
 
 const Income: React.FC = () => {
   const { years, months, setCalendarDate } = useDate();

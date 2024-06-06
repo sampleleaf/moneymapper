@@ -6,10 +6,11 @@ import { toast } from "react-toastify";
 import Budget from "@/components/Budget";
 import Loader from "@/components/Loader";
 import MapFrame from "@/components/MapFrame";
-import edit from "@/css/Edit.module.css";
 import { Item, Value } from "@/interfaces";
 import { getFireStore, setFireStore, updateFireStore} from "@/utils/reviseFireStore";
 import { useDate } from "@/utils/zustand";
+
+import edit from "./Edit.module.css";
 
 const Edit: React.FC<{
   item: Item;

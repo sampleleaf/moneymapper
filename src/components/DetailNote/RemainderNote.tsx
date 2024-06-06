@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-import detailNote from "@/css/DetailNote.module.css";
 import { Item } from "@/interfaces";
 import { chineseDays } from "@/utils/constant";
 import { getFireStore } from "@/utils/reviseFireStore";
+
+import detailNote from "./DetailNote.module.css";
 
 const RemainderNote: React.FC<{
   date: string | number;

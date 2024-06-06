@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 
 import Edit from "@/components/Edit";
 import Loader from "@/components/Loader";
-import dayItem from "@/css/DayItem.module.css";
 import { Item } from "@/interfaces";
 import { chineseDays } from "@/utils/constant";
 import { getFireStore, updateFireStore } from "@/utils/reviseFireStore";
 import { useDate } from "@/utils/zustand";
+
+import dayItem from "./DayItem.module.css";
 
 const DayItem: React.FC<{
   day: string;

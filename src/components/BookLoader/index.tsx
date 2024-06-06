@@ -1,4 +1,4 @@
-import bookLoader from "@/css/BookLoader.module.css"
+import bookLoader from "./BookLoader.module.css"
 
 const BookLoader = () => {
   return (

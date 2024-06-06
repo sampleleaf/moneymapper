@@ -8,11 +8,12 @@ import { v4 as uuidv4 } from "uuid";
 import Budget from "@/components/Budget";
 import Loader from "@/components/Loader";
 import MapFrame from "@/components/MapFrame";
-import create from "@/css/Create.module.css";
 import { createDriver } from "@/utils/driver";
 import { db } from "@/utils/firebase";
 import { setFireStore } from "@/utils/reviseFireStore";
 import { useDate, useFinance } from "@/utils/zustand";
+
+import create from "./Create.module.css";
 
 const Create: React.FC = () => {
   const navigate = useNavigate();

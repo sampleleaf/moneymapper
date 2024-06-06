@@ -1,8 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
 
 import YearMonth from "@/components/YearMonth";
-import details from "@/css/Details.module.css";
 import { useDetailBar } from "@/utils/zustand";
+
+import details from "./Details.module.css";
 
 const Details: React.FC = () => {
   const {

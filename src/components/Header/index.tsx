@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import LogoutButton from "@/components/LogoutButton";
-import header from "@/css/Header.module.css";
 import { useDetailBar } from "@/utils/zustand";
+
+import header from "./Header.module.css";
 
 const Header: React.FC<{
   setLogin: React.Dispatch<React.SetStateAction<string | null>>;
